@@ -1,4 +1,4 @@
-# Partitioned Namespace Spec
+# Lance Partitioning Spec
 
 Partitioning is a common data organization strategy that divides data into physically separated units.
 Lance tables do not natively support partitioning, instead promoting clustering to achieve similar performance benefits.
@@ -10,76 +10,87 @@ Most of the time, queries like vector search are only against a specific partiti
 it would be convenient to query across all business units as a unified dataset.
 
 A **Partitioned Namespace** is designed for these use cases.
-It is a [Directory Namespace](catalog-spec.md) containing a collection of tables that share a common schema.
+It is a [Directory Namespace](dir/catalog-spec.md) containing a collection of tables that share a common schema.
 These tables are physically separated and independent, but logically related through partition fields definition.
 
 This document defines the storage format for Partitioned Namespace.
-Similar to Lance being a storage-only format, the storage-only [Directory Namespace](catalog-spec.md) spec serves as the foundation for this Partitioned Namespace format.
+Similar to Lance being a storage-only format, the storage-only [Directory Namespace](dir/catalog-spec.md) spec serves as the foundation for this Partitioned Namespace format.
 
-The following example illustrates the storage layout of a partitioned namespace:
+The following example illustrates the logical layout of a partitioned namespace:
 
 ```text
-/root
-    __manifest table (Lance table)
-    ┌─────────────────────────────────────────────────────────────────────┐
-    │ Table metadata (root namespace properties):                         │
-    │     - schema = <shared Schema>                                      │
-    │     - partition_spec_v1 = [event_date]                              │
-    │     - partition_spec_v2 = [event_year, country]                     │
-    └─────────────────────────────────────────────────────────────────────┘
-                              │
-                      Spec Version Level
-                              │
-              ┬───────────────────────────────────────────────────────────┐
-              │                                                           │
-             v1                                                          v2
-          (Namespace)                                                 (Namespace)
-              │                                                           │
-              │── <id1>  ← event_date=2025-12-10                          │── <id3>  ← event_year=2025
-              │     └── dataset  (Table)                                  │     │
-              │                                                           │     └── <id4>  ← country=US
-              │── <id2>  ← event_date=2025-12-11                          │           └── dataset  (Table)
-              │     └── dataset  (Table)                                  │
-              └── ...                                                     └── ...
+Root Namespace (__manifest Lance table)
+┌──────────────────────────────────────────────────┐
+│ Table metadata (root namespace properties):      │
+│     - schema = <shared Schema>                   │
+│     - partition_spec_v1 = [event_date]           │
+│     - partition_spec_v2 = [event_year, country]  │
+└──────────────────────────────────────────────────┘
+                        │
+                Spec Version Level
+                        │
+        ┬───────────────┴───────────────┐
+        │                               │
+       v1                              v2
+    (Namespace)                     (Namespace)
+        │                               │
+        │── <id1>                       │── <id3>
+        │   (Namespace)                 │   (Namespace)
+        │   event_date=2025-12-10       │   event_year=2025
+        │     └── dataset (Table)       │     │
+        │                               │     └── <id4>
+        │── <id2>                       │         (Namespace)
+        │   (Namespace)                 │         country=US
+        │   event_date=2025-12-11       │           └── dataset (Table)
+        │     └── dataset (Table)       │
+        └── ...                         └── ...
 ```
 
 ## Metadata Definition
 
-A directory namespace is identified as a partitioned namespace if the `__manifest` table's 
-[metadata](catalog-spec.md#root-namespace-properties) contains at least one partition spec version key.
+A directory namespace is identified as a partitioned namespace if the `__manifest` table's
+[metadata](dir/catalog-spec.md#root-namespace-properties) contains at least one partition spec version key.
 
 The following properties are stored in the `__manifest` table's metadata map:
 
-- `partition_spec_v<N>` (String): A JSON string representing an array of partition column definition objects for version N. Each object describes a partition column. See [Partitioning](#partitioning) for details.
-- `schema` (String): A json string describing the Schema of the entire partitioned namespace, based on the `JsonArrowSchema` schema in client spec. See [Namespace Schema](#schema) for more details.
+- `partition_spec_v<N>` (String): A JSON string representing a partition spec object for version N. The object contains the spec ID and an array of partition field definitions. See [Partition Spec](#partition-spec) for details.
+- `schema` (String): A json string describing the Schema of the entire partitioned namespace, based on the [JsonArrowSchema](client/operations/models/JsonArrowSchema.md) schema in client spec. See [Namespace Schema](#schema) for more details.
 
 See [Appendix A: Metadata Example](#appendix-a-metadata-example) for a complete example.
 
 ## Schema
 
-The namespace `schema` defines the schema for all partition tables in the partitioned namespace.
-Implementations must enforce that all partition table schemas must be consistent with each other, as well as with the namespace schema.
+The **Namespace Schema** defines the schema for all partition tables in the partitioned namespace.
+Implementations must enforce that **all partition table schemas must be consistent with each other, as well as with the namespace schema**.
 Most importantly, each field in the schema has a unique field ID stored in metadata under the key `lance:field_id`.
 Field IDs are never reused and must remain consistent across partition tables.
 This ensures partition specs using `source_ids` remain valid even if columns are renamed.
 
-## Partitioning
+## Partition Spec
 
-Partitioning defines how to derive partition values from a record in a partitioned namespace.
+The **Namespace Partition Spec** defines how to derive partition values from a record in a partitioned namespace.
 The partitioning information is stored in `partition_spec_v<N>` (e.g., `partition_spec_v1`),
-which is a JSON array of partition field objects. Each partition field contains:
+which is a JSON object containing a spec ID and an array of partition field definitions.
 
-* A **field id** uniquely identifying this partition field (also used as the column name in `__manifest`)
-* A **list of source field ids** referencing fields in the namespace schema
-* A **partition expression** that transforms the source field values into a partition value
-* A **result type** declaring the output type of the partition expression
+### Partition Spec Schema
+
+A partition spec is a JSON object with the following fields:
+
+| Field        | JSON representation     | Example | Description                                                       |
+|--------------|-------------------------|---------|-------------------------------------------------------------------|
+| **`id`**     | `JSON int`              | `1`     | The spec version ID, matching the `N` in the key name             |
+| **`fields`** | `JSON array of objects` | `[...]` | Array of partition field definitions (see [Partition Field Schema](#partition-field-schema)) |
+
+### Partition Field Schema
+
+Each element in the `fields` array is a partition field object with the following fields:
 
 | Field             | JSON representation | Example                     | Description                                                              |
 |-------------------|---------------------|-----------------------------|--------------------------------------------------------------------------|
 | **`field_id`**    | `JSON string`       | `"event_year"`              | Unique identifier for this partition field (must not be renamed)         |
 | **`source_ids`**  | `JSON int array`    | `[1]`                       | Field IDs of the source columns in the schema                            |
 | **`expression`**  | `JSON string`       | `"date_part('year', col0)"` | DataFusion SQL expression using `col0`, `col1`, ... as column references |
-| **`result_type`** | `JSON object`       | `{ "type": "int32" }`       | The output type of the expression (JsonArrowDataType format)             |
+| **`result_type`** | `JSON object`       | `{ "type": "int32" }`       | The output type of the expression ([JsonArrowDataType](client/operations/models/JsonArrowDataType.md) format) |
 
 **Partition Field ID**: The `field_id` is a string that uniquely identifies each partition field across all spec versions. It is used as the column name suffix in `__manifest` (e.g., `partition_field_event_year`). Once assigned, a `field_id` must never be renamed or reused. This ensures stable column names in the manifest table.
 
@@ -99,12 +110,13 @@ All partition expressions must satisfy the following requirements:
 1. **Deterministic**: The same input value must always produce the same output value.
 2. **Stateless**: The expression must not depend on external state (e.g., current time, random values, session variables).
 3. **Type-promotion resistant**: The expression must produce the same result for equivalent values regardless of their numeric type (e.g., `int32(5)` and `int64(5)` must yield the same partition value).
-4. **Column removal resistant**: If a source field ID is not found in the schema, the column should be interpreted as NULL. For multi-column transforms, the expression should ignore removed columns and produce NULL only if all source columns are removed.
+4. **Column removal resistant**: If a source field ID is not found in the schema, the column should be interpreted as NULL. 
+5. **NULL safe**: The partition expression should properly handle NULL case and have defined behavior (e.g. return NULL if NULL for single-column expression, ignore the NULL column for multi-column expression) 
+6. **Consistent with result type**: The `result_type` field declares the output type of the partition expression as an Arrow data type.
+  This enables type checking without expression evaluation and ensures consistency across implementations.
+  The partition expression's return type must be consistent with the result type in non-NULL case.
 
-The common expressions listed in [Appendix D](#appendix-d-common-partition-expressions) satisfy these requirements.
-
-The `result_type` field declares the output type of the partition expression using [JsonArrowDataType](https://lance.org/format/namespace/client/operations/models/JsonArrowDataType/) format.
-This enables type checking without expression evaluation and ensures consistency across implementations.
+See [Appendix D: Common Partition Expressions](#appendix-d-common-partition-expressions) for commonly used partition expressions that satisfy these requirements.
 
 ## Physical Layout and Naming
 
@@ -151,9 +163,14 @@ Partition pruning is performed via the `__manifest` table, which contains partit
 
 ### Manifest Table Schema
 
-The `__manifest` table schema is extended to include partition columns for efficient partition pruning. Instead of parsing namespace names to filter partitions, query engines can directly push down predicates to the manifest table.
+The `__manifest` table schema is extended to include partition columns for efficient partition pruning. 
+Instead of parsing namespace names to filter partitions, query engines can directly push down predicates to the manifest table.
 
-**Extended Schema**: For each partition field defined in any partition spec version, the `__manifest` table includes an additional nullable column. The column name is `partition_field_{i}` where `{i}` is the partition field's `field_id`, and the type is the partition field's `result_type`. This naming convention avoids potential conflicts with user-defined column names. When a new partition spec version is defined, the `__manifest` table schema is updated accordingly to include any new partition columns.
+**Extended Schema**: For each partition field defined in any partition spec version, 
+the `__manifest` table includes an additional nullable column. 
+The column name is `partition_field_{i}` where `{i}` is the partition field's `field_id`, and the type is the partition field's `result_type`. 
+This naming convention avoids potential conflicts with user-defined column names. 
+When a new partition spec version is defined, the `__manifest` table schema is updated accordingly to include any new partition columns.
 
 | Column                       | Type     | Description                                                                 |
 |------------------------------|----------|-----------------------------------------------------------------------------|
@@ -166,7 +183,8 @@ The `__manifest` table schema is extended to include partition columns for effic
 | `partition_field_{field_id}` | `<type>` | Partition value for the field (nullable, inherited from parent namespaces)  |
 | ...                          | ...      | Additional partition field columns as needed                                |
 
-Partition values are inherited from parent namespaces - each row has all partition values from its ancestors. See [Appendix C: Manifest Table Example](#appendix-c-manifest-table-example) for a complete example.
+Partition values are inherited from parent namespaces - each row has all partition values from its ancestors. 
+See [Appendix C: Manifest Table Example](#appendix-c-manifest-table-example) for a complete example.
 
 ### Partition Pruning Workflow
 
@@ -182,13 +200,13 @@ The partition spec supports **versioning** to allow partition strategies to evol
 Each partition spec version defines its own set of partition columns and expressions. 
 Data written to the partitioned namespace records which spec version it was created under via the version namespace (`v1/`, `v2/`, etc.).
 
-**Evolution Scenarios**:
+### Evolution Scenarios
 
 - **Adding partition columns**: Create a new spec version with additional partition columns. New data is written under the new version while existing partitions remain accessible.
 - **Changing partition expressions**: Create a new spec version with different expressions (e.g., changing from daily to yearly partitioning). Both versions coexist.
 - **Removing partition columns**: Create a new spec version without certain columns. Legacy data under old versions remains queryable.
 
-**Compatibility**:
+### Compatibility with Partition Pruning
 
 When querying across multiple spec versions, the query engine must handle each version according to its partition spec. 
 For example, if `v1` partitions by `event_date` and `v2` partitions by `year(event_date)`, a query filtering on `event_date = '2025-12-10'` will:
@@ -251,28 +269,34 @@ A complete example of partitioned namespace metadata properties with two spec ve
 
 ```json
 {
-  "partition_spec_v1": [
-    {
-      "field_id": "event_date",
-      "source_ids": [1],
-      "expression": "col0",
-      "result_type": { "type": "date32" }
-    }
-  ],
-  "partition_spec_v2": [
-    {
-      "field_id": "event_year",
-      "source_ids": [1],
-      "expression": "date_part('year', col0)",
-      "result_type": { "type": "int32" }
-    },
-    {
-      "field_id": "country",
-      "source_ids": [2],
-      "expression": "col0",
-      "result_type": { "type": "utf8" }
-    }
-  ],
+  "partition_spec_v1": {
+    "id": 1,
+    "fields": [
+      {
+        "field_id": "event_date",
+        "source_ids": [1],
+        "expression": "col0",
+        "result_type": { "type": "date32" }
+      }
+    ]
+  },
+  "partition_spec_v2": {
+    "id": 2,
+    "fields": [
+      {
+        "field_id": "event_year",
+        "source_ids": [1],
+        "expression": "date_part('year', col0)",
+        "result_type": { "type": "int32" }
+      },
+      {
+        "field_id": "country",
+        "source_ids": [2],
+        "expression": "col0",
+        "result_type": { "type": "utf8" }
+      }
+    ]
+  },
   "schema": {
     "fields": [
       {
@@ -302,7 +326,7 @@ In this example:
 - `v1` partitions by `event_date` using the identity expression with `result_type: date32`
 - `v2` partitions first by year of `event_date` with `result_type: int32`, then by `country` with `result_type: utf8`
 - The `__manifest` table will have three partition columns: `partition_field_event_date` (date32), `partition_field_event_year` (int32), `partition_field_country` (utf8)
-- The schema follows [JsonArrowSchema](https://lance.org/format/namespace/client/operations/models/JsonArrowSchema/) format
+- The schema follows [JsonArrowSchema](client/operations/models/JsonArrowSchema.md) format
 
 ### Appendix B: Physical Layout Example
 
@@ -359,12 +383,10 @@ Single-column expressions use `col0`; multi-column expressions use `col0`, `col1
 | `month`                 | `date_part('month', col0)`              | `int32`      | Extract month (1-12) from date/timestamp |
 | `day`                   | `date_part('day', col0)`                | `int32`      | Extract day of month from date/timestamp |
 | `hour`                  | `date_part('hour', col0)`               | `int32`      | Extract hour (0-23) from timestamp       |
-| `bucket[N]`             | `abs(md5_int(col0)) % N`                | `int64`      | Hash single column into N buckets        |
-| `multi_bucket[N]`       | `abs(md5_int(concat(col0, col1))) % N`  | `int64`      | Hash multiple columns into N buckets     |
+| `bucket[N]`             | `abs(murmur3(col0)) % N`                | `int32`      | Hash single column into N buckets        |
+| `multi_bucket[N]`       | `abs(murmur3_multi(col0, col1)) % N`    | `int32`      | Hash multiple columns into N buckets     |
 | `truncate[W]` (string)  | `left(col0, W)`                         | `utf8`       | First W characters of string             |
 | `truncate[W]` (numeric) | `col0 - (col0 % W)`                     | same as col0 | Truncate numeric to width W              |
-
-- **Hash function**: The `md5_int()` function computes MD5 and returns the first 8 bytes as a signed 64-bit integer. This is equivalent to `cast(substr(md5(col), 1, 8) as bigint)` in DataFusion. The function returns NULL if any input is NULL.
 
 ### Appendix E: Partition Pruning Example
 
@@ -406,8 +428,8 @@ This query returns:
 | v1$k7m2n9p4q8r5s3t6$dataset                  | b4a3c2d1_v1$k7m2n9p4q8r5s3t6$dataset                  | 5            | NULL        | NULL     |
 | v2$e9f0g1h2i3j4k5l6$m7n8o9p0q1r2s3t4$dataset | aabbccdd_v2$e9f0g1h2i3j4k5l6$m7n8o9p0q1r2s3t4$dataset | 3            | NULL        | NULL     |
 
-- For v1, the `country = 'US'` filter cannot be pushed to partition pruning (v1 has no `country` partition), so it must be applied during the table scan
-- For v2, both filters are pushed down: `partition_field_event_year = 2025` (computed from `year(event_date)`) and `partition_field_country = 'US'`
+- For partition spec v1, the `country = 'US'` filter cannot be pushed to partition pruning (v1 has no `country` partition), so it must be applied during the table scan
+- For partition spec v2, both filters are pushed down: `partition_field_event_year = 2025` (computed from `year(event_date)`) and `partition_field_country = 'US'`
 - The engine reads each table at the version specified by `read_version`, `read_branch`, or `read_tag` for consistent snapshot reads
 
 ### Appendix F: Runtime Namespace Properties Example
@@ -422,7 +444,7 @@ These are optional behaviors - implementations may choose not to expose them for
 ```json
 {
   "properties": {
-    "partition_spec": "[{\"field_id\":\"event_date\",\"source_ids\":[1],\"expression\":\"col0\",\"result_type\":{\"type\":\"date32\"}}]"
+    "partition_spec": "{\"id\":1,\"fields\":[{\"field_id\":\"event_date\",\"source_ids\":[1],\"expression\":\"col0\",\"result_type\":{\"type\":\"date32\"}}]}"
   }
 }
 ```

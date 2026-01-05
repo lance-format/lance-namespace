@@ -105,7 +105,7 @@ The `__manifest` table has the following schema:
 | `metadata`     | String (nullable)       | JSON-encoded metadata/properties (only for namespaces)                                                                                                                          |
 | `base_objects` | List<String> (nullable) | Reserved for future use (e.g., view dependencies)                                                                                                                               |
 
-**Schema Extensibility**: The `__manifest` table schema may include additional columns beyond those listed above. Extensions like [partitioned namespaces](partition-spec.md) add columns for efficient filtering. Implementations should preserve unrecognized columns during updates.
+**Schema Extensibility**: The `__manifest` table schema may include additional columns beyond those listed above. Extensions like [partitioned namespaces](../partitioning-spec.md) add columns for efficient filtering. Implementations should preserve unrecognized columns during updates.
 
 ### Root Namespace Properties
 
