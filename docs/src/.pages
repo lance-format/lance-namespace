@@ -4,3 +4,4 @@ nav:
   - Directory Namespace: dir
   - REST Namespace: rest
   - Catalog Integrations: integrations
+  - Partitioning Spec: partitioning-spec.md

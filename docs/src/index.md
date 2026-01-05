@@ -8,7 +8,7 @@ and the operations available on these objects, enabling integration with metadat
 
 ![Namespace Overview](overview.png)
 
-The Lance Namespace spec consists of three main parts:
+The Lance Namespace spec consists of four main parts:
 
 1. **[Client Spec](client/index.md)**: A consistent abstraction that adapts to various catalog specs,
    allowing users to access and operate on a collection of tables in a multimodal lakehouse. 
@@ -30,6 +30,10 @@ The Lance Namespace spec consists of three main parts:
    (e.g. Apache Polaris, Unity Catalog, Apache Hive Metastore, Apache Iceberg REST Catalog)
    are considered **integrations** - anyone can provide additional implementation specs outside Lance Namespace,
    and they can be owned by external parties without needing to go through the Lance community voting process to be adopted.
+
+4. **[Partitioning Spec](partitioning-spec.md)**: Defines a storage format for partitioned namespaces built on the Directory Namespace.
+   It enables organizing data into physically separated units (partitions) that share a common schema,
+   with support for partition evolution, pruning, and multi-partition transactions.
 
 ## How the Spec Translates to Code
 
