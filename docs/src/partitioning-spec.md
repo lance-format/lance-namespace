@@ -76,25 +76,28 @@ which is a JSON object containing a spec ID and an array of partition field defi
 
 A partition spec is a JSON object with the following fields:
 
-| Field        | JSON representation     | Example | Description                                                       |
-|--------------|-------------------------|---------|-------------------------------------------------------------------|
-| **`id`**     | `JSON int`              | `1`     | The spec version ID, matching the `N` in the key name             |
+| Field        | JSON representation     | Example | Description                                                                                  |
+|--------------|-------------------------|---------|----------------------------------------------------------------------------------------------|
+| **`id`**     | `JSON int`              | `1`     | The spec version ID, matching the `N` in the key name                                        |
 | **`fields`** | `JSON array of objects` | `[...]` | Array of partition field definitions (see [Partition Field Schema](#partition-field-schema)) |
 
 ### Partition Field Schema
 
 Each element in the `fields` array is a partition field object with the following fields:
 
-| Field             | JSON representation | Example                     | Description                                                              |
-|-------------------|---------------------|-----------------------------|--------------------------------------------------------------------------|
-| **`field_id`**    | `JSON string`       | `"event_year"`              | Unique identifier for this partition field (must not be renamed)         |
-| **`source_ids`**  | `JSON int array`    | `[1]`                       | Field IDs of the source columns in the schema                            |
-| **`expression`**  | `JSON string`       | `"date_part('year', col0)"` | DataFusion SQL expression using `col0`, `col1`, ... as column references |
-| **`result_type`** | `JSON object`       | `{ "type": "int32" }`       | The output type of the expression ([JsonArrowDataType](client/operations/models/JsonArrowDataType.md) format) |
+| Field             | JSON representation | Example                     | Description                                                                                                                                     |
+|-------------------|---------------------|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`field_id`**    | `JSON string`       | `"event_year"`              | Unique identifier for this partition field (must not be renamed)                                                                                |
+| **`source_ids`**  | `JSON int array`    | `[1]`                       | Field IDs of the source columns in the schema                                                                                                   |
+| **`transform`**   | `JSON object`       | `{ "type": "year" }`        | Well-known partition transform (see [Partition Transform](#partition-transform)). Exactly one of `transform` or `expression` must be specified. |
+| **`expression`**  | `JSON string`       | `"date_part('year', col0)"` | DataFusion SQL expression using `col0`, `col1`, ... as column references. Exactly one of `transform` or `expression` must be specified.         |
+| **`result_type`** | `JSON object`       | `{ "type": "int32" }`       | The output type of the partition value ([JsonArrowDataType](client/operations/models/JsonArrowDataType.md) format)                              |
+
+**Transform vs Expression**: Exactly one of `transform` or `expression` must be specified. When `transform` is specified, the expression is derived from the transform type. Custom partition logic that doesn't fit a well-known transform must use `expression` directly.
 
 **Partition Field ID**: The `field_id` is a string that uniquely identifies each partition field across all spec versions. It is used as the column name suffix in `__manifest` (e.g., `partition_field_event_year`). Once assigned, a `field_id` must never be renamed or reused. This ensures stable column names in the manifest table.
 
-**Field ID Reuse**: When evolving partition specs, if a new partition field has the same `source_ids` and `expression` as an existing field, the same `field_id` must be reused. Otherwise, a new unique `field_id` must be assigned.
+**Field ID Reuse**: When evolving partition specs, if a new partition field has the same `source_ids` and `transform` (or `expression`) as an existing field, the same `field_id` must be reused. Otherwise, a new unique `field_id` must be assigned.
 
 **Source Field IDs**: The `source_ids` array references field IDs stored in the schema's field metadata under the key `lance:field_id`. Using field IDs instead of column names ensures that partition specs remain valid even when source columns are renamed. In the partition expression, source columns are referenced as `col0`, `col1`, `col2`, etc., corresponding to the order of field IDs in the `source_ids` array.
 
@@ -110,13 +113,49 @@ All partition expressions must satisfy the following requirements:
 1. **Deterministic**: The same input value must always produce the same output value.
 2. **Stateless**: The expression must not depend on external state (e.g., current time, random values, session variables).
 3. **Type-promotion resistant**: The expression must produce the same result for equivalent values regardless of their numeric type (e.g., `int32(5)` and `int64(5)` must yield the same partition value).
-4. **Column removal resistant**: If a source field ID is not found in the schema, the column should be interpreted as NULL. 
-5. **NULL safe**: The partition expression should properly handle NULL case and have defined behavior (e.g. return NULL if NULL for single-column expression, ignore the NULL column for multi-column expression) 
+4. **Column removal resistant**: If a source field ID is not found in the schema, the column should be interpreted as NULL.
+5. **NULL safe**: The partition expression should properly handle NULL case and have defined behavior (e.g. return NULL if NULL for single-column expression, ignore the NULL column for multi-column expression)
 6. **Consistent with result type**: The `result_type` field declares the output type of the partition expression as an Arrow data type.
   This enables type checking without expression evaluation and ensures consistency across implementations.
   The partition expression's return type must be consistent with the result type in non-NULL case.
 
-See [Appendix D: Common Partition Expressions](#appendix-d-common-partition-expressions) for commonly used partition expressions that satisfy these requirements.
+### Partition Transform
+
+Partition transforms are **well-known partition expressions** with structured metadata that enables query optimization such as [Storage Partitioned Join](#storage-partitioned-join). 
+When a partition field uses a well-known transform, the `transform` field should be specified instead of the `expression` field.
+
+#### Transform Schema
+
+The `transform` field is a JSON object with the following structure:
+
+| Field             | JSON representation | Required                | Description                          |
+|-------------------|---------------------|-------------------------|--------------------------------------|
+| **`type`**        | `JSON string`       | Yes                     | The transform type (see table below) |
+| **`num_buckets`** | `JSON int`          | For bucket transforms   | Number of buckets N                  |
+| **`width`**       | `JSON int`          | For truncate transforms | Truncation width W                   |
+
+#### Supported Transforms
+
+| Transform Type | Parameters    | Derived Expression                                        | Result Type    | Description                              |
+|----------------|---------------|-----------------------------------------------------------|----------------|------------------------------------------|
+| `identity`     | (none)        | `col0`                                                    | same as source | Source value, unmodified                 |
+| `year`         | (none)        | `date_part('year', col0)`                                 | `int32`        | Extract year from date/timestamp         |
+| `month`        | (none)        | `date_part('month', col0)`                                | `int32`        | Extract month (1-12) from date/timestamp |
+| `day`          | (none)        | `date_part('day', col0)`                                  | `int32`        | Extract day of month from date/timestamp |
+| `hour`         | (none)        | `date_part('hour', col0)`                                 | `int32`        | Extract hour (0-23) from timestamp       |
+| `bucket`       | `num_buckets` | `abs(murmur3(col0)) % N`                                  | `int32`        | Hash single column into N buckets        |
+| `multi_bucket` | `num_buckets` | `abs(murmur3_multi(col0, col1, ...)) % N`                 | `int32`        | Hash multiple columns into N buckets     |
+| `truncate`     | `width`       | `left(col0, W)` (string) or `col0 - (col0 % W)` (numeric) | same as source | Truncate to width W                      |
+
+#### Hash Functions
+
+The `bucket` and `multi_bucket` transforms use Murmur3 hash functions provided as Lance extensions to DataFusion:
+
+- **`murmur3(col)`**: Computes the 32-bit Murmur3 hash (x86 variant, seed 0) of a single column. Returns a signed 32-bit integer. Returns NULL if input is NULL.
+- **`murmur3_multi(col0, col1, ...)`**: Computes the Murmur3 hash across multiple columns. Returns a signed 32-bit integer. NULL fields are ignored during hashing; returns NULL only if all inputs are NULL.
+
+The hash result is wrapped with `abs()` and modulo `N` to produce a non-negative bucket number in the range `[0, N)`.
+For implementations that do not use DataFusion, the same behavior for hashing should be preserved.
 
 ## Physical Layout and Naming
 
@@ -155,15 +194,15 @@ Implementations may dynamically populate properties when retrieving namespace in
 - For spec version namespaces (v1, v2, etc.): `partition_spec` containing the partition spec for that version
 
 These runtime properties are optional. Implementations may choose not to expose them for security or other reasons.
-See [Appendix F: Runtime Namespace Properties Example](#appendix-f-runtime-namespace-properties-example) for examples.
+See [Appendix E: Runtime Namespace Properties Example](#appendix-e-runtime-namespace-properties-example) for examples.
 
-## Partition Pruning
+## Query Optimization
 
-Partition pruning is performed via the `__manifest` table, which contains partition column values for efficient filtering.
+This section describes query optimization techniques that leverage partitioned namespace metadata.
 
 ### Manifest Table Schema
 
-The `__manifest` table schema is extended to include partition columns for efficient partition pruning. 
+The `__manifest` table schema is extended to include partition columns for efficient query optimization use cases. 
 Instead of parsing namespace names to filter partitions, query engines can directly push down predicates to the manifest table.
 
 **Extended Schema**: For each partition field defined in any partition spec version, 
@@ -186,13 +225,48 @@ When a new partition spec version is defined, the `__manifest` table schema is u
 Partition values are inherited from parent namespaces - each row has all partition values from its ancestors. 
 See [Appendix C: Manifest Table Example](#appendix-c-manifest-table-example) for a complete example.
 
-### Partition Pruning Workflow
+### Partition Pruning
+
+Partition pruning is performed via the `__manifest` table, which contains partition column values for efficient filtering.
+
+Here is the end-to-end workflow:
 
 1. Query engine analyzes the query predicate to identify filters on partition columns
 2. For each partition expression, the engine evaluates the expression with the query values to compute the expected partition value(s)
 3. Engine queries `__manifest` with filters on the partition columns
 4. Engine retrieves the paths of matching `dataset` tables
 5. Engine scans only the relevant partition tables
+
+### Storage Partitioned Join
+
+Storage Partitioned Join (SPJ) is an optimization that eliminates or reduces shuffle operations when 
+joining two partitioned datasets on their partition columns. 
+When both sides of a join are partitioned by the same or compatible transforms on the join keys, 
+the query engine can join partitions directly without redistributing data.
+
+SPJ can be applied when:
+
+1. Both datasets are partitioned by the same column(s) used in the join predicate
+2. The partition transforms are compatible (see [Transform Compatibility](#transform-compatibility))
+3. The query engine supports reporting partition information
+
+For SPJ to work, the partition transforms must be compatible:
+
+- **Same transform type**: Both sides use the same transform (e.g., both use `year` on a date column)
+- **Bucket divisibility**: For bucket transforms, one bucket count must evenly divide the other. The side with fewer buckets becomes the "coarser" partition that may match multiple finer partitions.
+- **Time hierarchy**: Coarser time transforms can match finer ones (e.g., `day` partitions can be grouped to match `month` partitions)
+
+Here is the end-to-end workflow:
+
+1. Query engine analyzes the join predicate to identify join keys
+2. For each partitioned namespace, the engine reads the partition spec to determine the transform on join keys
+3. If transforms are compatible, the engine computes which partitions can be joined without shuffle:
+    - For identical transforms: Partitions with equal partition values are joined directly
+    - For compatible bucket transforms: Partitions from the coarser side match multiple partitions from the finer side based on `finer_bucket % coarser_bucket_count`
+    - For compatible time transforms: Partitions from the finer side are grouped to match coarser partitions
+4. Engine executes the join partition-by-partition, avoiding full data shuffle
+
+See [Appendix F: Storage Partitioned Join Example](#appendix-f-storage-partitioned-join-example) for a complete example.
 
 ## Partition Evolution
 
@@ -275,7 +349,7 @@ A complete example of partitioned namespace metadata properties with two spec ve
       {
         "field_id": "event_date",
         "source_ids": [1],
-        "expression": "col0",
+        "transform": { "type": "identity" },
         "result_type": { "type": "date32" }
       }
     ]
@@ -286,13 +360,13 @@ A complete example of partitioned namespace metadata properties with two spec ve
       {
         "field_id": "event_year",
         "source_ids": [1],
-        "expression": "date_part('year', col0)",
+        "transform": { "type": "year" },
         "result_type": { "type": "int32" }
       },
       {
         "field_id": "country",
         "source_ids": [2],
-        "expression": "col0",
+        "transform": { "type": "identity" },
         "result_type": { "type": "utf8" }
       }
     ]
@@ -323,8 +397,8 @@ A complete example of partitioned namespace metadata properties with two spec ve
 ```
 
 In this example:
-- `v1` partitions by `event_date` using the identity expression with `result_type: date32`
-- `v2` partitions first by year of `event_date` with `result_type: int32`, then by `country` with `result_type: utf8`
+- `v1` partitions by `event_date` using the identity transform with `result_type: date32`
+- `v2` partitions first by year of `event_date` using the year transform with `result_type: int32`, then by `country` using the identity transform with `result_type: utf8`
 - The `__manifest` table will have three partition columns: `partition_field_event_date` (date32), `partition_field_event_year` (int32), `partition_field_country` (utf8)
 - The schema follows [JsonArrowSchema](client/operations/models/JsonArrowSchema.md) format
 
@@ -369,26 +443,9 @@ The `__manifest` table for a partitioned namespace with partition fields `event_
 
 Note: The root namespace properties (`partition_spec_v1`, `partition_spec_v2`, `schema`) are stored in the `__manifest` table's metadata, not as a row. The `object_id` uses `$` as the namespace path separator. Partition columns use the naming convention `partition_field_{field_id}` where `{field_id}` is the partition field's string identifier. Partition values are inherited from parent namespaces. When retrieving properties via API, partition values are converted to `partition.<field_id> = <value>` entries.
 
-See [Appendix E: Partition Pruning Example](#appendix-e-partition-pruning-example) for an example of how partition pruning queries work.
+See [Appendix D: Partition Pruning Example](#appendix-d-partition-pruning-example) for an example of how partition pruning queries work.
 
-### Appendix D: Common Partition Expressions
-
-This appendix provides commonly used partition expressions.
-Single-column expressions use `col0`; multi-column expressions use `col0`, `col1`, etc.
-
-| Name                    | Expression                              | Result Type  | Description                              |
-|-------------------------|-----------------------------------------|--------------|------------------------------------------|
-| `identity`              | `col0`                                  | same as col0 | Source value, unmodified                 |
-| `year`                  | `date_part('year', col0)`               | `int32`      | Extract year from date/timestamp         |
-| `month`                 | `date_part('month', col0)`              | `int32`      | Extract month (1-12) from date/timestamp |
-| `day`                   | `date_part('day', col0)`                | `int32`      | Extract day of month from date/timestamp |
-| `hour`                  | `date_part('hour', col0)`               | `int32`      | Extract hour (0-23) from timestamp       |
-| `bucket[N]`             | `abs(murmur3(col0)) % N`                | `int32`      | Hash single column into N buckets        |
-| `multi_bucket[N]`       | `abs(murmur3_multi(col0, col1)) % N`    | `int32`      | Hash multiple columns into N buckets     |
-| `truncate[W]` (string)  | `left(col0, W)`                         | `utf8`       | First W characters of string             |
-| `truncate[W]` (numeric) | `col0 - (col0 % W)`                     | same as col0 | Truncate numeric to width W              |
-
-### Appendix E: Partition Pruning Example
+### Appendix D: Partition Pruning Example
 
 This example demonstrates how a query engine translates a user query into a partition pruning query against the `__manifest` table.
 
@@ -432,7 +489,7 @@ This query returns:
 - For partition spec v2, both filters are pushed down: `partition_field_event_year = 2025` (computed from `year(event_date)`) and `partition_field_country = 'US'`
 - The engine reads each table at the version specified by `read_version`, `read_branch`, or `read_tag` for consistent snapshot reads
 
-### Appendix F: Runtime Namespace Properties Example
+### Appendix E: Runtime Namespace Properties Example
 
 This appendix shows examples of runtime properties that implementations MAY return when describing namespaces.
 These are optional behaviors - implementations may choose not to expose them for security or other reasons.
@@ -444,7 +501,7 @@ These are optional behaviors - implementations may choose not to expose them for
 ```json
 {
   "properties": {
-    "partition_spec": "{\"id\":1,\"fields\":[{\"field_id\":\"event_date\",\"source_ids\":[1],\"expression\":\"col0\",\"result_type\":{\"type\":\"date32\"}}]}"
+    "partition_spec": "{\"id\":1,\"fields\":[{\"field_id\":\"event_date\",\"source_ids\":[1],\"transform\":{\"type\":\"identity\"},\"result_type\":{\"type\":\"date32\"}}]}"
   }
 }
 ```
@@ -485,5 +542,68 @@ These are optional behaviors - implementations may choose not to expose them for
 }
 ```
 
-Note: Each namespace only returns the partition value for its own level. 
+Note: Each namespace only returns the partition value for its own level.
 To get all partition values in a path, the client must query each ancestor namespace.
+
+### Appendix F: Storage Partitioned Join Example
+
+This example demonstrates how a query engine performs a Storage Partitioned Join (SPJ) between two partitioned namespaces.
+
+**Setup**: Two partitioned namespaces with compatible bucket transforms:
+
+- `orders` namespace: partitioned by `bucket(customer_id, 16)` with partition field `customer_bucket`
+- `customers` namespace: partitioned by `bucket(id, 8)` with partition field `id_bucket`
+
+**User Query**:
+
+```sql
+SELECT o.*, c.name
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+```
+
+**SPJ Analysis**:
+
+1. The engine reads partition specs from both namespaces' `__manifest` tables
+2. Both join keys use bucket transforms: `orders.customer_id` → `bucket(16)`, `customers.id` → `bucket(8)`
+3. Since 8 divides 16 evenly, the transforms are compatible
+
+**Partition Matching**:
+
+For each `customers` partition with bucket value `i`, 
+the matching `orders` partitions have bucket values where `bucket % 8 == i`:
+
+| customers bucket | orders buckets |
+|------------------|----------------|
+| 0                | 0, 8           |
+| 1                | 1, 9           |
+| 2                | 2, 10          |
+| 3                | 3, 11          |
+| 4                | 4, 12          |
+| 5                | 5, 13          |
+| 6                | 6, 14          |
+| 7                | 7, 15          |
+
+**Execution Plan**:
+
+The engine queries both `__manifest` tables to get partition locations:
+
+```sql
+-- Get orders partitions
+SELECT partition_field_customer_bucket, location, read_version
+FROM orders.__manifest
+WHERE object_type = 'table'
+
+-- Get customers partitions
+SELECT partition_field_id_bucket, location, read_version
+FROM customers.__manifest
+WHERE object_type = 'table'
+```
+
+For each customers partition `i`, the engine:
+
+1. Reads the customers partition where `partition_field_id_bucket = i`
+2. Reads the orders partitions where `partition_field_customer_bucket % 8 = i`
+3. Performs a local join without shuffle
+
+**Result**: The join completes with 8 parallel partition-wise joins instead of a full shuffle of both datasets.
