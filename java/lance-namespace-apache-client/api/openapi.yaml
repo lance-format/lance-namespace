@@ -6169,6 +6169,63 @@ components:
         transaction_id:
           description: Optional transaction identifier
           type: string
+    PartitionTransform:
+      description: Well-known partition transform
+      properties:
+        type:
+          description: "Transform type (identity, year, month, day, hour, bucket,\
+            \ multi_bucket, truncate)"
+          type: string
+        num_buckets:
+          description: Number of buckets for bucket transforms
+          type: integer
+        width:
+          description: Truncation width for truncate transforms
+          type: integer
+      required:
+      - type
+    PartitionField:
+      description: Partition field definition
+      properties:
+        field_id:
+          description: Unique identifier for this partition field (must not be renamed)
+          example: event_year
+          type: string
+        source_ids:
+          description: Field IDs of the source columns in the schema
+          example:
+          - 1
+          items:
+            type: integer
+          type: array
+        transform:
+          $ref: '#/components/schemas/PartitionTransform'
+        expression:
+          description: "DataFusion SQL expression using col0, col1, ... as column\
+            \ references. Exactly one of transform or expression must be specified."
+          example: "date_part('year', col0)"
+          type: string
+        result_type:
+          $ref: '#/components/schemas/JsonArrowDataType'
+      required:
+      - field_id
+      - result_type
+      - source_ids
+    PartitionSpec:
+      description: Partition spec definition
+      properties:
+        id:
+          description: The spec version ID
+          example: 1
+          type: integer
+        fields:
+          description: Array of partition field definitions
+          items:
+            $ref: '#/components/schemas/PartitionField'
+          type: array
+      required:
+      - fields
+      - id
     QueryTableRequest_columns:
       description: |
         Optional columns to return. Provide either column_names or column_aliases, not both.

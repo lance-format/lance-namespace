@@ -4152,6 +4152,69 @@ components:
           type: string
           description: Optional transaction identifier
 
+    PartitionTransform:
+      type: object
+      description: Well-known partition transform
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Transform type (identity, year, month, day, hour, bucket, multi_bucket, truncate)
+        num_buckets:
+          type: integer
+          description: Number of buckets for bucket transforms
+        width:
+          type: integer
+          description: Truncation width for truncate transforms
+
+    PartitionField:
+      type: object
+      description: Partition field definition
+      required:
+        - field_id
+        - source_ids
+        - result_type
+      properties:
+        field_id:
+          type: string
+          description: Unique identifier for this partition field (must not be renamed)
+          example: "event_year"
+        source_ids:
+          type: array
+          items:
+            type: integer
+          description: Field IDs of the source columns in the schema
+          example: [1]
+        transform:
+          $ref: '#/components/schemas/PartitionTransform'
+          description: Well-known partition transform. Exactly one of transform or expression must be specified.
+        expression:
+          type: string
+          description: DataFusion SQL expression using col0, col1, ... as column references. Exactly one of transform or expression must be specified.
+          example: "date_part('year', col0)"
+        result_type:
+          $ref: '#/components/schemas/JsonArrowDataType'
+          description: The output type of the partition value (JsonArrowDataType format)
+          example: {"type": "int32"}
+
+    PartitionSpec:
+      type: object
+      description: Partition spec definition
+      required:
+        - id
+        - fields
+      properties:
+        id:
+          type: integer
+          description: The spec version ID
+          example: 1
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/PartitionField'
+          description: Array of partition field definitions
+
   responses:
     ListNamespacesResponse:
       description: A list of namespaces
