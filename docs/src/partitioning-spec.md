@@ -308,26 +308,31 @@ partition table without additional information from partitioned namespace.
 Users need to handle writes across partitions carefully because there is no ACID guarantees. One way is to use idempotent write like `insert overwrite` then retry
 for whatever error. Another way is writing partitions one by one.  
 
-**ACID**
+**Summary**
 * Read Behavior: Readers should always read the latest version from the main branch.
 
 * Write Behavior: Writers should always commit to the main branch.
 
-* Conflict Resolution: No conflict resolution for operations across multiple partition.
+* Conflict Resolution: No conflict resolution for cross-partition writes.
 
 ### Multi-Partition Transaction (Strong)
 
 To enable stronger transactional guarantees across partitions, the `__manifest` table can optionally include `read_version` column for a table.
-The `read_version` records the version timeline of each partition table. The last version in timeline is the current version to read.
+The `read_version` records which version of each partition table to read.
 
-In multi-partition transaction strong mode, write operations will use detached commit to each table. A detached commit is invisible unless 
+In strong mode, write operations will use detached commit to each table. A detached commit is invisible unless
 the version is set, it makes sure the intermediate state of a transaction remains invisible. Users need to first get `read_version` from partitioned
 namespace, then read the leaf partition table using the current version.
+
+The `__manifest` table records all the versions of each partitioned table. A version of a partitioned table is recorded
+as an entry, with `object_id` in format `table_id${version}` and `object_type` value `table_version`.
+
+Partitioned namespace uses `merge_insert` to commit a transaction, which makes sure the commit is atomic.
 
 #### Read Behavior
 
 1. Transaction starts, recording the current version of `__manifest` table as snapshot id(S0).
-2. Search `__manifest` table with `version=S0` to collect `read_version`s for the partition tables to read.
+2. Search `__manifest` table to collect current `read_version`s for the partition tables to read. 
 3. Read the current version from the partition table.
 
 #### Commit Behavior
@@ -337,7 +342,7 @@ Multi-partition transactions are guarded by commits against the `__manifest` tab
 1. Transaction starts, recording the current version of `__manifest` table as snapshot id(S0).
 2. Write data to each affected partition table independently
 3. Get current version of `__manifest` table as snapshot id(S1), detect/resolve conflicts if `S1` is not `S0`. 
-4. Atomically update the `read_version` from `S1` to `S2` in a single `__manifest` commit. This will updates the `read_version` timelines of all affected partitions.
+4. Atomically update the `read_version` from `S1` to `S2` in a single `__manifest` commit. This should be done by `merge_insert`.
 
 This ensures all-or-nothing visibility of changes across partitions.
 
@@ -448,15 +453,18 @@ The namespaces (`v1`, `v1$k7m2n9p4q8r5s3t6`, etc.) are tracked in the `__manifes
 
 The `__manifest` table for a partitioned namespace with partition fields `event_date` (v1), `event_year` (v2) and `country` (v2), showing entries from both spec versions:
 
-| object_id                                    | object_type | metadata | read_version                               | partition_field_event_date | partition_field_event_year | partition_field_country |
-|----------------------------------------------|-------------|----------|--------------------------------------------|----------------------------|----------------------------|-------------------------|
-| v1                                           | namespace   | {}       | NULL                                       | NULL                       | NULL                       | NULL                    |
-| v1$k7m2n9p4q8r5s3t6                          | namespace   | {}       | NULL                                       | 2025-12-10                 | NULL                       | NULL                    |
-| v1$k7m2n9p4q8r5s3t6$dataset                  | table       | {}       | 13473201876543210951, 11120734598765432152 | 2025-12-10                 | NULL                       | NULL                    |
-| v2                                           | namespace   | {}       | NULL                                       | NULL                       | NULL                       | NULL                    |
-| v2$e9f0g1h2i3j4k5l6                          | namespace   | {}       | NULL                                       | NULL                       | 2025                       | NULL                    |
-| v2$e9f0g1h2i3j4k5l6$m7n8o9p0q1r2s3t4         | namespace   | {}       | NULL                                       | NULL                       | 2025                       | US                      |
-| v2$e9f0g1h2i3j4k5l6$m7n8o9p0q1r2s3t4$dataset | table       | {}       | 16045690984833335022                       | NULL                       | 2025                       | US                      |
+| object_id                                      | object_type   | metadata | read_version         | partition_field_event_date | partition_field_event_year | partition_field_country |
+|------------------------------------------------|---------------|----------|----------------------|----------------------------|----------------------------|-------------------------|
+| v1                                             | namespace     | {}       | NULL                 | NULL                       | NULL                       | NULL                    |
+| v1$k7m2n9p4q8r5s3t6                            | namespace     | {}       | NULL                 | 2025-12-10                 | NULL                       | NULL                    |
+| v1$k7m2n9p4q8r5s3t6$dataset                    | table         | {}       | NULL                 | 2025-12-10                 | NULL                       | NULL                    |
+| v1$k7m2n9p4q8r5s3t6$dataset$1                  | table_version | {}       | 1                    | NULL                       | NULL                       | NULL                    |
+| v1$k7m2n9p4q8r5s3t6$dataset$2                  | table_version | {}       | 11120734598765432152 | NULL                       | NULL                       | NULL                    |
+| v2                                             | namespace     | {}       | NULL                 | NULL                       | NULL                       | NULL                    |
+| v2$e9f0g1h2i3j4k5l6                            | namespace     | {}       | NULL                 | NULL                       | 2025                       | NULL                    |
+| v2$e9f0g1h2i3j4k5l6$m7n8o9p0q1r2s3t4           | namespace     | {}       | NULL                 | NULL                       | 2025                       | US                      |
+| v2$e9f0g1h2i3j4k5l6$m7n8o9p0q1r2s3t4$dataset   | table         | {}       | NULL                 | NULL                       | 2025                       | US                      |
+| v2$e9f0g1h2i3j4k5l6$m7n8o9p0q1r2s3t4$dataset$1 | table_version | {}       | 1                    | NULL                       | NULL                       | NULL                    |
 
 Note: The root namespace properties (`partition_spec_v1`, `partition_spec_v2`, `schema`) are stored in the `__manifest` table's metadata, not as a row. The `object_id` uses `$` as the namespace path separator. Partition columns use the naming convention `partition_field_{field_id}` where `{field_id}` is the partition field's string identifier. Partition values are inherited from parent namespaces. When retrieving properties via API, partition values are converted to `partition.<field_id> = <value>` entries.
 
