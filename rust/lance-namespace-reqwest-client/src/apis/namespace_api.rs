@@ -132,7 +132,7 @@ pub async fn create_namespace(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_create_namespace_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -189,7 +189,7 @@ pub async fn describe_namespace(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_describe_namespace_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -246,7 +246,7 @@ pub async fn drop_namespace(configuration: &configuration::Configuration, id: &s
     req_builder = req_builder.json(&p_drop_namespace_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -309,7 +309,7 @@ pub async fn list_namespaces(configuration: &configuration::Configuration, id: &
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -372,7 +372,7 @@ pub async fn list_tables(configuration: &configuration::Configuration, id: &str,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -429,7 +429,7 @@ pub async fn namespace_exists(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_namespace_exists_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
 

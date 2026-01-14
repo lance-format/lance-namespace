@@ -114,7 +114,7 @@ pub async fn create_table_index(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_create_table_index_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -171,7 +171,7 @@ pub async fn create_table_scalar_index(configuration: &configuration::Configurat
     req_builder = req_builder.json(&p_create_table_index_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -229,7 +229,7 @@ pub async fn describe_table_index_stats(configuration: &configuration::Configura
     req_builder = req_builder.json(&p_describe_table_index_stats_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -285,7 +285,7 @@ pub async fn drop_table_index(configuration: &configuration::Configuration, id: 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -342,7 +342,7 @@ pub async fn list_table_indices(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_list_table_indices_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp

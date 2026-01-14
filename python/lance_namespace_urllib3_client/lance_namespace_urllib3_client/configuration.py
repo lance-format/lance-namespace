@@ -251,6 +251,18 @@ conf = lance_namespace_urllib3_client.Configuration(
         self.access_token = access_token
         """Access token
         """
+        self.header_provider = None
+        """Optional callable that returns a dict of headers to add to each request.
+        Use this for dynamic headers like auth tokens that need periodic refresh.
+        The callable should return Dict[str, str].
+
+        Example:
+            def get_headers():
+                return {"Authorization": f"Bearer {get_fresh_token()}"}
+
+            config = Configuration()
+            config.header_provider = get_headers
+        """
         self.logger = {}
         """Logging Settings
         """

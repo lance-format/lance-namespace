@@ -143,6 +143,8 @@ public class ApiClient extends JavaTimeFormatter {
 
   private DateFormat dateFormat;
 
+  private HeaderProvider headerProvider;
+
   // Methods that can have a request body
   private static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
 
@@ -359,6 +361,38 @@ public class ApiClient extends JavaTimeFormatter {
       }
     }
     throw new RuntimeException("No Bearer authentication configured!");
+  }
+
+  /**
+   * Get the header provider.
+   *
+   * @return the header provider, or null if not set
+   */
+  public HeaderProvider getHeaderProvider() {
+    return headerProvider;
+  }
+
+  /**
+   * Set a header provider that supplies dynamic headers for each request.
+   *
+   * <p>Use this for headers that may change over time, such as authentication tokens that need
+   * periodic refresh. The provider is called before each API request.
+   *
+   * <p>Example:
+   *
+   * <pre>{@code
+   * client.setHeaderProvider(() -> {
+   *     String token = refreshTokenIfNeeded();
+   *     return Map.of("Authorization", "Bearer " + token);
+   * });
+   * }</pre>
+   *
+   * @param headerProvider the header provider
+   * @return API client
+   */
+  public ApiClient setHeaderProvider(HeaderProvider headerProvider) {
+    this.headerProvider = headerProvider;
+    return this;
   }
 
   /**
@@ -1068,6 +1102,16 @@ public class ApiClient extends JavaTimeFormatter {
     for (Map.Entry<String, String> keyValue : defaultHeaderMap.entrySet()) {
       if (!headerParams.containsKey(keyValue.getKey())) {
         builder.addHeader(keyValue.getKey(), keyValue.getValue());
+      }
+    }
+
+    // Add headers from header provider (if configured)
+    if (headerProvider != null) {
+      Map<String, String> providerHeaders = headerProvider.getHeaders();
+      if (providerHeaders != null) {
+        for (Map.Entry<String, String> keyValue : providerHeaders.entrySet()) {
+          builder.addHeader(keyValue.getKey(), keyValue.getValue());
+        }
       }
     }
 

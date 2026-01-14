@@ -76,7 +76,7 @@ pub async fn alter_transaction(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_alter_transaction_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -133,7 +133,7 @@ pub async fn describe_transaction(configuration: &configuration::Configuration, 
     req_builder = req_builder.json(&p_describe_transaction_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp

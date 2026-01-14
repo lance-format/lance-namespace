@@ -477,7 +477,7 @@ pub async fn alter_table_alter_columns(configuration: &configuration::Configurat
     req_builder = req_builder.json(&p_alter_table_alter_columns_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -534,7 +534,7 @@ pub async fn alter_table_drop_columns(configuration: &configuration::Configurati
     req_builder = req_builder.json(&p_alter_table_drop_columns_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -591,7 +591,7 @@ pub async fn alter_transaction(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_alter_transaction_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -648,7 +648,7 @@ pub async fn create_empty_table(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_create_empty_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -705,7 +705,7 @@ pub async fn create_namespace(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_create_namespace_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -762,7 +762,7 @@ pub async fn create_table_index(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_create_table_index_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -819,7 +819,7 @@ pub async fn create_table_scalar_index(configuration: &configuration::Configurat
     req_builder = req_builder.json(&p_create_table_index_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -876,7 +876,7 @@ pub async fn create_table_tag(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_create_table_tag_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -933,7 +933,7 @@ pub async fn declare_table(configuration: &configuration::Configuration, id: &st
     req_builder = req_builder.json(&p_declare_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -990,7 +990,7 @@ pub async fn delete_table_tag(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_delete_table_tag_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1047,7 +1047,7 @@ pub async fn deregister_table(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_deregister_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1104,7 +1104,7 @@ pub async fn describe_namespace(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_describe_namespace_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1169,7 +1169,7 @@ pub async fn describe_table(configuration: &configuration::Configuration, id: &s
     req_builder = req_builder.json(&p_describe_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1227,7 +1227,7 @@ pub async fn describe_table_index_stats(configuration: &configuration::Configura
     req_builder = req_builder.json(&p_describe_table_index_stats_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1284,7 +1284,7 @@ pub async fn describe_transaction(configuration: &configuration::Configuration, 
     req_builder = req_builder.json(&p_describe_transaction_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1341,7 +1341,7 @@ pub async fn drop_namespace(configuration: &configuration::Configuration, id: &s
     req_builder = req_builder.json(&p_drop_namespace_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1396,7 +1396,7 @@ pub async fn drop_table(configuration: &configuration::Configuration, id: &str, 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1452,7 +1452,7 @@ pub async fn drop_table_index(configuration: &configuration::Configuration, id: 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1509,7 +1509,7 @@ pub async fn get_table_stats(configuration: &configuration::Configuration, id: &
     req_builder = req_builder.json(&p_get_table_stats_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1566,7 +1566,7 @@ pub async fn get_table_tag_version(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_get_table_tag_version_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1629,7 +1629,7 @@ pub async fn list_namespaces(configuration: &configuration::Configuration, id: &
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1686,7 +1686,7 @@ pub async fn list_table_indices(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_list_table_indices_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1749,7 +1749,7 @@ pub async fn list_table_tags(configuration: &configuration::Configuration, id: &
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1812,7 +1812,7 @@ pub async fn list_table_versions(configuration: &configuration::Configuration, i
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1875,7 +1875,7 @@ pub async fn list_tables(configuration: &configuration::Configuration, id: &str,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -1932,7 +1932,7 @@ pub async fn namespace_exists(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_namespace_exists_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
 
@@ -1978,7 +1978,7 @@ pub async fn register_table(configuration: &configuration::Configuration, id: &s
     req_builder = req_builder.json(&p_register_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -2035,7 +2035,7 @@ pub async fn rename_table(configuration: &configuration::Configuration, id: &str
     req_builder = req_builder.json(&p_rename_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -2092,7 +2092,7 @@ pub async fn restore_table(configuration: &configuration::Configuration, id: &st
     req_builder = req_builder.json(&p_restore_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -2149,7 +2149,7 @@ pub async fn table_exists(configuration: &configuration::Configuration, id: &str
     req_builder = req_builder.json(&p_table_exists_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
 
@@ -2195,7 +2195,7 @@ pub async fn update_table_schema_metadata(configuration: &configuration::Configu
     req_builder = req_builder.json(&p_request_body);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -2252,7 +2252,7 @@ pub async fn update_table_tag(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_update_table_tag_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp

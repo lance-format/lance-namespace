@@ -179,7 +179,7 @@ pub async fn alter_table_add_columns(configuration: &configuration::Configuratio
     req_builder = req_builder.json(&p_alter_table_add_columns_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -236,7 +236,7 @@ pub async fn analyze_table_query_plan(configuration: &configuration::Configurati
     req_builder = req_builder.json(&p_analyze_table_query_plan_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -293,7 +293,7 @@ pub async fn count_table_rows(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_count_table_rows_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -354,7 +354,7 @@ pub async fn create_table(configuration: &configuration::Configuration, id: &str
     req_builder = req_builder.body(p_body);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -411,7 +411,7 @@ pub async fn delete_from_table(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_delete_from_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -468,7 +468,7 @@ pub async fn explain_table_query_plan(configuration: &configuration::Configurati
     req_builder = req_builder.json(&p_explain_table_query_plan_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -529,7 +529,7 @@ pub async fn insert_into_table(configuration: &configuration::Configuration, id:
     req_builder = req_builder.body(p_body);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -616,7 +616,7 @@ pub async fn merge_insert_into_table(configuration: &configuration::Configuratio
     req_builder = req_builder.body(p_body);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -673,7 +673,7 @@ pub async fn query_table(configuration: &configuration::Configuration, id: &str,
     req_builder = req_builder.json(&p_query_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
 
@@ -719,7 +719,7 @@ pub async fn update_table(configuration: &configuration::Configuration, id: &str
     req_builder = req_builder.json(&p_update_table_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp

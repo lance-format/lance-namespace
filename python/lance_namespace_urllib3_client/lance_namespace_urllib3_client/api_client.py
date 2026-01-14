@@ -269,6 +269,13 @@ class ApiClient:
         """
 
         try:
+            # Add headers from header_provider if configured
+            if self.configuration.header_provider:
+                provider_headers = self.configuration.header_provider()
+                if provider_headers:
+                    header_params = header_params or {}
+                    header_params.update(provider_headers)
+
             # perform request and return response
             response_data = self.rest_client.request(
                 method, url,

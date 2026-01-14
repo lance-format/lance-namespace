@@ -115,7 +115,7 @@ pub async fn create_table_tag(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_create_table_tag_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -172,7 +172,7 @@ pub async fn delete_table_tag(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_delete_table_tag_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -229,7 +229,7 @@ pub async fn get_table_tag_version(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_get_table_tag_version_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -292,7 +292,7 @@ pub async fn list_table_tags(configuration: &configuration::Configuration, id: &
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
@@ -349,7 +349,7 @@ pub async fn update_table_tag(configuration: &configuration::Configuration, id: 
     req_builder = req_builder.json(&p_update_table_tag_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.execute(req).await?;
 
     let status = resp.status();
     let content_type = resp
