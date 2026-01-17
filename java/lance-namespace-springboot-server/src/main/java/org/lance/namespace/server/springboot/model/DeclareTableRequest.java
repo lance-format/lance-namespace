@@ -43,6 +43,8 @@ public class DeclareTableRequest {
 
   private Boolean vendCredentials;
 
+  @Valid private Map<String, String> properties = new HashMap<>();
+
   public DeclareTableRequest identity(Identity identity) {
     this.identity = identity;
     return this;
@@ -178,6 +180,37 @@ public class DeclareTableRequest {
     this.vendCredentials = vendCredentials;
   }
 
+  public DeclareTableRequest properties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public DeclareTableRequest putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Properties stored on the table, if supported by the server.
+   *
+   * @return properties
+   */
+  @Schema(
+      name = "properties",
+      description = "Properties stored on the table, if supported by the server. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("properties")
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -191,12 +224,13 @@ public class DeclareTableRequest {
         && Objects.equals(this.context, declareTableRequest.context)
         && Objects.equals(this.id, declareTableRequest.id)
         && Objects.equals(this.location, declareTableRequest.location)
-        && Objects.equals(this.vendCredentials, declareTableRequest.vendCredentials);
+        && Objects.equals(this.vendCredentials, declareTableRequest.vendCredentials)
+        && Objects.equals(this.properties, declareTableRequest.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, location, vendCredentials);
+    return Objects.hash(identity, context, id, location, vendCredentials, properties);
   }
 
   @Override
@@ -208,6 +242,7 @@ public class DeclareTableRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    vendCredentials: ").append(toIndentedString(vendCredentials)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }

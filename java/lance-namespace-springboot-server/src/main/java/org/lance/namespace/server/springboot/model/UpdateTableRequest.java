@@ -49,6 +49,8 @@ public class UpdateTableRequest {
 
   @Valid private List<List<String>> updates = new ArrayList<>();
 
+  @Valid private Map<String, String> properties = new HashMap<>();
+
   public UpdateTableRequest() {
     super();
   }
@@ -198,6 +200,37 @@ public class UpdateTableRequest {
     this.updates = updates;
   }
 
+  public UpdateTableRequest properties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public UpdateTableRequest putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Properties stored on the table, if supported by the implementation.
+   *
+   * @return properties
+   */
+  @Schema(
+      name = "properties",
+      description = "Properties stored on the table, if supported by the implementation. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("properties")
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -211,12 +244,13 @@ public class UpdateTableRequest {
         && Objects.equals(this.context, updateTableRequest.context)
         && Objects.equals(this.id, updateTableRequest.id)
         && Objects.equals(this.predicate, updateTableRequest.predicate)
-        && Objects.equals(this.updates, updateTableRequest.updates);
+        && Objects.equals(this.updates, updateTableRequest.updates)
+        && Objects.equals(this.properties, updateTableRequest.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, predicate, updates);
+    return Objects.hash(identity, context, id, predicate, updates, properties);
   }
 
   @Override
@@ -228,6 +262,7 @@ public class UpdateTableRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    predicate: ").append(toIndentedString(predicate)).append("\n");
     sb.append("    updates: ").append(toIndentedString(updates)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }

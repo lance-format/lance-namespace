@@ -27,6 +27,9 @@ pub struct UpdateTableRequest {
     /// List of column updates as [column_name, expression] pairs
     #[serde(rename = "updates")]
     pub updates: Vec<Vec<String>>,
+    /// Properties stored on the table, if supported by the implementation. 
+    #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
+    pub properties: Option<std::collections::HashMap<String, String>>,
 }
 
 impl UpdateTableRequest {
@@ -38,6 +41,7 @@ impl UpdateTableRequest {
             id: None,
             predicate: None,
             updates,
+            properties: None,
         }
     }
 }

@@ -50,11 +50,16 @@ public class DropNamespaceResponse {
   }
 
   /**
-   * Get properties
+   * If the implementation does not support namespace properties, it should return null for this
+   * field. Otherwise it should return the properties.
    *
    * @return properties
    */
-  @Schema(name = "properties", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(
+      name = "properties",
+      description =
+          "If the implementation does not support namespace properties, it should return null for this field. Otherwise it should return the properties. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("properties")
   public Map<String, String> getProperties() {
     return properties;

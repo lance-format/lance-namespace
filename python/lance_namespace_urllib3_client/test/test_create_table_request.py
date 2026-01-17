@@ -44,7 +44,10 @@ class TestCreateTableRequest(unittest.TestCase):
                 id = [
                     ''
                     ],
-                mode = ''
+                mode = '',
+                properties = {
+                    'key' : ''
+                    }
             )
         else:
             return CreateTableRequest(

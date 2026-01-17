@@ -28,7 +28,8 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
   DeclareTableResponse.JSON_PROPERTY_TRANSACTION_ID,
   DeclareTableResponse.JSON_PROPERTY_LOCATION,
-  DeclareTableResponse.JSON_PROPERTY_STORAGE_OPTIONS
+  DeclareTableResponse.JSON_PROPERTY_STORAGE_OPTIONS,
+  DeclareTableResponse.JSON_PROPERTY_PROPERTIES
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -42,6 +43,9 @@ public class DeclareTableResponse {
 
   public static final String JSON_PROPERTY_STORAGE_OPTIONS = "storage_options";
   @javax.annotation.Nullable private Map<String, String> storageOptions = new HashMap<>();
+
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
 
   public DeclareTableResponse() {}
 
@@ -127,6 +131,40 @@ public class DeclareTableResponse {
     this.storageOptions = storageOptions;
   }
 
+  public DeclareTableResponse properties(
+      @javax.annotation.Nullable Map<String, String> properties) {
+
+    this.properties = properties;
+    return this;
+  }
+
+  public DeclareTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise it should return the properties.
+   *
+   * @return properties
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -138,12 +176,13 @@ public class DeclareTableResponse {
     DeclareTableResponse declareTableResponse = (DeclareTableResponse) o;
     return Objects.equals(this.transactionId, declareTableResponse.transactionId)
         && Objects.equals(this.location, declareTableResponse.location)
-        && Objects.equals(this.storageOptions, declareTableResponse.storageOptions);
+        && Objects.equals(this.storageOptions, declareTableResponse.storageOptions)
+        && Objects.equals(this.properties, declareTableResponse.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, location, storageOptions);
+    return Objects.hash(transactionId, location, storageOptions, properties);
   }
 
   @Override
@@ -153,6 +192,7 @@ public class DeclareTableResponse {
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -245,6 +285,28 @@ public class DeclareTableResponse {
                       : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getStorageOptions().get(_key),
                   URLEncoder.encode(String.valueOf(getStorageOptions().get(_key)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    // add `properties` to the URL query string
+    if (getProperties() != null) {
+      for (String _key : getProperties().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sproperties%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getProperties().get(_key),
+                  URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
           // Should never happen, UTF-8 is always supported

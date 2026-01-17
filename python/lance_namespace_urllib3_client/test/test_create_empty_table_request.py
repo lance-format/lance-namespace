@@ -45,7 +45,10 @@ class TestCreateEmptyTableRequest(unittest.TestCase):
                     ''
                     ],
                 location = '',
-                vend_credentials = True
+                vend_credentials = True,
+                properties = {
+                    'key' : ''
+                    }
             )
         else:
             return CreateEmptyTableRequest(

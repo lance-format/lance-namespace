@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,7 +28,8 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
   UpdateTableResponse.JSON_PROPERTY_TRANSACTION_ID,
   UpdateTableResponse.JSON_PROPERTY_UPDATED_ROWS,
-  UpdateTableResponse.JSON_PROPERTY_VERSION
+  UpdateTableResponse.JSON_PROPERTY_VERSION,
+  UpdateTableResponse.JSON_PROPERTY_PROPERTIES
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -40,6 +43,9 @@ public class UpdateTableResponse {
 
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull private Long version;
+
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
 
   public UpdateTableResponse() {}
 
@@ -115,6 +121,39 @@ public class UpdateTableResponse {
     this.version = version;
   }
 
+  public UpdateTableResponse properties(@javax.annotation.Nullable Map<String, String> properties) {
+
+    this.properties = properties;
+    return this;
+  }
+
+  public UpdateTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise, it should return the properties.
+   *
+   * @return properties
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -126,12 +165,13 @@ public class UpdateTableResponse {
     UpdateTableResponse updateTableResponse = (UpdateTableResponse) o;
     return Objects.equals(this.transactionId, updateTableResponse.transactionId)
         && Objects.equals(this.updatedRows, updateTableResponse.updatedRows)
-        && Objects.equals(this.version, updateTableResponse.version);
+        && Objects.equals(this.version, updateTableResponse.version)
+        && Objects.equals(this.properties, updateTableResponse.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, updatedRows, version);
+    return Objects.hash(transactionId, updatedRows, version, properties);
   }
 
   @Override
@@ -141,6 +181,7 @@ public class UpdateTableResponse {
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    updatedRows: ").append(toIndentedString(updatedRows)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -231,6 +272,28 @@ public class UpdateTableResponse {
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
+      }
+    }
+
+    // add `properties` to the URL query string
+    if (getProperties() != null) {
+      for (String _key : getProperties().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sproperties%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getProperties().get(_key),
+                  URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

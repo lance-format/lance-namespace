@@ -16,9 +16,12 @@ package org.lance.namespace.server.springboot.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /** UpdateTableResponse */
@@ -32,6 +35,8 @@ public class UpdateTableResponse {
   private Long updatedRows;
 
   private Long version;
+
+  @Valid private Map<String, String> properties = new HashMap<>();
 
   public UpdateTableResponse() {
     super();
@@ -116,6 +121,39 @@ public class UpdateTableResponse {
     this.version = version;
   }
 
+  public UpdateTableResponse properties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public UpdateTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise, it should return the properties.
+   *
+   * @return properties
+   */
+  @Schema(
+      name = "properties",
+      description =
+          "If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("properties")
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -127,12 +165,13 @@ public class UpdateTableResponse {
     UpdateTableResponse updateTableResponse = (UpdateTableResponse) o;
     return Objects.equals(this.transactionId, updateTableResponse.transactionId)
         && Objects.equals(this.updatedRows, updateTableResponse.updatedRows)
-        && Objects.equals(this.version, updateTableResponse.version);
+        && Objects.equals(this.version, updateTableResponse.version)
+        && Objects.equals(this.properties, updateTableResponse.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, updatedRows, version);
+    return Objects.hash(transactionId, updatedRows, version, properties);
   }
 
   @Override
@@ -142,6 +181,7 @@ public class UpdateTableResponse {
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    updatedRows: ").append(toIndentedString(updatedRows)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }

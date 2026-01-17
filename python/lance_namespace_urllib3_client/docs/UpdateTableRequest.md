@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **List[str]** |  | [optional] 
 **predicate** | **str** | Optional SQL predicate to filter rows for update | [optional] 
 **updates** | **List[List[str]]** | List of column updates as [column_name, expression] pairs | 
+**properties** | **Dict[str, str]** | Properties stored on the table, if supported by the implementation.  | [optional] 
 
 ## Example
 

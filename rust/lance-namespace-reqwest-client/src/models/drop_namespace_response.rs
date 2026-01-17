@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DropNamespaceResponse {
+    /// If the implementation does not support namespace properties, it should return null for this field. Otherwise it should return the properties. 
     #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
     pub properties: Option<std::collections::HashMap<String, String>>,
     /// If present, indicating the operation is long running and should be tracked using DescribeTransaction 

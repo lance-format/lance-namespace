@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **storage_options** | Option<**std::collections::HashMap<String, String>**> | Configuration options to be used to access storage. The available options depend on the type of storage in use. These will be passed directly to Lance to initialize storage access. When `vend_credentials` is true, this field may include vended credentials. If the vended credentials are temporary, the `expires_at_millis` key should be included to indicate the millisecond timestamp when the credentials expire.  | [optional]
 **stats** | Option<[**models::TableBasicStats**](TableBasicStats.md)> | Table statistics. Only populated when `load_detailed_metadata` is true.  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Optional table metadata as key-value pairs.  | [optional]
+**properties** | Option<**std::collections::HashMap<String, String>**> | Properties stored on the table, if supported by the server. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object. | [optional][default to {}]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

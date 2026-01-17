@@ -24,6 +24,9 @@ pub struct CreateTableRequest {
     /// There are three modes when trying to create a table, to differentiate the behavior when a table of the same name already exists. Case insensitive, supports both PascalCase and snake_case. Valid values are:   * Create: the operation fails with 409.   * ExistOk: the operation succeeds and the existing table is kept.   * Overwrite: the existing table is dropped and a new table with this name is created. 
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
+    /// Properties stored on the table, if supported by the implementation. 
+    #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
+    pub properties: Option<std::collections::HashMap<String, String>>,
 }
 
 impl CreateTableRequest {
@@ -34,6 +37,7 @@ impl CreateTableRequest {
             context: None,
             id: None,
             mode: None,
+            properties: None,
         }
     }
 }

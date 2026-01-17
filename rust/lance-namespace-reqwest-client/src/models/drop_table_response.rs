@@ -20,6 +20,7 @@ pub struct DropTableResponse {
     pub id: Option<Vec<String>>,
     #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
+    /// If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. 
     #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
     pub properties: Option<std::collections::HashMap<String, String>>,
 }

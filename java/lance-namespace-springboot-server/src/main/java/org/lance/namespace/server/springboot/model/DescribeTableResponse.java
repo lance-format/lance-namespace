@@ -50,6 +50,8 @@ public class DescribeTableResponse {
 
   @Valid private Map<String, String> metadata = new HashMap<>();
 
+  @Valid private Map<String, String> properties = new HashMap<>();
+
   public DescribeTableResponse table(String table) {
     this.table = table;
     return this;
@@ -294,6 +296,41 @@ public class DescribeTableResponse {
     this.metadata = metadata;
   }
 
+  public DescribeTableResponse properties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public DescribeTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Properties stored on the table, if supported by the server. If the server does not support
+   * table properties, it should return null for this field. If table properties are supported, but
+   * none are set, it should return an empty object.
+   *
+   * @return properties
+   */
+  @Schema(
+      name = "properties",
+      example = "{owner=Ralph, created_at=1452120468}",
+      description =
+          "Properties stored on the table, if supported by the server. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object.",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("properties")
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -311,13 +348,23 @@ public class DescribeTableResponse {
         && Objects.equals(this.schema, describeTableResponse.schema)
         && Objects.equals(this.storageOptions, describeTableResponse.storageOptions)
         && Objects.equals(this.stats, describeTableResponse.stats)
-        && Objects.equals(this.metadata, describeTableResponse.metadata);
+        && Objects.equals(this.metadata, describeTableResponse.metadata)
+        && Objects.equals(this.properties, describeTableResponse.properties);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        table, namespace, version, location, tableUri, schema, storageOptions, stats, metadata);
+        table,
+        namespace,
+        version,
+        location,
+        tableUri,
+        schema,
+        storageOptions,
+        stats,
+        metadata,
+        properties);
   }
 
   @Override
@@ -333,6 +380,7 @@ public class DescribeTableResponse {
     sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
     sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
