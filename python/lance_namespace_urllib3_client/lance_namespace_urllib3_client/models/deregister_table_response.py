@@ -29,7 +29,7 @@ class DeregisterTableResponse(BaseModel):
     transaction_id: Optional[StrictStr] = Field(default=None, description="Optional transaction identifier")
     id: Optional[List[StrictStr]] = None
     location: Optional[StrictStr] = None
-    properties: Optional[Dict[str, StrictStr]] = None
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ")
     __properties: ClassVar[List[str]] = ["transaction_id", "id", "location", "properties"]
 
     model_config = ConfigDict(

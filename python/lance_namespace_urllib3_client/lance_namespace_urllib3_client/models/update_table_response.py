@@ -30,7 +30,8 @@ class UpdateTableResponse(BaseModel):
     transaction_id: Optional[StrictStr] = Field(default=None, description="Optional transaction identifier")
     updated_rows: Annotated[int, Field(strict=True, ge=0)] = Field(description="Number of rows updated")
     version: Annotated[int, Field(strict=True, ge=0)] = Field(description="The commit version associated with the operation")
-    __properties: ClassVar[List[str]] = ["transaction_id", "updated_rows", "version"]
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties. ")
+    __properties: ClassVar[List[str]] = ["transaction_id", "updated_rows", "version", "properties"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,7 +86,8 @@ class UpdateTableResponse(BaseModel):
         _obj = cls.model_validate({
             "transaction_id": obj.get("transaction_id"),
             "updated_rows": obj.get("updated_rows"),
-            "version": obj.get("version")
+            "version": obj.get("version"),
+            "properties": obj.get("properties")
         })
         return _obj
 

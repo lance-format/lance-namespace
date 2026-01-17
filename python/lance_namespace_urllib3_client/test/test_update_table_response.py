@@ -37,7 +37,10 @@ class TestUpdateTableResponse(unittest.TestCase):
             return UpdateTableResponse(
                 transaction_id = '',
                 updated_rows = 0,
-                version = 0
+                version = 0,
+                properties = {
+                    'key' : ''
+                    }
             )
         else:
             return UpdateTableResponse(

@@ -43,6 +43,8 @@ public class CreateTableRequest {
 
   private String mode;
 
+  @Valid private Map<String, String> properties = new HashMap<>();
+
   public CreateTableRequest identity(Identity identity) {
     this.identity = identity;
     return this;
@@ -155,6 +157,37 @@ public class CreateTableRequest {
     this.mode = mode;
   }
 
+  public CreateTableRequest properties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public CreateTableRequest putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Properties stored on the table, if supported by the implementation.
+   *
+   * @return properties
+   */
+  @Schema(
+      name = "properties",
+      description = "Properties stored on the table, if supported by the implementation. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("properties")
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -167,12 +200,13 @@ public class CreateTableRequest {
     return Objects.equals(this.identity, createTableRequest.identity)
         && Objects.equals(this.context, createTableRequest.context)
         && Objects.equals(this.id, createTableRequest.id)
-        && Objects.equals(this.mode, createTableRequest.mode);
+        && Objects.equals(this.mode, createTableRequest.mode)
+        && Objects.equals(this.properties, createTableRequest.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, mode);
+    return Objects.hash(identity, context, id, mode, properties);
   }
 
   @Override
@@ -183,6 +217,7 @@ public class CreateTableRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }

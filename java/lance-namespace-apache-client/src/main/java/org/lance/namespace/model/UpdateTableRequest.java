@@ -35,7 +35,8 @@ import java.util.StringJoiner;
   UpdateTableRequest.JSON_PROPERTY_CONTEXT,
   UpdateTableRequest.JSON_PROPERTY_ID,
   UpdateTableRequest.JSON_PROPERTY_PREDICATE,
-  UpdateTableRequest.JSON_PROPERTY_UPDATES
+  UpdateTableRequest.JSON_PROPERTY_UPDATES,
+  UpdateTableRequest.JSON_PROPERTY_PROPERTIES
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -55,6 +56,9 @@ public class UpdateTableRequest {
 
   public static final String JSON_PROPERTY_UPDATES = "updates";
   @javax.annotation.Nonnull private List<List<String>> updates = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
 
   public UpdateTableRequest() {}
 
@@ -206,6 +210,38 @@ public class UpdateTableRequest {
     this.updates = updates;
   }
 
+  public UpdateTableRequest properties(@javax.annotation.Nullable Map<String, String> properties) {
+
+    this.properties = properties;
+    return this;
+  }
+
+  public UpdateTableRequest putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Properties stored on the table, if supported by the implementation.
+   *
+   * @return properties
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -219,12 +255,13 @@ public class UpdateTableRequest {
         && Objects.equals(this.context, updateTableRequest.context)
         && Objects.equals(this.id, updateTableRequest.id)
         && Objects.equals(this.predicate, updateTableRequest.predicate)
-        && Objects.equals(this.updates, updateTableRequest.updates);
+        && Objects.equals(this.updates, updateTableRequest.updates)
+        && Objects.equals(this.properties, updateTableRequest.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, predicate, updates);
+    return Objects.hash(identity, context, id, predicate, updates, properties);
   }
 
   @Override
@@ -236,6 +273,7 @@ public class UpdateTableRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    predicate: ").append(toIndentedString(predicate)).append("\n");
     sb.append("    updates: ").append(toIndentedString(updates)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -359,6 +397,28 @@ public class UpdateTableRequest {
                       ? ""
                       : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getUpdates().get(i)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    // add `properties` to the URL query string
+    if (getProperties() != null) {
+      for (String _key : getProperties().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sproperties%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getProperties().get(_key),
+                  URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
           // Should never happen, UTF-8 is always supported

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **List[str]** |  | [optional] 
 **location** | **str** | Optional storage location for the table. If not provided, the namespace implementation should determine the table location.  | [optional] 
 **vend_credentials** | **bool** | Whether to include vended credentials in the response &#x60;storage_options&#x60;. When true, the implementation should provide vended credentials for accessing storage. When not set, the implementation can decide whether to return vended credentials.  | [optional] 
+**properties** | **Dict[str, str]** | Properties stored on the table, if supported by the server.  | [optional] 
 
 ## Example
 

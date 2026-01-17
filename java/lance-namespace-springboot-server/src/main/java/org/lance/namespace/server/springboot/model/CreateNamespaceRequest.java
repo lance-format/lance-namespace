@@ -168,11 +168,14 @@ public class CreateNamespaceRequest {
   }
 
   /**
-   * Get properties
+   * Properties stored on the namespace, if supported by the implementation.
    *
    * @return properties
    */
-  @Schema(name = "properties", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(
+      name = "properties",
+      description = "Properties stored on the namespace, if supported by the implementation. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("properties")
   public Map<String, String> getProperties() {
     return properties;

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **transaction_id** | **str** | Optional transaction identifier | [optional] 
 **id** | **List[str]** |  | [optional] 
 **location** | **str** |  | [optional] 
-**properties** | **Dict[str, str]** |  | [optional] 
+**properties** | **Dict[str, str]** | If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.  | [optional] 
 
 ## Example
 

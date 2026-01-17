@@ -39,7 +39,8 @@ class TestCreateEmptyTableResponse(unittest.TestCase):
                 location = '',
                 storage_options = {
                     'key' : ''
-                    }
+                    },
+                properties = {owner=Ralph, created_at=1452120468}
             )
         else:
             return CreateEmptyTableResponse(

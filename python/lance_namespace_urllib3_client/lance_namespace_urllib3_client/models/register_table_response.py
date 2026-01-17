@@ -28,7 +28,7 @@ class RegisterTableResponse(BaseModel):
     """ # noqa: E501
     transaction_id: Optional[StrictStr] = Field(default=None, description="Optional transaction identifier")
     location: Optional[StrictStr] = None
-    properties: Optional[Dict[str, StrictStr]] = None
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties. ")
     __properties: ClassVar[List[str]] = ["transaction_id", "location", "properties"]
 
     model_config = ConfigDict(

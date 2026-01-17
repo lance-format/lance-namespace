@@ -218,7 +218,7 @@ public class RegisterTableRequest {
   }
 
   /**
-   * Get properties
+   * Properties stored on the table, if supported by the implementation.
    *
    * @return properties
    */

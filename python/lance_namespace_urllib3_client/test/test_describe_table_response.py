@@ -65,7 +65,8 @@ class TestDescribeTableResponse(unittest.TestCase):
                     num_fragments = 0, ),
                 metadata = {
                     'key' : ''
-                    }
+                    },
+                properties = {owner=Ralph, created_at=1452120468}
             )
         else:
             return DescribeTableResponse(

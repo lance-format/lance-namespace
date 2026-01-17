@@ -40,6 +40,9 @@ pub struct DescribeTableResponse {
     /// Optional table metadata as key-value pairs. 
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
+    /// Properties stored on the table, if supported by the server. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object.
+    #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
+    pub properties: Option<std::collections::HashMap<String, String>>,
 }
 
 impl DescribeTableResponse {
@@ -54,6 +57,7 @@ impl DescribeTableResponse {
             storage_options: None,
             stats: None,
             metadata: None,
+            properties: None,
         }
     }
 }

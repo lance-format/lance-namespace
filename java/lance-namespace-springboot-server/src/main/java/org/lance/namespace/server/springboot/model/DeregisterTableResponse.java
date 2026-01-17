@@ -125,11 +125,17 @@ public class DeregisterTableResponse {
   }
 
   /**
-   * Get properties
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise it should return the properties.
    *
    * @return properties
    */
-  @Schema(name = "properties", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(
+      name = "properties",
+      example = "{owner=Ralph, created_at=1452120468}",
+      description =
+          "If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("properties")
   public Map<String, String> getProperties() {
     return properties;

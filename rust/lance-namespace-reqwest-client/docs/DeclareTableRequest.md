@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **id** | Option<**Vec<String>**> |  | [optional]
 **location** | Option<**String**> | Optional storage location for the table. If not provided, the namespace implementation should determine the table location.  | [optional]
 **vend_credentials** | Option<**bool**> | Whether to include vended credentials in the response `storage_options`. When true, the implementation should provide vended credentials for accessing storage. When not set, the implementation can decide whether to return vended credentials.  | [optional]
+**properties** | Option<**std::collections::HashMap<String, String>**> | Properties stored on the table, if supported by the server.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

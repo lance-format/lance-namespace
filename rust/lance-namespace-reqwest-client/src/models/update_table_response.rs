@@ -22,6 +22,9 @@ pub struct UpdateTableResponse {
     /// The commit version associated with the operation
     #[serde(rename = "version")]
     pub version: i64,
+    /// If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties. 
+    #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
+    pub properties: Option<std::collections::HashMap<String, String>>,
 }
 
 impl UpdateTableResponse {
@@ -30,6 +33,7 @@ impl UpdateTableResponse {
             transaction_id: None,
             updated_rows,
             version,
+            properties: None,
         }
     }
 }

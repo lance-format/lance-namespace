@@ -59,7 +59,8 @@ public class DropNamespaceResponse {
   }
 
   /**
-   * Get properties
+   * If the implementation does not support namespace properties, it should return null for this
+   * field. Otherwise it should return the properties.
    *
    * @return properties
    */

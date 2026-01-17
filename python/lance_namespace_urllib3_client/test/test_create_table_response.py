@@ -40,7 +40,8 @@ class TestCreateTableResponse(unittest.TestCase):
                 version = 0,
                 storage_options = {
                     'key' : ''
-                    }
+                    },
+                properties = {owner=Ralph, created_at=1452120468}
             )
         else:
             return CreateTableResponse(
