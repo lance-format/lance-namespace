@@ -37,8 +37,8 @@ class DescribeTableResponse(BaseModel):
     var_schema: Optional[JsonArrowSchema] = Field(default=None, description="Table schema in JSON Arrow format. Only populated when `load_detailed_metadata` is true. ", alias="schema")
     storage_options: Optional[Dict[str, StrictStr]] = Field(default=None, description="Configuration options to be used to access storage. The available options depend on the type of storage in use. These will be passed directly to Lance to initialize storage access. When `vend_credentials` is true, this field may include vended credentials. If the vended credentials are temporary, the `expires_at_millis` key should be included to indicate the millisecond timestamp when the credentials expire. ")
     stats: Optional[TableBasicStats] = Field(default=None, description="Table statistics. Only populated when `load_detailed_metadata` is true. ")
-    metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Optional table metadata as key-value pairs. ")
-    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Properties stored on the table, if supported by the server. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object.")
+    metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Optional table metadata as key-value pairs. This records the information of the table and requires loading the table. It is only populated when `load_detailed_metadata` is true. ")
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Properties stored on the table, if supported by the server. This records the information managed by the namespace. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object.")
     __properties: ClassVar[List[str]] = ["table", "namespace", "version", "location", "table_uri", "schema", "storage_options", "stats", "metadata", "properties"]
 
     model_config = ConfigDict(

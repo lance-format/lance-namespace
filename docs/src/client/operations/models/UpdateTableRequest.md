@@ -13,6 +13,7 @@ Each update consists of a column name and an SQL expression that will be evaluat
 |**id** | **List&lt;String&gt;** |  |  [optional] |
 |**predicate** | **String** | Optional SQL predicate to filter rows for update |  [optional] |
 |**updates** | **List&lt;List&lt;String&gt;&gt;** | List of column updates as [column_name, expression] pairs |  |
+|**properties** | **Map&lt;String, String&gt;** | Properties stored on the table, if supported by the implementation.  |  [optional] |
 
 
 
