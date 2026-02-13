@@ -663,6 +663,10 @@ paths:
       description: |
         List all versions (commits) of table `id` with their metadata.
 
+        Versions are returned in descending order (latest to oldest),
+        enabling efficient retrieval of recent versions first.
+        This ordering is required for external manifest store implementations.
+
         REST NAMESPACE ONLY
         REST namespace does not use a request body for this operation.
         The `ListTableVersionsRequest` information is passed in the following way:
@@ -672,6 +676,138 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/ListTableVersionsResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        503:
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        5XX:
+          $ref: '#/components/responses/ServerErrorResponse'
+
+  /v1/table/{id}/version/create:
+    parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+    post:
+      tags:
+        - Table
+        - Metadata
+      summary: Create a new table version
+      operationId: CreateTableVersion
+      description: |
+        Create a new version entry for table `id`.
+
+        This operation supports `put_if_not_exists` semantics for external manifest stores.
+        The operation will fail with 409 Conflict if the version already exists.
+
+        This API is designed to work with Lance's ExternalManifestStore interface,
+        enabling namespaces to serve as external commit coordination stores.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTableVersionRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/CreateTableVersionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        409:
+          $ref: '#/components/responses/ConflictErrorResponse'
+        503:
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        5XX:
+          $ref: '#/components/responses/ServerErrorResponse'
+
+  /v1/table/{id}/version/{version}/describe:
+    parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      - name: version
+        in: path
+        description: Version number to describe
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 0
+    post:
+      tags:
+        - Table
+        - Metadata
+      summary: Describe a specific table version
+      operationId: DescribeTableVersion
+      description: |
+        Describe the detailed information for a specific version of table `id`.
+
+        This API supports the `get` operation of Lance's ExternalManifestStore interface,
+        returning the manifest path and metadata for the specified version.
+
+        REST NAMESPACE ONLY
+        REST namespace passes `version` as a path parameter instead of in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeTableVersionRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/DescribeTableVersionResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        503:
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        5XX:
+          $ref: '#/components/responses/ServerErrorResponse'
+
+  /v1/table/{id}/version/delete:
+    parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+    post:
+      tags:
+        - Table
+        - Metadata
+      summary: Delete table version records
+      operationId: BatchDeleteTableVersions
+      description: |
+        Delete version metadata records for table `id`.
+
+        This operation deletes version tracking records, NOT the actual table data.
+        It supports deleting ranges of versions for efficient bulk cleanup.
+
+        Special range values:
+        - `start_version: 0` with `end_version: -1` means delete ALL version records
+
+        This API supports the `delete` operation of Lance's ExternalManifestStore interface.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchDeleteTableVersionsRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/BatchDeleteTableVersionsResponse'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
         401:
@@ -3653,22 +3789,176 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TableVersion'
-          description: List of table versions
+          description: |
+            List of table versions, ordered from latest (highest version number) to oldest.
+            This ordering is guaranteed and required for external manifest store implementations.
         page_token:
           $ref: '#/components/schemas/PageToken'
+
+    CreateTableVersionRequest:
+      type: object
+      description: |
+        Request to create a new table version entry.
+        This supports `put_if_not_exists` semantics for external manifest stores,
+        where the operation fails if the version already exists.
+      required:
+        - version
+        - manifest_path
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          $ref: '#/components/schemas/Context'
+        id:
+          type: array
+          items:
+            type: string
+          description: The table identifier
+        version:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Version number to create
+        manifest_path:
+          type: string
+          description: Path to the manifest file for this version
+        manifest_size:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Size of the manifest file in bytes
+        e_tag:
+          type: string
+          description: Optional ETag for the manifest file
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Optional metadata for the version
+
+    CreateTableVersionResponse:
+      type: object
+      description: Response for creating a table version
+      properties:
+        transaction_id:
+          type: string
+          description: Optional transaction identifier
+
+    DescribeTableVersionRequest:
+      type: object
+      description: Request to describe a specific table version
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          $ref: '#/components/schemas/Context'
+        id:
+          type: array
+          items:
+            type: string
+          description: The table identifier
+        version:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Version number to describe
+
+    DescribeTableVersionResponse:
+      type: object
+      description: Response containing the table version information
+      required:
+        - version
+      properties:
+        version:
+          $ref: '#/components/schemas/TableVersion'
+          description: The table version information
+
+    BatchDeleteTableVersionsRequest:
+      type: object
+      description: |
+        Request to delete table version records.
+        Supports deleting ranges of versions for efficient bulk cleanup.
+      required:
+        - ranges
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          $ref: '#/components/schemas/Context'
+        id:
+          type: array
+          items:
+            type: string
+          description: The table identifier
+        ranges:
+          type: array
+          items:
+            $ref: '#/components/schemas/VersionRange'
+          description: |
+            List of version ranges to delete.
+            Each range specifies start (inclusive) and end (exclusive) versions.
+
+    VersionRange:
+      type: object
+      description: |
+        A range of versions to delete (start inclusive, end exclusive).
+        Special values:
+        - `start_version: 0` with `end_version: -1` means ALL versions
+      required:
+        - start_version
+        - end_version
+      properties:
+        start_version:
+          type: integer
+          format: int64
+          description: |
+            Start version of the range (inclusive).
+            Use 0 to start from the first version.
+        end_version:
+          type: integer
+          format: int64
+          description: |
+            End version of the range (exclusive).
+            Use -1 to indicate all versions up to and including the latest.
+
+    BatchDeleteTableVersionsResponse:
+      type: object
+      description: Response for deleting table version records
+      properties:
+        deleted_count:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Number of version records deleted
+        transaction_id:
+          type: string
+          description: Optional transaction identifier
 
     TableVersion:
       type: object
       required:
         - version
-        - timestamp
-        - metadata
       properties:
         version:
           type: integer
           format: int64
           minimum: 0
           description: Version number
+        manifest_path:
+          type: string
+          description: |
+            Path to the manifest file for this version.
+            This is the primary identifier used for external manifest stores.
+        manifest_size:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Size of the manifest file in bytes
+        e_tag:
+          type: string
+          description: |
+            Optional ETag for optimistic concurrency control.
+            Useful for S3 and similar object stores.
         timestamp:
           type: string
           format: date-time
@@ -3677,7 +3967,7 @@ components:
           type: object
           additionalProperties:
             type: string
-          description: Key-value pairs of metadata
+          description: Optional key-value pairs of metadata
 
     ExplainTableQueryPlanRequest:
       type: object
@@ -4427,6 +4717,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ListTableVersionsResponse'
+
+    CreateTableVersionResponse:
+      description: Result of creating a table version
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateTableVersionResponse'
+
+    DescribeTableVersionResponse:
+      description: Table version information
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DescribeTableVersionResponse'
+
+    BatchDeleteTableVersionsResponse:
+      description: Result of deleting table version records
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BatchDeleteTableVersionsResponse'
 
     ExplainTableQueryPlanResponse:
       description: Query execution plan explanation
