@@ -25,6 +25,8 @@ import org.lance.namespace.model.AlterTableAlterColumnsResponse;
 import org.lance.namespace.model.AlterTableDropColumnsRequest;
 import org.lance.namespace.model.AlterTableDropColumnsResponse;
 import org.lance.namespace.model.AnalyzeTableQueryPlanRequest;
+import org.lance.namespace.model.BatchDeleteTableVersionsRequest;
+import org.lance.namespace.model.BatchDeleteTableVersionsResponse;
 import org.lance.namespace.model.CountTableRowsRequest;
 import org.lance.namespace.model.CreateEmptyTableRequest;
 import org.lance.namespace.model.CreateEmptyTableResponse;
@@ -34,6 +36,8 @@ import org.lance.namespace.model.CreateTableResponse;
 import org.lance.namespace.model.CreateTableScalarIndexResponse;
 import org.lance.namespace.model.CreateTableTagRequest;
 import org.lance.namespace.model.CreateTableTagResponse;
+import org.lance.namespace.model.CreateTableVersionRequest;
+import org.lance.namespace.model.CreateTableVersionResponse;
 import org.lance.namespace.model.DeclareTableRequest;
 import org.lance.namespace.model.DeclareTableResponse;
 import org.lance.namespace.model.DeleteFromTableRequest;
@@ -46,6 +50,8 @@ import org.lance.namespace.model.DescribeTableIndexStatsRequest;
 import org.lance.namespace.model.DescribeTableIndexStatsResponse;
 import org.lance.namespace.model.DescribeTableRequest;
 import org.lance.namespace.model.DescribeTableResponse;
+import org.lance.namespace.model.DescribeTableVersionRequest;
+import org.lance.namespace.model.DescribeTableVersionResponse;
 import org.lance.namespace.model.DropTableIndexResponse;
 import org.lance.namespace.model.DropTableResponse;
 import org.lance.namespace.model.ExplainTableQueryPlanRequest;
@@ -492,6 +498,113 @@ public class TableApi extends BaseApi {
     String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
 
     TypeReference<String> localVarReturnType = new TypeReference<String>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType);
+  }
+
+  /**
+   * Delete table version records Delete version metadata records for table &#x60;id&#x60;. This
+   * operation deletes version tracking records, NOT the actual table data. It supports deleting
+   * ranges of versions for efficient bulk cleanup. Special range values: - &#x60;start_version:
+   * 0&#x60; with &#x60;end_version: -1&#x60; means delete ALL version records
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param batchDeleteTableVersionsRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return BatchDeleteTableVersionsResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BatchDeleteTableVersionsResponse batchDeleteTableVersions(
+      String id, BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest, String delimiter)
+      throws ApiException {
+    return this.batchDeleteTableVersions(
+        id, batchDeleteTableVersionsRequest, delimiter, Collections.emptyMap());
+  }
+
+  /**
+   * Delete table version records Delete version metadata records for table &#x60;id&#x60;. This
+   * operation deletes version tracking records, NOT the actual table data. It supports deleting
+   * ranges of versions for efficient bulk cleanup. Special range values: - &#x60;start_version:
+   * 0&#x60; with &#x60;end_version: -1&#x60; means delete ALL version records
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param batchDeleteTableVersionsRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return BatchDeleteTableVersionsResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BatchDeleteTableVersionsResponse batchDeleteTableVersions(
+      String id,
+      BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest,
+      String delimiter,
+      Map<String, String> additionalHeaders)
+      throws ApiException {
+    Object localVarPostBody = batchDeleteTableVersionsRequest;
+
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(
+          400, "Missing the required parameter 'id' when calling batchDeleteTableVersions");
+    }
+
+    // verify the required parameter 'batchDeleteTableVersionsRequest' is set
+    if (batchDeleteTableVersionsRequest == null) {
+      throw new ApiException(
+          400,
+          "Missing the required parameter 'batchDeleteTableVersionsRequest' when calling batchDeleteTableVersions");
+    }
+
+    // create path and map variables
+    String localVarPath =
+        "/v1/table/{id}/version/delete"
+            .replaceAll(
+                "\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
+
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = {"application/json"};
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {"application/json"};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
+
+    TypeReference<BatchDeleteTableVersionsResponse> localVarReturnType =
+        new TypeReference<BatchDeleteTableVersionsResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -1147,6 +1260,111 @@ public class TableApi extends BaseApi {
   }
 
   /**
+   * Create a new table version Create a new version entry for table &#x60;id&#x60;. This operation
+   * supports &#x60;put_if_not_exists&#x60; semantics. The operation will fail with 409 Conflict if
+   * the version already exists.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param createTableVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return CreateTableVersionResponse
+   * @throws ApiException if fails to make API call
+   */
+  public CreateTableVersionResponse createTableVersion(
+      String id, CreateTableVersionRequest createTableVersionRequest, String delimiter)
+      throws ApiException {
+    return this.createTableVersion(
+        id, createTableVersionRequest, delimiter, Collections.emptyMap());
+  }
+
+  /**
+   * Create a new table version Create a new version entry for table &#x60;id&#x60;. This operation
+   * supports &#x60;put_if_not_exists&#x60; semantics. The operation will fail with 409 Conflict if
+   * the version already exists.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param createTableVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return CreateTableVersionResponse
+   * @throws ApiException if fails to make API call
+   */
+  public CreateTableVersionResponse createTableVersion(
+      String id,
+      CreateTableVersionRequest createTableVersionRequest,
+      String delimiter,
+      Map<String, String> additionalHeaders)
+      throws ApiException {
+    Object localVarPostBody = createTableVersionRequest;
+
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(
+          400, "Missing the required parameter 'id' when calling createTableVersion");
+    }
+
+    // verify the required parameter 'createTableVersionRequest' is set
+    if (createTableVersionRequest == null) {
+      throw new ApiException(
+          400,
+          "Missing the required parameter 'createTableVersionRequest' when calling createTableVersion");
+    }
+
+    // create path and map variables
+    String localVarPath =
+        "/v1/table/{id}/version/create"
+            .replaceAll(
+                "\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
+
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = {"application/json"};
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {"application/json"};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
+
+    TypeReference<CreateTableVersionResponse> localVarReturnType =
+        new TypeReference<CreateTableVersionResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType);
+  }
+
+  /**
    * Declare a table Declare a table with the given name without touching storage. This is a
    * metadata-only operation that records the table existence and sets up aspects like access
    * control. For DirectoryNamespace implementation, this creates a &#x60;.lance-reserved&#x60; file
@@ -1782,6 +2000,128 @@ public class TableApi extends BaseApi {
 
     TypeReference<DescribeTableIndexStatsResponse> localVarReturnType =
         new TypeReference<DescribeTableIndexStatsResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType);
+  }
+
+  /**
+   * Describe a specific table version Describe the detailed information for a specific version of
+   * table &#x60;id&#x60;. Returns the manifest path and metadata for the specified version. REST
+   * NAMESPACE ONLY REST namespace passes &#x60;version&#x60; as a path parameter instead of in the
+   * request body.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param version Version number to describe (required)
+   * @param describeTableVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return DescribeTableVersionResponse
+   * @throws ApiException if fails to make API call
+   */
+  public DescribeTableVersionResponse describeTableVersion(
+      String id,
+      Long version,
+      DescribeTableVersionRequest describeTableVersionRequest,
+      String delimiter)
+      throws ApiException {
+    return this.describeTableVersion(
+        id, version, describeTableVersionRequest, delimiter, Collections.emptyMap());
+  }
+
+  /**
+   * Describe a specific table version Describe the detailed information for a specific version of
+   * table &#x60;id&#x60;. Returns the manifest path and metadata for the specified version. REST
+   * NAMESPACE ONLY REST namespace passes &#x60;version&#x60; as a path parameter instead of in the
+   * request body.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param version Version number to describe (required)
+   * @param describeTableVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return DescribeTableVersionResponse
+   * @throws ApiException if fails to make API call
+   */
+  public DescribeTableVersionResponse describeTableVersion(
+      String id,
+      Long version,
+      DescribeTableVersionRequest describeTableVersionRequest,
+      String delimiter,
+      Map<String, String> additionalHeaders)
+      throws ApiException {
+    Object localVarPostBody = describeTableVersionRequest;
+
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(
+          400, "Missing the required parameter 'id' when calling describeTableVersion");
+    }
+
+    // verify the required parameter 'version' is set
+    if (version == null) {
+      throw new ApiException(
+          400, "Missing the required parameter 'version' when calling describeTableVersion");
+    }
+
+    // verify the required parameter 'describeTableVersionRequest' is set
+    if (describeTableVersionRequest == null) {
+      throw new ApiException(
+          400,
+          "Missing the required parameter 'describeTableVersionRequest' when calling describeTableVersion");
+    }
+
+    // create path and map variables
+    String localVarPath =
+        "/v1/table/{id}/version/{version}/describe"
+            .replaceAll(
+                "\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
+            .replaceAll(
+                "\\{" + "version" + "\\}",
+                apiClient.escapeString(apiClient.parameterToString(version)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
+
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = {"application/json"};
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {"application/json"};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
+
+    TypeReference<DescribeTableVersionResponse> localVarReturnType =
+        new TypeReference<DescribeTableVersionResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -2709,11 +3049,13 @@ public class TableApi extends BaseApi {
 
   /**
    * List all versions of a table List all versions (commits) of table &#x60;id&#x60; with their
-   * metadata. REST NAMESPACE ONLY REST namespace does not use a request body for this operation.
-   * The &#x60;ListTableVersionsRequest&#x60; information is passed in the following way: -
+   * metadata. Use &#x60;descending&#x3D;true&#x60; to guarantee versions are returned in descending
+   * order (latest to oldest). Otherwise, the ordering is implementation-defined. REST NAMESPACE
+   * ONLY REST namespace does not use a request body for this operation. The
+   * &#x60;ListTableVersionsRequest&#x60; information is passed in the following way: -
    * &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass
    * through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of
-   * the same name
+   * the same name - &#x60;descending&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -2724,21 +3066,27 @@ public class TableApi extends BaseApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param descending When true, versions are guaranteed to be returned in descending order (latest
+   *     to oldest). When false or not specified, the ordering is implementation-defined. (optional)
    * @return ListTableVersionsResponse
    * @throws ApiException if fails to make API call
    */
   public ListTableVersionsResponse listTableVersions(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
-    return this.listTableVersions(id, delimiter, pageToken, limit, Collections.emptyMap());
+      String id, String delimiter, String pageToken, Integer limit, Boolean descending)
+      throws ApiException {
+    return this.listTableVersions(
+        id, delimiter, pageToken, limit, descending, Collections.emptyMap());
   }
 
   /**
    * List all versions of a table List all versions (commits) of table &#x60;id&#x60; with their
-   * metadata. REST NAMESPACE ONLY REST namespace does not use a request body for this operation.
-   * The &#x60;ListTableVersionsRequest&#x60; information is passed in the following way: -
+   * metadata. Use &#x60;descending&#x3D;true&#x60; to guarantee versions are returned in descending
+   * order (latest to oldest). Otherwise, the ordering is implementation-defined. REST NAMESPACE
+   * ONLY REST namespace does not use a request body for this operation. The
+   * &#x60;ListTableVersionsRequest&#x60; information is passed in the following way: -
    * &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass
    * through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of
-   * the same name
+   * the same name - &#x60;descending&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -2749,6 +3097,8 @@ public class TableApi extends BaseApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param descending When true, versions are guaranteed to be returned in descending order (latest
+   *     to oldest). When false or not specified, the ordering is implementation-defined. (optional)
    * @param additionalHeaders additionalHeaders for this call
    * @return ListTableVersionsResponse
    * @throws ApiException if fails to make API call
@@ -2758,6 +3108,7 @@ public class TableApi extends BaseApi {
       String delimiter,
       String pageToken,
       Integer limit,
+      Boolean descending,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
@@ -2785,6 +3136,7 @@ public class TableApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
     localVarQueryParams.addAll(apiClient.parameterToPair("page_token", pageToken));
     localVarQueryParams.addAll(apiClient.parameterToPair("limit", limit));
+    localVarQueryParams.addAll(apiClient.parameterToPair("descending", descending));
 
     localVarHeaderParams.putAll(additionalHeaders);
 

@@ -32,7 +32,8 @@ import java.util.StringJoiner;
   ListTableVersionsRequest.JSON_PROPERTY_CONTEXT,
   ListTableVersionsRequest.JSON_PROPERTY_ID,
   ListTableVersionsRequest.JSON_PROPERTY_PAGE_TOKEN,
-  ListTableVersionsRequest.JSON_PROPERTY_LIMIT
+  ListTableVersionsRequest.JSON_PROPERTY_LIMIT,
+  ListTableVersionsRequest.JSON_PROPERTY_DESCENDING
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -52,6 +53,9 @@ public class ListTableVersionsRequest {
 
   public static final String JSON_PROPERTY_LIMIT = "limit";
   @javax.annotation.Nullable private Integer limit;
+
+  public static final String JSON_PROPERTY_DESCENDING = "descending";
+  @javax.annotation.Nullable private Boolean descending;
 
   public ListTableVersionsRequest() {}
 
@@ -202,6 +206,31 @@ public class ListTableVersionsRequest {
     this.limit = limit;
   }
 
+  public ListTableVersionsRequest descending(@javax.annotation.Nullable Boolean descending) {
+
+    this.descending = descending;
+    return this;
+  }
+
+  /**
+   * When true, versions are guaranteed to be returned in descending order (latest to oldest). When
+   * false or not specified, the ordering is implementation-defined.
+   *
+   * @return descending
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCENDING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getDescending() {
+    return descending;
+  }
+
+  @JsonProperty(JSON_PROPERTY_DESCENDING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescending(@javax.annotation.Nullable Boolean descending) {
+    this.descending = descending;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -215,12 +244,13 @@ public class ListTableVersionsRequest {
         && Objects.equals(this.context, listTableVersionsRequest.context)
         && Objects.equals(this.id, listTableVersionsRequest.id)
         && Objects.equals(this.pageToken, listTableVersionsRequest.pageToken)
-        && Objects.equals(this.limit, listTableVersionsRequest.limit);
+        && Objects.equals(this.limit, listTableVersionsRequest.limit)
+        && Objects.equals(this.descending, listTableVersionsRequest.descending);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, pageToken, limit);
+    return Objects.hash(identity, context, id, pageToken, limit, descending);
   }
 
   @Override
@@ -232,6 +262,7 @@ public class ListTableVersionsRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    pageToken: ").append(toIndentedString(pageToken)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    descending: ").append(toIndentedString(descending)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -351,6 +382,22 @@ public class ListTableVersionsRequest {
                 prefix,
                 suffix,
                 URLEncoder.encode(String.valueOf(getLimit()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `descending` to the URL query string
+    if (getDescending() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%sdescending%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getDescending()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);

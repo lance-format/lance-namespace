@@ -19,7 +19,7 @@ import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,9 +29,12 @@ class TableVersion(BaseModel):
     TableVersion
     """ # noqa: E501
     version: Annotated[int, Field(strict=True, ge=0)] = Field(description="Version number")
-    timestamp: datetime = Field(description="Timestamp when the version was created")
-    metadata: Dict[str, StrictStr] = Field(description="Key-value pairs of metadata")
-    __properties: ClassVar[List[str]] = ["version", "timestamp", "metadata"]
+    manifest_path: Optional[StrictStr] = Field(default=None, description="Path to the manifest file for this version. When not provided, the client should resolve the manifest path based on the Lance table format's manifest naming scheme and the manifest naming scheme the table is currently using. ")
+    manifest_size: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Size of the manifest file in bytes")
+    e_tag: Optional[StrictStr] = Field(default=None, description="Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores. ")
+    timestamp: Optional[datetime] = Field(default=None, description="Timestamp when the version was created")
+    metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Optional key-value pairs of metadata")
+    __properties: ClassVar[List[str]] = ["version", "manifest_path", "manifest_size", "e_tag", "timestamp", "metadata"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,6 +88,9 @@ class TableVersion(BaseModel):
 
         _obj = cls.model_validate({
             "version": obj.get("version"),
+            "manifest_path": obj.get("manifest_path"),
+            "manifest_size": obj.get("manifest_size"),
+            "e_tag": obj.get("e_tag"),
             "timestamp": obj.get("timestamp"),
             "metadata": obj.get("metadata")
         })

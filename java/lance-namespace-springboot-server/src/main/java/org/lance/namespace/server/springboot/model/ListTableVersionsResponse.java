@@ -57,7 +57,8 @@ public class ListTableVersionsResponse {
   }
 
   /**
-   * List of table versions
+   * List of table versions. When `descending=true`, guaranteed to be ordered from latest to oldest.
+   * Otherwise, ordering is implementation-defined.
    *
    * @return versions
    */
@@ -65,7 +66,8 @@ public class ListTableVersionsResponse {
   @Valid
   @Schema(
       name = "versions",
-      description = "List of table versions",
+      description =
+          "List of table versions. When `descending=true`, guaranteed to be ordered from latest to oldest. Otherwise, ordering is implementation-defined. ",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("versions")
   public List<@Valid TableVersion> getVersions() {

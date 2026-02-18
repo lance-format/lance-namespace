@@ -45,7 +45,8 @@ class TestListTableVersionsRequest(unittest.TestCase):
                     ''
                     ],
                 page_token = '',
-                limit = 56
+                limit = 56,
+                descending = True
             )
         else:
             return ListTableVersionsRequest(

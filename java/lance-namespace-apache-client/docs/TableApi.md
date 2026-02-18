@@ -8,18 +8,21 @@ All URIs are relative to *http://localhost:2333*
 | [**alterTableAlterColumns**](TableApi.md#alterTableAlterColumns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns |
 | [**alterTableDropColumns**](TableApi.md#alterTableDropColumns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table |
 | [**analyzeTableQueryPlan**](TableApi.md#analyzeTableQueryPlan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan |
+| [**batchDeleteTableVersions**](TableApi.md#batchDeleteTableVersions) | **POST** /v1/table/{id}/version/delete | Delete table version records |
 | [**countTableRows**](TableApi.md#countTableRows) | **POST** /v1/table/{id}/count_rows | Count rows in a table |
 | [**createEmptyTable**](TableApi.md#createEmptyTable) | **POST** /v1/table/{id}/create-empty | Create an empty table |
 | [**createTable**](TableApi.md#createTable) | **POST** /v1/table/{id}/create | Create a table with the given name |
 | [**createTableIndex**](TableApi.md#createTableIndex) | **POST** /v1/table/{id}/create_index | Create an index on a table |
 | [**createTableScalarIndex**](TableApi.md#createTableScalarIndex) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table |
 | [**createTableTag**](TableApi.md#createTableTag) | **POST** /v1/table/{id}/tags/create | Create a new tag |
+| [**createTableVersion**](TableApi.md#createTableVersion) | **POST** /v1/table/{id}/version/create | Create a new table version |
 | [**declareTable**](TableApi.md#declareTable) | **POST** /v1/table/{id}/declare | Declare a table |
 | [**deleteFromTable**](TableApi.md#deleteFromTable) | **POST** /v1/table/{id}/delete | Delete rows from a table |
 | [**deleteTableTag**](TableApi.md#deleteTableTag) | **POST** /v1/table/{id}/tags/delete | Delete a tag |
 | [**deregisterTable**](TableApi.md#deregisterTable) | **POST** /v1/table/{id}/deregister | Deregister a table |
 | [**describeTable**](TableApi.md#describeTable) | **POST** /v1/table/{id}/describe | Describe information of a table |
 | [**describeTableIndexStats**](TableApi.md#describeTableIndexStats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics |
+| [**describeTableVersion**](TableApi.md#describeTableVersion) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version |
 | [**dropTable**](TableApi.md#dropTable) | **POST** /v1/table/{id}/drop | Drop a table |
 | [**dropTableIndex**](TableApi.md#dropTableIndex) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index |
 | [**explainTableQueryPlan**](TableApi.md#explainTableQueryPlan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation |
@@ -399,6 +402,97 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Query execution plan analysis |  -  |
+| **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+| **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+| **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+| **404** | A server-side problem that means can not find the specified resource. |  -  |
+| **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+| **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+
+## batchDeleteTableVersions
+
+> BatchDeleteTableVersionsResponse batchDeleteTableVersions(id, batchDeleteTableVersionsRequest, delimiter)
+
+Delete table version records
+
+Delete version metadata records for table &#x60;id&#x60;.  This operation deletes version tracking records, NOT the actual table data. It supports deleting ranges of versions for efficient bulk cleanup.  Special range values: - &#x60;start_version: 0&#x60; with &#x60;end_version: -1&#x60; means delete ALL version records 
+
+### Example
+
+```java
+// Import classes:
+import org.lance.namespace.client.apache.ApiClient;
+import org.lance.namespace.client.apache.ApiException;
+import org.lance.namespace.client.apache.Configuration;
+import org.lance.namespace.client.apache.auth.*;
+import org.lance.namespace.client.apache.models.*;
+import org.lance.namespace.client.apache.api.TableApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:2333");
+        
+        // Configure OAuth2 access token for authorization: OAuth2
+        OAuth OAuth2 = (OAuth) defaultClient.getAuthentication("OAuth2");
+        OAuth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Configure HTTP bearer authorization: BearerAuth
+        HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+        BearerAuth.setBearerToken("BEARER TOKEN");
+
+        TableApi apiInstance = new TableApi(defaultClient);
+        String id = "id_example"; // String | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
+        BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest = new BatchDeleteTableVersionsRequest(); // BatchDeleteTableVersionsRequest | 
+        String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
+        try {
+            BatchDeleteTableVersionsResponse result = apiInstance.batchDeleteTableVersions(id, batchDeleteTableVersionsRequest, delimiter);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TableApi#batchDeleteTableVersions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | |
+| **batchDeleteTableVersionsRequest** | [**BatchDeleteTableVersionsRequest**](BatchDeleteTableVersionsRequest.md)|  | |
+| **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
+
+### Return type
+
+[**BatchDeleteTableVersionsResponse**](BatchDeleteTableVersionsResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Result of deleting table version records |  -  |
 | **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
 | **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
 | **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
@@ -957,6 +1051,98 @@ public class Example {
 | **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
 
 
+## createTableVersion
+
+> CreateTableVersionResponse createTableVersion(id, createTableVersionRequest, delimiter)
+
+Create a new table version
+
+Create a new version entry for table &#x60;id&#x60;.  This operation supports &#x60;put_if_not_exists&#x60; semantics. The operation will fail with 409 Conflict if the version already exists. 
+
+### Example
+
+```java
+// Import classes:
+import org.lance.namespace.client.apache.ApiClient;
+import org.lance.namespace.client.apache.ApiException;
+import org.lance.namespace.client.apache.Configuration;
+import org.lance.namespace.client.apache.auth.*;
+import org.lance.namespace.client.apache.models.*;
+import org.lance.namespace.client.apache.api.TableApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:2333");
+        
+        // Configure OAuth2 access token for authorization: OAuth2
+        OAuth OAuth2 = (OAuth) defaultClient.getAuthentication("OAuth2");
+        OAuth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Configure HTTP bearer authorization: BearerAuth
+        HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+        BearerAuth.setBearerToken("BEARER TOKEN");
+
+        TableApi apiInstance = new TableApi(defaultClient);
+        String id = "id_example"; // String | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
+        CreateTableVersionRequest createTableVersionRequest = new CreateTableVersionRequest(); // CreateTableVersionRequest | 
+        String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
+        try {
+            CreateTableVersionResponse result = apiInstance.createTableVersion(id, createTableVersionRequest, delimiter);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TableApi#createTableVersion");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | |
+| **createTableVersionRequest** | [**CreateTableVersionRequest**](CreateTableVersionRequest.md)|  | |
+| **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
+
+### Return type
+
+[**CreateTableVersionResponse**](CreateTableVersionResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Result of creating a table version |  -  |
+| **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+| **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+| **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+| **404** | A server-side problem that means can not find the specified resource. |  -  |
+| **409** | The request conflicts with the current state of the target resource. |  -  |
+| **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+| **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+
 ## declareTable
 
 > DeclareTableResponse declareTable(id, declareTableRequest, delimiter)
@@ -1502,6 +1688,99 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Index statistics |  -  |
+| **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+| **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+| **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+| **404** | A server-side problem that means can not find the specified resource. |  -  |
+| **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+| **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+
+## describeTableVersion
+
+> DescribeTableVersionResponse describeTableVersion(id, version, describeTableVersionRequest, delimiter)
+
+Describe a specific table version
+
+Describe the detailed information for a specific version of table &#x60;id&#x60;.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes &#x60;version&#x60; as a path parameter instead of in the request body. 
+
+### Example
+
+```java
+// Import classes:
+import org.lance.namespace.client.apache.ApiClient;
+import org.lance.namespace.client.apache.ApiException;
+import org.lance.namespace.client.apache.Configuration;
+import org.lance.namespace.client.apache.auth.*;
+import org.lance.namespace.client.apache.models.*;
+import org.lance.namespace.client.apache.api.TableApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:2333");
+        
+        // Configure OAuth2 access token for authorization: OAuth2
+        OAuth OAuth2 = (OAuth) defaultClient.getAuthentication("OAuth2");
+        OAuth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Configure HTTP bearer authorization: BearerAuth
+        HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+        BearerAuth.setBearerToken("BEARER TOKEN");
+
+        TableApi apiInstance = new TableApi(defaultClient);
+        String id = "id_example"; // String | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
+        Long version = 56L; // Long | Version number to describe
+        DescribeTableVersionRequest describeTableVersionRequest = new DescribeTableVersionRequest(); // DescribeTableVersionRequest | 
+        String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
+        try {
+            DescribeTableVersionResponse result = apiInstance.describeTableVersion(id, version, describeTableVersionRequest, delimiter);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TableApi#describeTableVersion");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | |
+| **version** | **Long**| Version number to describe | |
+| **describeTableVersionRequest** | [**DescribeTableVersionRequest**](DescribeTableVersionRequest.md)|  | |
+| **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
+
+### Return type
+
+[**DescribeTableVersionResponse**](DescribeTableVersionResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Table version information |  -  |
 | **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
 | **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
 | **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
@@ -2332,11 +2611,11 @@ public class Example {
 
 ## listTableVersions
 
-> ListTableVersionsResponse listTableVersions(id, delimiter, pageToken, limit)
+> ListTableVersionsResponse listTableVersions(id, delimiter, pageToken, limit, descending)
 
 List all versions of a table
 
-List all versions (commits) of table &#x60;id&#x60; with their metadata.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The &#x60;ListTableVersionsRequest&#x60; information is passed in the following way: - &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of the same name 
+List all versions (commits) of table &#x60;id&#x60; with their metadata.  Use &#x60;descending&#x3D;true&#x60; to guarantee versions are returned in descending order (latest to oldest). Otherwise, the ordering is implementation-defined.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The &#x60;ListTableVersionsRequest&#x60; information is passed in the following way: - &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of the same name - &#x60;descending&#x60;: pass through query parameter of the same name 
 
 ### Example
 
@@ -2373,8 +2652,9 @@ public class Example {
         String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
         String pageToken = "pageToken_example"; // String | Pagination token from a previous request
         Integer limit = 56; // Integer | Maximum number of items to return
+        Boolean descending = true; // Boolean | When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined. 
         try {
-            ListTableVersionsResponse result = apiInstance.listTableVersions(id, delimiter, pageToken, limit);
+            ListTableVersionsResponse result = apiInstance.listTableVersions(id, delimiter, pageToken, limit, descending);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TableApi#listTableVersions");
@@ -2396,6 +2676,7 @@ public class Example {
 | **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
 | **pageToken** | **String**| Pagination token from a previous request | [optional] |
 | **limit** | **Integer**| Maximum number of items to return | [optional] |
+| **descending** | **Boolean**| When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined.  | [optional] |
 
 ### Return type
 

@@ -501,6 +501,56 @@ public interface LanceNamespace {
   }
 
   /**
+   * Create a new table version entry.
+   *
+   * <p>This operation supports put_if_not_exists semantics, where the operation fails if the
+   * version already exists.
+   *
+   * @param request The create table version request
+   * @return The create table version response
+   * @throws org.lance.namespace.errors.NamespaceNotFoundException if the namespace does not exist
+   * @throws org.lance.namespace.errors.TableNotFoundException if the table does not exist
+   * @throws org.lance.namespace.errors.ConcurrentModificationException if the version already
+   *     exists
+   */
+  default CreateTableVersionResponse createTableVersion(CreateTableVersionRequest request) {
+    throw new UnsupportedOperationException("Not supported: createTableVersion");
+  }
+
+  /**
+   * Describe a specific table version.
+   *
+   * <p>Returns the manifest path and metadata for the specified version.
+   *
+   * @param request The describe table version request
+   * @param version The version number to describe
+   * @return The describe table version response
+   * @throws org.lance.namespace.errors.NamespaceNotFoundException if the namespace does not exist
+   * @throws org.lance.namespace.errors.TableNotFoundException if the table does not exist
+   * @throws org.lance.namespace.errors.TableVersionNotFoundException if the version does not exist
+   */
+  default DescribeTableVersionResponse describeTableVersion(
+      DescribeTableVersionRequest request, Long version) {
+    throw new UnsupportedOperationException("Not supported: describeTableVersion");
+  }
+
+  /**
+   * Delete table version metadata records.
+   *
+   * <p>This operation deletes version tracking records, NOT the actual table data. It supports
+   * deleting ranges of versions for efficient bulk cleanup.
+   *
+   * @param request The batch delete table versions request
+   * @return The batch delete table versions response
+   * @throws org.lance.namespace.errors.NamespaceNotFoundException if the namespace does not exist
+   * @throws org.lance.namespace.errors.TableNotFoundException if the table does not exist
+   */
+  default BatchDeleteTableVersionsResponse batchDeleteTableVersions(
+      BatchDeleteTableVersionsRequest request) {
+    throw new UnsupportedOperationException("Not supported: batchDeleteTableVersions");
+  }
+
+  /**
    * Update table schema metadata.
    *
    * @param request The update table schema metadata request

@@ -66,6 +66,8 @@ from lance_namespace_urllib3_client.models import (
     AlterTransactionRequest,
     AlterTransactionResponse,
     AnalyzeTableQueryPlanRequest,
+    BatchDeleteTableVersionsRequest,
+    BatchDeleteTableVersionsResponse,
     CountTableRowsRequest,
     CreateEmptyTableRequest,
     CreateEmptyTableResponse,
@@ -78,6 +80,8 @@ from lance_namespace_urllib3_client.models import (
     CreateTableResponse,
     CreateTableTagRequest,
     CreateTableTagResponse,
+    CreateTableVersionRequest,
+    CreateTableVersionResponse,
     DeclareTableRequest,
     DeclareTableResponse,
     DeleteFromTableRequest,
@@ -92,6 +96,8 @@ from lance_namespace_urllib3_client.models import (
     DescribeTableIndexStatsResponse,
     DescribeTableRequest,
     DescribeTableResponse,
+    DescribeTableVersionRequest,
+    DescribeTableVersionResponse,
     DescribeTransactionRequest,
     DescribeTransactionResponse,
     DropNamespaceRequest,
@@ -128,6 +134,7 @@ from lance_namespace_urllib3_client.models import (
     RestoreTableRequest,
     RestoreTableResponse,
     TableExistsRequest,
+    TableVersion,
     UpdateTableRequest,
     UpdateTableResponse,
     UpdateTableSchemaMetadataRequest,
@@ -178,6 +185,8 @@ __all__ = [
     "AlterTransactionRequest",
     "AlterTransactionResponse",
     "AnalyzeTableQueryPlanRequest",
+    "BatchDeleteTableVersionsRequest",
+    "BatchDeleteTableVersionsResponse",
     "CountTableRowsRequest",
     "CreateEmptyTableRequest",
     "CreateEmptyTableResponse",
@@ -190,6 +199,8 @@ __all__ = [
     "CreateTableResponse",
     "CreateTableTagRequest",
     "CreateTableTagResponse",
+    "CreateTableVersionRequest",
+    "CreateTableVersionResponse",
     "DeclareTableRequest",
     "DeclareTableResponse",
     "DeleteFromTableRequest",
@@ -204,6 +215,8 @@ __all__ = [
     "DescribeTableIndexStatsResponse",
     "DescribeTableRequest",
     "DescribeTableResponse",
+    "DescribeTableVersionRequest",
+    "DescribeTableVersionResponse",
     "DescribeTransactionRequest",
     "DescribeTransactionResponse",
     "DropNamespaceRequest",
@@ -240,6 +253,7 @@ __all__ = [
     "RestoreTableRequest",
     "RestoreTableResponse",
     "TableExistsRequest",
+    "TableVersion",
     "UpdateTableRequest",
     "UpdateTableResponse",
     "UpdateTableSchemaMetadataRequest",
@@ -727,6 +741,60 @@ class LanceNamespace(ABC):
             If the table does not exist.
         """
         raise UnsupportedOperationError("Not supported: list_table_versions")
+
+    def create_table_version(
+        self, request: CreateTableVersionRequest
+    ) -> CreateTableVersionResponse:
+        """Create a new table version entry.
+
+        This operation supports put_if_not_exists semantics,
+        where the operation fails if the version already exists.
+
+        Raises
+        ------
+        NamespaceNotFoundError
+            If the namespace does not exist.
+        TableNotFoundError
+            If the table does not exist.
+        ConcurrentModificationError
+            If the version already exists.
+        """
+        raise UnsupportedOperationError("Not supported: create_table_version")
+
+    def describe_table_version(
+        self, request: DescribeTableVersionRequest
+    ) -> DescribeTableVersionResponse:
+        """Describe a specific table version.
+
+        Returns the manifest path and metadata for the specified version.
+
+        Raises
+        ------
+        NamespaceNotFoundError
+            If the namespace does not exist.
+        TableNotFoundError
+            If the table does not exist.
+        TableVersionNotFoundError
+            If the specified version does not exist.
+        """
+        raise UnsupportedOperationError("Not supported: describe_table_version")
+
+    def batch_delete_table_versions(
+        self, request: BatchDeleteTableVersionsRequest
+    ) -> BatchDeleteTableVersionsResponse:
+        """Delete table version metadata records.
+
+        This operation deletes version tracking records, NOT the actual table data.
+        It supports deleting ranges of versions for efficient bulk cleanup.
+
+        Raises
+        ------
+        NamespaceNotFoundError
+            If the namespace does not exist.
+        TableNotFoundError
+            If the table does not exist.
+        """
+        raise UnsupportedOperationError("Not supported: batch_delete_table_versions")
 
     def update_table_schema_metadata(
         self, request: UpdateTableSchemaMetadataRequest
