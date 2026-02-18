@@ -72,7 +72,6 @@ All operations may return the following errors:
 | CreateEmptyTable          | 1 (NamespaceNotFound), 5 (TableAlreadyExists), 14 (ConcurrentModification)                                                       |
 | RestoreTable              | 1 (NamespaceNotFound), 4 (TableNotFound), 11 (TableVersionNotFound), 14 (ConcurrentModification)                                 |
 | RenameTable               | 1 (NamespaceNotFound), 4 (TableNotFound), 5 (TableAlreadyExists), 14 (ConcurrentModification)                                    |
-| ListTableVersions         | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                         |
 | GetTableStats             | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                         |
 | AlterTableAlterColumns    | 1 (NamespaceNotFound), 4 (TableNotFound), 12 (TableColumnNotFound), 14 (ConcurrentModification), 20 (TableSchemaValidationError) |
 | AlterTableDropColumns     | 1 (NamespaceNotFound), 4 (TableNotFound), 12 (TableColumnNotFound), 14 (ConcurrentModification)                                  |
@@ -112,6 +111,15 @@ All operations may return the following errors:
 | CreateTableTag     | 1 (NamespaceNotFound), 4 (TableNotFound), 9 (TableTagAlreadyExists), 11 (TableVersionNotFound), 14 (ConcurrentModification) |
 | DeleteTableTag     | 1 (NamespaceNotFound), 4 (TableNotFound), 8 (TableTagNotFound)                                                              |
 | UpdateTableTag     | 1 (NamespaceNotFound), 4 (TableNotFound), 8 (TableTagNotFound), 11 (TableVersionNotFound), 14 (ConcurrentModification)      |
+
+### Table Version Metadata Operations
+
+| Operation                | Additional Errors                                                     |
+|--------------------------|-----------------------------------------------------------------------|
+| ListTableVersions        | 1 (NamespaceNotFound), 4 (TableNotFound)                              |
+| DescribeTableVersion     | 1 (NamespaceNotFound), 4 (TableNotFound), 11 (TableVersionNotFound)   |
+| CreateTableVersion       | 1 (NamespaceNotFound), 4 (TableNotFound), 14 (ConcurrentModification) |
+| BatchDeleteTableVersions | 1 (NamespaceNotFound), 4 (TableNotFound)                              |
 
 ### Transaction Metadata Operations
 
