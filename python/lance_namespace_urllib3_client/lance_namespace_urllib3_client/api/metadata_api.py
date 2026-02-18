@@ -5390,7 +5390,6 @@ class MetadataApi:
     def describe_table_version(
         self,
         id: Annotated[StrictStr, Field(description="`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ")],
-        version: Annotated[int, Field(strict=True, ge=0, description="Version number to describe")],
         describe_table_version_request: DescribeTableVersionRequest,
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         _request_timeout: Union[
@@ -5408,12 +5407,10 @@ class MetadataApi:
     ) -> DescribeTableVersionResponse:
         """Describe a specific table version
 
-        Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. 
+        Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version. 
 
         :param id: `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  (required)
         :type id: str
-        :param version: Version number to describe (required)
-        :type version: int
         :param describe_table_version_request: (required)
         :type describe_table_version_request: DescribeTableVersionRequest
         :param delimiter: An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
@@ -5442,7 +5439,6 @@ class MetadataApi:
 
         _param = self._describe_table_version_serialize(
             id=id,
-            version=version,
             describe_table_version_request=describe_table_version_request,
             delimiter=delimiter,
             _request_auth=_request_auth,
@@ -5475,7 +5471,6 @@ class MetadataApi:
     def describe_table_version_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ")],
-        version: Annotated[int, Field(strict=True, ge=0, description="Version number to describe")],
         describe_table_version_request: DescribeTableVersionRequest,
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         _request_timeout: Union[
@@ -5493,12 +5488,10 @@ class MetadataApi:
     ) -> ApiResponse[DescribeTableVersionResponse]:
         """Describe a specific table version
 
-        Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. 
+        Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version. 
 
         :param id: `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  (required)
         :type id: str
-        :param version: Version number to describe (required)
-        :type version: int
         :param describe_table_version_request: (required)
         :type describe_table_version_request: DescribeTableVersionRequest
         :param delimiter: An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
@@ -5527,7 +5520,6 @@ class MetadataApi:
 
         _param = self._describe_table_version_serialize(
             id=id,
-            version=version,
             describe_table_version_request=describe_table_version_request,
             delimiter=delimiter,
             _request_auth=_request_auth,
@@ -5560,7 +5552,6 @@ class MetadataApi:
     def describe_table_version_without_preload_content(
         self,
         id: Annotated[StrictStr, Field(description="`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ")],
-        version: Annotated[int, Field(strict=True, ge=0, description="Version number to describe")],
         describe_table_version_request: DescribeTableVersionRequest,
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         _request_timeout: Union[
@@ -5578,12 +5569,10 @@ class MetadataApi:
     ) -> RESTResponseType:
         """Describe a specific table version
 
-        Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. 
+        Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version. 
 
         :param id: `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  (required)
         :type id: str
-        :param version: Version number to describe (required)
-        :type version: int
         :param describe_table_version_request: (required)
         :type describe_table_version_request: DescribeTableVersionRequest
         :param delimiter: An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
@@ -5612,7 +5601,6 @@ class MetadataApi:
 
         _param = self._describe_table_version_serialize(
             id=id,
-            version=version,
             describe_table_version_request=describe_table_version_request,
             delimiter=delimiter,
             _request_auth=_request_auth,
@@ -5640,7 +5628,6 @@ class MetadataApi:
     def _describe_table_version_serialize(
         self,
         id,
-        version,
         describe_table_version_request,
         delimiter,
         _request_auth,
@@ -5666,8 +5653,6 @@ class MetadataApi:
         # process the path parameters
         if id is not None:
             _path_params['id'] = id
-        if version is not None:
-            _path_params['version'] = version
         # process the query parameters
         if delimiter is not None:
             
@@ -5711,7 +5696,7 @@ class MetadataApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/v1/table/{id}/version/{version}/describe',
+            resource_path='/v1/table/{id}/version/describe',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

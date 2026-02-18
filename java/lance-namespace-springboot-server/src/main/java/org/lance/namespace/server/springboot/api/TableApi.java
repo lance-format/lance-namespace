@@ -3366,16 +3366,14 @@ public interface TableApi {
   }
 
   /**
-   * POST /v1/table/{id}/version/{version}/describe : Describe a specific table version Describe the
-   * detailed information for a specific version of table &#x60;id&#x60;. Returns the manifest path
-   * and metadata for the specified version. REST NAMESPACE ONLY REST namespace passes
-   * &#x60;version&#x60; as a path parameter instead of in the request body.
+   * POST /v1/table/{id}/version/describe : Describe a specific table version Describe the detailed
+   * information for a specific version of table &#x60;id&#x60;. Returns the manifest path and
+   * metadata for the specified version.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
    *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
    *     root namespace. (required)
-   * @param version Version number to describe (required)
    * @param describeTableVersionRequest (required)
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
    *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
@@ -3397,7 +3395,7 @@ public interface TableApi {
       operationId = "describeTableVersion",
       summary = "Describe a specific table version",
       description =
-          "Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. ",
+          "Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version. ",
       tags = {"Table", "Metadata"},
       responses = {
         @ApiResponse(
@@ -3468,7 +3466,7 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = "/v1/table/{id}/version/{version}/describe",
+      value = "/v1/table/{id}/version/describe",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DescribeTableVersionResponse> describeTableVersion(
@@ -3480,14 +3478,6 @@ public interface TableApi {
               in = ParameterIn.PATH)
           @PathVariable("id")
           String id,
-      @Min(0L)
-          @Parameter(
-              name = "version",
-              description = "Version number to describe",
-              required = true,
-              in = ParameterIn.PATH)
-          @PathVariable("version")
-          Long version,
       @Parameter(name = "DescribeTableVersionRequest", description = "", required = true)
           @Valid
           @RequestBody

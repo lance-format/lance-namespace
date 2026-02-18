@@ -736,18 +736,10 @@ paths:
         5XX:
           $ref: '#/components/responses/ServerErrorResponse'
 
-  /v1/table/{id}/version/{version}/describe:
+  /v1/table/{id}/version/describe:
     parameters:
       - $ref: '#/components/parameters/id'
       - $ref: '#/components/parameters/delimiter'
-      - name: version
-        in: path
-        description: Version number to describe
-        required: true
-        schema:
-          type: integer
-          format: int64
-          minimum: 0
     post:
       tags:
         - Table
@@ -758,9 +750,6 @@ paths:
         Describe the detailed information for a specific version of table `id`.
 
         Returns the manifest path and metadata for the specified version.
-
-        REST NAMESPACE ONLY
-        REST namespace passes `version` as a path parameter instead of in the request body.
       requestBody:
         required: true
         content:

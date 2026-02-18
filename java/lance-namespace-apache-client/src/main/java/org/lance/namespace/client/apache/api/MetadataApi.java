@@ -1809,15 +1809,12 @@ public class MetadataApi extends BaseApi {
 
   /**
    * Describe a specific table version Describe the detailed information for a specific version of
-   * table &#x60;id&#x60;. Returns the manifest path and metadata for the specified version. REST
-   * NAMESPACE ONLY REST namespace passes &#x60;version&#x60; as a path parameter instead of in the
-   * request body.
+   * table &#x60;id&#x60;. Returns the manifest path and metadata for the specified version.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
    *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
    *     root namespace. (required)
-   * @param version Version number to describe (required)
    * @param describeTableVersionRequest (required)
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
    *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
@@ -1826,26 +1823,20 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableVersionResponse describeTableVersion(
-      String id,
-      Long version,
-      DescribeTableVersionRequest describeTableVersionRequest,
-      String delimiter)
+      String id, DescribeTableVersionRequest describeTableVersionRequest, String delimiter)
       throws ApiException {
     return this.describeTableVersion(
-        id, version, describeTableVersionRequest, delimiter, Collections.emptyMap());
+        id, describeTableVersionRequest, delimiter, Collections.emptyMap());
   }
 
   /**
    * Describe a specific table version Describe the detailed information for a specific version of
-   * table &#x60;id&#x60;. Returns the manifest path and metadata for the specified version. REST
-   * NAMESPACE ONLY REST namespace passes &#x60;version&#x60; as a path parameter instead of in the
-   * request body.
+   * table &#x60;id&#x60;. Returns the manifest path and metadata for the specified version.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
    *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
    *     root namespace. (required)
-   * @param version Version number to describe (required)
    * @param describeTableVersionRequest (required)
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
    *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
@@ -1856,7 +1847,6 @@ public class MetadataApi extends BaseApi {
    */
   public DescribeTableVersionResponse describeTableVersion(
       String id,
-      Long version,
       DescribeTableVersionRequest describeTableVersionRequest,
       String delimiter,
       Map<String, String> additionalHeaders)
@@ -1869,12 +1859,6 @@ public class MetadataApi extends BaseApi {
           400, "Missing the required parameter 'id' when calling describeTableVersion");
     }
 
-    // verify the required parameter 'version' is set
-    if (version == null) {
-      throw new ApiException(
-          400, "Missing the required parameter 'version' when calling describeTableVersion");
-    }
-
     // verify the required parameter 'describeTableVersionRequest' is set
     if (describeTableVersionRequest == null) {
       throw new ApiException(
@@ -1884,12 +1868,9 @@ public class MetadataApi extends BaseApi {
 
     // create path and map variables
     String localVarPath =
-        "/v1/table/{id}/version/{version}/describe"
+        "/v1/table/{id}/version/describe"
             .replaceAll(
-                "\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)))
-            .replaceAll(
-                "\\{" + "version" + "\\}",
-                apiClient.escapeString(apiClient.parameterToString(version)));
+                "\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
 
     StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
     String localVarQueryParameterBaseName;

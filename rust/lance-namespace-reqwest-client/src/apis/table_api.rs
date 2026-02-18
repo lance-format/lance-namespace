@@ -1569,15 +1569,14 @@ pub async fn describe_table_index_stats(configuration: &configuration::Configura
     }
 }
 
-/// Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. 
-pub async fn describe_table_version(configuration: &configuration::Configuration, id: &str, version: i64, describe_table_version_request: models::DescribeTableVersionRequest, delimiter: Option<&str>) -> Result<models::DescribeTableVersionResponse, Error<DescribeTableVersionError>> {
+/// Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version. 
+pub async fn describe_table_version(configuration: &configuration::Configuration, id: &str, describe_table_version_request: models::DescribeTableVersionRequest, delimiter: Option<&str>) -> Result<models::DescribeTableVersionResponse, Error<DescribeTableVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_id = id;
-    let p_version = version;
     let p_describe_table_version_request = describe_table_version_request;
     let p_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/version/{version}/describe", configuration.base_path, id=crate::apis::urlencode(p_id), version=p_version);
+    let uri_str = format!("{}/v1/table/{id}/version/describe", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref param_value) = p_delimiter {

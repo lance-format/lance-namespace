@@ -800,42 +800,19 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /v1/table/{id}/version/{version}/describe:
+  /v1/table/{id}/version/describe:
     parameters:
     - $ref: '#/components/parameters/id'
     - $ref: '#/components/parameters/delimiter'
-    - description: Version number to describe
-      explode: false
-      in: path
-      name: version
-      required: true
-      schema:
-        format: int64
-        minimum: 0
-        type: integer
-      style: simple
     post:
       description: |
         Describe the detailed information for a specific version of table `id`.
 
         Returns the manifest path and metadata for the specified version.
-
-        REST NAMESPACE ONLY
-        REST namespace passes `version` as a path parameter instead of in the request body.
       operationId: DescribeTableVersion
       parameters:
       - $ref: '#/components/parameters/id'
       - $ref: '#/components/parameters/delimiter'
-      - description: Version number to describe
-        explode: false
-        in: path
-        name: version
-        required: true
-        schema:
-          format: int64
-          minimum: 0
-          type: integer
-        style: simple
       requestBody:
         content:
           application/json:

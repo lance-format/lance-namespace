@@ -22,7 +22,7 @@ All URIs are relative to *http://localhost:2333*
 | [**deregisterTable**](TableApi.md#deregisterTable) | **POST** /v1/table/{id}/deregister | Deregister a table |
 | [**describeTable**](TableApi.md#describeTable) | **POST** /v1/table/{id}/describe | Describe information of a table |
 | [**describeTableIndexStats**](TableApi.md#describeTableIndexStats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics |
-| [**describeTableVersion**](TableApi.md#describeTableVersion) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version |
+| [**describeTableVersion**](TableApi.md#describeTableVersion) | **POST** /v1/table/{id}/version/describe | Describe a specific table version |
 | [**dropTable**](TableApi.md#dropTable) | **POST** /v1/table/{id}/drop | Drop a table |
 | [**dropTableIndex**](TableApi.md#dropTableIndex) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index |
 | [**explainTableQueryPlan**](TableApi.md#explainTableQueryPlan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation |
@@ -1698,11 +1698,11 @@ public class Example {
 
 ## describeTableVersion
 
-> DescribeTableVersionResponse describeTableVersion(id, version, describeTableVersionRequest, delimiter)
+> DescribeTableVersionResponse describeTableVersion(id, describeTableVersionRequest, delimiter)
 
 Describe a specific table version
 
-Describe the detailed information for a specific version of table &#x60;id&#x60;.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes &#x60;version&#x60; as a path parameter instead of in the request body. 
+Describe the detailed information for a specific version of table &#x60;id&#x60;.  Returns the manifest path and metadata for the specified version. 
 
 ### Example
 
@@ -1736,11 +1736,10 @@ public class Example {
 
         TableApi apiInstance = new TableApi(defaultClient);
         String id = "id_example"; // String | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
-        Long version = 56L; // Long | Version number to describe
         DescribeTableVersionRequest describeTableVersionRequest = new DescribeTableVersionRequest(); // DescribeTableVersionRequest | 
         String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
         try {
-            DescribeTableVersionResponse result = apiInstance.describeTableVersion(id, version, describeTableVersionRequest, delimiter);
+            DescribeTableVersionResponse result = apiInstance.describeTableVersion(id, describeTableVersionRequest, delimiter);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TableApi#describeTableVersion");
@@ -1759,7 +1758,6 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **id** | **String**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | |
-| **version** | **Long**| Version number to describe | |
 | **describeTableVersionRequest** | [**DescribeTableVersionRequest**](DescribeTableVersionRequest.md)|  | |
 | **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
 

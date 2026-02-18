@@ -22,7 +22,7 @@ Method | HTTP request | Description
 [**deregister_table**](TableApi.md#deregister_table) | **POST** /v1/table/{id}/deregister | Deregister a table
 [**describe_table**](TableApi.md#describe_table) | **POST** /v1/table/{id}/describe | Describe information of a table
 [**describe_table_index_stats**](TableApi.md#describe_table_index_stats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
-[**describe_table_version**](TableApi.md#describe_table_version) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version
+[**describe_table_version**](TableApi.md#describe_table_version) | **POST** /v1/table/{id}/version/describe | Describe a specific table version
 [**drop_table**](TableApi.md#drop_table) | **POST** /v1/table/{id}/drop | Drop a table
 [**drop_table_index**](TableApi.md#drop_table_index) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index
 [**explain_table_query_plan**](TableApi.md#explain_table_query_plan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation
@@ -628,10 +628,10 @@ Name | Type | Description  | Required | Notes
 
 ## describe_table_version
 
-> models::DescribeTableVersionResponse describe_table_version(id, version, describe_table_version_request, delimiter)
+> models::DescribeTableVersionResponse describe_table_version(id, describe_table_version_request, delimiter)
 Describe a specific table version
 
-Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. 
+Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version. 
 
 ### Parameters
 
@@ -639,7 +639,6 @@ Describe the detailed information for a specific version of table `id`.  Returns
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  | [required] |
-**version** | **i64** | Version number to describe | [required] |
 **describe_table_version_request** | [**DescribeTableVersionRequest**](DescribeTableVersionRequest.md) |  | [required] |
 **delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
 
