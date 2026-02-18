@@ -495,6 +495,8 @@ public interface LanceNamespace {
    *
    * @param request The list table versions request
    * @return The list table versions response
+   * @throws org.lance.namespace.errors.NamespaceNotFoundException if the namespace does not exist
+   * @throws org.lance.namespace.errors.TableNotFoundException if the table does not exist
    */
   default ListTableVersionsResponse listTableVersions(ListTableVersionsRequest request) {
     throw new UnsupportedOperationException("Not supported: listTableVersions");
