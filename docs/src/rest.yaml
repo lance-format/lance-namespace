@@ -654,6 +654,15 @@ paths:
       - $ref: '#/components/parameters/delimiter'
       - $ref: '#/components/parameters/page_token'
       - $ref: '#/components/parameters/limit'
+      - name: descending
+        in: query
+        description: |
+          Whether to return versions in descending order (latest to oldest).
+          When false (default), versions are returned in ascending order (oldest to latest).
+        required: false
+        schema:
+          type: boolean
+          default: false
     post:
       tags:
         - Table
@@ -663,9 +672,9 @@ paths:
       description: |
         List all versions (commits) of table `id` with their metadata.
 
-        Versions are returned in descending order (latest to oldest),
-        enabling efficient retrieval of recent versions first.
-        This ordering is required for external manifest store implementations.
+        By default, versions are returned in ascending order (oldest to latest).
+        Use `descending=true` to return versions in descending order (latest to oldest),
+        which enables efficient retrieval of recent versions first.
 
         REST NAMESPACE ONLY
         REST namespace does not use a request body for this operation.
@@ -673,6 +682,7 @@ paths:
         - `id`: pass through path parameter of the same name
         - `page_token`: pass through query parameter of the same name
         - `limit`: pass through query parameter of the same name
+        - `descending`: pass through query parameter of the same name
       responses:
         200:
           $ref: '#/components/responses/ListTableVersionsResponse'
@@ -702,11 +712,8 @@ paths:
       description: |
         Create a new version entry for table `id`.
 
-        This operation supports `put_if_not_exists` semantics for external manifest stores.
+        This operation supports `put_if_not_exists` semantics.
         The operation will fail with 409 Conflict if the version already exists.
-
-        This API is designed to work with Lance's ExternalManifestStore interface,
-        enabling namespaces to serve as external commit coordination stores.
       requestBody:
         required: true
         content:
@@ -752,8 +759,7 @@ paths:
       description: |
         Describe the detailed information for a specific version of table `id`.
 
-        This API supports the `get` operation of Lance's ExternalManifestStore interface,
-        returning the manifest path and metadata for the specified version.
+        Returns the manifest path and metadata for the specified version.
 
         REST NAMESPACE ONLY
         REST namespace passes `version` as a path parameter instead of in the request body.
@@ -797,8 +803,6 @@ paths:
 
         Special range values:
         - `start_version: 0` with `end_version: -1` means delete ALL version records
-
-        This API supports the `delete` operation of Lance's ExternalManifestStore interface.
       requestBody:
         required: true
         content:
@@ -3779,6 +3783,12 @@ components:
           $ref: '#/components/schemas/PageToken'
         limit:
           $ref: '#/components/schemas/PageLimit'
+        descending:
+          type: boolean
+          default: false
+          description: |
+            Whether to return versions in descending order (latest to oldest).
+            When false (default), versions are returned in ascending order (oldest to latest).
 
     ListTableVersionsResponse:
       type: object
@@ -3790,8 +3800,8 @@ components:
           items:
             $ref: '#/components/schemas/TableVersion'
           description: |
-            List of table versions, ordered from latest (highest version number) to oldest.
-            This ordering is guaranteed and required for external manifest store implementations.
+            List of table versions. By default, ordered from oldest to latest (ascending).
+            When `descending=true` is specified, ordered from latest to oldest.
         page_token:
           $ref: '#/components/schemas/PageToken'
 
@@ -3799,7 +3809,7 @@ components:
       type: object
       description: |
         Request to create a new table version entry.
-        This supports `put_if_not_exists` semantics for external manifest stores,
+        This supports `put_if_not_exists` semantics,
         where the operation fails if the version already exists.
       required:
         - version
@@ -3946,9 +3956,7 @@ components:
           description: Version number
         manifest_path:
           type: string
-          description: |
-            Path to the manifest file for this version.
-            This is the primary identifier used for external manifest stores.
+          description: Path to the manifest file for this version.
         manifest_size:
           type: integer
           format: int64
