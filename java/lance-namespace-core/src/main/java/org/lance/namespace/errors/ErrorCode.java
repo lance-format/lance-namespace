@@ -39,7 +39,8 @@ public enum ErrorCode {
   SERVICE_UNAVAILABLE(17, "Service unavailable"),
   INTERNAL(18, "Internal error"),
   INVALID_TABLE_STATE(19, "Invalid table state"),
-  TABLE_SCHEMA_VALIDATION_ERROR(20, "Table schema validation error");
+  TABLE_SCHEMA_VALIDATION_ERROR(20, "Table schema validation error"),
+  THROTTLING(21, "Request rate limit exceeded");
 
   private final int code;
   private final String description;

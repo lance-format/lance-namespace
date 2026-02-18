@@ -53,6 +53,7 @@ from lance_namespace.errors import (
     InternalError,
     InvalidTableStateError,
     TableSchemaValidationError,
+    ThrottlingError,
     from_error_code,
 )
 
@@ -174,6 +175,7 @@ __all__ = [
     "InternalError",
     "InvalidTableStateError",
     "TableSchemaValidationError",
+    "ThrottlingError",
     "from_error_code",
     # Request/Response types (re-exported from lance_namespace_urllib3_client)
     "AlterTableAddColumnsRequest",

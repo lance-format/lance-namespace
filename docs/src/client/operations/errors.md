@@ -31,6 +31,7 @@ These codes are consistent across all Lance Namespace implementations (Python, J
 | 18   | Internal                   | Unexpected server/implementation error            |
 | 19   | InvalidTableState          | Table is in an invalid state for the operation    |
 | 20   | TableSchemaValidationError | Table schema validation failed                    |
+| 21   | Throttling                 | Request rate limit exceeded                       |
 
 ## Per-Operation Errors
 
@@ -47,6 +48,7 @@ All operations may return the following errors:
 - **16 (Unauthenticated)**: Authentication credentials are missing or invalid
 - **17 (ServiceUnavailable)**: The service is temporarily unavailable
 - **18 (Internal)**: An unexpected internal error occurred
+- **21 (Throttling)**: Request rate limit exceeded
 
 ### Namespace Metadata Operations
 

@@ -67,6 +67,7 @@ class ErrorCode(IntEnum):
     INTERNAL = 18
     INVALID_TABLE_STATE = 19
     TABLE_SCHEMA_VALIDATION_ERROR = 20
+    THROTTLING = 21
 
 
 class LanceNamespaceError(Exception):
@@ -210,6 +211,12 @@ class TableSchemaValidationError(LanceNamespaceError):
     code = ErrorCode.TABLE_SCHEMA_VALIDATION_ERROR
 
 
+class ThrottlingError(LanceNamespaceError):
+    """Raised when the request rate limit is exceeded."""
+
+    code = ErrorCode.THROTTLING
+
+
 # Mapping from error code to exception class
 _ERROR_CODE_TO_EXCEPTION: Dict[ErrorCode, Type[LanceNamespaceError]] = {
     ErrorCode.UNSUPPORTED: UnsupportedOperationError,
@@ -233,6 +240,7 @@ _ERROR_CODE_TO_EXCEPTION: Dict[ErrorCode, Type[LanceNamespaceError]] = {
     ErrorCode.INTERNAL: InternalError,
     ErrorCode.INVALID_TABLE_STATE: InvalidTableStateError,
     ErrorCode.TABLE_SCHEMA_VALIDATION_ERROR: TableSchemaValidationError,
+    ErrorCode.THROTTLING: ThrottlingError,
 }
 
 
