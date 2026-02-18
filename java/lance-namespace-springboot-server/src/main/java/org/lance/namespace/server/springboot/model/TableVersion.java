@@ -34,6 +34,12 @@ public class TableVersion {
 
   private Long version;
 
+  private String manifestPath;
+
+  private Long manifestSize;
+
+  private String eTag;
+
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime timestamp;
 
@@ -44,10 +50,8 @@ public class TableVersion {
   }
 
   /** Constructor with only required parameters */
-  public TableVersion(Long version, OffsetDateTime timestamp, Map<String, String> metadata) {
+  public TableVersion(Long version) {
     this.version = version;
-    this.timestamp = timestamp;
-    this.metadata = metadata;
   }
 
   public TableVersion version(Long version) {
@@ -75,6 +79,80 @@ public class TableVersion {
     this.version = version;
   }
 
+  public TableVersion manifestPath(String manifestPath) {
+    this.manifestPath = manifestPath;
+    return this;
+  }
+
+  /**
+   * Path to the manifest file for this version. When not provided, the client should resolve the
+   * manifest path based on the Lance table format's manifest naming scheme and the manifest naming
+   * scheme the table is currently using.
+   *
+   * @return manifestPath
+   */
+  @Schema(
+      name = "manifest_path",
+      description =
+          "Path to the manifest file for this version. When not provided, the client should resolve the manifest path based on the Lance table format's manifest naming scheme and the manifest naming scheme the table is currently using. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("manifest_path")
+  public String getManifestPath() {
+    return manifestPath;
+  }
+
+  public void setManifestPath(String manifestPath) {
+    this.manifestPath = manifestPath;
+  }
+
+  public TableVersion manifestSize(Long manifestSize) {
+    this.manifestSize = manifestSize;
+    return this;
+  }
+
+  /**
+   * Size of the manifest file in bytes minimum: 0
+   *
+   * @return manifestSize
+   */
+  @Min(0L)
+  @Schema(
+      name = "manifest_size",
+      description = "Size of the manifest file in bytes",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("manifest_size")
+  public Long getManifestSize() {
+    return manifestSize;
+  }
+
+  public void setManifestSize(Long manifestSize) {
+    this.manifestSize = manifestSize;
+  }
+
+  public TableVersion eTag(String eTag) {
+    this.eTag = eTag;
+    return this;
+  }
+
+  /**
+   * Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores.
+   *
+   * @return eTag
+   */
+  @Schema(
+      name = "e_tag",
+      description =
+          "Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("e_tag")
+  public String geteTag() {
+    return eTag;
+  }
+
+  public void seteTag(String eTag) {
+    this.eTag = eTag;
+  }
+
   public TableVersion timestamp(OffsetDateTime timestamp) {
     this.timestamp = timestamp;
     return this;
@@ -85,12 +163,11 @@ public class TableVersion {
    *
    * @return timestamp
    */
-  @NotNull
   @Valid
   @Schema(
       name = "timestamp",
       description = "Timestamp when the version was created",
-      requiredMode = Schema.RequiredMode.REQUIRED)
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("timestamp")
   public OffsetDateTime getTimestamp() {
     return timestamp;
@@ -114,15 +191,14 @@ public class TableVersion {
   }
 
   /**
-   * Key-value pairs of metadata
+   * Optional key-value pairs of metadata
    *
    * @return metadata
    */
-  @NotNull
   @Schema(
       name = "metadata",
-      description = "Key-value pairs of metadata",
-      requiredMode = Schema.RequiredMode.REQUIRED)
+      description = "Optional key-value pairs of metadata",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("metadata")
   public Map<String, String> getMetadata() {
     return metadata;
@@ -142,13 +218,16 @@ public class TableVersion {
     }
     TableVersion tableVersion = (TableVersion) o;
     return Objects.equals(this.version, tableVersion.version)
+        && Objects.equals(this.manifestPath, tableVersion.manifestPath)
+        && Objects.equals(this.manifestSize, tableVersion.manifestSize)
+        && Objects.equals(this.eTag, tableVersion.eTag)
         && Objects.equals(this.timestamp, tableVersion.timestamp)
         && Objects.equals(this.metadata, tableVersion.metadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(version, timestamp, metadata);
+    return Objects.hash(version, manifestPath, manifestSize, eTag, timestamp, metadata);
   }
 
   @Override
@@ -156,6 +235,9 @@ public class TableVersion {
     StringBuilder sb = new StringBuilder();
     sb.append("class TableVersion {\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    manifestPath: ").append(toIndentedString(manifestPath)).append("\n");
+    sb.append("    manifestSize: ").append(toIndentedString(manifestSize)).append("\n");
+    sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("}");

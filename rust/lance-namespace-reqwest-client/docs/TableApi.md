@@ -8,18 +8,21 @@ Method | HTTP request | Description
 [**alter_table_alter_columns**](TableApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 [**alter_table_drop_columns**](TableApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 [**analyze_table_query_plan**](TableApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
+[**batch_delete_table_versions**](TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 [**count_table_rows**](TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 [**create_empty_table**](TableApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 [**create_table**](TableApi.md#create_table) | **POST** /v1/table/{id}/create | Create a table with the given name
 [**create_table_index**](TableApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 [**create_table_scalar_index**](TableApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
 [**create_table_tag**](TableApi.md#create_table_tag) | **POST** /v1/table/{id}/tags/create | Create a new tag
+[**create_table_version**](TableApi.md#create_table_version) | **POST** /v1/table/{id}/version/create | Create a new table version
 [**declare_table**](TableApi.md#declare_table) | **POST** /v1/table/{id}/declare | Declare a table
 [**delete_from_table**](TableApi.md#delete_from_table) | **POST** /v1/table/{id}/delete | Delete rows from a table
 [**delete_table_tag**](TableApi.md#delete_table_tag) | **POST** /v1/table/{id}/tags/delete | Delete a tag
 [**deregister_table**](TableApi.md#deregister_table) | **POST** /v1/table/{id}/deregister | Deregister a table
 [**describe_table**](TableApi.md#describe_table) | **POST** /v1/table/{id}/describe | Describe information of a table
 [**describe_table_index_stats**](TableApi.md#describe_table_index_stats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
+[**describe_table_version**](TableApi.md#describe_table_version) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version
 [**drop_table**](TableApi.md#drop_table) | **POST** /v1/table/{id}/drop | Drop a table
 [**drop_table_index**](TableApi.md#drop_table_index) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index
 [**explain_table_query_plan**](TableApi.md#explain_table_query_plan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation
@@ -158,6 +161,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **String**
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## batch_delete_table_versions
+
+> models::BatchDeleteTableVersionsResponse batch_delete_table_versions(id, batch_delete_table_versions_request, delimiter)
+Delete table version records
+
+Delete version metadata records for table `id`.  This operation deletes version tracking records, NOT the actual table data. It supports deleting ranges of versions for efficient bulk cleanup.  Special range values: - `start_version: 0` with `end_version: -1` means delete ALL version records 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  | [required] |
+**batch_delete_table_versions_request** | [**BatchDeleteTableVersionsRequest**](BatchDeleteTableVersionsRequest.md) |  | [required] |
+**delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
+
+### Return type
+
+[**models::BatchDeleteTableVersionsResponse**](BatchDeleteTableVersionsResponse.md)
 
 ### Authorization
 
@@ -364,6 +399,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_table_version
+
+> models::CreateTableVersionResponse create_table_version(id, create_table_version_request, delimiter)
+Create a new table version
+
+Create a new version entry for table `id`.  This operation supports `put_if_not_exists` semantics. The operation will fail with 409 Conflict if the version already exists. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  | [required] |
+**create_table_version_request** | [**CreateTableVersionRequest**](CreateTableVersionRequest.md) |  | [required] |
+**delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
+
+### Return type
+
+[**models::CreateTableVersionResponse**](CreateTableVersionResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## declare_table
 
 > models::DeclareTableResponse declare_table(id, declare_table_request, delimiter)
@@ -546,6 +613,39 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DescribeTableIndexStatsResponse**](DescribeTableIndexStatsResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## describe_table_version
+
+> models::DescribeTableVersionResponse describe_table_version(id, version, describe_table_version_request, delimiter)
+Describe a specific table version
+
+Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  | [required] |
+**version** | **i64** | Version number to describe | [required] |
+**describe_table_version_request** | [**DescribeTableVersionRequest**](DescribeTableVersionRequest.md) |  | [required] |
+**delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
+
+### Return type
+
+[**models::DescribeTableVersionResponse**](DescribeTableVersionResponse.md)
 
 ### Authorization
 
@@ -850,10 +950,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_table_versions
 
-> models::ListTableVersionsResponse list_table_versions(id, delimiter, page_token, limit)
+> models::ListTableVersionsResponse list_table_versions(id, delimiter, page_token, limit, descending)
 List all versions of a table
 
-List all versions (commits) of table `id` with their metadata.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `ListTableVersionsRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
+List all versions (commits) of table `id` with their metadata.  Use `descending=true` to guarantee versions are returned in descending order (latest to oldest). Otherwise, the ordering is implementation-defined.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `ListTableVersionsRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `descending`: pass through query parameter of the same name 
 
 ### Parameters
 
@@ -864,6 +964,7 @@ Name | Type | Description  | Required | Notes
 **delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
 **page_token** | Option<**String**> | Pagination token from a previous request |  |
 **limit** | Option<**i32**> | Maximum number of items to return |  |
+**descending** | Option<**bool**> | When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined.  |  |
 
 ### Return type
 

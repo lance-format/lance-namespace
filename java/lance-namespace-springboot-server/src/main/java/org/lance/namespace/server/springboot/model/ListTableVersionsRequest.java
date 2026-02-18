@@ -42,6 +42,8 @@ public class ListTableVersionsRequest {
 
   private Integer limit;
 
+  private Boolean descending;
+
   public ListTableVersionsRequest identity(Identity identity) {
     this.identity = identity;
     return this;
@@ -181,6 +183,31 @@ public class ListTableVersionsRequest {
     this.limit = limit;
   }
 
+  public ListTableVersionsRequest descending(Boolean descending) {
+    this.descending = descending;
+    return this;
+  }
+
+  /**
+   * When true, versions are guaranteed to be returned in descending order (latest to oldest). When
+   * false or not specified, the ordering is implementation-defined.
+   *
+   * @return descending
+   */
+  @Schema(
+      name = "descending",
+      description =
+          "When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("descending")
+  public Boolean getDescending() {
+    return descending;
+  }
+
+  public void setDescending(Boolean descending) {
+    this.descending = descending;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -194,12 +221,13 @@ public class ListTableVersionsRequest {
         && Objects.equals(this.context, listTableVersionsRequest.context)
         && Objects.equals(this.id, listTableVersionsRequest.id)
         && Objects.equals(this.pageToken, listTableVersionsRequest.pageToken)
-        && Objects.equals(this.limit, listTableVersionsRequest.limit);
+        && Objects.equals(this.limit, listTableVersionsRequest.limit)
+        && Objects.equals(this.descending, listTableVersionsRequest.descending);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, pageToken, limit);
+    return Objects.hash(identity, context, id, pageToken, limit, descending);
   }
 
   @Override
@@ -211,6 +239,7 @@ public class ListTableVersionsRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    pageToken: ").append(toIndentedString(pageToken)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    descending: ").append(toIndentedString(descending)).append("\n");
     sb.append("}");
     return sb.toString();
   }

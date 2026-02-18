@@ -47,6 +47,13 @@ class TestMetadataApi(unittest.TestCase):
         """
         pass
 
+    def test_batch_delete_table_versions(self) -> None:
+        """Test case for batch_delete_table_versions
+
+        Delete table version records
+        """
+        pass
+
     def test_create_empty_table(self) -> None:
         """Test case for create_empty_table
 
@@ -79,6 +86,13 @@ class TestMetadataApi(unittest.TestCase):
         """Test case for create_table_tag
 
         Create a new tag
+        """
+        pass
+
+    def test_create_table_version(self) -> None:
+        """Test case for create_table_version
+
+        Create a new table version
         """
         pass
 
@@ -121,6 +135,13 @@ class TestMetadataApi(unittest.TestCase):
         """Test case for describe_table_index_stats
 
         Get table index statistics
+        """
+        pass
+
+    def test_describe_table_version(self) -> None:
+        """Test case for describe_table_version
+
+        Describe a specific table version
         """
         pass
 

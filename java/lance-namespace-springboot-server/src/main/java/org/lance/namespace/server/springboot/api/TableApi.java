@@ -20,6 +20,8 @@ import org.lance.namespace.server.springboot.model.AlterTableAlterColumnsRespons
 import org.lance.namespace.server.springboot.model.AlterTableDropColumnsRequest;
 import org.lance.namespace.server.springboot.model.AlterTableDropColumnsResponse;
 import org.lance.namespace.server.springboot.model.AnalyzeTableQueryPlanRequest;
+import org.lance.namespace.server.springboot.model.BatchDeleteTableVersionsRequest;
+import org.lance.namespace.server.springboot.model.BatchDeleteTableVersionsResponse;
 import org.lance.namespace.server.springboot.model.CountTableRowsRequest;
 import org.lance.namespace.server.springboot.model.CreateEmptyTableRequest;
 import org.lance.namespace.server.springboot.model.CreateEmptyTableResponse;
@@ -29,6 +31,8 @@ import org.lance.namespace.server.springboot.model.CreateTableResponse;
 import org.lance.namespace.server.springboot.model.CreateTableScalarIndexResponse;
 import org.lance.namespace.server.springboot.model.CreateTableTagRequest;
 import org.lance.namespace.server.springboot.model.CreateTableTagResponse;
+import org.lance.namespace.server.springboot.model.CreateTableVersionRequest;
+import org.lance.namespace.server.springboot.model.CreateTableVersionResponse;
 import org.lance.namespace.server.springboot.model.DeclareTableRequest;
 import org.lance.namespace.server.springboot.model.DeclareTableResponse;
 import org.lance.namespace.server.springboot.model.DeleteFromTableRequest;
@@ -41,6 +45,8 @@ import org.lance.namespace.server.springboot.model.DescribeTableIndexStatsReques
 import org.lance.namespace.server.springboot.model.DescribeTableIndexStatsResponse;
 import org.lance.namespace.server.springboot.model.DescribeTableRequest;
 import org.lance.namespace.server.springboot.model.DescribeTableResponse;
+import org.lance.namespace.server.springboot.model.DescribeTableVersionRequest;
+import org.lance.namespace.server.springboot.model.DescribeTableVersionResponse;
 import org.lance.namespace.server.springboot.model.DropTableIndexResponse;
 import org.lance.namespace.server.springboot.model.DropTableResponse;
 import org.lance.namespace.server.springboot.model.ErrorResponse;
@@ -754,6 +760,184 @@ public interface TableApi {
         .ifPresent(
             request -> {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+              }
+            });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
+
+  /**
+   * POST /v1/table/{id}/version/delete : Delete table version records Delete version metadata
+   * records for table &#x60;id&#x60;. This operation deletes version tracking records, NOT the
+   * actual table data. It supports deleting ranges of versions for efficient bulk cleanup. Special
+   * range values: - &#x60;start_version: 0&#x60; with &#x60;end_version: -1&#x60; means delete ALL
+   * version records
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param batchDeleteTableVersionsRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return Result of deleting table version records (status code 200) or Indicates a bad request
+   *     error. It could be caused by an unexpected request body format or other forms of request
+   *     validation failure, such as invalid json. Usually serves application/json content, although
+   *     in some cases simple text/plain content might be returned by the server&#39;s middleware.
+   *     (status code 400) or Unauthorized. The request lacks valid authentication credentials for
+   *     the operation. (status code 401) or Forbidden. Authenticated user does not have the
+   *     necessary permissions. (status code 403) or A server-side problem that means can not find
+   *     the specified resource. (status code 404) or The service is not ready to handle the
+   *     request. The client should wait and retry. The service may additionally send a Retry-After
+   *     header to indicate when to retry. (status code 503) or A server-side problem that might not
+   *     be addressable from the client side. Used for server 5xx errors without more specific
+   *     documentation in individual routes. (status code 5XX)
+   */
+  @Operation(
+      operationId = "batchDeleteTableVersions",
+      summary = "Delete table version records",
+      description =
+          "Delete version metadata records for table `id`.  This operation deletes version tracking records, NOT the actual table data. It supports deleting ranges of versions for efficient bulk cleanup.  Special range values: - `start_version: 0` with `end_version: -1` means delete ALL version records ",
+      tags = {"Table", "Metadata"},
+      responses = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Result of deleting table version records",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = BatchDeleteTableVersionsResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "400",
+            description =
+                "Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server's middleware.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "401",
+            description =
+                "Unauthorized. The request lacks valid authentication credentials for the operation.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "403",
+            description = "Forbidden. Authenticated user does not have the necessary permissions.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "404",
+            description = "A server-side problem that means can not find the specified resource.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "503",
+            description =
+                "The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "5XX",
+            description =
+                "A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            })
+      },
+      security = {
+        @SecurityRequirement(name = "OAuth2"),
+        @SecurityRequirement(name = "ApiKeyAuth"),
+        @SecurityRequirement(name = "BearerAuth")
+      })
+  @RequestMapping(
+      method = RequestMethod.POST,
+      value = "/v1/table/{id}/version/delete",
+      produces = {"application/json"},
+      consumes = {"application/json"})
+  default ResponseEntity<BatchDeleteTableVersionsResponse> batchDeleteTableVersions(
+      @Parameter(
+              name = "id",
+              description =
+                  "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
+              required = true,
+              in = ParameterIn.PATH)
+          @PathVariable("id")
+          String id,
+      @Parameter(name = "BatchDeleteTableVersionsRequest", description = "", required = true)
+          @Valid
+          @RequestBody
+          BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest,
+      @Parameter(
+              name = "delimiter",
+              description =
+                  "An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "delimiter", required = false)
+          Optional<String> delimiter) {
+    getRequest()
+        .ifPresent(
+            request -> {
+              for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"transaction_id\" : \"transaction_id\", \"deleted_count\" : 0 }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
                       "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
@@ -1894,6 +2078,196 @@ public interface TableApi {
   }
 
   /**
+   * POST /v1/table/{id}/version/create : Create a new table version Create a new version entry for
+   * table &#x60;id&#x60;. This operation supports &#x60;put_if_not_exists&#x60; semantics. The
+   * operation will fail with 409 Conflict if the version already exists.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param createTableVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return Result of creating a table version (status code 200) or Indicates a bad request error.
+   *     It could be caused by an unexpected request body format or other forms of request
+   *     validation failure, such as invalid json. Usually serves application/json content, although
+   *     in some cases simple text/plain content might be returned by the server&#39;s middleware.
+   *     (status code 400) or Unauthorized. The request lacks valid authentication credentials for
+   *     the operation. (status code 401) or Forbidden. Authenticated user does not have the
+   *     necessary permissions. (status code 403) or A server-side problem that means can not find
+   *     the specified resource. (status code 404) or The request conflicts with the current state
+   *     of the target resource. (status code 409) or The service is not ready to handle the
+   *     request. The client should wait and retry. The service may additionally send a Retry-After
+   *     header to indicate when to retry. (status code 503) or A server-side problem that might not
+   *     be addressable from the client side. Used for server 5xx errors without more specific
+   *     documentation in individual routes. (status code 5XX)
+   */
+  @Operation(
+      operationId = "createTableVersion",
+      summary = "Create a new table version",
+      description =
+          "Create a new version entry for table `id`.  This operation supports `put_if_not_exists` semantics. The operation will fail with 409 Conflict if the version already exists. ",
+      tags = {"Table", "Metadata"},
+      responses = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Result of creating a table version",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = CreateTableVersionResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "400",
+            description =
+                "Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server's middleware.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "401",
+            description =
+                "Unauthorized. The request lacks valid authentication credentials for the operation.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "403",
+            description = "Forbidden. Authenticated user does not have the necessary permissions.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "404",
+            description = "A server-side problem that means can not find the specified resource.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "409",
+            description = "The request conflicts with the current state of the target resource.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "503",
+            description =
+                "The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "5XX",
+            description =
+                "A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            })
+      },
+      security = {
+        @SecurityRequirement(name = "OAuth2"),
+        @SecurityRequirement(name = "ApiKeyAuth"),
+        @SecurityRequirement(name = "BearerAuth")
+      })
+  @RequestMapping(
+      method = RequestMethod.POST,
+      value = "/v1/table/{id}/version/create",
+      produces = {"application/json"},
+      consumes = {"application/json"})
+  default ResponseEntity<CreateTableVersionResponse> createTableVersion(
+      @Parameter(
+              name = "id",
+              description =
+                  "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
+              required = true,
+              in = ParameterIn.PATH)
+          @PathVariable("id")
+          String id,
+      @Parameter(name = "CreateTableVersionRequest", description = "", required = true)
+          @Valid
+          @RequestBody
+          CreateTableVersionRequest createTableVersionRequest,
+      @Parameter(
+              name = "delimiter",
+              description =
+                  "An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "delimiter", required = false)
+          Optional<String> delimiter) {
+    getRequest()
+        .ifPresent(
+            request -> {
+              for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString = "{ \"transaction_id\" : \"transaction_id\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+              }
+            });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
+
+  /**
    * POST /v1/table/{id}/declare : Declare a table Declare a table with the given name without
    * touching storage. This is a metadata-only operation that records the table existence and sets
    * up aspects like access control. For DirectoryNamespace implementation, this creates a
@@ -2947,6 +3321,192 @@ public interface TableApi {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
                       "{ \"num_indices\" : 0, \"distance_type\" : \"distance_type\", \"num_unindexed_rows\" : 0, \"num_indexed_rows\" : 0, \"index_type\" : \"index_type\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+              }
+            });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
+
+  /**
+   * POST /v1/table/{id}/version/{version}/describe : Describe a specific table version Describe the
+   * detailed information for a specific version of table &#x60;id&#x60;. Returns the manifest path
+   * and metadata for the specified version. REST NAMESPACE ONLY REST namespace passes
+   * &#x60;version&#x60; as a path parameter instead of in the request body.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param version Version number to describe (required)
+   * @param describeTableVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return Table version information (status code 200) or Indicates a bad request error. It could
+   *     be caused by an unexpected request body format or other forms of request validation
+   *     failure, such as invalid json. Usually serves application/json content, although in some
+   *     cases simple text/plain content might be returned by the server&#39;s middleware. (status
+   *     code 400) or Unauthorized. The request lacks valid authentication credentials for the
+   *     operation. (status code 401) or Forbidden. Authenticated user does not have the necessary
+   *     permissions. (status code 403) or A server-side problem that means can not find the
+   *     specified resource. (status code 404) or The service is not ready to handle the request.
+   *     The client should wait and retry. The service may additionally send a Retry-After header to
+   *     indicate when to retry. (status code 503) or A server-side problem that might not be
+   *     addressable from the client side. Used for server 5xx errors without more specific
+   *     documentation in individual routes. (status code 5XX)
+   */
+  @Operation(
+      operationId = "describeTableVersion",
+      summary = "Describe a specific table version",
+      description =
+          "Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version.  REST NAMESPACE ONLY REST namespace passes `version` as a path parameter instead of in the request body. ",
+      tags = {"Table", "Metadata"},
+      responses = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Table version information",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = DescribeTableVersionResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "400",
+            description =
+                "Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server's middleware.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "401",
+            description =
+                "Unauthorized. The request lacks valid authentication credentials for the operation.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "403",
+            description = "Forbidden. Authenticated user does not have the necessary permissions.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "404",
+            description = "A server-side problem that means can not find the specified resource.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "503",
+            description =
+                "The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "5XX",
+            description =
+                "A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            })
+      },
+      security = {
+        @SecurityRequirement(name = "OAuth2"),
+        @SecurityRequirement(name = "ApiKeyAuth"),
+        @SecurityRequirement(name = "BearerAuth")
+      })
+  @RequestMapping(
+      method = RequestMethod.POST,
+      value = "/v1/table/{id}/version/{version}/describe",
+      produces = {"application/json"},
+      consumes = {"application/json"})
+  default ResponseEntity<DescribeTableVersionResponse> describeTableVersion(
+      @Parameter(
+              name = "id",
+              description =
+                  "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
+              required = true,
+              in = ParameterIn.PATH)
+          @PathVariable("id")
+          String id,
+      @Min(0L)
+          @Parameter(
+              name = "version",
+              description = "Version number to describe",
+              required = true,
+              in = ParameterIn.PATH)
+          @PathVariable("version")
+          Long version,
+      @Parameter(name = "DescribeTableVersionRequest", description = "", required = true)
+          @Valid
+          @RequestBody
+          DescribeTableVersionRequest describeTableVersionRequest,
+      @Parameter(
+              name = "delimiter",
+              description =
+                  "An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "delimiter", required = false)
+          Optional<String> delimiter) {
+    getRequest()
+        .ifPresent(
+            request -> {
+              for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -4583,11 +5143,13 @@ public interface TableApi {
 
   /**
    * POST /v1/table/{id}/version/list : List all versions of a table List all versions (commits) of
-   * table &#x60;id&#x60; with their metadata. REST NAMESPACE ONLY REST namespace does not use a
-   * request body for this operation. The &#x60;ListTableVersionsRequest&#x60; information is passed
-   * in the following way: - &#x60;id&#x60;: pass through path parameter of the same name -
-   * &#x60;page_token&#x60;: pass through query parameter of the same name - &#x60;limit&#x60;: pass
-   * through query parameter of the same name
+   * table &#x60;id&#x60; with their metadata. Use &#x60;descending&#x3D;true&#x60; to guarantee
+   * versions are returned in descending order (latest to oldest). Otherwise, the ordering is
+   * implementation-defined. REST NAMESPACE ONLY REST namespace does not use a request body for this
+   * operation. The &#x60;ListTableVersionsRequest&#x60; information is passed in the following way:
+   * - &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass
+   * through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of
+   * the same name - &#x60;descending&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -4598,6 +5160,8 @@ public interface TableApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param descending When true, versions are guaranteed to be returned in descending order (latest
+   *     to oldest). When false or not specified, the ordering is implementation-defined. (optional)
    * @return List of table versions (status code 200) or Indicates a bad request error. It could be
    *     caused by an unexpected request body format or other forms of request validation failure,
    *     such as invalid json. Usually serves application/json content, although in some cases
@@ -4615,7 +5179,7 @@ public interface TableApi {
       operationId = "listTableVersions",
       summary = "List all versions of a table",
       description =
-          "List all versions (commits) of table `id` with their metadata.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `ListTableVersionsRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name ",
+          "List all versions (commits) of table `id` with their metadata.  Use `descending=true` to guarantee versions are returned in descending order (latest to oldest). Otherwise, the ordering is implementation-defined.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `ListTableVersionsRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `descending`: pass through query parameter of the same name ",
       tags = {"Table", "Metadata"},
       responses = {
         @ApiResponse(
@@ -4718,14 +5282,22 @@ public interface TableApi {
               in = ParameterIn.QUERY)
           @Valid
           @RequestParam(value = "limit", required = false)
-          Optional<Integer> limit) {
+          Optional<Integer> limit,
+      @Parameter(
+              name = "descending",
+              description =
+                  "When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "descending", required = false)
+          Optional<Boolean> descending) {
     getRequest()
         .ifPresent(
             request -> {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"versions\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" }, { \"metadata\" : { \"key\" : \"metadata\" }, \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" } ], \"page_token\" : \"page_token\" }";
+                      "{ \"versions\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" }, { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" } ], \"page_token\" : \"page_token\" }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }

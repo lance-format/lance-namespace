@@ -1,0 +1,331 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.lance.namespace.server.springboot.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+
+import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ * Request to create a new table version entry. This supports &#x60;put_if_not_exists&#x60;
+ * semantics, where the operation fails if the version already exists.
+ */
+@Schema(
+    name = "CreateTableVersionRequest",
+    description =
+        "Request to create a new table version entry. This supports `put_if_not_exists` semantics, where the operation fails if the version already exists. ")
+@Generated(
+    value = "org.openapitools.codegen.languages.SpringCodegen",
+    comments = "Generator version: 7.12.0")
+public class CreateTableVersionRequest {
+
+  private Identity identity;
+
+  @Valid private Map<String, String> context = new HashMap<>();
+
+  @Valid private List<String> id = new ArrayList<>();
+
+  private Long version;
+
+  private String manifestPath;
+
+  private Long manifestSize;
+
+  private String eTag;
+
+  @Valid private Map<String, String> metadata = new HashMap<>();
+
+  public CreateTableVersionRequest() {
+    super();
+  }
+
+  /** Constructor with only required parameters */
+  public CreateTableVersionRequest(Long version, String manifestPath) {
+    this.version = version;
+    this.manifestPath = manifestPath;
+  }
+
+  public CreateTableVersionRequest identity(Identity identity) {
+    this.identity = identity;
+    return this;
+  }
+
+  /**
+   * Get identity
+   *
+   * @return identity
+   */
+  @Valid
+  @Schema(name = "identity", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("identity")
+  public Identity getIdentity() {
+    return identity;
+  }
+
+  public void setIdentity(Identity identity) {
+    this.identity = identity;
+  }
+
+  public CreateTableVersionRequest context(Map<String, String> context) {
+    this.context = context;
+    return this;
+  }
+
+  public CreateTableVersionRequest putContextItem(String key, String contextItem) {
+    if (this.context == null) {
+      this.context = new HashMap<>();
+    }
+    this.context.put(key, contextItem);
+    return this;
+  }
+
+  /**
+   * Arbitrary context for a request as key-value pairs. How to use the context is custom to the
+   * specific implementation. REST NAMESPACE ONLY Context entries are passed via HTTP headers using
+   * the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry
+   * `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
+   *
+   * @return context
+   */
+  @Schema(
+      name = "context",
+      description =
+          "Arbitrary context for a request as key-value pairs. How to use the context is custom to the specific implementation.  REST NAMESPACE ONLY Context entries are passed via HTTP headers using the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("context")
+  public Map<String, String> getContext() {
+    return context;
+  }
+
+  public void setContext(Map<String, String> context) {
+    this.context = context;
+  }
+
+  public CreateTableVersionRequest id(List<String> id) {
+    this.id = id;
+    return this;
+  }
+
+  public CreateTableVersionRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * The table identifier
+   *
+   * @return id
+   */
+  @Schema(
+      name = "id",
+      description = "The table identifier",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public List<String> getId() {
+    return id;
+  }
+
+  public void setId(List<String> id) {
+    this.id = id;
+  }
+
+  public CreateTableVersionRequest version(Long version) {
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Version number to create minimum: 0
+   *
+   * @return version
+   */
+  @NotNull
+  @Min(0L)
+  @Schema(
+      name = "version",
+      description = "Version number to create",
+      requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("version")
+  public Long getVersion() {
+    return version;
+  }
+
+  public void setVersion(Long version) {
+    this.version = version;
+  }
+
+  public CreateTableVersionRequest manifestPath(String manifestPath) {
+    this.manifestPath = manifestPath;
+    return this;
+  }
+
+  /**
+   * Path to the manifest file for this version
+   *
+   * @return manifestPath
+   */
+  @NotNull
+  @Schema(
+      name = "manifest_path",
+      description = "Path to the manifest file for this version",
+      requiredMode = Schema.RequiredMode.REQUIRED)
+  @JsonProperty("manifest_path")
+  public String getManifestPath() {
+    return manifestPath;
+  }
+
+  public void setManifestPath(String manifestPath) {
+    this.manifestPath = manifestPath;
+  }
+
+  public CreateTableVersionRequest manifestSize(Long manifestSize) {
+    this.manifestSize = manifestSize;
+    return this;
+  }
+
+  /**
+   * Size of the manifest file in bytes minimum: 0
+   *
+   * @return manifestSize
+   */
+  @Min(0L)
+  @Schema(
+      name = "manifest_size",
+      description = "Size of the manifest file in bytes",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("manifest_size")
+  public Long getManifestSize() {
+    return manifestSize;
+  }
+
+  public void setManifestSize(Long manifestSize) {
+    this.manifestSize = manifestSize;
+  }
+
+  public CreateTableVersionRequest eTag(String eTag) {
+    this.eTag = eTag;
+    return this;
+  }
+
+  /**
+   * Optional ETag for the manifest file
+   *
+   * @return eTag
+   */
+  @Schema(
+      name = "e_tag",
+      description = "Optional ETag for the manifest file",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("e_tag")
+  public String geteTag() {
+    return eTag;
+  }
+
+  public void seteTag(String eTag) {
+    this.eTag = eTag;
+  }
+
+  public CreateTableVersionRequest metadata(Map<String, String> metadata) {
+    this.metadata = metadata;
+    return this;
+  }
+
+  public CreateTableVersionRequest putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null) {
+      this.metadata = new HashMap<>();
+    }
+    this.metadata.put(key, metadataItem);
+    return this;
+  }
+
+  /**
+   * Optional metadata for the version
+   *
+   * @return metadata
+   */
+  @Schema(
+      name = "metadata",
+      description = "Optional metadata for the version",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("metadata")
+  public Map<String, String> getMetadata() {
+    return metadata;
+  }
+
+  public void setMetadata(Map<String, String> metadata) {
+    this.metadata = metadata;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateTableVersionRequest createTableVersionRequest = (CreateTableVersionRequest) o;
+    return Objects.equals(this.identity, createTableVersionRequest.identity)
+        && Objects.equals(this.context, createTableVersionRequest.context)
+        && Objects.equals(this.id, createTableVersionRequest.id)
+        && Objects.equals(this.version, createTableVersionRequest.version)
+        && Objects.equals(this.manifestPath, createTableVersionRequest.manifestPath)
+        && Objects.equals(this.manifestSize, createTableVersionRequest.manifestSize)
+        && Objects.equals(this.eTag, createTableVersionRequest.eTag)
+        && Objects.equals(this.metadata, createTableVersionRequest.metadata);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(identity, context, id, version, manifestPath, manifestSize, eTag, metadata);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateTableVersionRequest {\n");
+    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
+    sb.append("    context: ").append(toIndentedString(context)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    manifestPath: ").append(toIndentedString(manifestPath)).append("\n");
+    sb.append("    manifestSize: ").append(toIndentedString(manifestSize)).append("\n");
+    sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
+    sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+}

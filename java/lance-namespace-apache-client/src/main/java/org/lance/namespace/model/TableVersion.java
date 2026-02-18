@@ -28,6 +28,9 @@ import java.util.StringJoiner;
 /** TableVersion */
 @JsonPropertyOrder({
   TableVersion.JSON_PROPERTY_VERSION,
+  TableVersion.JSON_PROPERTY_MANIFEST_PATH,
+  TableVersion.JSON_PROPERTY_MANIFEST_SIZE,
+  TableVersion.JSON_PROPERTY_E_TAG,
   TableVersion.JSON_PROPERTY_TIMESTAMP,
   TableVersion.JSON_PROPERTY_METADATA
 })
@@ -38,11 +41,20 @@ public class TableVersion {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull private Long version;
 
+  public static final String JSON_PROPERTY_MANIFEST_PATH = "manifest_path";
+  @javax.annotation.Nullable private String manifestPath;
+
+  public static final String JSON_PROPERTY_MANIFEST_SIZE = "manifest_size";
+  @javax.annotation.Nullable private Long manifestSize;
+
+  public static final String JSON_PROPERTY_E_TAG = "e_tag";
+  @javax.annotation.Nullable private String eTag;
+
   public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-  @javax.annotation.Nonnull private OffsetDateTime timestamp;
+  @javax.annotation.Nullable private OffsetDateTime timestamp;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
-  @javax.annotation.Nonnull private Map<String, String> metadata = new HashMap<>();
+  @javax.annotation.Nullable private Map<String, String> metadata = new HashMap<>();
 
   public TableVersion() {}
 
@@ -70,7 +82,81 @@ public class TableVersion {
     this.version = version;
   }
 
-  public TableVersion timestamp(@javax.annotation.Nonnull OffsetDateTime timestamp) {
+  public TableVersion manifestPath(@javax.annotation.Nullable String manifestPath) {
+
+    this.manifestPath = manifestPath;
+    return this;
+  }
+
+  /**
+   * Path to the manifest file for this version. When not provided, the client should resolve the
+   * manifest path based on the Lance table format&#39;s manifest naming scheme and the manifest
+   * naming scheme the table is currently using.
+   *
+   * @return manifestPath
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getManifestPath() {
+    return manifestPath;
+  }
+
+  @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setManifestPath(@javax.annotation.Nullable String manifestPath) {
+    this.manifestPath = manifestPath;
+  }
+
+  public TableVersion manifestSize(@javax.annotation.Nullable Long manifestSize) {
+
+    this.manifestSize = manifestSize;
+    return this;
+  }
+
+  /**
+   * Size of the manifest file in bytes minimum: 0
+   *
+   * @return manifestSize
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Long getManifestSize() {
+    return manifestSize;
+  }
+
+  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setManifestSize(@javax.annotation.Nullable Long manifestSize) {
+    this.manifestSize = manifestSize;
+  }
+
+  public TableVersion eTag(@javax.annotation.Nullable String eTag) {
+
+    this.eTag = eTag;
+    return this;
+  }
+
+  /**
+   * Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores.
+   *
+   * @return eTag
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_E_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String geteTag() {
+    return eTag;
+  }
+
+  @JsonProperty(JSON_PROPERTY_E_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void seteTag(@javax.annotation.Nullable String eTag) {
+    this.eTag = eTag;
+  }
+
+  public TableVersion timestamp(@javax.annotation.Nullable OffsetDateTime timestamp) {
 
     this.timestamp = timestamp;
     return this;
@@ -81,45 +167,48 @@ public class TableVersion {
    *
    * @return timestamp
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public OffsetDateTime getTimestamp() {
     return timestamp;
   }
 
   @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTimestamp(@javax.annotation.Nonnull OffsetDateTime timestamp) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTimestamp(@javax.annotation.Nullable OffsetDateTime timestamp) {
     this.timestamp = timestamp;
   }
 
-  public TableVersion metadata(@javax.annotation.Nonnull Map<String, String> metadata) {
+  public TableVersion metadata(@javax.annotation.Nullable Map<String, String> metadata) {
 
     this.metadata = metadata;
     return this;
   }
 
   public TableVersion putMetadataItem(String key, String metadataItem) {
+    if (this.metadata == null) {
+      this.metadata = new HashMap<>();
+    }
     this.metadata.put(key, metadataItem);
     return this;
   }
 
   /**
-   * Key-value pairs of metadata
+   * Optional key-value pairs of metadata
    *
    * @return metadata
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
   @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMetadata(@javax.annotation.Nonnull Map<String, String> metadata) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
   }
 
@@ -133,13 +222,16 @@ public class TableVersion {
     }
     TableVersion tableVersion = (TableVersion) o;
     return Objects.equals(this.version, tableVersion.version)
+        && Objects.equals(this.manifestPath, tableVersion.manifestPath)
+        && Objects.equals(this.manifestSize, tableVersion.manifestSize)
+        && Objects.equals(this.eTag, tableVersion.eTag)
         && Objects.equals(this.timestamp, tableVersion.timestamp)
         && Objects.equals(this.metadata, tableVersion.metadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(version, timestamp, metadata);
+    return Objects.hash(version, manifestPath, manifestSize, eTag, timestamp, metadata);
   }
 
   @Override
@@ -147,6 +239,9 @@ public class TableVersion {
     StringBuilder sb = new StringBuilder();
     sb.append("class TableVersion {\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    manifestPath: ").append(toIndentedString(manifestPath)).append("\n");
+    sb.append("    manifestSize: ").append(toIndentedString(manifestSize)).append("\n");
+    sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("}");
@@ -204,6 +299,53 @@ public class TableVersion {
                 prefix,
                 suffix,
                 URLEncoder.encode(String.valueOf(getVersion()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `manifest_path` to the URL query string
+    if (getManifestPath() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%smanifest_path%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getManifestPath()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `manifest_size` to the URL query string
+    if (getManifestSize() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%smanifest_size%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getManifestSize()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `e_tag` to the URL query string
+    if (geteTag() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%se_tag%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(geteTag()), "UTF-8").replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);

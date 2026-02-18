@@ -54,6 +54,13 @@ class TestTableApi(unittest.TestCase):
         """
         pass
 
+    def test_batch_delete_table_versions(self) -> None:
+        """Test case for batch_delete_table_versions
+
+        Delete table version records
+        """
+        pass
+
     def test_count_table_rows(self) -> None:
         """Test case for count_table_rows
 
@@ -96,6 +103,13 @@ class TestTableApi(unittest.TestCase):
         """
         pass
 
+    def test_create_table_version(self) -> None:
+        """Test case for create_table_version
+
+        Create a new table version
+        """
+        pass
+
     def test_declare_table(self) -> None:
         """Test case for declare_table
 
@@ -135,6 +149,13 @@ class TestTableApi(unittest.TestCase):
         """Test case for describe_table_index_stats
 
         Get table index statistics
+        """
+        pass
+
+    def test_describe_table_version(self) -> None:
+        """Test case for describe_table_version
+
+        Describe a specific table version
         """
         pass
 

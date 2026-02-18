@@ -16,20 +16,32 @@ pub struct TableVersion {
     /// Version number
     #[serde(rename = "version")]
     pub version: i64,
+    /// Path to the manifest file for this version. When not provided, the client should resolve the manifest path based on the Lance table format's manifest naming scheme and the manifest naming scheme the table is currently using. 
+    #[serde(rename = "manifest_path", skip_serializing_if = "Option::is_none")]
+    pub manifest_path: Option<String>,
+    /// Size of the manifest file in bytes
+    #[serde(rename = "manifest_size", skip_serializing_if = "Option::is_none")]
+    pub manifest_size: Option<i64>,
+    /// Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores. 
+    #[serde(rename = "e_tag", skip_serializing_if = "Option::is_none")]
+    pub e_tag: Option<String>,
     /// Timestamp when the version was created
-    #[serde(rename = "timestamp")]
-    pub timestamp: String,
-    /// Key-value pairs of metadata
-    #[serde(rename = "metadata")]
-    pub metadata: std::collections::HashMap<String, String>,
+    #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
+    pub timestamp: Option<String>,
+    /// Optional key-value pairs of metadata
+    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl TableVersion {
-    pub fn new(version: i64, timestamp: String, metadata: std::collections::HashMap<String, String>) -> TableVersion {
+    pub fn new(version: i64) -> TableVersion {
         TableVersion {
             version,
-            timestamp,
-            metadata,
+            manifest_path: None,
+            manifest_size: None,
+            e_tag: None,
+            timestamp: None,
+            metadata: None,
         }
     }
 }

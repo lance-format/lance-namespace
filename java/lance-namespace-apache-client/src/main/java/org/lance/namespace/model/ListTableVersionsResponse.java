@@ -56,7 +56,8 @@ public class ListTableVersionsResponse {
   }
 
   /**
-   * List of table versions
+   * List of table versions. When &#x60;descending&#x3D;true&#x60;, guaranteed to be ordered from
+   * latest to oldest. Otherwise, ordering is implementation-defined.
    *
    * @return versions
    */

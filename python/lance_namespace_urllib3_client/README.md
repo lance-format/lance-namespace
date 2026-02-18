@@ -131,17 +131,20 @@ Class | Method | HTTP request | Description
 *MetadataApi* | [**alter_table_alter_columns**](docs/MetadataApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *MetadataApi* | [**alter_table_drop_columns**](docs/MetadataApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *MetadataApi* | [**alter_transaction**](docs/MetadataApi.md#alter_transaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction.
+*MetadataApi* | [**batch_delete_table_versions**](docs/MetadataApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *MetadataApi* | [**create_empty_table**](docs/MetadataApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 *MetadataApi* | [**create_namespace**](docs/MetadataApi.md#create_namespace) | **POST** /v1/namespace/{id}/create | Create a new namespace
 *MetadataApi* | [**create_table_index**](docs/MetadataApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 *MetadataApi* | [**create_table_scalar_index**](docs/MetadataApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
 *MetadataApi* | [**create_table_tag**](docs/MetadataApi.md#create_table_tag) | **POST** /v1/table/{id}/tags/create | Create a new tag
+*MetadataApi* | [**create_table_version**](docs/MetadataApi.md#create_table_version) | **POST** /v1/table/{id}/version/create | Create a new table version
 *MetadataApi* | [**declare_table**](docs/MetadataApi.md#declare_table) | **POST** /v1/table/{id}/declare | Declare a table
 *MetadataApi* | [**delete_table_tag**](docs/MetadataApi.md#delete_table_tag) | **POST** /v1/table/{id}/tags/delete | Delete a tag
 *MetadataApi* | [**deregister_table**](docs/MetadataApi.md#deregister_table) | **POST** /v1/table/{id}/deregister | Deregister a table
 *MetadataApi* | [**describe_namespace**](docs/MetadataApi.md#describe_namespace) | **POST** /v1/namespace/{id}/describe | Describe a namespace
 *MetadataApi* | [**describe_table**](docs/MetadataApi.md#describe_table) | **POST** /v1/table/{id}/describe | Describe information of a table
 *MetadataApi* | [**describe_table_index_stats**](docs/MetadataApi.md#describe_table_index_stats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
+*MetadataApi* | [**describe_table_version**](docs/MetadataApi.md#describe_table_version) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version
 *MetadataApi* | [**describe_transaction**](docs/MetadataApi.md#describe_transaction) | **POST** /v1/transaction/{id}/describe | Describe information about a transaction
 *MetadataApi* | [**drop_namespace**](docs/MetadataApi.md#drop_namespace) | **POST** /v1/namespace/{id}/drop | Drop a namespace
 *MetadataApi* | [**drop_table**](docs/MetadataApi.md#drop_table) | **POST** /v1/table/{id}/drop | Drop a table
@@ -170,18 +173,21 @@ Class | Method | HTTP request | Description
 *TableApi* | [**alter_table_alter_columns**](docs/TableApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *TableApi* | [**alter_table_drop_columns**](docs/TableApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *TableApi* | [**analyze_table_query_plan**](docs/TableApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
+*TableApi* | [**batch_delete_table_versions**](docs/TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *TableApi* | [**count_table_rows**](docs/TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 *TableApi* | [**create_empty_table**](docs/TableApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 *TableApi* | [**create_table**](docs/TableApi.md#create_table) | **POST** /v1/table/{id}/create | Create a table with the given name
 *TableApi* | [**create_table_index**](docs/TableApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 *TableApi* | [**create_table_scalar_index**](docs/TableApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
 *TableApi* | [**create_table_tag**](docs/TableApi.md#create_table_tag) | **POST** /v1/table/{id}/tags/create | Create a new tag
+*TableApi* | [**create_table_version**](docs/TableApi.md#create_table_version) | **POST** /v1/table/{id}/version/create | Create a new table version
 *TableApi* | [**declare_table**](docs/TableApi.md#declare_table) | **POST** /v1/table/{id}/declare | Declare a table
 *TableApi* | [**delete_from_table**](docs/TableApi.md#delete_from_table) | **POST** /v1/table/{id}/delete | Delete rows from a table
 *TableApi* | [**delete_table_tag**](docs/TableApi.md#delete_table_tag) | **POST** /v1/table/{id}/tags/delete | Delete a tag
 *TableApi* | [**deregister_table**](docs/TableApi.md#deregister_table) | **POST** /v1/table/{id}/deregister | Deregister a table
 *TableApi* | [**describe_table**](docs/TableApi.md#describe_table) | **POST** /v1/table/{id}/describe | Describe information of a table
 *TableApi* | [**describe_table_index_stats**](docs/TableApi.md#describe_table_index_stats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
+*TableApi* | [**describe_table_version**](docs/TableApi.md#describe_table_version) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version
 *TableApi* | [**drop_table**](docs/TableApi.md#drop_table) | **POST** /v1/table/{id}/drop | Drop a table
 *TableApi* | [**drop_table_index**](docs/TableApi.md#drop_table_index) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index
 *TableApi* | [**explain_table_query_plan**](docs/TableApi.md#explain_table_query_plan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation
@@ -230,6 +236,8 @@ Class | Method | HTTP request | Description
  - [AlterVirtualColumnEntry](docs/AlterVirtualColumnEntry.md)
  - [AnalyzeTableQueryPlanRequest](docs/AnalyzeTableQueryPlanRequest.md)
  - [AnalyzeTableQueryPlanResponse](docs/AnalyzeTableQueryPlanResponse.md)
+ - [BatchDeleteTableVersionsRequest](docs/BatchDeleteTableVersionsRequest.md)
+ - [BatchDeleteTableVersionsResponse](docs/BatchDeleteTableVersionsResponse.md)
  - [BooleanQuery](docs/BooleanQuery.md)
  - [BoostQuery](docs/BoostQuery.md)
  - [CountTableRowsRequest](docs/CountTableRowsRequest.md)
@@ -244,6 +252,8 @@ Class | Method | HTTP request | Description
  - [CreateTableScalarIndexResponse](docs/CreateTableScalarIndexResponse.md)
  - [CreateTableTagRequest](docs/CreateTableTagRequest.md)
  - [CreateTableTagResponse](docs/CreateTableTagResponse.md)
+ - [CreateTableVersionRequest](docs/CreateTableVersionRequest.md)
+ - [CreateTableVersionResponse](docs/CreateTableVersionResponse.md)
  - [DeclareTableRequest](docs/DeclareTableRequest.md)
  - [DeclareTableResponse](docs/DeclareTableResponse.md)
  - [DeleteFromTableRequest](docs/DeleteFromTableRequest.md)
@@ -258,6 +268,8 @@ Class | Method | HTTP request | Description
  - [DescribeTableIndexStatsResponse](docs/DescribeTableIndexStatsResponse.md)
  - [DescribeTableRequest](docs/DescribeTableRequest.md)
  - [DescribeTableResponse](docs/DescribeTableResponse.md)
+ - [DescribeTableVersionRequest](docs/DescribeTableVersionRequest.md)
+ - [DescribeTableVersionResponse](docs/DescribeTableVersionResponse.md)
  - [DescribeTransactionRequest](docs/DescribeTransactionRequest.md)
  - [DescribeTransactionResponse](docs/DescribeTransactionResponse.md)
  - [DropNamespaceRequest](docs/DropNamespaceRequest.md)
@@ -325,6 +337,7 @@ Class | Method | HTTP request | Description
  - [UpdateTableSchemaMetadataResponse](docs/UpdateTableSchemaMetadataResponse.md)
  - [UpdateTableTagRequest](docs/UpdateTableTagRequest.md)
  - [UpdateTableTagResponse](docs/UpdateTableTagResponse.md)
+ - [VersionRange](docs/VersionRange.md)
 
 
 <a id="documentation-for-authorization"></a>

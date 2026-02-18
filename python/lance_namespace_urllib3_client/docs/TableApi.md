@@ -8,18 +8,21 @@ Method | HTTP request | Description
 [**alter_table_alter_columns**](TableApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 [**alter_table_drop_columns**](TableApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 [**analyze_table_query_plan**](TableApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
+[**batch_delete_table_versions**](TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 [**count_table_rows**](TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 [**create_empty_table**](TableApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 [**create_table**](TableApi.md#create_table) | **POST** /v1/table/{id}/create | Create a table with the given name
 [**create_table_index**](TableApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 [**create_table_scalar_index**](TableApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
 [**create_table_tag**](TableApi.md#create_table_tag) | **POST** /v1/table/{id}/tags/create | Create a new tag
+[**create_table_version**](TableApi.md#create_table_version) | **POST** /v1/table/{id}/version/create | Create a new table version
 [**declare_table**](TableApi.md#declare_table) | **POST** /v1/table/{id}/declare | Declare a table
 [**delete_from_table**](TableApi.md#delete_from_table) | **POST** /v1/table/{id}/delete | Delete rows from a table
 [**delete_table_tag**](TableApi.md#delete_table_tag) | **POST** /v1/table/{id}/tags/delete | Delete a tag
 [**deregister_table**](TableApi.md#deregister_table) | **POST** /v1/table/{id}/deregister | Deregister a table
 [**describe_table**](TableApi.md#describe_table) | **POST** /v1/table/{id}/describe | Describe information of a table
 [**describe_table_index_stats**](TableApi.md#describe_table_index_stats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
+[**describe_table_version**](TableApi.md#describe_table_version) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version
 [**drop_table**](TableApi.md#drop_table) | **POST** /v1/table/{id}/drop | Drop a table
 [**drop_table_index**](TableApi.md#drop_table_index) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index
 [**explain_table_query_plan**](TableApi.md#explain_table_query_plan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation
@@ -437,6 +440,112 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Query execution plan analysis |  -  |
+**400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+**401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+**403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+**404** | A server-side problem that means can not find the specified resource. |  -  |
+**503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+**5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **batch_delete_table_versions**
+> BatchDeleteTableVersionsResponse batch_delete_table_versions(id, batch_delete_table_versions_request, delimiter=delimiter)
+
+Delete table version records
+
+Delete version metadata records for table `id`.
+
+This operation deletes version tracking records, NOT the actual table data.
+It supports deleting ranges of versions for efficient bulk cleanup.
+
+Special range values:
+- `start_version: 0` with `end_version: -1` means delete ALL version records
+
+
+### Example
+
+* OAuth Authentication (OAuth2):
+* Api Key Authentication (ApiKeyAuth):
+* Bearer Authentication (BearerAuth):
+
+```python
+import lance_namespace_urllib3_client
+from lance_namespace_urllib3_client.models.batch_delete_table_versions_request import BatchDeleteTableVersionsRequest
+from lance_namespace_urllib3_client.models.batch_delete_table_versions_response import BatchDeleteTableVersionsResponse
+from lance_namespace_urllib3_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost:2333
+# See configuration.py for a list of all supported configuration parameters.
+configuration = lance_namespace_urllib3_client.Configuration(
+    host = "http://localhost:2333"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Configure API key authorization: ApiKeyAuth
+configuration.api_key['ApiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization: BearerAuth
+configuration = lance_namespace_urllib3_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = lance_namespace_urllib3_client.TableApi(api_client)
+    id = 'id_example' # str | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
+    batch_delete_table_versions_request = lance_namespace_urllib3_client.BatchDeleteTableVersionsRequest() # BatchDeleteTableVersionsRequest | 
+    delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
+
+    try:
+        # Delete table version records
+        api_response = api_instance.batch_delete_table_versions(id, batch_delete_table_versions_request, delimiter=delimiter)
+        print("The response of TableApi->batch_delete_table_versions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TableApi->batch_delete_table_versions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | 
+ **batch_delete_table_versions_request** | [**BatchDeleteTableVersionsRequest**](BatchDeleteTableVersionsRequest.md)|  | 
+ **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
+
+### Return type
+
+[**BatchDeleteTableVersionsResponse**](BatchDeleteTableVersionsResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Result of deleting table version records |  -  |
 **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
 **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
 **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
@@ -1074,6 +1183,110 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **create_table_version**
+> CreateTableVersionResponse create_table_version(id, create_table_version_request, delimiter=delimiter)
+
+Create a new table version
+
+Create a new version entry for table `id`.
+
+This operation supports `put_if_not_exists` semantics.
+The operation will fail with 409 Conflict if the version already exists.
+
+
+### Example
+
+* OAuth Authentication (OAuth2):
+* Api Key Authentication (ApiKeyAuth):
+* Bearer Authentication (BearerAuth):
+
+```python
+import lance_namespace_urllib3_client
+from lance_namespace_urllib3_client.models.create_table_version_request import CreateTableVersionRequest
+from lance_namespace_urllib3_client.models.create_table_version_response import CreateTableVersionResponse
+from lance_namespace_urllib3_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost:2333
+# See configuration.py for a list of all supported configuration parameters.
+configuration = lance_namespace_urllib3_client.Configuration(
+    host = "http://localhost:2333"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Configure API key authorization: ApiKeyAuth
+configuration.api_key['ApiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization: BearerAuth
+configuration = lance_namespace_urllib3_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = lance_namespace_urllib3_client.TableApi(api_client)
+    id = 'id_example' # str | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
+    create_table_version_request = lance_namespace_urllib3_client.CreateTableVersionRequest() # CreateTableVersionRequest | 
+    delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
+
+    try:
+        # Create a new table version
+        api_response = api_instance.create_table_version(id, create_table_version_request, delimiter=delimiter)
+        print("The response of TableApi->create_table_version:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TableApi->create_table_version: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | 
+ **create_table_version_request** | [**CreateTableVersionRequest**](CreateTableVersionRequest.md)|  | 
+ **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
+
+### Return type
+
+[**CreateTableVersionResponse**](CreateTableVersionResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Result of creating a table version |  -  |
+**400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+**401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+**403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+**404** | A server-side problem that means can not find the specified resource. |  -  |
+**409** | The request conflicts with the current state of the target resource. |  -  |
+**503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+**5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **declare_table**
 > DeclareTableResponse declare_table(id, declare_table_request, delimiter=delimiter)
 
@@ -1680,6 +1893,113 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Index statistics |  -  |
+**400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+**401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+**403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+**404** | A server-side problem that means can not find the specified resource. |  -  |
+**503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+**5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **describe_table_version**
+> DescribeTableVersionResponse describe_table_version(id, version, describe_table_version_request, delimiter=delimiter)
+
+Describe a specific table version
+
+Describe the detailed information for a specific version of table `id`.
+
+Returns the manifest path and metadata for the specified version.
+
+REST NAMESPACE ONLY
+REST namespace passes `version` as a path parameter instead of in the request body.
+
+
+### Example
+
+* OAuth Authentication (OAuth2):
+* Api Key Authentication (ApiKeyAuth):
+* Bearer Authentication (BearerAuth):
+
+```python
+import lance_namespace_urllib3_client
+from lance_namespace_urllib3_client.models.describe_table_version_request import DescribeTableVersionRequest
+from lance_namespace_urllib3_client.models.describe_table_version_response import DescribeTableVersionResponse
+from lance_namespace_urllib3_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost:2333
+# See configuration.py for a list of all supported configuration parameters.
+configuration = lance_namespace_urllib3_client.Configuration(
+    host = "http://localhost:2333"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Configure API key authorization: ApiKeyAuth
+configuration.api_key['ApiKeyAuth'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKeyAuth'] = 'Bearer'
+
+# Configure Bearer authorization: BearerAuth
+configuration = lance_namespace_urllib3_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = lance_namespace_urllib3_client.TableApi(api_client)
+    id = 'id_example' # str | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
+    version = 56 # int | Version number to describe
+    describe_table_version_request = lance_namespace_urllib3_client.DescribeTableVersionRequest() # DescribeTableVersionRequest | 
+    delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
+
+    try:
+        # Describe a specific table version
+        api_response = api_instance.describe_table_version(id, version, describe_table_version_request, delimiter=delimiter)
+        print("The response of TableApi->describe_table_version:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling TableApi->describe_table_version: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | 
+ **version** | **int**| Version number to describe | 
+ **describe_table_version_request** | [**DescribeTableVersionRequest**](DescribeTableVersionRequest.md)|  | 
+ **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
+
+### Return type
+
+[**DescribeTableVersionResponse**](DescribeTableVersionResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Table version information |  -  |
 **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
 **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
 **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
@@ -2623,11 +2943,14 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_table_versions**
-> ListTableVersionsResponse list_table_versions(id, delimiter=delimiter, page_token=page_token, limit=limit)
+> ListTableVersionsResponse list_table_versions(id, delimiter=delimiter, page_token=page_token, limit=limit, descending=descending)
 
 List all versions of a table
 
 List all versions (commits) of table `id` with their metadata.
+
+Use `descending=true` to guarantee versions are returned in descending order (latest to oldest).
+Otherwise, the ordering is implementation-defined.
 
 REST NAMESPACE ONLY
 REST namespace does not use a request body for this operation.
@@ -2635,6 +2958,7 @@ The `ListTableVersionsRequest` information is passed in the following way:
 - `id`: pass through path parameter of the same name
 - `page_token`: pass through query parameter of the same name
 - `limit`: pass through query parameter of the same name
+- `descending`: pass through query parameter of the same name
 
 
 ### Example
@@ -2681,10 +3005,11 @@ with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
     delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
     page_token = 'page_token_example' # str | Pagination token from a previous request (optional)
     limit = 56 # int | Maximum number of items to return (optional)
+    descending = True # bool | When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined.  (optional)
 
     try:
         # List all versions of a table
-        api_response = api_instance.list_table_versions(id, delimiter=delimiter, page_token=page_token, limit=limit)
+        api_response = api_instance.list_table_versions(id, delimiter=delimiter, page_token=page_token, limit=limit, descending=descending)
         print("The response of TableApi->list_table_versions:\n")
         pprint(api_response)
     except Exception as e:
@@ -2702,6 +3027,7 @@ Name | Type | Description  | Notes
  **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
  **page_token** | **str**| Pagination token from a previous request | [optional] 
  **limit** | **int**| Maximum number of items to return | [optional] 
+ **descending** | **bool**| When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined.  | [optional] 
 
 ### Return type
 

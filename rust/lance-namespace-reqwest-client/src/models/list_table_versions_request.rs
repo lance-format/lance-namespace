@@ -26,6 +26,9 @@ pub struct ListTableVersionsRequest {
     /// An inclusive upper bound of the  number of results that a caller will receive. 
     #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
     pub limit: Option<i32>,
+    /// When true, versions are guaranteed to be returned in descending order (latest to oldest). When false or not specified, the ordering is implementation-defined. 
+    #[serde(rename = "descending", skip_serializing_if = "Option::is_none")]
+    pub descending: Option<bool>,
 }
 
 impl ListTableVersionsRequest {
@@ -36,6 +39,7 @@ impl ListTableVersionsRequest {
             id: None,
             page_token: None,
             limit: None,
+            descending: None,
         }
     }
 }

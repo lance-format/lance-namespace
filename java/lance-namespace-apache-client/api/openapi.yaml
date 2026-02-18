@@ -695,9 +695,22 @@ paths:
     - $ref: '#/components/parameters/delimiter'
     - $ref: '#/components/parameters/page_token'
     - $ref: '#/components/parameters/limit'
+    - description: |
+        When true, versions are guaranteed to be returned in descending order (latest to oldest).
+        When false or not specified, the ordering is implementation-defined.
+      explode: true
+      in: query
+      name: descending
+      required: false
+      schema:
+        type: boolean
+      style: form
     post:
       description: |
         List all versions (commits) of table `id` with their metadata.
+
+        Use `descending=true` to guarantee versions are returned in descending order (latest to oldest).
+        Otherwise, the ordering is implementation-defined.
 
         REST NAMESPACE ONLY
         REST namespace does not use a request body for this operation.
@@ -705,12 +718,23 @@ paths:
         - `id`: pass through path parameter of the same name
         - `page_token`: pass through query parameter of the same name
         - `limit`: pass through query parameter of the same name
+        - `descending`: pass through query parameter of the same name
       operationId: ListTableVersions
       parameters:
       - $ref: '#/components/parameters/id'
       - $ref: '#/components/parameters/delimiter'
       - $ref: '#/components/parameters/page_token'
       - $ref: '#/components/parameters/limit'
+      - description: |
+          When true, versions are guaranteed to be returned in descending order (latest to oldest).
+          When false or not specified, the ordering is implementation-defined.
+        explode: true
+        in: query
+        name: descending
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           $ref: '#/components/responses/ListTableVersionsResponse'
@@ -730,6 +754,159 @@ paths:
       tags:
       - Table
       - Metadata
+      x-accepts:
+      - application/json
+  /v1/table/{id}/version/create:
+    parameters:
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    post:
+      description: |
+        Create a new version entry for table `id`.
+
+        This operation supports `put_if_not_exists` semantics.
+        The operation will fail with 409 Conflict if the version already exists.
+      operationId: CreateTableVersion
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTableVersionRequest'
+        required: true
+      responses:
+        "200":
+          $ref: '#/components/responses/CreateTableVersionResponse'
+        "400":
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        "401":
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        "403":
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        "404":
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        "409":
+          $ref: '#/components/responses/ConflictErrorResponse'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        "5XX":
+          $ref: '#/components/responses/ServerErrorResponse'
+      summary: Create a new table version
+      tags:
+      - Table
+      - Metadata
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /v1/table/{id}/version/{version}/describe:
+    parameters:
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    - description: Version number to describe
+      explode: false
+      in: path
+      name: version
+      required: true
+      schema:
+        format: int64
+        minimum: 0
+        type: integer
+      style: simple
+    post:
+      description: |
+        Describe the detailed information for a specific version of table `id`.
+
+        Returns the manifest path and metadata for the specified version.
+
+        REST NAMESPACE ONLY
+        REST namespace passes `version` as a path parameter instead of in the request body.
+      operationId: DescribeTableVersion
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      - description: Version number to describe
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          format: int64
+          minimum: 0
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescribeTableVersionRequest'
+        required: true
+      responses:
+        "200":
+          $ref: '#/components/responses/DescribeTableVersionResponse'
+        "400":
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        "401":
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        "403":
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        "404":
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        "5XX":
+          $ref: '#/components/responses/ServerErrorResponse'
+      summary: Describe a specific table version
+      tags:
+      - Table
+      - Metadata
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /v1/table/{id}/version/delete:
+    parameters:
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    post:
+      description: |
+        Delete version metadata records for table `id`.
+
+        This operation deletes version tracking records, NOT the actual table data.
+        It supports deleting ranges of versions for efficient bulk cleanup.
+
+        Special range values:
+        - `start_version: 0` with `end_version: -1` means delete ALL version records
+      operationId: BatchDeleteTableVersions
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchDeleteTableVersionsRequest'
+        required: true
+      responses:
+        "200":
+          $ref: '#/components/responses/BatchDeleteTableVersionsResponse'
+        "400":
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        "401":
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        "403":
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        "404":
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        "5XX":
+          $ref: '#/components/responses/ServerErrorResponse'
+      summary: Delete table version records
+      tags:
+      - Table
+      - Metadata
+      x-content-type: application/json
       x-accepts:
       - application/json
   /v1/table/{id}/alter_columns:
@@ -2355,6 +2532,24 @@ components:
           schema:
             $ref: '#/components/schemas/ListTableVersionsResponse'
       description: List of table versions
+    CreateTableVersionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateTableVersionResponse'
+      description: Result of creating a table version
+    DescribeTableVersionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DescribeTableVersionResponse'
+      description: Table version information
+    BatchDeleteTableVersionsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BatchDeleteTableVersionsResponse'
+      description: Result of deleting table version records
     ExplainTableQueryPlanResponse:
       content:
         application/json:
@@ -5297,21 +5492,34 @@ components:
             \ caller will receive.\n"
           type: integer
           nullable: true
+        descending:
+          description: |
+            When true, versions are guaranteed to be returned in descending order (latest to oldest).
+            When false or not specified, the ordering is implementation-defined.
+          type: boolean
     ListTableVersionsResponse:
       example:
         versions:
         - metadata:
             key: metadata
+          manifest_path: manifest_path
+          manifest_size: 0
+          e_tag: e_tag
           version: 0
           timestamp: 2000-01-23T04:56:07.000+00:00
         - metadata:
             key: metadata
+          manifest_path: manifest_path
+          manifest_size: 0
+          e_tag: e_tag
           version: 0
           timestamp: 2000-01-23T04:56:07.000+00:00
         page_token: page_token
       properties:
         versions:
-          description: List of table versions
+          description: |
+            List of table versions. When `descending=true`, guaranteed to be ordered from latest to oldest.
+            Otherwise, ordering is implementation-defined.
           items:
             $ref: '#/components/schemas/TableVersion'
           type: array
@@ -5330,10 +5538,219 @@ components:
           nullable: true
       required:
       - versions
+    CreateTableVersionRequest:
+      description: |
+        Request to create a new table version entry.
+        This supports `put_if_not_exists` semantics,
+        where the operation fails if the version already exists.
+      example:
+        metadata:
+          key: metadata
+        manifest_path: manifest_path
+        identity:
+          api_key: api_key
+          auth_token: auth_token
+        manifest_size: 0
+        context:
+          key: context
+        id:
+        - id
+        - id
+        e_tag: e_tag
+        version: 0
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          additionalProperties:
+            type: string
+          description: |
+            Arbitrary context for a request as key-value pairs.
+            How to use the context is custom to the specific implementation.
+
+            REST NAMESPACE ONLY
+            Context entries are passed via HTTP headers using the naming convention
+            `x-lance-ctx-<key>: <value>`. For example, a context entry
+            `{"trace_id": "abc123"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        version:
+          description: Version number to create
+          format: int64
+          minimum: 0
+          type: integer
+        manifest_path:
+          description: Path to the manifest file for this version
+          type: string
+        manifest_size:
+          description: Size of the manifest file in bytes
+          format: int64
+          minimum: 0
+          type: integer
+        e_tag:
+          description: Optional ETag for the manifest file
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: Optional metadata for the version
+      required:
+      - manifest_path
+      - version
+    CreateTableVersionResponse:
+      description: Response for creating a table version
+      example:
+        transaction_id: transaction_id
+      properties:
+        transaction_id:
+          description: Optional transaction identifier
+          type: string
+    DescribeTableVersionRequest:
+      description: Request to describe a specific table version
+      example:
+        identity:
+          api_key: api_key
+          auth_token: auth_token
+        context:
+          key: context
+        id:
+        - id
+        - id
+        version: 0
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          additionalProperties:
+            type: string
+          description: |
+            Arbitrary context for a request as key-value pairs.
+            How to use the context is custom to the specific implementation.
+
+            REST NAMESPACE ONLY
+            Context entries are passed via HTTP headers using the naming convention
+            `x-lance-ctx-<key>: <value>`. For example, a context entry
+            `{"trace_id": "abc123"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        version:
+          description: Version number to describe
+          format: int64
+          minimum: 0
+          type: integer
+    DescribeTableVersionResponse:
+      description: Response containing the table version information
+      example:
+        version:
+          metadata:
+            key: metadata
+          manifest_path: manifest_path
+          manifest_size: 0
+          e_tag: e_tag
+          version: 0
+          timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        version:
+          $ref: '#/components/schemas/TableVersion'
+      required:
+      - version
+    BatchDeleteTableVersionsRequest:
+      description: |
+        Request to delete table version records.
+        Supports deleting ranges of versions for efficient bulk cleanup.
+      example:
+        ranges:
+        - start_version: 0
+          end_version: 6
+        - start_version: 0
+          end_version: 6
+        identity:
+          api_key: api_key
+          auth_token: auth_token
+        context:
+          key: context
+        id:
+        - id
+        - id
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          additionalProperties:
+            type: string
+          description: |
+            Arbitrary context for a request as key-value pairs.
+            How to use the context is custom to the specific implementation.
+
+            REST NAMESPACE ONLY
+            Context entries are passed via HTTP headers using the naming convention
+            `x-lance-ctx-<key>: <value>`. For example, a context entry
+            `{"trace_id": "abc123"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        ranges:
+          description: |
+            List of version ranges to delete.
+            Each range specifies start (inclusive) and end (exclusive) versions.
+          items:
+            $ref: '#/components/schemas/VersionRange'
+          type: array
+      required:
+      - ranges
+    VersionRange:
+      description: |
+        A range of versions to delete (start inclusive, end exclusive).
+        Special values:
+        - `start_version: 0` with `end_version: -1` means ALL versions
+      example:
+        start_version: 0
+        end_version: 6
+      properties:
+        start_version:
+          description: |
+            Start version of the range (inclusive).
+            Use 0 to start from the first version.
+          format: int64
+          type: integer
+        end_version:
+          description: |
+            End version of the range (exclusive).
+            Use -1 to indicate all versions up to and including the latest.
+          format: int64
+          type: integer
+      required:
+      - end_version
+      - start_version
+    BatchDeleteTableVersionsResponse:
+      description: Response for deleting table version records
+      example:
+        transaction_id: transaction_id
+        deleted_count: 0
+      properties:
+        deleted_count:
+          description: Number of version records deleted
+          format: int64
+          minimum: 0
+          type: integer
+        transaction_id:
+          description: Optional transaction identifier
+          type: string
     TableVersion:
       example:
         metadata:
           key: metadata
+        manifest_path: manifest_path
+        manifest_size: 0
+        e_tag: e_tag
         version: 0
         timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
@@ -5342,6 +5759,23 @@ components:
           format: int64
           minimum: 0
           type: integer
+        manifest_path:
+          description: |
+            Path to the manifest file for this version.
+            When not provided, the client should resolve the manifest path based on
+            the Lance table format's manifest naming scheme and the manifest naming
+            scheme the table is currently using.
+          type: string
+        manifest_size:
+          description: Size of the manifest file in bytes
+          format: int64
+          minimum: 0
+          type: integer
+        e_tag:
+          description: |
+            Optional ETag for optimistic concurrency control.
+            Useful for S3 and similar object stores.
+          type: string
         timestamp:
           description: Timestamp when the version was created
           format: date-time
@@ -5349,10 +5783,8 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: Key-value pairs of metadata
+          description: Optional key-value pairs of metadata
       required:
-      - metadata
-      - timestamp
       - version
     ExplainTableQueryPlanRequest:
       example:
