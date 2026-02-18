@@ -90,6 +90,8 @@ public final class ErrorFactory {
         return new InvalidTableStateException(message, detail, instance);
       case TABLE_SCHEMA_VALIDATION_ERROR:
         return new TableSchemaValidationException(message, detail, instance);
+      case THROTTLING:
+        return new ThrottlingException(message, detail, instance);
       default:
         return new InternalException(message, detail, instance);
     }
