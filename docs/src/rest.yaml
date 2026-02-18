@@ -657,12 +657,11 @@ paths:
       - name: descending
         in: query
         description: |
-          Whether to return versions in descending order (latest to oldest).
-          When false (default), versions are returned in ascending order (oldest to latest).
+          When true, versions are guaranteed to be returned in descending order (latest to oldest).
+          When false or not specified, the ordering is implementation-defined.
         required: false
         schema:
           type: boolean
-          default: false
     post:
       tags:
         - Table
@@ -672,9 +671,8 @@ paths:
       description: |
         List all versions (commits) of table `id` with their metadata.
 
-        By default, versions are returned in ascending order (oldest to latest).
-        Use `descending=true` to return versions in descending order (latest to oldest),
-        which enables efficient retrieval of recent versions first.
+        Use `descending=true` to guarantee versions are returned in descending order (latest to oldest).
+        Otherwise, the ordering is implementation-defined.
 
         REST NAMESPACE ONLY
         REST namespace does not use a request body for this operation.
@@ -3785,10 +3783,9 @@ components:
           $ref: '#/components/schemas/PageLimit'
         descending:
           type: boolean
-          default: false
           description: |
-            Whether to return versions in descending order (latest to oldest).
-            When false (default), versions are returned in ascending order (oldest to latest).
+            When true, versions are guaranteed to be returned in descending order (latest to oldest).
+            When false or not specified, the ordering is implementation-defined.
 
     ListTableVersionsResponse:
       type: object
@@ -3800,8 +3797,8 @@ components:
           items:
             $ref: '#/components/schemas/TableVersion'
           description: |
-            List of table versions. By default, ordered from oldest to latest (ascending).
-            When `descending=true` is specified, ordered from latest to oldest.
+            List of table versions. When `descending=true`, guaranteed to be ordered from latest to oldest.
+            Otherwise, ordering is implementation-defined.
         page_token:
           $ref: '#/components/schemas/PageToken'
 
@@ -3956,7 +3953,11 @@ components:
           description: Version number
         manifest_path:
           type: string
-          description: Path to the manifest file for this version.
+          description: |
+            Path to the manifest file for this version.
+            When not provided, the client should resolve the manifest path based on
+            the Lance table format's manifest naming scheme and the manifest naming
+            scheme the table is currently using.
         manifest_size:
           type: integer
           format: int64
