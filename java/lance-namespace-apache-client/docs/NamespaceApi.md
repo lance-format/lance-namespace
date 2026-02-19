@@ -19,7 +19,7 @@ All URIs are relative to *http://localhost:2333*
 
 Create a new namespace
 
-Create new namespace &#x60;id&#x60;.  During the creation process, the implementation may modify user-provided &#x60;properties&#x60;,  such as adding additional properties like &#x60;created_at&#x60; to user-provided properties,  omitting any specific property, or performing actions based on any property value. 
+Create new namespace &#x60;id&#x60;.  During the creation process, the implementation may modify user-provided &#x60;properties&#x60;, such as adding additional properties like &#x60;created_at&#x60; to user-provided properties, omitting any specific property, or performing actions based on any property value. 
 
 ### Example
 
@@ -483,7 +483,7 @@ public class Example {
 
 Check if a namespace exists
 
-Check if namespace &#x60;id&#x60; exists.  This operation must behave exactly like the DescribeNamespace API,  except it does not contain a response body. 
+Check if namespace &#x60;id&#x60; exists.  This operation must behave exactly like the DescribeNamespace API, except it does not contain a response body. 
 
 ### Example
 

@@ -783,7 +783,7 @@ public class Example {
 
 Create an index on a table
 
-Create an index on a table column for faster search operations. Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE, BITMAP, FTS, etc.). Index creation is handled asynchronously.  Use the &#x60;ListTableIndices&#x60; and &#x60;DescribeTableIndexStats&#x60; operations to monitor index creation progress. 
+Create an index on a table column for faster search operations. Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE, BITMAP, FTS, etc.). Index creation is handled asynchronously. Use the &#x60;ListTableIndices&#x60; and &#x60;DescribeTableIndexStats&#x60; operations to monitor index creation progress. 
 
 ### Example
 
@@ -3276,7 +3276,7 @@ public class Example {
 
 Check if a table exists
 
-Check if table &#x60;id&#x60; exists.  This operation should behave exactly like DescribeTable,  except it does not contain a response body.  For DirectoryNamespace implementation, a table exists if either: - The table has Lance data versions (regular table created with CreateTable) - A &#x60;.lance-reserved&#x60; file exists in the table directory (declared table created with DeclareTable) 
+Check if table &#x60;id&#x60; exists.  This operation should behave exactly like DescribeTable, except it does not contain a response body.  For DirectoryNamespace implementation, a table exists if either: - The table has Lance data versions (regular table created with CreateTable) - A &#x60;.lance-reserved&#x60; file exists in the table directory (declared table created with DeclareTable) 
 
 ### Example
 

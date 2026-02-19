@@ -882,7 +882,7 @@ Create an index on a table
 
 Create an index on a table column for faster search operations.
 Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE, BITMAP, FTS, etc.).
-Index creation is handled asynchronously. 
+Index creation is handled asynchronously.
 Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress.
 
 
@@ -3703,7 +3703,7 @@ Check if a table exists
 
 Check if table `id` exists.
 
-This operation should behave exactly like DescribeTable, 
+This operation should behave exactly like DescribeTable,
 except it does not contain a response body.
 
 For DirectoryNamespace implementation, a table exists if either:

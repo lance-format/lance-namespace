@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **stats** | Option<[**models::TableBasicStats**](TableBasicStats.md)> | Table statistics. Only populated when `load_detailed_metadata` is true.  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Optional table metadata as key-value pairs. This records the information of the table and requires loading the table. It is only populated when `load_detailed_metadata` is true.  | [optional]
 **properties** | Option<**std::collections::HashMap<String, String>**> | Properties stored on the table, if supported by the server. This records the information managed by the namespace. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object. | [optional][default to {}]
+**managed_versioning** | Option<**bool**> | When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -42,7 +42,7 @@ public class TableVersion {
   @javax.annotation.Nonnull private Long version;
 
   public static final String JSON_PROPERTY_MANIFEST_PATH = "manifest_path";
-  @javax.annotation.Nullable private String manifestPath;
+  @javax.annotation.Nonnull private String manifestPath;
 
   public static final String JSON_PROPERTY_MANIFEST_SIZE = "manifest_size";
   @javax.annotation.Nullable private Long manifestSize;
@@ -82,29 +82,27 @@ public class TableVersion {
     this.version = version;
   }
 
-  public TableVersion manifestPath(@javax.annotation.Nullable String manifestPath) {
+  public TableVersion manifestPath(@javax.annotation.Nonnull String manifestPath) {
 
     this.manifestPath = manifestPath;
     return this;
   }
 
   /**
-   * Path to the manifest file for this version. When not provided, the client should resolve the
-   * manifest path based on the Lance table format&#39;s manifest naming scheme and the manifest
-   * naming scheme the table is currently using.
+   * Path to the manifest file for this version.
    *
    * @return manifestPath
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getManifestPath() {
     return manifestPath;
   }
 
   @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setManifestPath(@javax.annotation.Nullable String manifestPath) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setManifestPath(@javax.annotation.Nonnull String manifestPath) {
     this.manifestPath = manifestPath;
   }
 

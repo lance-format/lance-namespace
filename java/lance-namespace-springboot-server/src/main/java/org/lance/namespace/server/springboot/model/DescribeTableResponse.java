@@ -52,6 +52,8 @@ public class DescribeTableResponse {
 
   @Valid private Map<String, String> properties = new HashMap<>();
 
+  private Boolean managedVersioning;
+
   public DescribeTableResponse table(String table) {
     this.table = table;
     return this;
@@ -334,6 +336,32 @@ public class DescribeTableResponse {
     this.properties = properties;
   }
 
+  public DescribeTableResponse managedVersioning(Boolean managedVersioning) {
+    this.managedVersioning = managedVersioning;
+    return this;
+  }
+
+  /**
+   * When true, the caller should use namespace table version operations (CreateTableVersion,
+   * DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions
+   * instead of relying on Lance's native version management.
+   *
+   * @return managedVersioning
+   */
+  @Schema(
+      name = "managed_versioning",
+      description =
+          "When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("managed_versioning")
+  public Boolean getManagedVersioning() {
+    return managedVersioning;
+  }
+
+  public void setManagedVersioning(Boolean managedVersioning) {
+    this.managedVersioning = managedVersioning;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -352,7 +380,8 @@ public class DescribeTableResponse {
         && Objects.equals(this.storageOptions, describeTableResponse.storageOptions)
         && Objects.equals(this.stats, describeTableResponse.stats)
         && Objects.equals(this.metadata, describeTableResponse.metadata)
-        && Objects.equals(this.properties, describeTableResponse.properties);
+        && Objects.equals(this.properties, describeTableResponse.properties)
+        && Objects.equals(this.managedVersioning, describeTableResponse.managedVersioning);
   }
 
   @Override
@@ -367,7 +396,8 @@ public class DescribeTableResponse {
         storageOptions,
         stats,
         metadata,
-        properties);
+        properties,
+        managedVersioning);
   }
 
   @Override
@@ -384,6 +414,7 @@ public class DescribeTableResponse {
     sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("    managedVersioning: ").append(toIndentedString(managedVersioning)).append("\n");
     sb.append("}");
     return sb.toString();
   }
