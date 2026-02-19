@@ -66,7 +66,7 @@ Class | Method | HTTP request | Description
 *MetadataApi* | [**describe_namespace**](docs/MetadataApi.md#describe_namespace) | **POST** /v1/namespace/{id}/describe | Describe a namespace
 *MetadataApi* | [**describe_table**](docs/MetadataApi.md#describe_table) | **POST** /v1/table/{id}/describe | Describe information of a table
 *MetadataApi* | [**describe_table_index_stats**](docs/MetadataApi.md#describe_table_index_stats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
-*MetadataApi* | [**describe_table_version**](docs/MetadataApi.md#describe_table_version) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version
+*MetadataApi* | [**describe_table_version**](docs/MetadataApi.md#describe_table_version) | **POST** /v1/table/{id}/version/describe | Describe a specific table version
 *MetadataApi* | [**describe_transaction**](docs/MetadataApi.md#describe_transaction) | **POST** /v1/transaction/{id}/describe | Describe information about a transaction
 *MetadataApi* | [**drop_namespace**](docs/MetadataApi.md#drop_namespace) | **POST** /v1/namespace/{id}/drop | Drop a namespace
 *MetadataApi* | [**drop_table**](docs/MetadataApi.md#drop_table) | **POST** /v1/table/{id}/drop | Drop a table
@@ -109,7 +109,7 @@ Class | Method | HTTP request | Description
 *TableApi* | [**deregister_table**](docs/TableApi.md#deregister_table) | **POST** /v1/table/{id}/deregister | Deregister a table
 *TableApi* | [**describe_table**](docs/TableApi.md#describe_table) | **POST** /v1/table/{id}/describe | Describe information of a table
 *TableApi* | [**describe_table_index_stats**](docs/TableApi.md#describe_table_index_stats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
-*TableApi* | [**describe_table_version**](docs/TableApi.md#describe_table_version) | **POST** /v1/table/{id}/version/{version}/describe | Describe a specific table version
+*TableApi* | [**describe_table_version**](docs/TableApi.md#describe_table_version) | **POST** /v1/table/{id}/version/describe | Describe a specific table version
 *TableApi* | [**drop_table**](docs/TableApi.md#drop_table) | **POST** /v1/table/{id}/drop | Drop a table
 *TableApi* | [**drop_table_index**](docs/TableApi.md#drop_table_index) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index
 *TableApi* | [**explain_table_query_plan**](docs/TableApi.md#explain_table_query_plan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation

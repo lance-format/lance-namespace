@@ -524,15 +524,13 @@ public interface LanceNamespace {
    *
    * <p>Returns the manifest path and metadata for the specified version.
    *
-   * @param request The describe table version request
-   * @param version The version number to describe
+   * @param request The describe table version request containing the version number
    * @return The describe table version response
    * @throws org.lance.namespace.errors.NamespaceNotFoundException if the namespace does not exist
    * @throws org.lance.namespace.errors.TableNotFoundException if the table does not exist
    * @throws org.lance.namespace.errors.TableVersionNotFoundException if the version does not exist
    */
-  default DescribeTableVersionResponse describeTableVersion(
-      DescribeTableVersionRequest request, Long version) {
+  default DescribeTableVersionResponse describeTableVersion(DescribeTableVersionRequest request) {
     throw new UnsupportedOperationException("Not supported: describeTableVersion");
   }
 
