@@ -2833,6 +2833,8 @@ components:
         properties:
           additionalProperties:
             type: string
+          description: |
+            Properties stored on the namespace, if supported by the implementation.
     CreateNamespaceResponse:
       example:
         transaction_id: transaction_id
@@ -3018,6 +3020,8 @@ components:
         properties:
           additionalProperties:
             type: string
+          description: |
+            If the implementation does not support namespace properties, it should return null for this field. Otherwise it should return the properties.
         transaction_id:
           description: |
             If present, indicating the operation is long running and should be tracked using DescribeTransaction
@@ -3115,6 +3119,8 @@ components:
         properties:
           additionalProperties:
             type: string
+          description: |
+            Properties stored on the table, if supported by the implementation.
       required:
       - location
     RegisterTableResponse:
@@ -3132,6 +3138,8 @@ components:
         properties:
           additionalProperties:
             type: string
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties.
     ListTablesRequest:
       properties:
         identity:
@@ -3297,6 +3305,9 @@ components:
         location: location
         version: 0
         table: table
+        properties:
+          owner: Ralph
+          created_at: "1452120468"
         storage_options:
           key: storage_options
       properties:
@@ -3346,7 +3357,22 @@ components:
           additionalProperties:
             type: string
           description: |
-            Optional table metadata as key-value pairs.
+            Optional table metadata as key-value pairs. This records the information of the table
+            and requires loading the table.
+            It is only populated when `load_detailed_metadata` is true.
+        properties:
+          additionalProperties:
+            type: string
+          default: {}
+          description: "Properties stored on the table, if supported by the server.\
+            \ This records the information managed by the namespace. If the server\
+            \ does not support table properties, it should return null for this field.\
+            \ If table properties are supported, but none are set, it should return\
+            \ an empty object."
+          example:
+            owner: Ralph
+            created_at: "1452120468"
+          nullable: true
     TableBasicStats:
       example:
         num_deleted_rows: 0
@@ -3550,6 +3576,8 @@ components:
           - updates
         - - updates
           - updates
+        properties:
+          key: properties
       properties:
         identity:
           $ref: '#/components/schemas/Identity'
@@ -3581,6 +3609,11 @@ components:
             minItems: 2
             type: array
           type: array
+        properties:
+          additionalProperties:
+            type: string
+          description: |
+            Properties stored on the table, if supported by the implementation.
       required:
       - updates
     UpdateTableResponse:
@@ -3588,6 +3621,8 @@ components:
         transaction_id: transaction_id
         updated_rows: 0
         version: 0
+        properties:
+          key: properties
       properties:
         transaction_id:
           description: Optional transaction identifier
@@ -3602,6 +3637,11 @@ components:
           format: int64
           minimum: 0
           type: integer
+        properties:
+          additionalProperties:
+            type: string
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties.
       required:
       - updated_rows
       - version
@@ -4252,11 +4292,19 @@ components:
               * ExistOk: the operation succeeds and the existing table is kept.
               * Overwrite: the existing table is dropped and a new table with this name is created.
           type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: |
+            Properties stored on the table, if supported by the implementation.
     CreateTableResponse:
       example:
         transaction_id: transaction_id
         location: location
         version: 0
+        properties:
+          owner: Ralph
+          created_at: "1452120468"
         storage_options:
           key: storage_options
       properties:
@@ -4276,6 +4324,16 @@ components:
             Configuration options to be used to access storage. The available
             options depend on the type of storage in use. These will be
             passed directly to Lance to initialize storage access.
+        properties:
+          additionalProperties:
+            type: string
+          default: {}
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          example:
+            owner: Ralph
+            created_at: "1452120468"
+          nullable: true
     CreateEmptyTableRequest:
       deprecated: true
       description: |
@@ -4292,6 +4350,8 @@ components:
         id:
         - id
         - id
+        properties:
+          key: properties
         vend_credentials: true
       properties:
         identity:
@@ -4322,6 +4382,11 @@ components:
             When true, the implementation should provide vended credentials for accessing storage.
             When not set, the implementation can decide whether to return vended credentials.
           type: boolean
+        properties:
+          additionalProperties:
+            type: string
+          description: |
+            Properties stored on the table, if supported by the server.
     CreateEmptyTableResponse:
       deprecated: true
       description: |
@@ -4331,6 +4396,9 @@ components:
       example:
         transaction_id: transaction_id
         location: location
+        properties:
+          owner: Ralph
+          created_at: "1452120468"
         storage_options:
           key: storage_options
       properties:
@@ -4346,6 +4414,16 @@ components:
             Configuration options to be used to access storage. The available
             options depend on the type of storage in use. These will be
             passed directly to Lance to initialize storage access.
+        properties:
+          additionalProperties:
+            type: string
+          default: {}
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          example:
+            owner: Ralph
+            created_at: "1452120468"
+          nullable: true
     DeclareTableRequest:
       description: |
         Request for declaring a table.
@@ -4359,6 +4437,8 @@ components:
         id:
         - id
         - id
+        properties:
+          key: properties
         vend_credentials: true
       properties:
         identity:
@@ -4389,12 +4469,20 @@ components:
             When true, the implementation should provide vended credentials for accessing storage.
             When not set, the implementation can decide whether to return vended credentials.
           type: boolean
+        properties:
+          additionalProperties:
+            type: string
+          description: |
+            Properties stored on the table, if supported by the server.
     DeclareTableResponse:
       description: |
         Response for declaring a table.
       example:
         transaction_id: transaction_id
         location: location
+        properties:
+          owner: Ralph
+          created_at: "1452120468"
         storage_options:
           key: storage_options
       properties:
@@ -4410,6 +4498,16 @@ components:
             Configuration options to be used to access storage. The available
             options depend on the type of storage in use. These will be
             passed directly to Lance to initialize storage access.
+        properties:
+          additionalProperties:
+            type: string
+          default: {}
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          example:
+            owner: Ralph
+            created_at: "1452120468"
+          nullable: true
     TableExistsRequest:
       example:
         identity:
@@ -4698,7 +4796,8 @@ components:
         - id
         - id
         properties:
-          key: properties
+          owner: Ralph
+          created_at: "1452120468"
       properties:
         transaction_id:
           description: Optional transaction identifier
@@ -4712,6 +4811,13 @@ components:
         properties:
           additionalProperties:
             type: string
+          default: {}
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          example:
+            owner: Ralph
+            created_at: "1452120468"
+          nullable: true
     DeregisterTableRequest:
       description: |
         The table content remains available in the storage.
@@ -4750,7 +4856,8 @@ components:
         - id
         - id
         properties:
-          key: properties
+          owner: Ralph
+          created_at: "1452120468"
       properties:
         transaction_id:
           description: Optional transaction identifier
@@ -4764,6 +4871,13 @@ components:
         properties:
           additionalProperties:
             type: string
+          default: {}
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          example:
+            owner: Ralph
+            created_at: "1452120468"
+          nullable: true
     StringFtsQuery:
       example:
         columns:

@@ -1295,7 +1295,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"storage_options\" : { \"key\" : \"storage_options\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -1484,7 +1484,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"version\" : 0, \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"version\" : 0, \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"storage_options\" : { \"key\" : \"storage_options\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -2409,7 +2409,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"storage_options\" : { \"key\" : \"storage_options\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -2935,7 +2935,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"key\" : \"properties\" } }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -3133,7 +3133,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"schema\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"fields\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } }, { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } } ] }, \"metadata\" : { \"key\" : \"metadata\" }, \"table_uri\" : \"table_uri\", \"stats\" : { \"num_deleted_rows\" : 0, \"num_fragments\" : 0 }, \"namespace\" : [ \"namespace\", \"namespace\" ], \"location\" : \"location\", \"version\" : 0, \"table\" : \"table\", \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                      "{ \"schema\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"fields\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } }, { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } } ] }, \"metadata\" : { \"key\" : \"metadata\" }, \"table_uri\" : \"table_uri\", \"stats\" : { \"num_deleted_rows\" : 0, \"num_fragments\" : 0 }, \"namespace\" : [ \"namespace\", \"namespace\" ], \"location\" : \"location\", \"version\" : 0, \"table\" : \"table\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"storage_options\" : { \"key\" : \"storage_options\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -3667,7 +3667,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"key\" : \"properties\" } }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -6646,7 +6646,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"updated_rows\" : 0, \"version\" : 0 }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"updated_rows\" : 0, \"version\" : 0, \"properties\" : { \"key\" : \"properties\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }

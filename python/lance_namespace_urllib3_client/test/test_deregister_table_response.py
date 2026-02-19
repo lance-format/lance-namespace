@@ -40,9 +40,7 @@ class TestDeregisterTableResponse(unittest.TestCase):
                     ''
                     ],
                 location = '',
-                properties = {
-                    'key' : ''
-                    }
+                properties = {owner=Ralph, created_at=1452120468}
             )
         else:
             return DeregisterTableResponse(

@@ -37,7 +37,8 @@ import java.util.StringJoiner;
   CreateEmptyTableRequest.JSON_PROPERTY_CONTEXT,
   CreateEmptyTableRequest.JSON_PROPERTY_ID,
   CreateEmptyTableRequest.JSON_PROPERTY_LOCATION,
-  CreateEmptyTableRequest.JSON_PROPERTY_VEND_CREDENTIALS
+  CreateEmptyTableRequest.JSON_PROPERTY_VEND_CREDENTIALS,
+  CreateEmptyTableRequest.JSON_PROPERTY_PROPERTIES
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -57,6 +58,9 @@ public class CreateEmptyTableRequest {
 
   public static final String JSON_PROPERTY_VEND_CREDENTIALS = "vend_credentials";
   @javax.annotation.Nullable private Boolean vendCredentials;
+
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
 
   public CreateEmptyTableRequest() {}
 
@@ -204,6 +208,39 @@ public class CreateEmptyTableRequest {
     this.vendCredentials = vendCredentials;
   }
 
+  public CreateEmptyTableRequest properties(
+      @javax.annotation.Nullable Map<String, String> properties) {
+
+    this.properties = properties;
+    return this;
+  }
+
+  public CreateEmptyTableRequest putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Properties stored on the table, if supported by the server.
+   *
+   * @return properties
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -217,12 +254,13 @@ public class CreateEmptyTableRequest {
         && Objects.equals(this.context, createEmptyTableRequest.context)
         && Objects.equals(this.id, createEmptyTableRequest.id)
         && Objects.equals(this.location, createEmptyTableRequest.location)
-        && Objects.equals(this.vendCredentials, createEmptyTableRequest.vendCredentials);
+        && Objects.equals(this.vendCredentials, createEmptyTableRequest.vendCredentials)
+        && Objects.equals(this.properties, createEmptyTableRequest.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, location, vendCredentials);
+    return Objects.hash(identity, context, id, location, vendCredentials, properties);
   }
 
   @Override
@@ -234,6 +272,7 @@ public class CreateEmptyTableRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    vendCredentials: ").append(toIndentedString(vendCredentials)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -357,6 +396,28 @@ public class CreateEmptyTableRequest {
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
+      }
+    }
+
+    // add `properties` to the URL query string
+    if (getProperties() != null) {
+      for (String _key : getProperties().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sproperties%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getProperties().get(_key),
+                  URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

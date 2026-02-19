@@ -34,7 +34,8 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
   CreateEmptyTableResponse.JSON_PROPERTY_TRANSACTION_ID,
   CreateEmptyTableResponse.JSON_PROPERTY_LOCATION,
-  CreateEmptyTableResponse.JSON_PROPERTY_STORAGE_OPTIONS
+  CreateEmptyTableResponse.JSON_PROPERTY_STORAGE_OPTIONS,
+  CreateEmptyTableResponse.JSON_PROPERTY_PROPERTIES
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -48,6 +49,9 @@ public class CreateEmptyTableResponse {
 
   public static final String JSON_PROPERTY_STORAGE_OPTIONS = "storage_options";
   @javax.annotation.Nullable private Map<String, String> storageOptions = new HashMap<>();
+
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
 
   public CreateEmptyTableResponse() {}
 
@@ -133,6 +137,40 @@ public class CreateEmptyTableResponse {
     this.storageOptions = storageOptions;
   }
 
+  public CreateEmptyTableResponse properties(
+      @javax.annotation.Nullable Map<String, String> properties) {
+
+    this.properties = properties;
+    return this;
+  }
+
+  public CreateEmptyTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise it should return the properties.
+   *
+   * @return properties
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -144,12 +182,13 @@ public class CreateEmptyTableResponse {
     CreateEmptyTableResponse createEmptyTableResponse = (CreateEmptyTableResponse) o;
     return Objects.equals(this.transactionId, createEmptyTableResponse.transactionId)
         && Objects.equals(this.location, createEmptyTableResponse.location)
-        && Objects.equals(this.storageOptions, createEmptyTableResponse.storageOptions);
+        && Objects.equals(this.storageOptions, createEmptyTableResponse.storageOptions)
+        && Objects.equals(this.properties, createEmptyTableResponse.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, location, storageOptions);
+    return Objects.hash(transactionId, location, storageOptions, properties);
   }
 
   @Override
@@ -159,6 +198,7 @@ public class CreateEmptyTableResponse {
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -251,6 +291,28 @@ public class CreateEmptyTableResponse {
                       : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getStorageOptions().get(_key),
                   URLEncoder.encode(String.valueOf(getStorageOptions().get(_key)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    // add `properties` to the URL query string
+    if (getProperties() != null) {
+      for (String _key : getProperties().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sproperties%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getProperties().get(_key),
+                  URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
           // Should never happen, UTF-8 is always supported

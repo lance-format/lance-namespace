@@ -2085,6 +2085,8 @@ components:
               * Overwrite: the existing namespace is dropped and a new empty namespace with this name is created.
         properties:
           type: object
+          description: |
+            Properties stored on the namespace, if supported by the implementation.
           additionalProperties:
             type: string
 
@@ -2194,6 +2196,8 @@ components:
       properties:
         properties:
           type: object
+          description: |
+            If the implementation does not support namespace properties, it should return null for this field. Otherwise it should return the properties.
           additionalProperties:
             type: string
         transaction_id:
@@ -2267,6 +2271,8 @@ components:
               * Overwrite: the existing table registration is replaced with the new registration.
         properties:
           type: object
+          description: |
+            Properties stored on the table, if supported by the implementation.
           additionalProperties:
             type: string
 
@@ -2280,6 +2286,8 @@ components:
           type: string
         properties:
           type: object
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties.
           additionalProperties:
             type: string
 
@@ -2411,9 +2419,23 @@ components:
         metadata:
           type: object
           description: |
-            Optional table metadata as key-value pairs.
+            Optional table metadata as key-value pairs. This records the information of the table
+            and requires loading the table.
+            It is only populated when `load_detailed_metadata` is true.
           additionalProperties:
             type: string
+        properties:
+          type: object
+          description:
+            Properties stored on the table, if supported by the server. This records the
+            information managed by the namespace.
+            If the server does not support table properties, it should return null for this field.
+            If table properties are supported, but none are set, it should return an empty object.
+          additionalProperties:
+            type: string
+          example: { "owner": "Ralph", 'created_at': '1452120468' }
+          default: { }
+          nullable: true
 
     TableBasicStats:
       type: object
@@ -2590,6 +2612,12 @@ components:
             items:
               type: string
           description: List of column updates as [column_name, expression] pairs
+        properties:
+          type: object
+          description: |
+            Properties stored on the table, if supported by the implementation.
+          additionalProperties:
+            type: string
 
     UpdateTableResponse:
       type: object
@@ -2610,6 +2638,12 @@ components:
           format: int64
           description: The commit version associated with the operation
           minimum: 0
+        properties:
+          type: object
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise, it should return the properties.
+          additionalProperties:
+            type: string
 
     DeleteFromTableRequest:
       type: object
@@ -3030,6 +3064,12 @@ components:
               * Create: the operation fails with 409.
               * ExistOk: the operation succeeds and the existing table is kept.
               * Overwrite: the existing table is dropped and a new table with this name is created.
+        properties:
+          type: object
+          description: |
+            Properties stored on the table, if supported by the implementation.
+          additionalProperties:
+            type: string
 
     CreateTableResponse:
       type: object
@@ -3051,6 +3091,15 @@ components:
             passed directly to Lance to initialize storage access.
           additionalProperties:
             type: string
+        properties:
+          type: object
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          additionalProperties:
+            type: string
+          example: { "owner": "Ralph", 'created_at': '1452120468' }
+          default: { }
+          nullable: true
 
     CreateEmptyTableRequest:
       type: object
@@ -3079,6 +3128,12 @@ components:
             When true, the implementation should provide vended credentials for accessing storage.
             When not set, the implementation can decide whether to return vended credentials.
           type: boolean
+        properties:
+          type: object
+          description: |
+            Properties stored on the table, if supported by the server.
+          additionalProperties:
+            type: string
 
     CreateEmptyTableResponse:
       type: object
@@ -3101,6 +3156,15 @@ components:
             passed directly to Lance to initialize storage access.
           additionalProperties:
             type: string
+        properties:
+          type: object
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          additionalProperties:
+            type: string
+          example: { "owner": "Ralph", 'created_at': '1452120468' }
+          default: { }
+          nullable: true
 
     DeclareTableRequest:
       type: object
@@ -3126,6 +3190,12 @@ components:
             When true, the implementation should provide vended credentials for accessing storage.
             When not set, the implementation can decide whether to return vended credentials.
           type: boolean
+        properties:
+          type: object
+          description: |
+            Properties stored on the table, if supported by the server.
+          additionalProperties:
+            type: string
 
     DeclareTableResponse:
       type: object
@@ -3145,6 +3215,15 @@ components:
             passed directly to Lance to initialize storage access.
           additionalProperties:
             type: string
+        properties:
+          type: object
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+          additionalProperties:
+            type: string
+          example: { "owner": "Ralph", 'created_at': '1452120468' }
+          default: { }
+          nullable: true
 
     TableExistsRequest:
       type: object
@@ -3320,8 +3399,13 @@ components:
           type: string
         properties:
           type: object
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
           additionalProperties:
             type: string
+          example: { "owner": "Ralph", 'created_at': '1452120468' }
+          default: { }
+          nullable: true
 
     DeregisterTableRequest:
       type: object
@@ -3351,8 +3435,13 @@ components:
           type: string
         properties:
           type: object
+          description: |
+            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
           additionalProperties:
             type: string
+          example: { "owner": "Ralph", 'created_at': '1452120468' }
+          default: { }
+          nullable: true
 
     StringFtsQuery:
       type: object

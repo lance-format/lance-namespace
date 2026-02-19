@@ -32,7 +32,7 @@ class RegisterTableRequest(BaseModel):
     id: Optional[List[StrictStr]] = None
     location: StrictStr
     mode: Optional[StrictStr] = Field(default=None, description="There are two modes when trying to register a table, to differentiate the behavior when a table of the same name already exists. Case insensitive, supports both PascalCase and snake_case. Valid values are:   * Create (default): the operation fails with 409.   * Overwrite: the existing table registration is replaced with the new registration. ")
-    properties: Optional[Dict[str, StrictStr]] = None
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Properties stored on the table, if supported by the implementation. ")
     __properties: ClassVar[List[str]] = ["identity", "context", "id", "location", "mode", "properties"]
 
     model_config = ConfigDict(

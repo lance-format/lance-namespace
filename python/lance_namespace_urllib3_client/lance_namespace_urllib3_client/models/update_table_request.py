@@ -33,7 +33,8 @@ class UpdateTableRequest(BaseModel):
     id: Optional[List[StrictStr]] = None
     predicate: Optional[StrictStr] = Field(default=None, description="Optional SQL predicate to filter rows for update")
     updates: List[Annotated[List[StrictStr], Field(min_length=2, max_length=2)]] = Field(description="List of column updates as [column_name, expression] pairs")
-    __properties: ClassVar[List[str]] = ["identity", "context", "id", "predicate", "updates"]
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Properties stored on the table, if supported by the implementation. ")
+    __properties: ClassVar[List[str]] = ["identity", "context", "id", "predicate", "updates", "properties"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,7 +94,8 @@ class UpdateTableRequest(BaseModel):
             "context": obj.get("context"),
             "id": obj.get("id"),
             "predicate": obj.get("predicate"),
-            "updates": obj.get("updates")
+            "updates": obj.get("updates"),
+            "properties": obj.get("properties")
         })
         return _obj
 

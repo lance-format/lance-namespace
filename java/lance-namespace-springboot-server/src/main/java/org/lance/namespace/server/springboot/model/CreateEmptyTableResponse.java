@@ -46,6 +46,8 @@ public class CreateEmptyTableResponse {
 
   @Valid private Map<String, String> storageOptions = new HashMap<>();
 
+  @Valid private Map<String, String> properties = new HashMap<>();
+
   public CreateEmptyTableResponse transactionId(String transactionId) {
     this.transactionId = transactionId;
     return this;
@@ -122,6 +124,40 @@ public class CreateEmptyTableResponse {
     this.storageOptions = storageOptions;
   }
 
+  public CreateEmptyTableResponse properties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public CreateEmptyTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise it should return the properties.
+   *
+   * @return properties
+   */
+  @Schema(
+      name = "properties",
+      example = "{owner=Ralph, created_at=1452120468}",
+      description =
+          "If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("properties")
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -133,12 +169,13 @@ public class CreateEmptyTableResponse {
     CreateEmptyTableResponse createEmptyTableResponse = (CreateEmptyTableResponse) o;
     return Objects.equals(this.transactionId, createEmptyTableResponse.transactionId)
         && Objects.equals(this.location, createEmptyTableResponse.location)
-        && Objects.equals(this.storageOptions, createEmptyTableResponse.storageOptions);
+        && Objects.equals(this.storageOptions, createEmptyTableResponse.storageOptions)
+        && Objects.equals(this.properties, createEmptyTableResponse.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, location, storageOptions);
+    return Objects.hash(transactionId, location, storageOptions, properties);
   }
 
   @Override
@@ -148,6 +185,7 @@ public class CreateEmptyTableResponse {
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **id** | Option<**Vec<String>**> |  | [optional]
 **location** | **String** |  | 
 **mode** | Option<**String**> | There are two modes when trying to register a table, to differentiate the behavior when a table of the same name already exists. Case insensitive, supports both PascalCase and snake_case. Valid values are:   * Create (default): the operation fails with 409.   * Overwrite: the existing table registration is replaced with the new registration.  | [optional]
-**properties** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
+**properties** | Option<**std::collections::HashMap<String, String>**> | Properties stored on the table, if supported by the implementation.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

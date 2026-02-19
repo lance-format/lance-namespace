@@ -31,7 +31,8 @@ import java.util.StringJoiner;
   CreateTableRequest.JSON_PROPERTY_IDENTITY,
   CreateTableRequest.JSON_PROPERTY_CONTEXT,
   CreateTableRequest.JSON_PROPERTY_ID,
-  CreateTableRequest.JSON_PROPERTY_MODE
+  CreateTableRequest.JSON_PROPERTY_MODE,
+  CreateTableRequest.JSON_PROPERTY_PROPERTIES
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -48,6 +49,9 @@ public class CreateTableRequest {
 
   public static final String JSON_PROPERTY_MODE = "mode";
   @javax.annotation.Nullable private String mode;
+
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
 
   public CreateTableRequest() {}
 
@@ -171,6 +175,38 @@ public class CreateTableRequest {
     this.mode = mode;
   }
 
+  public CreateTableRequest properties(@javax.annotation.Nullable Map<String, String> properties) {
+
+    this.properties = properties;
+    return this;
+  }
+
+  public CreateTableRequest putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * Properties stored on the table, if supported by the implementation.
+   *
+   * @return properties
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -183,12 +219,13 @@ public class CreateTableRequest {
     return Objects.equals(this.identity, createTableRequest.identity)
         && Objects.equals(this.context, createTableRequest.context)
         && Objects.equals(this.id, createTableRequest.id)
-        && Objects.equals(this.mode, createTableRequest.mode);
+        && Objects.equals(this.mode, createTableRequest.mode)
+        && Objects.equals(this.properties, createTableRequest.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, mode);
+    return Objects.hash(identity, context, id, mode, properties);
   }
 
   @Override
@@ -199,6 +236,7 @@ public class CreateTableRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -305,6 +343,28 @@ public class CreateTableRequest {
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
+      }
+    }
+
+    // add `properties` to the URL query string
+    if (getProperties() != null) {
+      for (String _key : getProperties().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sproperties%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getProperties().get(_key),
+                  URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

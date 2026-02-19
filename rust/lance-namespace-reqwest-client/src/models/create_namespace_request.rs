@@ -23,6 +23,7 @@ pub struct CreateNamespaceRequest {
     /// There are three modes when trying to create a namespace, to differentiate the behavior when a namespace of the same name already exists. Case insensitive, supports both PascalCase and snake_case. Valid values are:   * Create: the operation fails with 409.   * ExistOk: the operation succeeds and the existing namespace is kept.   * Overwrite: the existing namespace is dropped and a new empty namespace with this name is created. 
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
+    /// Properties stored on the namespace, if supported by the implementation. 
     #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
     pub properties: Option<std::collections::HashMap<String, String>>,
 }

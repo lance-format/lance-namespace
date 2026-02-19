@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **location** | **str** |  | [optional] 
 **version** | **int** |  | [optional] 
 **storage_options** | **Dict[str, str]** | Configuration options to be used to access storage. The available options depend on the type of storage in use. These will be passed directly to Lance to initialize storage access.  | [optional] 
+**properties** | **Dict[str, str]** | If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.  | [optional] 
 
 ## Example
 

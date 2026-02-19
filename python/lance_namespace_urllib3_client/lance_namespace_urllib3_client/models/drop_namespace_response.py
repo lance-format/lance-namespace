@@ -26,7 +26,7 @@ class DropNamespaceResponse(BaseModel):
     """
     DropNamespaceResponse
     """ # noqa: E501
-    properties: Optional[Dict[str, StrictStr]] = None
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="If the implementation does not support namespace properties, it should return null for this field. Otherwise it should return the properties. ")
     transaction_id: Optional[List[StrictStr]] = Field(default=None, description="If present, indicating the operation is long running and should be tracked using DescribeTransaction ")
     __properties: ClassVar[List[str]] = ["properties", "transaction_id"]
 

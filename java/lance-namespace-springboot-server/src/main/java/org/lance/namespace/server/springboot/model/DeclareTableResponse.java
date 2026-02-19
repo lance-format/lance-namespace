@@ -37,6 +37,8 @@ public class DeclareTableResponse {
 
   @Valid private Map<String, String> storageOptions = new HashMap<>();
 
+  @Valid private Map<String, String> properties = new HashMap<>();
+
   public DeclareTableResponse transactionId(String transactionId) {
     this.transactionId = transactionId;
     return this;
@@ -113,6 +115,40 @@ public class DeclareTableResponse {
     this.storageOptions = storageOptions;
   }
 
+  public DeclareTableResponse properties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public DeclareTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise it should return the properties.
+   *
+   * @return properties
+   */
+  @Schema(
+      name = "properties",
+      example = "{owner=Ralph, created_at=1452120468}",
+      description =
+          "If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("properties")
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -124,12 +160,13 @@ public class DeclareTableResponse {
     DeclareTableResponse declareTableResponse = (DeclareTableResponse) o;
     return Objects.equals(this.transactionId, declareTableResponse.transactionId)
         && Objects.equals(this.location, declareTableResponse.location)
-        && Objects.equals(this.storageOptions, declareTableResponse.storageOptions);
+        && Objects.equals(this.storageOptions, declareTableResponse.storageOptions)
+        && Objects.equals(this.properties, declareTableResponse.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, location, storageOptions);
+    return Objects.hash(transactionId, location, storageOptions, properties);
   }
 
   @Override
@@ -139,6 +176,7 @@ public class DeclareTableResponse {
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("}");
     return sb.toString();
   }

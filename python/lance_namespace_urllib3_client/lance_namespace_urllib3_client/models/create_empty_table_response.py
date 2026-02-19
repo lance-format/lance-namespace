@@ -29,7 +29,8 @@ class CreateEmptyTableResponse(BaseModel):
     transaction_id: Optional[StrictStr] = Field(default=None, description="Optional transaction identifier")
     location: Optional[StrictStr] = None
     storage_options: Optional[Dict[str, StrictStr]] = Field(default=None, description="Configuration options to be used to access storage. The available options depend on the type of storage in use. These will be passed directly to Lance to initialize storage access. ")
-    __properties: ClassVar[List[str]] = ["transaction_id", "location", "storage_options"]
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ")
+    __properties: ClassVar[List[str]] = ["transaction_id", "location", "storage_options", "properties"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +85,8 @@ class CreateEmptyTableResponse(BaseModel):
         _obj = cls.model_validate({
             "transaction_id": obj.get("transaction_id"),
             "location": obj.get("location"),
-            "storage_options": obj.get("storage_options")
+            "storage_options": obj.get("storage_options"),
+            "properties": obj.get("properties")
         })
         return _obj
 

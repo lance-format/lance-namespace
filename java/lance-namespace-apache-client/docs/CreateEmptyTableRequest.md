@@ -13,6 +13,7 @@ Request for creating an empty table.  **Deprecated**: Use `DeclareTableRequest` 
 |**id** | **List&lt;String&gt;** |  |  [optional] |
 |**location** | **String** | Optional storage location for the table. If not provided, the namespace implementation should determine the table location.  |  [optional] |
 |**vendCredentials** | **Boolean** | Whether to include vended credentials in the response &#x60;storage_options&#x60;. When true, the implementation should provide vended credentials for accessing storage. When not set, the implementation can decide whether to return vended credentials.  |  [optional] |
+|**properties** | **Map&lt;String, String&gt;** | Properties stored on the table, if supported by the server.  |  [optional] |
 
 
 

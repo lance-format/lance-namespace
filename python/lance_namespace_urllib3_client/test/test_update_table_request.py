@@ -49,7 +49,10 @@ class TestUpdateTableRequest(unittest.TestCase):
                     [
                         ''
                         ]
-                    ]
+                    ],
+                properties = {
+                    'key' : ''
+                    }
             )
         else:
             return UpdateTableRequest(
