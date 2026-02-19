@@ -1,7 +1,7 @@
 /*
  * Lance Namespace Specification
  *
- * This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:  The `components/schemas`, `components/responses`, `components/examples`, `tags` sections define the request and response shape for each operation in a Lance Namespace across all implementations. See https://lance.org/format/namespace/operations for more details.  The `servers`, `security`, `paths`, `components/parameters` sections are for the  Lance REST Namespace implementation, which defines a complete REST server that can work with Lance datasets. See https://lance.org/format/namespace/rest for more details. 
+ * This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:  The `components/schemas`, `components/responses`, `components/examples`, `tags` sections define the request and response shape for each operation in a Lance Namespace across all implementations. See https://lance.org/format/namespace/operations for more details.  The `servers`, `security`, `paths`, `components/parameters` sections are for the Lance REST Namespace implementation, which defines a complete REST server that can work with Lance datasets. See https://lance.org/format/namespace/rest for more details. 
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -990,7 +990,7 @@ pub async fn create_table(configuration: &configuration::Configuration, id: &str
     }
 }
 
-/// Create an index on a table column for faster search operations. Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE, BITMAP, FTS, etc.). Index creation is handled asynchronously.  Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress. 
+/// Create an index on a table column for faster search operations. Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE, BITMAP, FTS, etc.). Index creation is handled asynchronously. Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress. 
 pub async fn create_table_index(configuration: &configuration::Configuration, id: &str, create_table_index_request: models::CreateTableIndexRequest, delimiter: Option<&str>) -> Result<models::CreateTableIndexResponse, Error<CreateTableIndexError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_id = id;
@@ -2585,7 +2585,7 @@ pub async fn restore_table(configuration: &configuration::Configuration, id: &st
     }
 }
 
-/// Check if table `id` exists.  This operation should behave exactly like DescribeTable,  except it does not contain a response body.  For DirectoryNamespace implementation, a table exists if either: - The table has Lance data versions (regular table created with CreateTable) - A `.lance-reserved` file exists in the table directory (declared table created with DeclareTable) 
+/// Check if table `id` exists.  This operation should behave exactly like DescribeTable, except it does not contain a response body.  For DirectoryNamespace implementation, a table exists if either: - The table has Lance data versions (regular table created with CreateTable) - A `.lance-reserved` file exists in the table directory (declared table created with DeclareTable) 
 pub async fn table_exists(configuration: &configuration::Configuration, id: &str, table_exists_request: models::TableExistsRequest, delimiter: Option<&str>) -> Result<(), Error<TableExistsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_id = id;

@@ -1,7 +1,7 @@
 /*
  * Lance Namespace Specification
  *
- * This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:  The `components/schemas`, `components/responses`, `components/examples`, `tags` sections define the request and response shape for each operation in a Lance Namespace across all implementations. See https://lance.org/format/namespace/operations for more details.  The `servers`, `security`, `paths`, `components/parameters` sections are for the  Lance REST Namespace implementation, which defines a complete REST server that can work with Lance datasets. See https://lance.org/format/namespace/rest for more details. 
+ * This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:  The `components/schemas`, `components/responses`, `components/examples`, `tags` sections define the request and response shape for each operation in a Lance Namespace across all implementations. See https://lance.org/format/namespace/operations for more details.  The `servers`, `security`, `paths`, `components/parameters` sections are for the Lance REST Namespace implementation, which defines a complete REST server that can work with Lance datasets. See https://lance.org/format/namespace/rest for more details. 
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -43,6 +43,9 @@ pub struct DescribeTableResponse {
     /// Properties stored on the table, if supported by the server. This records the information managed by the namespace. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object.
     #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
     pub properties: Option<std::collections::HashMap<String, String>>,
+    /// When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. 
+    #[serde(rename = "managed_versioning", skip_serializing_if = "Option::is_none")]
+    pub managed_versioning: Option<bool>,
 }
 
 impl DescribeTableResponse {
@@ -58,6 +61,7 @@ impl DescribeTableResponse {
             stats: None,
             metadata: None,
             properties: None,
+            managed_versioning: None,
         }
     }
 }

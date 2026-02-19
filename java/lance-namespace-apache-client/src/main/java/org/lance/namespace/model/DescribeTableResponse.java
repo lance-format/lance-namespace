@@ -37,7 +37,8 @@ import java.util.StringJoiner;
   DescribeTableResponse.JSON_PROPERTY_STORAGE_OPTIONS,
   DescribeTableResponse.JSON_PROPERTY_STATS,
   DescribeTableResponse.JSON_PROPERTY_METADATA,
-  DescribeTableResponse.JSON_PROPERTY_PROPERTIES
+  DescribeTableResponse.JSON_PROPERTY_PROPERTIES,
+  DescribeTableResponse.JSON_PROPERTY_MANAGED_VERSIONING
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -72,6 +73,9 @@ public class DescribeTableResponse {
 
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
   @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
+
+  public static final String JSON_PROPERTY_MANAGED_VERSIONING = "managed_versioning";
+  @javax.annotation.Nullable private Boolean managedVersioning;
 
   public DescribeTableResponse() {}
 
@@ -362,6 +366,33 @@ public class DescribeTableResponse {
     this.properties = properties;
   }
 
+  public DescribeTableResponse managedVersioning(
+      @javax.annotation.Nullable Boolean managedVersioning) {
+
+    this.managedVersioning = managedVersioning;
+    return this;
+  }
+
+  /**
+   * When true, the caller should use namespace table version operations (CreateTableVersion,
+   * DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions
+   * instead of relying on Lance&#39;s native version management.
+   *
+   * @return managedVersioning
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getManagedVersioning() {
+    return managedVersioning;
+  }
+
+  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setManagedVersioning(@javax.annotation.Nullable Boolean managedVersioning) {
+    this.managedVersioning = managedVersioning;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -380,7 +411,8 @@ public class DescribeTableResponse {
         && Objects.equals(this.storageOptions, describeTableResponse.storageOptions)
         && Objects.equals(this.stats, describeTableResponse.stats)
         && Objects.equals(this.metadata, describeTableResponse.metadata)
-        && Objects.equals(this.properties, describeTableResponse.properties);
+        && Objects.equals(this.properties, describeTableResponse.properties)
+        && Objects.equals(this.managedVersioning, describeTableResponse.managedVersioning);
   }
 
   @Override
@@ -395,7 +427,8 @@ public class DescribeTableResponse {
         storageOptions,
         stats,
         metadata,
-        properties);
+        properties,
+        managedVersioning);
   }
 
   @Override
@@ -412,6 +445,7 @@ public class DescribeTableResponse {
     sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("    managedVersioning: ").append(toIndentedString(managedVersioning)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -614,6 +648,22 @@ public class DescribeTableResponse {
           // Should never happen, UTF-8 is always supported
           throw new RuntimeException(e);
         }
+      }
+    }
+
+    // add `managed_versioning` to the URL query string
+    if (getManagedVersioning() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%smanaged_versioning%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getManagedVersioning()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
       }
     }
 

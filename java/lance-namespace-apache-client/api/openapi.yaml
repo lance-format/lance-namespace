@@ -1,13 +1,15 @@
 openapi: 3.1.1
 info:
-  description: "This OpenAPI specification is a part of the Lance namespace specification.\
-    \ It contains 2 parts:\n\nThe `components/schemas`, `components/responses`, `components/examples`,\
-    \ `tags` sections define\nthe request and response shape for each operation in\
-    \ a Lance Namespace across all implementations.\nSee https://lance.org/format/namespace/operations\
-    \ for more details.\n\nThe `servers`, `security`, `paths`, `components/parameters`\
-    \ sections are for the \nLance REST Namespace implementation, which defines a\
-    \ complete REST server that can work with Lance datasets.\nSee https://lance.org/format/namespace/rest\
-    \ for more details.\n"
+  description: |
+    This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:
+
+    The `components/schemas`, `components/responses`, `components/examples`, `tags` sections define
+    the request and response shape for each operation in a Lance Namespace across all implementations.
+    See https://lance.org/format/namespace/operations for more details.
+
+    The `servers`, `security`, `paths`, `components/parameters` sections are for the
+    Lance REST Namespace implementation, which defines a complete REST server that can work with Lance datasets.
+    See https://lance.org/format/namespace/rest for more details.
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -66,10 +68,12 @@ paths:
     - $ref: '#/components/parameters/id'
     - $ref: '#/components/parameters/delimiter'
     post:
-      description: "Create new namespace `id`.\n\nDuring the creation process, the\
-        \ implementation may modify user-provided `properties`, \nsuch as adding additional\
-        \ properties like `created_at` to user-provided properties, \nomitting any\
-        \ specific property, or performing actions based on any property value.\n"
+      description: |
+        Create new namespace `id`.
+
+        During the creation process, the implementation may modify user-provided `properties`,
+        such as adding additional properties like `created_at` to user-provided properties,
+        omitting any specific property, or performing actions based on any property value.
       operationId: CreateNamespace
       parameters:
       - $ref: '#/components/parameters/id'
@@ -236,9 +240,11 @@ paths:
     - $ref: '#/components/parameters/id'
     - $ref: '#/components/parameters/delimiter'
     post:
-      description: "Check if namespace `id` exists.\n\nThis operation must behave\
-        \ exactly like the DescribeNamespace API, \nexcept it does not contain a response\
-        \ body.\n"
+      description: |
+        Check if namespace `id` exists.
+
+        This operation must behave exactly like the DescribeNamespace API,
+        except it does not contain a response body.
       operationId: NamespaceExists
       parameters:
       - $ref: '#/components/parameters/id'
@@ -445,11 +451,15 @@ paths:
     - $ref: '#/components/parameters/id'
     - $ref: '#/components/parameters/delimiter'
     post:
-      description: "Check if table `id` exists.\n\nThis operation should behave exactly\
-        \ like DescribeTable, \nexcept it does not contain a response body.\n\nFor\
-        \ DirectoryNamespace implementation, a table exists if either:\n- The table\
-        \ has Lance data versions (regular table created with CreateTable)\n- A `.lance-reserved`\
-        \ file exists in the table directory (declared table created with DeclareTable)\n"
+      description: |
+        Check if table `id` exists.
+
+        This operation should behave exactly like DescribeTable,
+        except it does not contain a response body.
+
+        For DirectoryNamespace implementation, a table exists if either:
+        - The table has Lance data versions (regular table created with CreateTable)
+        - A `.lance-reserved` file exists in the table directory (declared table created with DeclareTable)
       operationId: TableExists
       parameters:
       - $ref: '#/components/parameters/id'
@@ -1636,11 +1646,11 @@ paths:
     - $ref: '#/components/parameters/id'
     - $ref: '#/components/parameters/delimiter'
     post:
-      description: "Create an index on a table column for faster search operations.\n\
-        Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes\
-        \ (BTREE, BITMAP, FTS, etc.).\nIndex creation is handled asynchronously. \n\
-        Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor\
-        \ index creation progress.\n"
+      description: |
+        Create an index on a table column for faster search operations.
+        Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE, BITMAP, FTS, etc.).
+        Index creation is handled asynchronously.
+        Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress.
       operationId: CreateTableIndex
       parameters:
       - $ref: '#/components/parameters/id'
@@ -2872,21 +2882,28 @@ components:
             type: string
           type: array
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
         limit:
-          description: "An inclusive upper bound of the \nnumber of results that a\
-            \ caller will receive.\n"
+          description: |
+            An inclusive upper bound of the
+            number of results that a caller will receive.
           type: integer
           nullable: true
     ListNamespacesResponse:
@@ -2904,16 +2921,22 @@ components:
           type: array
           uniqueItems: true
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
       required:
@@ -3057,21 +3080,28 @@ components:
             type: string
           type: array
     PageToken:
-      description: "An opaque token that allows pagination for list operations (e.g.\
-        \ ListNamespaces).\n\nFor an initial request of a list operation, \nif the\
-        \ implementation cannot return all items in one response,\nor if there are\
-        \ more items than the page limit specified in the request,\nthe implementation\
-        \ must return a page token in the response,\nindicating there are more results\
-        \ available.\n\nAfter the initial request, \nthe value of the page token from\
-        \ each response must be used\nas the page token value for the next request.\n\
-        \nCaller must interpret either `null`, \nmissing value or empty string value\
-        \ of the page token from\nthe implementation's response as the end of the\
-        \ listing results.\n"
+      description: |
+        An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+        For an initial request of a list operation,
+        if the implementation cannot return all items in one response,
+        or if there are more items than the page limit specified in the request,
+        the implementation must return a page token in the response,
+        indicating there are more results available.
+
+        After the initial request,
+        the value of the page token from each response must be used
+        as the page token value for the next request.
+
+        Caller must interpret either `null`,
+        missing value or empty string value of the page token from
+        the implementation's response as the end of the listing results.
       type: string
       nullable: true
     PageLimit:
-      description: "An inclusive upper bound of the \nnumber of results that a caller\
-        \ will receive.\n"
+      description: |
+        An inclusive upper bound of the
+        number of results that a caller will receive.
       type: integer
       nullable: true
     RegisterTableRequest:
@@ -3160,21 +3190,28 @@ components:
             type: string
           type: array
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
         limit:
-          description: "An inclusive upper bound of the \nnumber of results that a\
-            \ caller will receive.\n"
+          description: |
+            An inclusive upper bound of the
+            number of results that a caller will receive.
           type: integer
           nullable: true
     ListTablesResponse:
@@ -3194,16 +3231,22 @@ components:
           type: array
           uniqueItems: true
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
       required:
@@ -3308,6 +3351,7 @@ components:
         properties:
           owner: Ralph
           created_at: "1452120468"
+        managed_versioning: true
         storage_options:
           key: storage_options
       properties:
@@ -3373,6 +3417,12 @@ components:
             owner: Ralph
             created_at: "1452120468"
           nullable: true
+        managed_versioning:
+          description: |
+            When true, the caller should use namespace table version operations
+            (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
+            to manage table versions instead of relying on Lance's native version management.
+          type: boolean
     TableBasicStats:
       example:
         num_deleted_rows: 0
@@ -3431,8 +3481,9 @@ components:
             Optional SQL predicate to filter rows for counting
           type: string
     CountTableRowsResponse:
-      description: "Response containing the count of rows. \nSerializes transparently\
-        \ as just the number for backward compatibility.\n"
+      description: |
+        Response containing the count of rows.
+        Serializes transparently as just the number for backward compatibility.
       format: int64
       minimum: 0
       type: integer
@@ -4015,21 +4066,28 @@ components:
           type: integer
           nullable: true
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
         limit:
-          description: "An inclusive upper bound of the \nnumber of results that a\
-            \ caller will receive.\n"
+          description: |
+            An inclusive upper bound of the
+            number of results that a caller will receive.
           type: integer
           nullable: true
     ListTableIndicesResponse:
@@ -4055,16 +4113,22 @@ components:
             $ref: '#/components/schemas/IndexContent'
           type: array
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
       required:
@@ -5350,21 +5414,28 @@ components:
             type: string
           type: array
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
         limit:
-          description: "An inclusive upper bound of the \nnumber of results that a\
-            \ caller will receive.\n"
+          description: |
+            An inclusive upper bound of the
+            number of results that a caller will receive.
           type: integer
           nullable: true
     ListTableTagsResponse:
@@ -5382,16 +5453,22 @@ components:
             $ref: '#/components/schemas/TagContents'
           description: Map of tag names to their contents
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
       required:
@@ -5566,21 +5643,28 @@ components:
             type: string
           type: array
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
         limit:
-          description: "An inclusive upper bound of the \nnumber of results that a\
-            \ caller will receive.\n"
+          description: |
+            An inclusive upper bound of the
+            number of results that a caller will receive.
           type: integer
           nullable: true
         descending:
@@ -5615,16 +5699,22 @@ components:
             $ref: '#/components/schemas/TableVersion'
           type: array
         page_token:
-          description: "An opaque token that allows pagination for list operations\
-            \ (e.g. ListNamespaces).\n\nFor an initial request of a list operation,\
-            \ \nif the implementation cannot return all items in one response,\nor\
-            \ if there are more items than the page limit specified in the request,\n\
-            the implementation must return a page token in the response,\nindicating\
-            \ there are more results available.\n\nAfter the initial request, \nthe\
-            \ value of the page token from each response must be used\nas the page\
-            \ token value for the next request.\n\nCaller must interpret either `null`,\
-            \ \nmissing value or empty string value of the page token from\nthe implementation's\
-            \ response as the end of the listing results.\n"
+          description: |
+            An opaque token that allows pagination for list operations (e.g. ListNamespaces).
+
+            For an initial request of a list operation,
+            if the implementation cannot return all items in one response,
+            or if there are more items than the page limit specified in the request,
+            the implementation must return a page token in the response,
+            indicating there are more results available.
+
+            After the initial request,
+            the value of the page token from each response must be used
+            as the page token value for the next request.
+
+            Caller must interpret either `null`,
+            missing value or empty string value of the page token from
+            the implementation's response as the end of the listing results.
           type: string
           nullable: true
       required:
@@ -5851,11 +5941,7 @@ components:
           minimum: 0
           type: integer
         manifest_path:
-          description: |
-            Path to the manifest file for this version.
-            When not provided, the client should resolve the manifest path based on
-            the Lance table format's manifest naming scheme and the manifest naming
-            scheme the table is currently using.
+          description: Path to the manifest file for this version.
           type: string
         manifest_size:
           description: Size of the manifest file in bytes
@@ -5876,6 +5962,7 @@ components:
             type: string
           description: Optional key-value pairs of metadata
       required:
+      - manifest_path
       - version
     ExplainTableQueryPlanRequest:
       example:

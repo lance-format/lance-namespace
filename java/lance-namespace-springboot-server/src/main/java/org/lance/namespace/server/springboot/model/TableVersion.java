@@ -50,8 +50,9 @@ public class TableVersion {
   }
 
   /** Constructor with only required parameters */
-  public TableVersion(Long version) {
+  public TableVersion(Long version, String manifestPath) {
     this.version = version;
+    this.manifestPath = manifestPath;
   }
 
   public TableVersion version(Long version) {
@@ -85,17 +86,15 @@ public class TableVersion {
   }
 
   /**
-   * Path to the manifest file for this version. When not provided, the client should resolve the
-   * manifest path based on the Lance table format's manifest naming scheme and the manifest naming
-   * scheme the table is currently using.
+   * Path to the manifest file for this version.
    *
    * @return manifestPath
    */
+  @NotNull
   @Schema(
       name = "manifest_path",
-      description =
-          "Path to the manifest file for this version. When not provided, the client should resolve the manifest path based on the Lance table format's manifest naming scheme and the manifest naming scheme the table is currently using. ",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+      description = "Path to the manifest file for this version.",
+      requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("manifest_path")
   public String getManifestPath() {
     return manifestPath;

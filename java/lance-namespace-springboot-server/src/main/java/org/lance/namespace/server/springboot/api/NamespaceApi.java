@@ -89,7 +89,7 @@ public interface NamespaceApi {
       operationId = "createNamespace",
       summary = "Create a new namespace",
       description =
-          "Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`,  such as adding additional properties like `created_at` to user-provided properties,  omitting any specific property, or performing actions based on any property value. ",
+          "Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`, such as adding additional properties like `created_at` to user-provided properties, omitting any specific property, or performing actions based on any property value. ",
       tags = {"Namespace", "Metadata"},
       responses = {
         @ApiResponse(
@@ -1069,7 +1069,7 @@ public interface NamespaceApi {
       operationId = "namespaceExists",
       summary = "Check if a namespace exists",
       description =
-          "Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API,  except it does not contain a response body. ",
+          "Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API, except it does not contain a response body. ",
       tags = {"Namespace", "Metadata"},
       responses = {
         @ApiResponse(responseCode = "200", description = "Success, no content"),

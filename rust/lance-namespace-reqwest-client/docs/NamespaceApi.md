@@ -18,7 +18,7 @@ Method | HTTP request | Description
 > models::CreateNamespaceResponse create_namespace(id, create_namespace_request, delimiter)
 Create a new namespace
 
-Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`,  such as adding additional properties like `created_at` to user-provided properties,  omitting any specific property, or performing actions based on any property value. 
+Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`, such as adding additional properties like `created_at` to user-provided properties, omitting any specific property, or performing actions based on any property value. 
 
 ### Parameters
 
@@ -180,7 +180,7 @@ Name | Type | Description  | Required | Notes
 > namespace_exists(id, namespace_exists_request, delimiter)
 Check if a namespace exists
 
-Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API,  except it does not contain a response body. 
+Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API, except it does not contain a response body. 
 
 ### Parameters
 

@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **version** | **int** | Version number | 
-**manifest_path** | **str** | Path to the manifest file for this version. When not provided, the client should resolve the manifest path based on the Lance table format&#39;s manifest naming scheme and the manifest naming scheme the table is currently using.  | [optional] 
+**manifest_path** | **str** | Path to the manifest file for this version. | 
 **manifest_size** | **int** | Size of the manifest file in bytes | [optional] 
 **e_tag** | **str** | Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores.  | [optional] 
 **timestamp** | **datetime** | Timestamp when the version was created | [optional] 

@@ -19,8 +19,8 @@ Create a new namespace
 
 Create new namespace `id`.
 
-During the creation process, the implementation may modify user-provided `properties`, 
-such as adding additional properties like `created_at` to user-provided properties, 
+During the creation process, the implementation may modify user-provided `properties`,
+such as adding additional properties like `created_at` to user-provided properties,
 omitting any specific property, or performing actions based on any property value.
 
 
@@ -544,7 +544,7 @@ Check if a namespace exists
 
 Check if namespace `id` exists.
 
-This operation must behave exactly like the DescribeNamespace API, 
+This operation must behave exactly like the DescribeNamespace API,
 except it does not contain a response body.
 
 

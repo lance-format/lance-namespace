@@ -1,7 +1,7 @@
 /*
  * Lance Namespace Specification
  *
- * This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:  The `components/schemas`, `components/responses`, `components/examples`, `tags` sections define the request and response shape for each operation in a Lance Namespace across all implementations. See https://lance.org/format/namespace/operations for more details.  The `servers`, `security`, `paths`, `components/parameters` sections are for the  Lance REST Namespace implementation, which defines a complete REST server that can work with Lance datasets. See https://lance.org/format/namespace/rest for more details. 
+ * This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:  The `components/schemas`, `components/responses`, `components/examples`, `tags` sections define the request and response shape for each operation in a Lance Namespace across all implementations. See https://lance.org/format/namespace/operations for more details.  The `servers`, `security`, `paths`, `components/parameters` sections are for the Lance REST Namespace implementation, which defines a complete REST server that can work with Lance datasets. See https://lance.org/format/namespace/rest for more details. 
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -99,7 +99,7 @@ pub enum NamespaceExistsError {
 }
 
 
-/// Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`,  such as adding additional properties like `created_at` to user-provided properties,  omitting any specific property, or performing actions based on any property value. 
+/// Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`, such as adding additional properties like `created_at` to user-provided properties, omitting any specific property, or performing actions based on any property value. 
 pub async fn create_namespace(configuration: &configuration::Configuration, id: &str, create_namespace_request: models::CreateNamespaceRequest, delimiter: Option<&str>) -> Result<models::CreateNamespaceResponse, Error<CreateNamespaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_id = id;
@@ -396,7 +396,7 @@ pub async fn list_tables(configuration: &configuration::Configuration, id: &str,
     }
 }
 
-/// Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API,  except it does not contain a response body. 
+/// Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API, except it does not contain a response body. 
 pub async fn namespace_exists(configuration: &configuration::Configuration, id: &str, namespace_exists_request: models::NamespaceExistsRequest, delimiter: Option<&str>) -> Result<(), Error<NamespaceExistsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_id = id;
