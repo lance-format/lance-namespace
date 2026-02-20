@@ -4058,10 +4058,10 @@ components:
           description: |
             Optional ETag for optimistic concurrency control.
             Useful for S3 and similar object stores.
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the version was created
+        timestamp_millis:
+          type: integer
+          format: int64
+          description: Timestamp when the version was created, in milliseconds since epoch (Unix time)
         metadata:
           type: object
           additionalProperties:

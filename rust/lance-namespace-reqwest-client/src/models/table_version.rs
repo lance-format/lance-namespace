@@ -25,9 +25,9 @@ pub struct TableVersion {
     /// Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores. 
     #[serde(rename = "e_tag", skip_serializing_if = "Option::is_none")]
     pub e_tag: Option<String>,
-    /// Timestamp when the version was created
-    #[serde(rename = "timestamp", skip_serializing_if = "Option::is_none")]
-    pub timestamp: Option<String>,
+    /// Timestamp when the version was created, in milliseconds since epoch (Unix time)
+    #[serde(rename = "timestamp_millis", skip_serializing_if = "Option::is_none")]
+    pub timestamp_millis: Option<i64>,
     /// Optional key-value pairs of metadata
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -40,7 +40,7 @@ impl TableVersion {
             manifest_path,
             manifest_size: None,
             e_tag: None,
-            timestamp: None,
+            timestamp_millis: None,
             metadata: None,
         }
     }

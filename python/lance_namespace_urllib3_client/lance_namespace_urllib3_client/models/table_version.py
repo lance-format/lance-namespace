@@ -17,8 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -32,9 +31,9 @@ class TableVersion(BaseModel):
     manifest_path: StrictStr = Field(description="Path to the manifest file for this version.")
     manifest_size: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Size of the manifest file in bytes")
     e_tag: Optional[StrictStr] = Field(default=None, description="Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores. ")
-    timestamp: Optional[datetime] = Field(default=None, description="Timestamp when the version was created")
+    timestamp_millis: Optional[StrictInt] = Field(default=None, description="Timestamp when the version was created, in milliseconds since epoch (Unix time)")
     metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Optional key-value pairs of metadata")
-    __properties: ClassVar[List[str]] = ["version", "manifest_path", "manifest_size", "e_tag", "timestamp", "metadata"]
+    __properties: ClassVar[List[str]] = ["version", "manifest_path", "manifest_size", "e_tag", "timestamp_millis", "metadata"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,7 +90,7 @@ class TableVersion(BaseModel):
             "manifest_path": obj.get("manifest_path"),
             "manifest_size": obj.get("manifest_size"),
             "e_tag": obj.get("e_tag"),
-            "timestamp": obj.get("timestamp"),
+            "timestamp_millis": obj.get("timestamp_millis"),
             "metadata": obj.get("metadata")
         })
         return _obj

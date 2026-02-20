@@ -18,9 +18,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +38,7 @@ public class TableVersion {
 
   private String eTag;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  private OffsetDateTime timestamp;
+  private Long timestampMillis;
 
   @Valid private Map<String, String> metadata = new HashMap<>();
 
@@ -152,28 +149,28 @@ public class TableVersion {
     this.eTag = eTag;
   }
 
-  public TableVersion timestamp(OffsetDateTime timestamp) {
-    this.timestamp = timestamp;
+  public TableVersion timestampMillis(Long timestampMillis) {
+    this.timestampMillis = timestampMillis;
     return this;
   }
 
   /**
-   * Timestamp when the version was created
+   * Timestamp when the version was created, in milliseconds since epoch (Unix time)
    *
-   * @return timestamp
+   * @return timestampMillis
    */
-  @Valid
   @Schema(
-      name = "timestamp",
-      description = "Timestamp when the version was created",
+      name = "timestamp_millis",
+      description =
+          "Timestamp when the version was created, in milliseconds since epoch (Unix time)",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("timestamp")
-  public OffsetDateTime getTimestamp() {
-    return timestamp;
+  @JsonProperty("timestamp_millis")
+  public Long getTimestampMillis() {
+    return timestampMillis;
   }
 
-  public void setTimestamp(OffsetDateTime timestamp) {
-    this.timestamp = timestamp;
+  public void setTimestampMillis(Long timestampMillis) {
+    this.timestampMillis = timestampMillis;
   }
 
   public TableVersion metadata(Map<String, String> metadata) {
@@ -220,13 +217,13 @@ public class TableVersion {
         && Objects.equals(this.manifestPath, tableVersion.manifestPath)
         && Objects.equals(this.manifestSize, tableVersion.manifestSize)
         && Objects.equals(this.eTag, tableVersion.eTag)
-        && Objects.equals(this.timestamp, tableVersion.timestamp)
+        && Objects.equals(this.timestampMillis, tableVersion.timestampMillis)
         && Objects.equals(this.metadata, tableVersion.metadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(version, manifestPath, manifestSize, eTag, timestamp, metadata);
+    return Objects.hash(version, manifestPath, manifestSize, eTag, timestampMillis, metadata);
   }
 
   @Override
@@ -237,7 +234,7 @@ public class TableVersion {
     sb.append("    manifestPath: ").append(toIndentedString(manifestPath)).append("\n");
     sb.append("    manifestSize: ").append(toIndentedString(manifestSize)).append("\n");
     sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    timestampMillis: ").append(toIndentedString(timestampMillis)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("}");
     return sb.toString();
