@@ -375,8 +375,8 @@ public class DescribeTableResponse {
 
   /**
    * When true, the caller should use namespace table version operations (CreateTableVersion,
-   * DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions
-   * instead of relying on Lance&#39;s native version management.
+   * BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to
+   * manage table versions instead of relying on Lance&#39;s native version management.
    *
    * @return managedVersioning
    */

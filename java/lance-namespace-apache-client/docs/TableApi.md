@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost:2333*
 | [**alterTableAlterColumns**](TableApi.md#alterTableAlterColumns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns |
 | [**alterTableDropColumns**](TableApi.md#alterTableDropColumns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table |
 | [**analyzeTableQueryPlan**](TableApi.md#analyzeTableQueryPlan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan |
+| [**batchCreateTableVersions**](TableApi.md#batchCreateTableVersions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables |
 | [**batchDeleteTableVersions**](TableApi.md#batchDeleteTableVersions) | **POST** /v1/table/{id}/version/delete | Delete table version records |
 | [**countTableRows**](TableApi.md#countTableRows) | **POST** /v1/table/{id}/count_rows | Count rows in a table |
 | [**createEmptyTable**](TableApi.md#createEmptyTable) | **POST** /v1/table/{id}/create-empty | Create an empty table |
@@ -406,6 +407,96 @@ public class Example {
 | **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
 | **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
 | **404** | A server-side problem that means can not find the specified resource. |  -  |
+| **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+| **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+
+## batchCreateTableVersions
+
+> BatchCreateTableVersionsResponse batchCreateTableVersions(batchCreateTableVersionsRequest, delimiter)
+
+Atomically create versions for multiple tables
+
+Atomically create new version entries for multiple tables.  This operation is atomic: either all table versions are created successfully, or none are created. If any version creation fails (e.g., due to conflict), the entire batch operation fails.  Each entry in the request specifies the table identifier and version details. This supports &#x60;put_if_not_exists&#x60; semantics for each version entry. 
+
+### Example
+
+```java
+// Import classes:
+import org.lance.namespace.client.apache.ApiClient;
+import org.lance.namespace.client.apache.ApiException;
+import org.lance.namespace.client.apache.Configuration;
+import org.lance.namespace.client.apache.auth.*;
+import org.lance.namespace.client.apache.models.*;
+import org.lance.namespace.client.apache.api.TableApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:2333");
+        
+        // Configure OAuth2 access token for authorization: OAuth2
+        OAuth OAuth2 = (OAuth) defaultClient.getAuthentication("OAuth2");
+        OAuth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Configure HTTP bearer authorization: BearerAuth
+        HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+        BearerAuth.setBearerToken("BEARER TOKEN");
+
+        TableApi apiInstance = new TableApi(defaultClient);
+        BatchCreateTableVersionsRequest batchCreateTableVersionsRequest = new BatchCreateTableVersionsRequest(); // BatchCreateTableVersionsRequest | 
+        String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
+        try {
+            BatchCreateTableVersionsResponse result = apiInstance.batchCreateTableVersions(batchCreateTableVersionsRequest, delimiter);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TableApi#batchCreateTableVersions");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **batchCreateTableVersionsRequest** | [**BatchCreateTableVersionsRequest**](BatchCreateTableVersionsRequest.md)|  | |
+| **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
+
+### Return type
+
+[**BatchCreateTableVersionsResponse**](BatchCreateTableVersionsResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Result of atomically creating table versions |  -  |
+| **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+| **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+| **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+| **404** | A server-side problem that means can not find the specified resource. |  -  |
+| **409** | The request conflicts with the current state of the target resource. |  -  |
 | **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
 | **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
 

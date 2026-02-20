@@ -24,6 +24,8 @@ import org.lance.namespace.model.AlterTableDropColumnsRequest;
 import org.lance.namespace.model.AlterTableDropColumnsResponse;
 import org.lance.namespace.model.AlterTransactionRequest;
 import org.lance.namespace.model.AlterTransactionResponse;
+import org.lance.namespace.model.BatchCreateTableVersionsRequest;
+import org.lance.namespace.model.BatchCreateTableVersionsResponse;
 import org.lance.namespace.model.BatchDeleteTableVersionsRequest;
 import org.lance.namespace.model.BatchDeleteTableVersionsResponse;
 import org.lance.namespace.model.CreateEmptyTableRequest;
@@ -392,6 +394,97 @@ public class MetadataApi extends BaseApi {
 
     TypeReference<AlterTransactionResponse> localVarReturnType =
         new TypeReference<AlterTransactionResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType);
+  }
+
+  /**
+   * Atomically create versions for multiple tables Atomically create new version entries for
+   * multiple tables. This operation is atomic: either all table versions are created successfully,
+   * or none are created. If any version creation fails (e.g., due to conflict), the entire batch
+   * operation fails. Each entry in the request specifies the table identifier and version details.
+   * This supports &#x60;put_if_not_exists&#x60; semantics for each version entry.
+   *
+   * @param batchCreateTableVersionsRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return BatchCreateTableVersionsResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BatchCreateTableVersionsResponse batchCreateTableVersions(
+      BatchCreateTableVersionsRequest batchCreateTableVersionsRequest, String delimiter)
+      throws ApiException {
+    return this.batchCreateTableVersions(
+        batchCreateTableVersionsRequest, delimiter, Collections.emptyMap());
+  }
+
+  /**
+   * Atomically create versions for multiple tables Atomically create new version entries for
+   * multiple tables. This operation is atomic: either all table versions are created successfully,
+   * or none are created. If any version creation fails (e.g., due to conflict), the entire batch
+   * operation fails. Each entry in the request specifies the table identifier and version details.
+   * This supports &#x60;put_if_not_exists&#x60; semantics for each version entry.
+   *
+   * @param batchCreateTableVersionsRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return BatchCreateTableVersionsResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BatchCreateTableVersionsResponse batchCreateTableVersions(
+      BatchCreateTableVersionsRequest batchCreateTableVersionsRequest,
+      String delimiter,
+      Map<String, String> additionalHeaders)
+      throws ApiException {
+    Object localVarPostBody = batchCreateTableVersionsRequest;
+
+    // verify the required parameter 'batchCreateTableVersionsRequest' is set
+    if (batchCreateTableVersionsRequest == null) {
+      throw new ApiException(
+          400,
+          "Missing the required parameter 'batchCreateTableVersionsRequest' when calling batchCreateTableVersions");
+    }
+
+    // create path and map variables
+    String localVarPath = "/v1/table/version/batch-create";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
+
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = {"application/json"};
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {"application/json"};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
+
+    TypeReference<BatchCreateTableVersionsResponse> localVarReturnType =
+        new TypeReference<BatchCreateTableVersionsResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",

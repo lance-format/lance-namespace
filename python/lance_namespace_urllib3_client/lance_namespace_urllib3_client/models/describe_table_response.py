@@ -39,7 +39,7 @@ class DescribeTableResponse(BaseModel):
     stats: Optional[TableBasicStats] = Field(default=None, description="Table statistics. Only populated when `load_detailed_metadata` is true. ")
     metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Optional table metadata as key-value pairs. This records the information of the table and requires loading the table. It is only populated when `load_detailed_metadata` is true. ")
     properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Properties stored on the table, if supported by the server. This records the information managed by the namespace. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object.")
-    managed_versioning: Optional[StrictBool] = Field(default=None, description="When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ")
+    managed_versioning: Optional[StrictBool] = Field(default=None, description="When true, the caller should use namespace table version operations (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ")
     __properties: ClassVar[List[str]] = ["table", "namespace", "version", "location", "table_uri", "schema", "storage_options", "stats", "metadata", "properties", "managed_versioning"]
 
     model_config = ConfigDict(

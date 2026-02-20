@@ -70,8 +70,9 @@ See [REST Routes](../../rest/catalog-spec.md#rest-routes) for more details.
 | RenameTable               | 1               |           | ✓     |       | ✓        |      |             |
 | ListTableVersions         | 1               |           | ✓     |       | ✓        |      |             |
 | CreateTableVersion        | 1               |           | ✓     |       | ✓        |      |             |
+| BatchCreateTableVersions  | 1               |           | ✓     |       | ✓        |      |             |
 | DescribeTableVersion      | 1               |           | ✓     |       | ✓        |      |             |
-| BatchDeleteTableVersions       | 1               |           | ✓     |       | ✓        |      |             |
+| BatchDeleteTableVersions  | 1               |           | ✓     |       | ✓        |      |             |
 | ExplainTableQueryPlan     | 1               |           | ✓     |       |          | ✓    |             |
 | AnalyzeTableQueryPlan     | 1               |           | ✓     |       |          | ✓    |             |
 | AlterTableAddColumns      | 1               |           | ✓     |       |          | ✓    |             |

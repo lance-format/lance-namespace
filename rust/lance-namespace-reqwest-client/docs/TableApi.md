@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**alter_table_alter_columns**](TableApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 [**alter_table_drop_columns**](TableApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 [**analyze_table_query_plan**](TableApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
+[**batch_create_table_versions**](TableApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 [**batch_delete_table_versions**](TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 [**count_table_rows**](TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 [**create_empty_table**](TableApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
@@ -161,6 +162,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 **String**
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## batch_create_table_versions
+
+> models::BatchCreateTableVersionsResponse batch_create_table_versions(batch_create_table_versions_request, delimiter)
+Atomically create versions for multiple tables
+
+Atomically create new version entries for multiple tables.  This operation is atomic: either all table versions are created successfully, or none are created. If any version creation fails (e.g., due to conflict), the entire batch operation fails.  Each entry in the request specifies the table identifier and version details. This supports `put_if_not_exists` semantics for each version entry. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**batch_create_table_versions_request** | [**BatchCreateTableVersionsRequest**](BatchCreateTableVersionsRequest.md) |  | [required] |
+**delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
+
+### Return type
+
+[**models::BatchCreateTableVersionsResponse**](BatchCreateTableVersionsResponse.md)
 
 ### Authorization
 
