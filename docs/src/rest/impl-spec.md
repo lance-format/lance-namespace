@@ -345,48 +345,6 @@ If the table does not exist, return HTTP `404 Not Found` with error code `4` (Ta
 
 If the specified version does not exist, return HTTP `404 Not Found` with error code `11` (TableVersionNotFound).
 
-### DropTable
-
-Removes a table and its data.
-
-**HTTP Request:**
-
-```
-POST /v1/table/{id}/drop
-Content-Type: application/json
-```
-
-The request body is empty:
-
-```json
-{}
-```
-
-The implementation:
-
-1. Parse the table identifier from the route path `{id}`
-2. Extract the parent namespace from the identifier
-3. Validate the parent namespace exists
-4. Look up the table in the server's storage
-5. Delete the table data from storage
-6. Remove the table registration from the namespace
-
-**Response:**
-
-```json
-{}
-```
-
-**Error Handling:**
-
-If the parent namespace does not exist, return HTTP `404 Not Found` with error code `1` (NamespaceNotFound).
-
-If the table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
-
-If there is a storage permission error, return HTTP `403 Forbidden` with error code `15` (PermissionDenied).
-
-If there is an unexpected server error, return HTTP `500 Internal Server Error` with error code `18` (Internal).
-
 ### DeregisterTable
 
 Deregisters a table from the namespace while preserving its data on storage. The table metadata is removed from the namespace catalog but the table files remain at their storage location.
@@ -430,6 +388,557 @@ If the parent namespace does not exist, return HTTP `404 Not Found` with error c
 
 If the table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
 
+## Additional Operations
+
+The REST namespace supports all operations defined in the [Lance Namespace client spec](../client/operations/index.md). Each operation follows the same HTTP request/response pattern as the basic operations above.
+
+### DropTable
+
+Removes a table and its data.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/drop
+Content-Type: application/json
+```
+
+The request body is empty:
+
+```json
+{}
+```
+
+The implementation:
+
+1. Parse the table identifier from the route path `{id}`
+2. Extract the parent namespace from the identifier
+3. Validate the parent namespace exists
+4. Look up the table in the server's storage
+5. Delete the table data from storage
+6. Remove the table registration from the namespace
+
+**Response:**
+
+```json
+{}
+```
+
+**Error Handling:**
+
+If the parent namespace does not exist, return HTTP `404 Not Found` with error code `1` (NamespaceNotFound).
+
+If the table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
+
+If there is a storage permission error, return HTTP `403 Forbidden` with error code `15` (PermissionDenied).
+
+If there is an unexpected server error, return HTTP `500 Internal Server Error` with error code `18` (Internal).
+
+### RegisterTable
+
+Registers an existing Lance table at a given location.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/register
+Content-Type: application/json
+```
+
+```json
+{
+  "location": "s3://bucket/data/users.lance"
+}
+```
+
+**Error Handling:**
+
+If the parent namespace does not exist, return HTTP `404 Not Found` with error code `1` (NamespaceNotFound).
+
+If a table with the same identifier already exists, return HTTP `409 Conflict` with error code `5` (TableAlreadyExists).
+
+If the location does not contain a valid Lance table, return HTTP `400 Bad Request` with error code `13` (InvalidInput).
+
+### RenameTable
+
+Renames a table, optionally moving it to a different namespace.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/rename
+Content-Type: application/json
+```
+
+```json
+{
+  "new_id": ["new_namespace", "new_table_name"]
+}
+```
+
+**Error Handling:**
+
+If the source table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
+
+If a table with the new identifier already exists, return HTTP `409 Conflict` with error code `5` (TableAlreadyExists).
+
+If the target namespace does not exist, return HTTP `404 Not Found` with error code `1` (NamespaceNotFound).
+
+### CreateTableVersion
+
+Creates a new version entry for a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/version/create
+Content-Type: application/json
+```
+
+```json
+{
+  "version": 2,
+  "manifest_path": "s3://bucket/data/users.lance/_versions/staging-uuid.manifest",
+  "naming_scheme": "V2"
+}
+```
+
+**Error Handling:**
+
+If the table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
+
+If the version already exists, return HTTP `409 Conflict` with error code `12` (TableVersionAlreadyExists).
+
+### ListTableVersions
+
+Lists version entries for a table.
+
+**HTTP Request:**
+
+```
+GET /v1/table/{id}/version/list?descending=true&limit=100
+```
+
+**Error Handling:**
+
+If the table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
+
+### DescribeTableVersion
+
+Retrieves details for a specific table version.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/version/describe
+Content-Type: application/json
+```
+
+```json
+{
+  "version": 2
+}
+```
+
+**Error Handling:**
+
+If the table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
+
+If the version does not exist, return HTTP `404 Not Found` with error code `11` (TableVersionNotFound).
+
+### BatchCreateTableVersions
+
+Atomically creates version entries for multiple tables.
+
+**HTTP Request:**
+
+```
+POST /v1/table/version/batch-create
+Content-Type: application/json
+```
+
+```json
+{
+  "entries": [
+    {
+      "id": ["namespace", "table1"],
+      "version": 2,
+      "manifest_path": "s3://bucket/data/table1.lance/_versions/staging-uuid.manifest"
+    },
+    {
+      "id": ["namespace", "table2"],
+      "version": 3,
+      "manifest_path": "s3://bucket/data/table2.lance/_versions/staging-uuid.manifest"
+    }
+  ]
+}
+```
+
+**Error Handling:**
+
+If any table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
+
+If any version already exists, return HTTP `409 Conflict` with error code `12` (TableVersionAlreadyExists).
+
+### BatchDeleteTableVersions
+
+Deletes multiple version entries for a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/version/batch-delete
+Content-Type: application/json
+```
+
+```json
+{
+  "versions": [1, 2, 3]
+}
+```
+
+**Error Handling:**
+
+If the table does not exist, return HTTP `404 Not Found` with error code `4` (TableNotFound).
+
+If any specified version does not exist and `ignore_missing` is false, return HTTP `404 Not Found` with error code `11` (TableVersionNotFound).
+
+### NamespaceExists
+
+Checks if a namespace exists.
+
+**HTTP Request:**
+
+```
+POST /v1/namespace/{id}/exists
+```
+
+### TableExists
+
+Checks if a table exists.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/exists
+```
+
+### ListAllTables
+
+Lists all tables across all namespaces.
+
+**HTTP Request:**
+
+```
+GET /v1/table/list?page_token=xxx&limit=100
+```
+
+### RestoreTable
+
+Restores a table to a previous version.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/restore
+Content-Type: application/json
+```
+
+```json
+{
+  "version": 5
+}
+```
+
+### CreateTable
+
+Creates a new table with initial data.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/create
+Content-Type: application/json
+```
+
+### CreateEmptyTable
+
+Creates an empty table with a specified schema.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/create-empty
+Content-Type: application/json
+```
+
+### GetTableStats
+
+Returns statistics for a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/stats
+```
+
+### UpdateTableSchemaMetadata
+
+Updates schema-level metadata for a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/schema/metadata
+Content-Type: application/json
+```
+
+### AlterTableAddColumns
+
+Adds new columns to a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/alter/add-columns
+Content-Type: application/json
+```
+
+### AlterTableAlterColumns
+
+Modifies existing columns in a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/alter/alter-columns
+Content-Type: application/json
+```
+
+### AlterTableDropColumns
+
+Removes columns from a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/alter/drop-columns
+Content-Type: application/json
+```
+
+### InsertIntoTable
+
+Inserts data into a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/insert
+Content-Type: application/json
+```
+
+### MergeInsertIntoTable
+
+Performs a merge insert (upsert) operation.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/merge-insert
+Content-Type: application/json
+```
+
+### UpdateTable
+
+Updates rows in a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/update
+Content-Type: application/json
+```
+
+### DeleteFromTable
+
+Deletes rows from a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/delete
+Content-Type: application/json
+```
+
+### QueryTable
+
+Queries data from a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/query
+Content-Type: application/json
+```
+
+### CountTableRows
+
+Counts rows in a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/count
+Content-Type: application/json
+```
+
+### ExplainTableQueryPlan
+
+Returns the query execution plan.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/query/explain
+Content-Type: application/json
+```
+
+### AnalyzeTableQueryPlan
+
+Analyzes the query execution plan with statistics.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/query/analyze
+Content-Type: application/json
+```
+
+### CreateTableIndex
+
+Creates a vector index on a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/index/create
+Content-Type: application/json
+```
+
+### CreateTableScalarIndex
+
+Creates a scalar index on a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/index/create-scalar
+Content-Type: application/json
+```
+
+### ListTableIndices
+
+Lists all indices on a table.
+
+**HTTP Request:**
+
+```
+GET /v1/table/{id}/index/list
+```
+
+### DescribeTableIndexStats
+
+Returns statistics for a table index.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/index/{index_name}/stats
+```
+
+### DropTableIndex
+
+Removes an index from a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/index/{index_name}/drop
+```
+
+### ListTableTags
+
+Lists all tags for a table.
+
+**HTTP Request:**
+
+```
+GET /v1/table/{id}/tag/list
+```
+
+### GetTableTagVersion
+
+Gets the version associated with a tag.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/tag/{tag_name}/describe
+```
+
+### CreateTableTag
+
+Creates a new tag for a table version.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/tag/create
+Content-Type: application/json
+```
+
+### DeleteTableTag
+
+Deletes a tag from a table.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/tag/{tag_name}/delete
+```
+
+### UpdateTableTag
+
+Updates a tag to point to a different version.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/tag/{tag_name}/update
+Content-Type: application/json
+```
+
+### DescribeTransaction
+
+Returns details about a transaction.
+
+**HTTP Request:**
+
+```
+POST /v1/transaction/{id}/describe
+```
+
+### AlterTransaction
+
+Modifies a transaction's state.
+
+**HTTP Request:**
+
+```
+POST /v1/transaction/{id}/alter
+Content-Type: application/json
+```
+
 ## Error Response Format
 
 All error responses follow the JSON error response model based on [RFC-7807](https://datatracker.ietf.org/doc/html/rfc7807).
@@ -461,3 +970,4 @@ REST namespace implementations must map Lance error codes to HTTP status codes a
 - Error code `16` (Unauthenticated) maps to HTTP `401 Unauthorized`
 - Error code `17` (ServiceUnavailable) maps to HTTP `503 Service Unavailable`
 - Error code `18` (Internal) maps to HTTP `500 Internal Server Error`
+- Error code `21` (Throttling) maps to HTTP `429 Too Many Requests`
