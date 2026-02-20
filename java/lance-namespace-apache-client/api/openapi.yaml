@@ -4547,6 +4547,7 @@ components:
         properties:
           owner: Ralph
           created_at: "1452120468"
+        managed_versioning: true
         storage_options:
           key: storage_options
       properties:
@@ -4572,6 +4573,12 @@ components:
             owner: Ralph
             created_at: "1452120468"
           nullable: true
+        managed_versioning:
+          description: |
+            When true, the caller should use namespace table version operations
+            (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
+            to manage table versions instead of relying on Lance's native version management.
+          type: boolean
     TableExistsRequest:
       example:
         identity:
@@ -5785,10 +5792,20 @@ components:
       description: Response for creating a table version
       example:
         transaction_id: transaction_id
+        version:
+          metadata:
+            key: metadata
+          manifest_path: manifest_path
+          manifest_size: 0
+          e_tag: e_tag
+          version: 0
+          timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         transaction_id:
           description: Optional transaction identifier
           type: string
+        version:
+          $ref: '#/components/schemas/TableVersion'
     DescribeTableVersionRequest:
       description: Request to describe a specific table version
       example:

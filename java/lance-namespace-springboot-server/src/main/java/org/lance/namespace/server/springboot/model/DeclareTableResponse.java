@@ -39,6 +39,8 @@ public class DeclareTableResponse {
 
   @Valid private Map<String, String> properties = new HashMap<>();
 
+  private Boolean managedVersioning;
+
   public DeclareTableResponse transactionId(String transactionId) {
     this.transactionId = transactionId;
     return this;
@@ -149,6 +151,32 @@ public class DeclareTableResponse {
     this.properties = properties;
   }
 
+  public DeclareTableResponse managedVersioning(Boolean managedVersioning) {
+    this.managedVersioning = managedVersioning;
+    return this;
+  }
+
+  /**
+   * When true, the caller should use namespace table version operations (CreateTableVersion,
+   * DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions
+   * instead of relying on Lance's native version management.
+   *
+   * @return managedVersioning
+   */
+  @Schema(
+      name = "managed_versioning",
+      description =
+          "When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("managed_versioning")
+  public Boolean getManagedVersioning() {
+    return managedVersioning;
+  }
+
+  public void setManagedVersioning(Boolean managedVersioning) {
+    this.managedVersioning = managedVersioning;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -161,12 +189,13 @@ public class DeclareTableResponse {
     return Objects.equals(this.transactionId, declareTableResponse.transactionId)
         && Objects.equals(this.location, declareTableResponse.location)
         && Objects.equals(this.storageOptions, declareTableResponse.storageOptions)
-        && Objects.equals(this.properties, declareTableResponse.properties);
+        && Objects.equals(this.properties, declareTableResponse.properties)
+        && Objects.equals(this.managedVersioning, declareTableResponse.managedVersioning);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, location, storageOptions, properties);
+    return Objects.hash(transactionId, location, storageOptions, properties, managedVersioning);
   }
 
   @Override
@@ -177,6 +206,7 @@ public class DeclareTableResponse {
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("    managedVersioning: ").append(toIndentedString(managedVersioning)).append("\n");
     sb.append("}");
     return sb.toString();
   }

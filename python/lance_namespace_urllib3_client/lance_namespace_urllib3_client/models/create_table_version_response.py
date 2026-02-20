@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from lance_namespace_urllib3_client.models.table_version import TableVersion
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,8 @@ class CreateTableVersionResponse(BaseModel):
     Response for creating a table version
     """ # noqa: E501
     transaction_id: Optional[StrictStr] = Field(default=None, description="Optional transaction identifier")
-    __properties: ClassVar[List[str]] = ["transaction_id"]
+    version: Optional[TableVersion] = None
+    __properties: ClassVar[List[str]] = ["transaction_id", "version"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -68,6 +70,9 @@ class CreateTableVersionResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of version
+        if self.version:
+            _dict['version'] = self.version.to_dict()
         return _dict
 
     @classmethod
@@ -80,7 +85,8 @@ class CreateTableVersionResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "transaction_id": obj.get("transaction_id")
+            "transaction_id": obj.get("transaction_id"),
+            "version": TableVersion.from_dict(obj["version"]) if obj.get("version") is not None else None
         })
         return _obj
 

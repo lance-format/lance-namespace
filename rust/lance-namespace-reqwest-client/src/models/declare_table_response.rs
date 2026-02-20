@@ -25,6 +25,9 @@ pub struct DeclareTableResponse {
     /// If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. 
     #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
     pub properties: Option<std::collections::HashMap<String, String>>,
+    /// When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. 
+    #[serde(rename = "managed_versioning", skip_serializing_if = "Option::is_none")]
+    pub managed_versioning: Option<bool>,
 }
 
 impl DeclareTableResponse {
@@ -35,6 +38,7 @@ impl DeclareTableResponse {
             location: None,
             storage_options: None,
             properties: None,
+            managed_versioning: None,
         }
     }
 }

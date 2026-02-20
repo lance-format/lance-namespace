@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -30,7 +30,8 @@ class DeclareTableResponse(BaseModel):
     location: Optional[StrictStr] = None
     storage_options: Optional[Dict[str, StrictStr]] = Field(default=None, description="Configuration options to be used to access storage. The available options depend on the type of storage in use. These will be passed directly to Lance to initialize storage access. ")
     properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ")
-    __properties: ClassVar[List[str]] = ["transaction_id", "location", "storage_options", "properties"]
+    managed_versioning: Optional[StrictBool] = Field(default=None, description="When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ")
+    __properties: ClassVar[List[str]] = ["transaction_id", "location", "storage_options", "properties", "managed_versioning"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -86,7 +87,8 @@ class DeclareTableResponse(BaseModel):
             "transaction_id": obj.get("transaction_id"),
             "location": obj.get("location"),
             "storage_options": obj.get("storage_options"),
-            "properties": obj.get("properties")
+            "properties": obj.get("properties"),
+            "managed_versioning": obj.get("managed_versioning")
         })
         return _obj
 

@@ -3229,6 +3229,12 @@ components:
           example: { "owner": "Ralph", "created_at": "1452120468" }
           default: {}
           nullable: true
+        managed_versioning:
+          type: boolean
+          description: |
+            When true, the caller should use namespace table version operations
+            (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
+            to manage table versions instead of relying on Lance's native version management.
 
     TableExistsRequest:
       type: object
@@ -3933,6 +3939,8 @@ components:
         transaction_id:
           type: string
           description: Optional transaction identifier
+        version:
+          $ref: "#/components/schemas/TableVersion"
 
     DescribeTableVersionRequest:
       type: object

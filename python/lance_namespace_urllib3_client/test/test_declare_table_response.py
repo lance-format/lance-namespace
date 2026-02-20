@@ -40,7 +40,8 @@ class TestDeclareTableResponse(unittest.TestCase):
                 storage_options = {
                     'key' : ''
                     },
-                properties = {owner=Ralph, created_at=1452120468}
+                properties = {owner=Ralph, created_at=1452120468},
+                managed_versioning = True
             )
         else:
             return DeclareTableResponse(
