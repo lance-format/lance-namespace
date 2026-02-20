@@ -67,9 +67,12 @@ from lance_namespace_urllib3_client.models import (
     AlterTransactionRequest,
     AlterTransactionResponse,
     AnalyzeTableQueryPlanRequest,
+    BatchCreateTableVersionsRequest,
+    BatchCreateTableVersionsResponse,
     BatchDeleteTableVersionsRequest,
     BatchDeleteTableVersionsResponse,
     CountTableRowsRequest,
+    CreateTableVersionEntry,
     CreateEmptyTableRequest,
     CreateEmptyTableResponse,
     CreateNamespaceRequest,
@@ -187,9 +190,12 @@ __all__ = [
     "AlterTransactionRequest",
     "AlterTransactionResponse",
     "AnalyzeTableQueryPlanRequest",
+    "BatchCreateTableVersionsRequest",
+    "BatchCreateTableVersionsResponse",
     "BatchDeleteTableVersionsRequest",
     "BatchDeleteTableVersionsResponse",
     "CountTableRowsRequest",
+    "CreateTableVersionEntry",
     "CreateEmptyTableRequest",
     "CreateEmptyTableResponse",
     "CreateNamespaceRequest",
@@ -797,6 +803,29 @@ class LanceNamespace(ABC):
             If the table does not exist.
         """
         raise UnsupportedOperationError("Not supported: batch_delete_table_versions")
+
+    def batch_create_table_versions(
+        self, request: BatchCreateTableVersionsRequest
+    ) -> BatchCreateTableVersionsResponse:
+        """Atomically create new version entries for multiple tables.
+
+        This operation is atomic: either all table versions are created successfully,
+        or none are created. If any version creation fails (e.g., due to conflict),
+        the entire batch operation fails.
+
+        Each entry in the request specifies the table identifier and version details.
+        This supports put_if_not_exists semantics for each version entry.
+
+        Raises
+        ------
+        NamespaceNotFoundError
+            If any namespace does not exist.
+        TableNotFoundError
+            If any table does not exist.
+        ConcurrentModificationError
+            If any version already exists.
+        """
+        raise UnsupportedOperationError("Not supported: batch_create_table_versions")
 
     def update_table_schema_metadata(
         self, request: UpdateTableSchemaMetadataRequest
