@@ -35,7 +35,16 @@ class TestCreateTableVersionResponse(unittest.TestCase):
         model = CreateTableVersionResponse()
         if include_optional:
             return CreateTableVersionResponse(
-                transaction_id = ''
+                transaction_id = '',
+                version = lance_namespace_urllib3_client.models.table_version.TableVersion(
+                    version = 0, 
+                    manifest_path = '', 
+                    manifest_size = 0, 
+                    e_tag = '', 
+                    timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    metadata = {
+                        'key' : ''
+                        }, )
             )
         else:
             return CreateTableVersionResponse(

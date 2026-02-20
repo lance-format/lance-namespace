@@ -16,6 +16,7 @@ package org.lance.namespace.server.springboot.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.util.*;
@@ -29,6 +30,8 @@ import java.util.Objects;
 public class CreateTableVersionResponse {
 
   private String transactionId;
+
+  private TableVersion version;
 
   public CreateTableVersionResponse transactionId(String transactionId) {
     this.transactionId = transactionId;
@@ -53,6 +56,27 @@ public class CreateTableVersionResponse {
     this.transactionId = transactionId;
   }
 
+  public CreateTableVersionResponse version(TableVersion version) {
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   *
+   * @return version
+   */
+  @Valid
+  @Schema(name = "version", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("version")
+  public TableVersion getVersion() {
+    return version;
+  }
+
+  public void setVersion(TableVersion version) {
+    this.version = version;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -62,12 +86,13 @@ public class CreateTableVersionResponse {
       return false;
     }
     CreateTableVersionResponse createTableVersionResponse = (CreateTableVersionResponse) o;
-    return Objects.equals(this.transactionId, createTableVersionResponse.transactionId);
+    return Objects.equals(this.transactionId, createTableVersionResponse.transactionId)
+        && Objects.equals(this.version, createTableVersionResponse.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId);
+    return Objects.hash(transactionId, version);
   }
 
   @Override
@@ -75,6 +100,7 @@ public class CreateTableVersionResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateTableVersionResponse {\n");
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();
   }

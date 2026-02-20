@@ -23,13 +23,19 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Response for creating a table version */
-@JsonPropertyOrder({CreateTableVersionResponse.JSON_PROPERTY_TRANSACTION_ID})
+@JsonPropertyOrder({
+  CreateTableVersionResponse.JSON_PROPERTY_TRANSACTION_ID,
+  CreateTableVersionResponse.JSON_PROPERTY_VERSION
+})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class CreateTableVersionResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @javax.annotation.Nullable private TableVersion version;
 
   public CreateTableVersionResponse() {}
 
@@ -57,6 +63,30 @@ public class CreateTableVersionResponse {
     this.transactionId = transactionId;
   }
 
+  public CreateTableVersionResponse version(@javax.annotation.Nullable TableVersion version) {
+
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version
+   *
+   * @return version
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public TableVersion getVersion() {
+    return version;
+  }
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@javax.annotation.Nullable TableVersion version) {
+    this.version = version;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -66,12 +96,13 @@ public class CreateTableVersionResponse {
       return false;
     }
     CreateTableVersionResponse createTableVersionResponse = (CreateTableVersionResponse) o;
-    return Objects.equals(this.transactionId, createTableVersionResponse.transactionId);
+    return Objects.equals(this.transactionId, createTableVersionResponse.transactionId)
+        && Objects.equals(this.version, createTableVersionResponse.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId);
+    return Objects.hash(transactionId, version);
   }
 
   @Override
@@ -79,6 +110,7 @@ public class CreateTableVersionResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateTableVersionResponse {\n");
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -139,6 +171,11 @@ public class CreateTableVersionResponse {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
       }
+    }
+
+    // add `version` to the URL query string
+    if (getVersion() != null) {
+      joiner.add(getVersion().toUrlQueryString(prefix + "version" + suffix));
     }
 
     return joiner.toString();

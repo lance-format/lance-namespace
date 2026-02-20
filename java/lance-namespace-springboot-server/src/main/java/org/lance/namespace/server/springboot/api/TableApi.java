@@ -2216,7 +2216,8 @@ public interface TableApi {
             request -> {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString = "{ \"transaction_id\" : \"transaction_id\" }";
+                  String exampleString =
+                      "{ \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -2409,7 +2410,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }

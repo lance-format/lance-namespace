@@ -7,6 +7,7 @@ Response for creating a table version
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **transaction_id** | **str** | Optional transaction identifier | [optional] 
+**version** | [**TableVersion**](TableVersion.md) |  | [optional] 
 
 ## Example
 

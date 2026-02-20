@@ -9,6 +9,7 @@ Response for creating a table version
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**transactionId** | **String** | Optional transaction identifier |  [optional] |
+|**version** | [**TableVersion**](TableVersion.md) |  |  [optional] |
 
 
 

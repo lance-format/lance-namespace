@@ -17,6 +17,8 @@ pub struct CreateTableVersionResponse {
     /// Optional transaction identifier
     #[serde(rename = "transaction_id", skip_serializing_if = "Option::is_none")]
     pub transaction_id: Option<String>,
+    #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
+    pub version: Option<Box<models::TableVersion>>,
 }
 
 impl CreateTableVersionResponse {
@@ -24,6 +26,7 @@ impl CreateTableVersionResponse {
     pub fn new() -> CreateTableVersionResponse {
         CreateTableVersionResponse {
             transaction_id: None,
+            version: None,
         }
     }
 }
