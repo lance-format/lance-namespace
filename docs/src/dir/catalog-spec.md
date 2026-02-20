@@ -105,6 +105,8 @@ The `__manifest` table has the following schema:
 | `metadata`     | String (nullable)       | JSON-encoded metadata/properties (only for namespaces)                                                                                                                          |
 | `base_objects` | List<String> (nullable) | Reserved for future use (e.g., view dependencies)                                                                                                                               |
 
+**Primary Key**: The `object_id` column is the [unenforced primary key](https://lance.org/format/table/#unenforced-primary-key) for the manifest table. Implementation of this spec must always enforce the primary key uniqueness using features like Lance merge insert with primary key deduplication.
+
 **Schema Extensibility**: The `__manifest` table schema may include additional columns beyond those listed above. Extensions like [partitioned namespaces](../partitioning-spec.md) add columns for efficient filtering. Implementations should preserve unrecognized columns during updates.
 
 ### Root Namespace Properties
@@ -139,6 +141,48 @@ The hash prefix serves two purposes:
 The `object_id` suffix ensures uniqueness and aids debugging.
 
 In [compatibility mode](#compatibility-mode), root namespace tables use `<table_name>.lance` naming to remain compatible with V1.
+
+
+### Table Version Management
+
+V2 optionally supports managed table versioning, where table versions are tracked in the `__manifest` table instead of relying on Lance's native version management. When enabled, the directory namespace acts as an [external manifest store](https://lance.org/format/table/transaction/#external-manifest-store). This feature must be enabled for the entire namespace.
+
+#### Enabling Table Version Management
+
+To enable table version management, store `table_version_management=true` in the `__manifest` Lance table's metadata map. Once enabled, all table version operations must use the namespace APIs (`CreateTableVersion`, `BatchCreateTableVersions`, `DescribeTableVersion`, `ListTableVersions`, `BatchDeleteTableVersions`) instead of the default single-table storage-only version management.
+
+#### Table Version Object ID
+
+Table versions are stored in the `__manifest` table with `object_id` in the format `<table_id>$<version>`. For example:
+
+- Table `users` version 1: `object_id = "users$1"`
+- Table `analytics$events` (in namespace `analytics`) version 5: `object_id = "analytics$events$5"`
+
+The `object_type` for table version entries is `"table_version"`.
+
+#### Table Version Metadata Schema
+
+The `metadata` column for table version entries contains a JSON object with the following schema:
+
+| Field           | Type                        | Required | Description                                                                                                                                                                                                                     |
+|-----------------|-----------------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `manifest_path` | string                      | Yes      | Path to the manifest file for this version                                                                                                                                                                                      |
+| `manifest_size` | integer                     | No       | Size of the manifest file in bytes                                                                                                                                                                                              |
+| `e_tag`         | string                      | No       | ETag for the manifest file, useful for S3 and similar object stores                                                                                                                                                             |
+| `metadata`      | object (string -> string)   | No       | Optional key-value pairs of version metadata                                                                                                                                                                                    |
+| `naming_scheme` | string                      | No       | The [naming scheme](https://lance.org/format/table/transaction/#manifest-naming-schemes) used for manifest files                                                                                                                |
+
+Example metadata JSON:
+
+```json
+{
+    "manifest_path": "_versions/9223372036854775806.manifest",
+    "manifest_size": 4096,
+    "e_tag": "abc123",
+    "metadata": {"author": "user1", "description": "Initial schema"},
+    "naming_scheme": "V2"
+}
+```
 
 ## Compatibility Mode
 

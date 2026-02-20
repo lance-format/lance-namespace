@@ -73,6 +73,22 @@ The 8 basic operations are:
 (namespace must be empty before dropping). DescribeTable only needs to support `load_detailed_metadata=false`
 (only return table `location` without opening the dataset).
 
+### 6. Additional Operations (Optional)
+
+If the implementation supports operations beyond the 8 basic operations, document them in this section.
+Each additional operation should follow the same structure as basic operations:
+
+- A brief description of what the operation does
+- Step-by-step implementation details
+- An **Error Handling** paragraph describing which errors can occur
+
+Common additional operations include:
+
+- DropTable
+- RegisterTable
+- RenameTable
+- Table version operations (CreateTableVersion, ListTableVersions, DescribeTableVersion, BatchCreateTableVersions, BatchDeleteTableVersions)
+
 ---
 
 ## Template Structure
@@ -169,6 +185,18 @@ If {condition}, return error code `N` ({ErrorName}).
 ### DeregisterTable
 
 {Same structure as above}
+
+## Additional Operations
+
+{Optional section for operations beyond the 8 basic operations}
+
+### DropTable
+
+{Same structure as basic operations}
+
+### {Other Additional Operations}
+
+{Same structure as basic operations}
 ```
 
 ## Error Handling Guidelines
