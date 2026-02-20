@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **manifest_path** | **str** | Path to the manifest file for this version. | 
 **manifest_size** | **int** | Size of the manifest file in bytes | [optional] 
 **e_tag** | **str** | Optional ETag for optimistic concurrency control. Useful for S3 and similar object stores.  | [optional] 
-**timestamp** | **datetime** | Timestamp when the version was created | [optional] 
+**timestamp_millis** | **int** | Timestamp when the version was created, in milliseconds since epoch (Unix time) | [optional] 
 **metadata** | **Dict[str, str]** | Optional key-value pairs of metadata | [optional] 
 
 ## Example

@@ -5685,17 +5685,17 @@ components:
         - metadata:
             key: metadata
           manifest_path: manifest_path
+          timestamp_millis: 1
           manifest_size: 0
           e_tag: e_tag
           version: 0
-          timestamp: 2000-01-23T04:56:07.000+00:00
         - metadata:
             key: metadata
           manifest_path: manifest_path
+          timestamp_millis: 1
           manifest_size: 0
           e_tag: e_tag
           version: 0
-          timestamp: 2000-01-23T04:56:07.000+00:00
         page_token: page_token
       properties:
         versions:
@@ -5810,10 +5810,10 @@ components:
           metadata:
             key: metadata
           manifest_path: manifest_path
+          timestamp_millis: 1
           manifest_size: 0
           e_tag: e_tag
           version: 0
-          timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         transaction_id:
           description: Optional transaction identifier
@@ -5863,10 +5863,10 @@ components:
           metadata:
             key: metadata
           manifest_path: manifest_path
+          timestamp_millis: 1
           manifest_size: 0
           e_tag: e_tag
           version: 0
-          timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         version:
           $ref: '#/components/schemas/TableVersion'
@@ -5961,10 +5961,10 @@ components:
         metadata:
           key: metadata
         manifest_path: manifest_path
+        timestamp_millis: 1
         manifest_size: 0
         e_tag: e_tag
         version: 0
-        timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         version:
           description: Version number
@@ -5984,10 +5984,11 @@ components:
             Optional ETag for optimistic concurrency control.
             Useful for S3 and similar object stores.
           type: string
-        timestamp:
-          description: Timestamp when the version was created
-          format: date-time
-          type: string
+        timestamp_millis:
+          description: "Timestamp when the version was created, in milliseconds since\
+            \ epoch (Unix time)"
+          format: int64
+          type: integer
         metadata:
           additionalProperties:
             type: string

@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +30,7 @@ import java.util.StringJoiner;
   TableVersion.JSON_PROPERTY_MANIFEST_PATH,
   TableVersion.JSON_PROPERTY_MANIFEST_SIZE,
   TableVersion.JSON_PROPERTY_E_TAG,
-  TableVersion.JSON_PROPERTY_TIMESTAMP,
+  TableVersion.JSON_PROPERTY_TIMESTAMP_MILLIS,
   TableVersion.JSON_PROPERTY_METADATA
 })
 @javax.annotation.Generated(
@@ -50,8 +49,8 @@ public class TableVersion {
   public static final String JSON_PROPERTY_E_TAG = "e_tag";
   @javax.annotation.Nullable private String eTag;
 
-  public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-  @javax.annotation.Nullable private OffsetDateTime timestamp;
+  public static final String JSON_PROPERTY_TIMESTAMP_MILLIS = "timestamp_millis";
+  @javax.annotation.Nullable private Long timestampMillis;
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable private Map<String, String> metadata = new HashMap<>();
@@ -154,28 +153,28 @@ public class TableVersion {
     this.eTag = eTag;
   }
 
-  public TableVersion timestamp(@javax.annotation.Nullable OffsetDateTime timestamp) {
+  public TableVersion timestampMillis(@javax.annotation.Nullable Long timestampMillis) {
 
-    this.timestamp = timestamp;
+    this.timestampMillis = timestampMillis;
     return this;
   }
 
   /**
-   * Timestamp when the version was created
+   * Timestamp when the version was created, in milliseconds since epoch (Unix time)
    *
-   * @return timestamp
+   * @return timestampMillis
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonProperty(JSON_PROPERTY_TIMESTAMP_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public OffsetDateTime getTimestamp() {
-    return timestamp;
+  public Long getTimestampMillis() {
+    return timestampMillis;
   }
 
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonProperty(JSON_PROPERTY_TIMESTAMP_MILLIS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTimestamp(@javax.annotation.Nullable OffsetDateTime timestamp) {
-    this.timestamp = timestamp;
+  public void setTimestampMillis(@javax.annotation.Nullable Long timestampMillis) {
+    this.timestampMillis = timestampMillis;
   }
 
   public TableVersion metadata(@javax.annotation.Nullable Map<String, String> metadata) {
@@ -223,13 +222,13 @@ public class TableVersion {
         && Objects.equals(this.manifestPath, tableVersion.manifestPath)
         && Objects.equals(this.manifestSize, tableVersion.manifestSize)
         && Objects.equals(this.eTag, tableVersion.eTag)
-        && Objects.equals(this.timestamp, tableVersion.timestamp)
+        && Objects.equals(this.timestampMillis, tableVersion.timestampMillis)
         && Objects.equals(this.metadata, tableVersion.metadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(version, manifestPath, manifestSize, eTag, timestamp, metadata);
+    return Objects.hash(version, manifestPath, manifestSize, eTag, timestampMillis, metadata);
   }
 
   @Override
@@ -240,7 +239,7 @@ public class TableVersion {
     sb.append("    manifestPath: ").append(toIndentedString(manifestPath)).append("\n");
     sb.append("    manifestSize: ").append(toIndentedString(manifestSize)).append("\n");
     sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    timestampMillis: ").append(toIndentedString(timestampMillis)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -350,15 +349,15 @@ public class TableVersion {
       }
     }
 
-    // add `timestamp` to the URL query string
-    if (getTimestamp() != null) {
+    // add `timestamp_millis` to the URL query string
+    if (getTimestampMillis() != null) {
       try {
         joiner.add(
             String.format(
-                "%stimestamp%s=%s",
+                "%stimestamp_millis%s=%s",
                 prefix,
                 suffix,
-                URLEncoder.encode(String.valueOf(getTimestamp()), "UTF-8")
+                URLEncoder.encode(String.valueOf(getTimestampMillis()), "UTF-8")
                     .replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported

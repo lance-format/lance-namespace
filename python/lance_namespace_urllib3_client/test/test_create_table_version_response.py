@@ -41,7 +41,7 @@ class TestCreateTableVersionResponse(unittest.TestCase):
                     manifest_path = '', 
                     manifest_size = 0, 
                     e_tag = '', 
-                    timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    timestamp_millis = 56, 
                     metadata = {
                         'key' : ''
                         }, )

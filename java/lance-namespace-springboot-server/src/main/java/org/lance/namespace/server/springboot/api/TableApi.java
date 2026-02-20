@@ -2217,7 +2217,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" } }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -3497,7 +3497,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" } }";
+                      "{ \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -5288,7 +5288,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"versions\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" }, { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0, \"timestamp\" : \"2000-01-23T04:56:07.000+00:00\" } ], \"page_token\" : \"page_token\" }";
+                      "{ \"versions\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 }, { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } ], \"page_token\" : \"page_token\" }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
