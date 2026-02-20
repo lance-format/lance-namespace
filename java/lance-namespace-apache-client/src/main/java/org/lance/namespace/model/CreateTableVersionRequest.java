@@ -38,7 +38,8 @@ import java.util.StringJoiner;
   CreateTableVersionRequest.JSON_PROPERTY_MANIFEST_PATH,
   CreateTableVersionRequest.JSON_PROPERTY_MANIFEST_SIZE,
   CreateTableVersionRequest.JSON_PROPERTY_E_TAG,
-  CreateTableVersionRequest.JSON_PROPERTY_METADATA
+  CreateTableVersionRequest.JSON_PROPERTY_METADATA,
+  CreateTableVersionRequest.JSON_PROPERTY_NAMING_SCHEME
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -67,6 +68,9 @@ public class CreateTableVersionRequest {
 
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable private Map<String, String> metadata = new HashMap<>();
+
+  public static final String JSON_PROPERTY_NAMING_SCHEME = "naming_scheme";
+  @javax.annotation.Nullable private String namingScheme;
 
   public CreateTableVersionRequest() {}
 
@@ -291,6 +295,35 @@ public class CreateTableVersionRequest {
     this.metadata = metadata;
   }
 
+  public CreateTableVersionRequest namingScheme(@javax.annotation.Nullable String namingScheme) {
+
+    this.namingScheme = namingScheme;
+    return this;
+  }
+
+  /**
+   * The naming scheme used for manifest files in the &#x60;_versions/&#x60; directory. Known
+   * values: - &#x60;V1&#x60;: &#x60;_versions/{version}.manifest&#x60; - Simple version-based
+   * naming - &#x60;V2&#x60;: &#x60;_versions/{inverted_version}.manifest&#x60; - Zero-padded,
+   * reversed version number (uses &#x60;u64::MAX - version&#x60;) for O(1) lookup of latest version
+   * on object stores V2 is preferred for new tables as it enables efficient latest-version
+   * discovery without needing to list all versions.
+   *
+   * @return namingScheme
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NAMING_SCHEME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getNamingScheme() {
+    return namingScheme;
+  }
+
+  @JsonProperty(JSON_PROPERTY_NAMING_SCHEME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNamingScheme(@javax.annotation.Nullable String namingScheme) {
+    this.namingScheme = namingScheme;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -307,12 +340,14 @@ public class CreateTableVersionRequest {
         && Objects.equals(this.manifestPath, createTableVersionRequest.manifestPath)
         && Objects.equals(this.manifestSize, createTableVersionRequest.manifestSize)
         && Objects.equals(this.eTag, createTableVersionRequest.eTag)
-        && Objects.equals(this.metadata, createTableVersionRequest.metadata);
+        && Objects.equals(this.metadata, createTableVersionRequest.metadata)
+        && Objects.equals(this.namingScheme, createTableVersionRequest.namingScheme);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, version, manifestPath, manifestSize, eTag, metadata);
+    return Objects.hash(
+        identity, context, id, version, manifestPath, manifestSize, eTag, metadata, namingScheme);
   }
 
   @Override
@@ -327,6 +362,7 @@ public class CreateTableVersionRequest {
     sb.append("    manifestSize: ").append(toIndentedString(manifestSize)).append("\n");
     sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    namingScheme: ").append(toIndentedString(namingScheme)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -502,6 +538,22 @@ public class CreateTableVersionRequest {
           // Should never happen, UTF-8 is always supported
           throw new RuntimeException(e);
         }
+      }
+    }
+
+    // add `naming_scheme` to the URL query string
+    if (getNamingScheme() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%snaming_scheme%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getNamingScheme()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
       }
     }
 

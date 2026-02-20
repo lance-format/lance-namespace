@@ -50,7 +50,8 @@ class TestCreateTableVersionRequest(unittest.TestCase):
                 e_tag = '',
                 metadata = {
                     'key' : ''
-                    }
+                    },
+                naming_scheme = 'V2'
             )
         else:
             return CreateTableVersionRequest(

@@ -36,7 +36,8 @@ class CreateTableVersionRequest(BaseModel):
     manifest_size: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Size of the manifest file in bytes")
     e_tag: Optional[StrictStr] = Field(default=None, description="Optional ETag for the manifest file")
     metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Optional metadata for the version")
-    __properties: ClassVar[List[str]] = ["identity", "context", "id", "version", "manifest_path", "manifest_size", "e_tag", "metadata"]
+    naming_scheme: Optional[StrictStr] = Field(default=None, description="The naming scheme used for manifest files in the `_versions/` directory.  Known values: - `V1`: `_versions/{version}.manifest` - Simple version-based naming - `V2`: `_versions/{inverted_version}.manifest` - Zero-padded, reversed version number   (uses `u64::MAX - version`) for O(1) lookup of latest version on object stores  V2 is preferred for new tables as it enables efficient latest-version discovery without needing to list all versions. ")
+    __properties: ClassVar[List[str]] = ["identity", "context", "id", "version", "manifest_path", "manifest_size", "e_tag", "metadata", "naming_scheme"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,7 +100,8 @@ class CreateTableVersionRequest(BaseModel):
             "manifest_path": obj.get("manifest_path"),
             "manifest_size": obj.get("manifest_size"),
             "e_tag": obj.get("e_tag"),
-            "metadata": obj.get("metadata")
+            "metadata": obj.get("metadata"),
+            "naming_scheme": obj.get("naming_scheme")
         })
         return _obj
 
