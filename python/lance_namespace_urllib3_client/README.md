@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
 *MetadataApi* | [**alter_table_alter_columns**](docs/MetadataApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *MetadataApi* | [**alter_table_drop_columns**](docs/MetadataApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *MetadataApi* | [**alter_transaction**](docs/MetadataApi.md#alter_transaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction.
+*MetadataApi* | [**batch_create_table_versions**](docs/MetadataApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *MetadataApi* | [**batch_delete_table_versions**](docs/MetadataApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *MetadataApi* | [**create_empty_table**](docs/MetadataApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 *MetadataApi* | [**create_namespace**](docs/MetadataApi.md#create_namespace) | **POST** /v1/namespace/{id}/create | Create a new namespace
@@ -173,6 +174,7 @@ Class | Method | HTTP request | Description
 *TableApi* | [**alter_table_alter_columns**](docs/TableApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *TableApi* | [**alter_table_drop_columns**](docs/TableApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *TableApi* | [**analyze_table_query_plan**](docs/TableApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
+*TableApi* | [**batch_create_table_versions**](docs/TableApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *TableApi* | [**batch_delete_table_versions**](docs/TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *TableApi* | [**count_table_rows**](docs/TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 *TableApi* | [**create_empty_table**](docs/TableApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
@@ -236,6 +238,8 @@ Class | Method | HTTP request | Description
  - [AlterVirtualColumnEntry](docs/AlterVirtualColumnEntry.md)
  - [AnalyzeTableQueryPlanRequest](docs/AnalyzeTableQueryPlanRequest.md)
  - [AnalyzeTableQueryPlanResponse](docs/AnalyzeTableQueryPlanResponse.md)
+ - [BatchCreateTableVersionsRequest](docs/BatchCreateTableVersionsRequest.md)
+ - [BatchCreateTableVersionsResponse](docs/BatchCreateTableVersionsResponse.md)
  - [BatchDeleteTableVersionsRequest](docs/BatchDeleteTableVersionsRequest.md)
  - [BatchDeleteTableVersionsResponse](docs/BatchDeleteTableVersionsResponse.md)
  - [BooleanQuery](docs/BooleanQuery.md)
@@ -252,6 +256,7 @@ Class | Method | HTTP request | Description
  - [CreateTableScalarIndexResponse](docs/CreateTableScalarIndexResponse.md)
  - [CreateTableTagRequest](docs/CreateTableTagRequest.md)
  - [CreateTableTagResponse](docs/CreateTableTagResponse.md)
+ - [CreateTableVersionEntry](docs/CreateTableVersionEntry.md)
  - [CreateTableVersionRequest](docs/CreateTableVersionRequest.md)
  - [CreateTableVersionResponse](docs/CreateTableVersionResponse.md)
  - [DeclareTableRequest](docs/DeclareTableRequest.md)

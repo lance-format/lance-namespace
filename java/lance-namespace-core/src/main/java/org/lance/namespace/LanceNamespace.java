@@ -551,6 +551,28 @@ public interface LanceNamespace {
   }
 
   /**
+   * Atomically create new version entries for multiple tables.
+   *
+   * <p>This operation is atomic: either all table versions are created successfully, or none are
+   * created. If any version creation fails (e.g., due to conflict), the entire batch operation
+   * fails.
+   *
+   * <p>Each entry in the request specifies the table identifier and version details. This supports
+   * put_if_not_exists semantics for each version entry.
+   *
+   * @param request The batch create table versions request
+   * @return The batch create table versions response
+   * @throws org.lance.namespace.errors.NamespaceNotFoundException if any namespace does not exist
+   * @throws org.lance.namespace.errors.TableNotFoundException if any table does not exist
+   * @throws org.lance.namespace.errors.ConcurrentModificationException if any version already
+   *     exists
+   */
+  default BatchCreateTableVersionsResponse batchCreateTableVersions(
+      BatchCreateTableVersionsRequest request) {
+    throw new UnsupportedOperationException("Not supported: batchCreateTableVersions");
+  }
+
+  /**
    * Update table schema metadata.
    *
    * @param request The update table schema metadata request

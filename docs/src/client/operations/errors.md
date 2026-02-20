@@ -116,12 +116,13 @@ All operations may return the following errors:
 
 ### Table Version Metadata Operations
 
-| Operation                | Additional Errors                                                     |
-|--------------------------|-----------------------------------------------------------------------|
-| ListTableVersions        | 1 (NamespaceNotFound), 4 (TableNotFound)                              |
-| DescribeTableVersion     | 1 (NamespaceNotFound), 4 (TableNotFound), 11 (TableVersionNotFound)   |
-| CreateTableVersion       | 1 (NamespaceNotFound), 4 (TableNotFound), 14 (ConcurrentModification) |
-| BatchDeleteTableVersions | 1 (NamespaceNotFound), 4 (TableNotFound)                              |
+| Operation                 | Additional Errors                                                     |
+|---------------------------|-----------------------------------------------------------------------|
+| ListTableVersions         | 1 (NamespaceNotFound), 4 (TableNotFound)                              |
+| DescribeTableVersion      | 1 (NamespaceNotFound), 4 (TableNotFound), 11 (TableVersionNotFound)   |
+| CreateTableVersion        | 1 (NamespaceNotFound), 4 (TableNotFound), 14 (ConcurrentModification) |
+| BatchCreateTableVersions  | 1 (NamespaceNotFound), 4 (TableNotFound), 14 (ConcurrentModification) |
+| BatchDeleteTableVersions  | 1 (NamespaceNotFound), 4 (TableNotFound)                              |
 
 ### Transaction Metadata Operations
 

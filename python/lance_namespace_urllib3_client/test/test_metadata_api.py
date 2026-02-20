@@ -47,6 +47,13 @@ class TestMetadataApi(unittest.TestCase):
         """
         pass
 
+    def test_batch_create_table_versions(self) -> None:
+        """Test case for batch_create_table_versions
+
+        Atomically create versions for multiple tables
+        """
+        pass
+
     def test_batch_delete_table_versions(self) -> None:
         """Test case for batch_delete_table_versions
 

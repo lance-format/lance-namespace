@@ -343,15 +343,15 @@ public class DescribeTableResponse {
 
   /**
    * When true, the caller should use namespace table version operations (CreateTableVersion,
-   * DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions
-   * instead of relying on Lance's native version management.
+   * BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to
+   * manage table versions instead of relying on Lance's native version management.
    *
    * @return managedVersioning
    */
   @Schema(
       name = "managed_versioning",
       description =
-          "When true, the caller should use namespace table version operations (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ",
+          "When true, the caller should use namespace table version operations (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("managed_versioning")
   public Boolean getManagedVersioning() {

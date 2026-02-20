@@ -896,6 +896,52 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /v1/table/version/batch-create:
+    parameters:
+    - $ref: '#/components/parameters/delimiter'
+    post:
+      description: |
+        Atomically create new version entries for multiple tables.
+
+        This operation is atomic: either all table versions are created successfully,
+        or none are created. If any version creation fails (e.g., due to conflict),
+        the entire batch operation fails.
+
+        Each entry in the request specifies the table identifier and version details.
+        This supports `put_if_not_exists` semantics for each version entry.
+      operationId: BatchCreateTableVersions
+      parameters:
+      - $ref: '#/components/parameters/delimiter'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchCreateTableVersionsRequest'
+        required: true
+      responses:
+        "200":
+          $ref: '#/components/responses/BatchCreateTableVersionsResponse'
+        "400":
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        "401":
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        "403":
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        "404":
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        "409":
+          $ref: '#/components/responses/ConflictErrorResponse'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        "5XX":
+          $ref: '#/components/responses/ServerErrorResponse'
+      summary: Atomically create versions for multiple tables
+      tags:
+      - Table
+      - Metadata
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /v1/table/{id}/alter_columns:
     parameters:
     - $ref: '#/components/parameters/id'
@@ -2537,6 +2583,12 @@ components:
           schema:
             $ref: '#/components/schemas/BatchDeleteTableVersionsResponse'
       description: Result of deleting table version records
+    BatchCreateTableVersionsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BatchCreateTableVersionsResponse'
+      description: Result of atomically creating table versions
     ExplainTableQueryPlanResponse:
       content:
         application/json:
@@ -3420,7 +3472,7 @@ components:
         managed_versioning:
           description: |
             When true, the caller should use namespace table version operations
-            (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
+            (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
             to manage table versions instead of relying on Lance's native version management.
           type: boolean
     TableBasicStats:
@@ -4576,7 +4628,7 @@ components:
         managed_versioning:
           description: |
             When true, the caller should use namespace table version operations
-            (CreateTableVersion, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
+            (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
             to manage table versions instead of relying on Lance's native version management.
           type: boolean
     TableExistsRequest:
@@ -5956,6 +6008,150 @@ components:
         transaction_id:
           description: Optional transaction identifier
           type: string
+    BatchCreateTableVersionsRequest:
+      description: |
+        Request to atomically create new version entries for multiple tables.
+        The operation is atomic: all versions are created or none are.
+      example:
+        entries:
+        - naming_scheme: V2
+          metadata:
+            key: metadata
+          manifest_path: manifest_path
+          manifest_size: 0
+          id:
+          - id
+          - id
+          e_tag: e_tag
+          version: 0
+        - naming_scheme: V2
+          metadata:
+            key: metadata
+          manifest_path: manifest_path
+          manifest_size: 0
+          id:
+          - id
+          - id
+          e_tag: e_tag
+          version: 0
+        identity:
+          api_key: api_key
+          auth_token: auth_token
+        context:
+          key: context
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          additionalProperties:
+            type: string
+          description: |
+            Arbitrary context for a request as key-value pairs.
+            How to use the context is custom to the specific implementation.
+
+            REST NAMESPACE ONLY
+            Context entries are passed via HTTP headers using the naming convention
+            `x-lance-ctx-<key>: <value>`. For example, a context entry
+            `{"trace_id": "abc123"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
+        entries:
+          description: List of table version entries to create atomically
+          items:
+            $ref: '#/components/schemas/CreateTableVersionEntry'
+          type: array
+      required:
+      - entries
+    CreateTableVersionEntry:
+      description: |
+        An entry for creating a new table version in a batch operation.
+        This supports `put_if_not_exists` semantics,
+        where the operation fails if the version already exists.
+      example:
+        naming_scheme: V2
+        metadata:
+          key: metadata
+        manifest_path: manifest_path
+        manifest_size: 0
+        id:
+        - id
+        - id
+        e_tag: e_tag
+        version: 0
+      properties:
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        version:
+          description: Version number to create
+          format: int64
+          minimum: 0
+          type: integer
+        manifest_path:
+          description: Path to the manifest file for this version
+          type: string
+        manifest_size:
+          description: Size of the manifest file in bytes
+          format: int64
+          minimum: 0
+          type: integer
+        e_tag:
+          description: Optional ETag for the manifest file
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: Optional metadata for the version
+        naming_scheme:
+          description: |
+            The naming scheme used for manifest files in the `_versions/` directory.
+
+            Known values:
+            - `V1`: `_versions/{version}.manifest` - Simple version-based naming
+            - `V2`: `_versions/{inverted_version}.manifest` - Zero-padded, reversed version number
+              (uses `u64::MAX - version`) for O(1) lookup of latest version on object stores
+
+            V2 is preferred for new tables as it enables efficient latest-version discovery
+            without needing to list all versions.
+          example: V2
+          type: string
+      required:
+      - id
+      - manifest_path
+      - version
+    BatchCreateTableVersionsResponse:
+      description: |
+        Response for batch creating table versions.
+        Contains the created versions for each table in the same order as the request.
+      example:
+        transaction_id: transaction_id
+        versions:
+        - metadata:
+            key: metadata
+          manifest_path: manifest_path
+          timestamp_millis: 1
+          manifest_size: 0
+          e_tag: e_tag
+          version: 0
+        - metadata:
+            key: metadata
+          manifest_path: manifest_path
+          timestamp_millis: 1
+          manifest_size: 0
+          e_tag: e_tag
+          version: 0
+      properties:
+        transaction_id:
+          description: Optional transaction identifier
+          type: string
+        versions:
+          description: List of created table versions in the same order as the request
+            entries
+          items:
+            $ref: '#/components/schemas/TableVersion'
+          type: array
+      required:
+      - versions
     TableVersion:
       example:
         metadata:
