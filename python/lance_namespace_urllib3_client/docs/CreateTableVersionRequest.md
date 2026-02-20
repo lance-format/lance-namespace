@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **manifest_size** | **int** | Size of the manifest file in bytes | [optional] 
 **e_tag** | **str** | Optional ETag for the manifest file | [optional] 
 **metadata** | **Dict[str, str]** | Optional metadata for the version | [optional] 
+**naming_scheme** | **str** | The naming scheme used for manifest files in the &#x60;_versions/&#x60; directory.  Known values: - &#x60;V1&#x60;: &#x60;_versions/{version}.manifest&#x60; - Simple version-based naming - &#x60;V2&#x60;: &#x60;_versions/{inverted_version}.manifest&#x60; - Zero-padded, reversed version number   (uses &#x60;u64::MAX - version&#x60;) for O(1) lookup of latest version on object stores  V2 is preferred for new tables as it enables efficient latest-version discovery without needing to list all versions.  | [optional] 
 
 ## Example
 

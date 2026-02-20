@@ -55,6 +55,8 @@ public class CreateTableVersionRequest {
 
   @Valid private Map<String, String> metadata = new HashMap<>();
 
+  private String namingScheme;
+
   public CreateTableVersionRequest() {
     super();
   }
@@ -279,6 +281,35 @@ public class CreateTableVersionRequest {
     this.metadata = metadata;
   }
 
+  public CreateTableVersionRequest namingScheme(String namingScheme) {
+    this.namingScheme = namingScheme;
+    return this;
+  }
+
+  /**
+   * The naming scheme used for manifest files in the `_versions/` directory. Known values: - `V1`:
+   * `_versions/{version}.manifest` - Simple version-based naming - `V2`:
+   * `_versions/{inverted_version}.manifest` - Zero-padded, reversed version number (uses `u64::MAX
+   * - version`) for O(1) lookup of latest version on object stores V2 is preferred for new tables
+   * as it enables efficient latest-version discovery without needing to list all versions.
+   *
+   * @return namingScheme
+   */
+  @Schema(
+      name = "naming_scheme",
+      example = "V2",
+      description =
+          "The naming scheme used for manifest files in the `_versions/` directory.  Known values: - `V1`: `_versions/{version}.manifest` - Simple version-based naming - `V2`: `_versions/{inverted_version}.manifest` - Zero-padded, reversed version number   (uses `u64::MAX - version`) for O(1) lookup of latest version on object stores  V2 is preferred for new tables as it enables efficient latest-version discovery without needing to list all versions. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("naming_scheme")
+  public String getNamingScheme() {
+    return namingScheme;
+  }
+
+  public void setNamingScheme(String namingScheme) {
+    this.namingScheme = namingScheme;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -295,12 +326,14 @@ public class CreateTableVersionRequest {
         && Objects.equals(this.manifestPath, createTableVersionRequest.manifestPath)
         && Objects.equals(this.manifestSize, createTableVersionRequest.manifestSize)
         && Objects.equals(this.eTag, createTableVersionRequest.eTag)
-        && Objects.equals(this.metadata, createTableVersionRequest.metadata);
+        && Objects.equals(this.metadata, createTableVersionRequest.metadata)
+        && Objects.equals(this.namingScheme, createTableVersionRequest.namingScheme);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, version, manifestPath, manifestSize, eTag, metadata);
+    return Objects.hash(
+        identity, context, id, version, manifestPath, manifestSize, eTag, metadata, namingScheme);
   }
 
   @Override
@@ -315,6 +348,7 @@ public class CreateTableVersionRequest {
     sb.append("    manifestSize: ").append(toIndentedString(manifestSize)).append("\n");
     sb.append("    eTag: ").append(toIndentedString(eTag)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    namingScheme: ").append(toIndentedString(namingScheme)).append("\n");
     sb.append("}");
     return sb.toString();
   }

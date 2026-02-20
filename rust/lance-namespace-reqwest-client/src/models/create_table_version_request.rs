@@ -37,6 +37,9 @@ pub struct CreateTableVersionRequest {
     /// Optional metadata for the version
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
+    /// The naming scheme used for manifest files in the `_versions/` directory.  Known values: - `V1`: `_versions/{version}.manifest` - Simple version-based naming - `V2`: `_versions/{inverted_version}.manifest` - Zero-padded, reversed version number   (uses `u64::MAX - version`) for O(1) lookup of latest version on object stores  V2 is preferred for new tables as it enables efficient latest-version discovery without needing to list all versions. 
+    #[serde(rename = "naming_scheme", skip_serializing_if = "Option::is_none")]
+    pub naming_scheme: Option<String>,
 }
 
 impl CreateTableVersionRequest {
@@ -51,6 +54,7 @@ impl CreateTableVersionRequest {
             manifest_size: None,
             e_tag: None,
             metadata: None,
+            naming_scheme: None,
         }
     }
 }

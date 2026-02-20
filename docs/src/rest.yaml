@@ -3931,6 +3931,8 @@ components:
           additionalProperties:
             type: string
           description: Optional metadata for the version
+        naming_scheme:
+          $ref: "#/components/schemas/ManifestNamingScheme"
 
     CreateTableVersionResponse:
       type: object
@@ -4065,6 +4067,20 @@ components:
           additionalProperties:
             type: string
           description: Optional key-value pairs of metadata
+
+    ManifestNamingScheme:
+      type: string
+      description: |
+        The naming scheme used for manifest files in the `_versions/` directory.
+
+        Known values:
+        - `V1`: `_versions/{version}.manifest` - Simple version-based naming
+        - `V2`: `_versions/{inverted_version}.manifest` - Zero-padded, reversed version number
+          (uses `u64::MAX - version`) for O(1) lookup of latest version on object stores
+
+        V2 is preferred for new tables as it enables efficient latest-version discovery
+        without needing to list all versions.
+      example: V2
 
     ExplainTableQueryPlanRequest:
       type: object
