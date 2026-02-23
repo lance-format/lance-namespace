@@ -94,3 +94,29 @@ replace = 'lance-namespace-urllib3-client=={new_version}'
 filename = "java/lance-namespace-core/pom.xml"
 search = "<version>{current_version}</version>"
 replace = "<version>{new_version}</version>"
+
+# TypeScript workspace and package versions
+[[tool.bumpversion.files]]
+filename = "typescript/Makefile"
+search = "VERSION = {current_version}"
+replace = "VERSION = {new_version}"
+
+[[tool.bumpversion.files]]
+filename = "typescript/package.json"
+search = '"version": "{current_version}"'
+replace = '"version": "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "typescript/lance-namespace/package.json"
+search = '"version": "{current_version}"'
+replace = '"version": "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "typescript/lance-namespace-fetch-client/package.json"
+search = '"version": "{current_version}"'
+replace = '"version": "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "typescript/lance-namespace-rest/package.json"
+search = '"version": "{current_version}"'
+replace = '"version": "{new_version}"'
