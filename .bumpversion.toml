@@ -94,3 +94,15 @@ replace = 'lance-namespace-urllib3-client=={new_version}'
 filename = "java/lance-namespace-core/pom.xml"
 search = "<version>{current_version}</version>"
 replace = "<version>{new_version}</version>"
+
+# Java async-client-pom.xml (template for async client)
+[[tool.bumpversion.files]]
+filename = "java/async-client-pom.xml"
+search = "<version>{current_version}</version>"
+replace = "<version>{new_version}</version>"
+
+# Java lance-namespace-core-async module
+[[tool.bumpversion.files]]
+filename = "java/lance-namespace-core-async/pom.xml"
+search = "<version>{current_version}</version>"
+replace = "<version>{new_version}</version>"
