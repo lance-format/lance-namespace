@@ -13,156 +13,97 @@
 
 
 from __future__ import annotations
-import json
 import pprint
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
-from typing import Any, List, Optional
-from lance_namespace_urllib3_client.models.commit_table_result_create_table_version import CommitTableResultCreateTableVersion
-from lance_namespace_urllib3_client.models.commit_table_result_declare_table import CommitTableResultDeclareTable
-from lance_namespace_urllib3_client.models.commit_table_result_delete_table_versions import CommitTableResultDeleteTableVersions
-from lance_namespace_urllib3_client.models.commit_table_result_deregister_table import CommitTableResultDeregisterTable
-from pydantic import StrictStr, Field
-from typing import Union, List, Set, Optional, Dict
-from typing_extensions import Literal, Self
+import re  # noqa: F401
+import json
 
-COMMITTABLERESULT_ONE_OF_SCHEMAS = ["CommitTableResultCreateTableVersion", "CommitTableResultDeclareTable", "CommitTableResultDeleteTableVersions", "CommitTableResultDeregisterTable"]
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List, Optional
+from lance_namespace_urllib3_client.models.batch_delete_table_versions_response import BatchDeleteTableVersionsResponse
+from lance_namespace_urllib3_client.models.create_table_version_response import CreateTableVersionResponse
+from lance_namespace_urllib3_client.models.declare_table_response import DeclareTableResponse
+from lance_namespace_urllib3_client.models.deregister_table_response import DeregisterTableResponse
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CommitTableResult(BaseModel):
     """
-    Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. 
-    """
-    # data type: CommitTableResultDeclareTable
-    oneof_schema_1_validator: Optional[CommitTableResultDeclareTable] = None
-    # data type: CommitTableResultCreateTableVersion
-    oneof_schema_2_validator: Optional[CommitTableResultCreateTableVersion] = None
-    # data type: CommitTableResultDeleteTableVersions
-    oneof_schema_3_validator: Optional[CommitTableResultDeleteTableVersions] = None
-    # data type: CommitTableResultDeregisterTable
-    oneof_schema_4_validator: Optional[CommitTableResultDeregisterTable] = None
-    actual_instance: Optional[Union[CommitTableResultCreateTableVersion, CommitTableResultDeclareTable, CommitTableResultDeleteTableVersions, CommitTableResultDeregisterTable]] = None
-    one_of_schemas: Set[str] = { "CommitTableResultCreateTableVersion", "CommitTableResultDeclareTable", "CommitTableResultDeleteTableVersions", "CommitTableResultDeregisterTable" }
+    Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. Exactly one of the result fields will be set. 
+    """ # noqa: E501
+    declare_table: Optional[DeclareTableResponse] = Field(default=None, description="Result of a DeclareTable operation")
+    create_table_version: Optional[CreateTableVersionResponse] = Field(default=None, description="Result of a CreateTableVersion operation")
+    delete_table_versions: Optional[BatchDeleteTableVersionsResponse] = Field(default=None, description="Result of a DeleteTableVersions operation")
+    deregister_table: Optional[DeregisterTableResponse] = Field(default=None, description="Result of a DeregisterTable operation")
+    __properties: ClassVar[List[str]] = ["declare_table", "create_table_version", "delete_table_versions", "deregister_table"]
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
-
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        instance = CommitTableResult.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: CommitTableResultDeclareTable
-        if not isinstance(v, CommitTableResultDeclareTable):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CommitTableResultDeclareTable`")
-        else:
-            match += 1
-        # validate data type: CommitTableResultCreateTableVersion
-        if not isinstance(v, CommitTableResultCreateTableVersion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CommitTableResultCreateTableVersion`")
-        else:
-            match += 1
-        # validate data type: CommitTableResultDeleteTableVersions
-        if not isinstance(v, CommitTableResultDeleteTableVersions):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CommitTableResultDeleteTableVersions`")
-        else:
-            match += 1
-        # validate data type: CommitTableResultDeregisterTable
-        if not isinstance(v, CommitTableResultDeregisterTable):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CommitTableResultDeregisterTable`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in CommitTableResult with oneOf schemas: CommitTableResultCreateTableVersion, CommitTableResultDeclareTable, CommitTableResultDeleteTableVersions, CommitTableResultDeregisterTable. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in CommitTableResult with oneOf schemas: CommitTableResultCreateTableVersion, CommitTableResultDeclareTable, CommitTableResultDeleteTableVersions, CommitTableResultDeregisterTable. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        error_messages = []
-        match = 0
-
-        # deserialize data into CommitTableResultDeclareTable
-        try:
-            instance.actual_instance = CommitTableResultDeclareTable.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CommitTableResultCreateTableVersion
-        try:
-            instance.actual_instance = CommitTableResultCreateTableVersion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CommitTableResultDeleteTableVersions
-        try:
-            instance.actual_instance = CommitTableResultDeleteTableVersions.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CommitTableResultDeregisterTable
-        try:
-            instance.actual_instance = CommitTableResultDeregisterTable.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into CommitTableResult with oneOf schemas: CommitTableResultCreateTableVersion, CommitTableResultDeclareTable, CommitTableResultDeleteTableVersions, CommitTableResultDeregisterTable. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into CommitTableResult with oneOf schemas: CommitTableResultCreateTableVersion, CommitTableResultDeclareTable, CommitTableResultDeleteTableVersions, CommitTableResultDeregisterTable. Details: " + ", ".join(error_messages))
-        else:
-            return instance
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
 
     def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of CommitTableResult from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], CommitTableResultCreateTableVersion, CommitTableResultDeclareTable, CommitTableResultDeleteTableVersions, CommitTableResultDeregisterTable]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # override the default output from pydantic by calling `to_dict()` of declare_table
+        if self.declare_table:
+            _dict['declare_table'] = self.declare_table.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of create_table_version
+        if self.create_table_version:
+            _dict['create_table_version'] = self.create_table_version.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of delete_table_versions
+        if self.delete_table_versions:
+            _dict['delete_table_versions'] = self.delete_table_versions.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of deregister_table
+        if self.deregister_table:
+            _dict['deregister_table'] = self.deregister_table.to_dict()
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of CommitTableResult from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
+        _obj = cls.model_validate({
+            "declare_table": DeclareTableResponse.from_dict(obj["declare_table"]) if obj.get("declare_table") is not None else None,
+            "create_table_version": CreateTableVersionResponse.from_dict(obj["create_table_version"]) if obj.get("create_table_version") is not None else None,
+            "delete_table_versions": BatchDeleteTableVersionsResponse.from_dict(obj["delete_table_versions"]) if obj.get("delete_table_versions") is not None else None,
+            "deregister_table": DeregisterTableResponse.from_dict(obj["deregister_table"]) if obj.get("deregister_table") is not None else None
+        })
+        return _obj
 
 

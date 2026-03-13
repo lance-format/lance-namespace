@@ -11,24 +11,32 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CommitTableResult : Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum CommitTableResult {
-    #[serde(rename="declare_table")]
-    DeclareTable(Box<models::CommitTableResultDeclareTable>),
-    #[serde(rename="create_table_version")]
-    CreateTableVersion(Box<models::CommitTableResultCreateTableVersion>),
-    #[serde(rename="delete_table_versions")]
-    DeleteTableVersions(Box<models::CommitTableResultDeleteTableVersions>),
-    #[serde(rename="deregister_table")]
-    DeregisterTable(Box<models::CommitTableResultDeregisterTable>),
+/// CommitTableResult : Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. Exactly one of the result fields will be set. 
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct CommitTableResult {
+    /// Result of a DeclareTable operation
+    #[serde(rename = "declare_table", skip_serializing_if = "Option::is_none")]
+    pub declare_table: Option<Box<models::DeclareTableResponse>>,
+    /// Result of a CreateTableVersion operation
+    #[serde(rename = "create_table_version", skip_serializing_if = "Option::is_none")]
+    pub create_table_version: Option<Box<models::CreateTableVersionResponse>>,
+    /// Result of a DeleteTableVersions operation
+    #[serde(rename = "delete_table_versions", skip_serializing_if = "Option::is_none")]
+    pub delete_table_versions: Option<Box<models::BatchDeleteTableVersionsResponse>>,
+    /// Result of a DeregisterTable operation
+    #[serde(rename = "deregister_table", skip_serializing_if = "Option::is_none")]
+    pub deregister_table: Option<Box<models::DeregisterTableResponse>>,
 }
 
-impl Default for CommitTableResult {
-    fn default() -> Self {
-        Self::DeclareTable(Default::default())
+impl CommitTableResult {
+    /// Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. Exactly one of the result fields will be set. 
+    pub fn new() -> CommitTableResult {
+        CommitTableResult {
+            declare_table: None,
+            create_table_version: None,
+            delete_table_versions: None,
+            deregister_table: None,
+        }
     }
 }
-
 

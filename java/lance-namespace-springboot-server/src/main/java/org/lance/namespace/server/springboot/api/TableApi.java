@@ -809,12 +809,11 @@ public interface TableApi {
    * POST /v1/table/batch-commit : Atomically commit a batch of mixed table operations Atomically
    * commit a batch of table operations. This is a generalized version of
    * &#x60;BatchCreateTableVersions&#x60; that supports mixed operation types within a single atomic
-   * transaction at the metadata layer. Supported operation types: - &#x60;declare_table&#x60;:
-   * Declare (reserve) a new table - &#x60;create_table_version&#x60;: Create a new version entry
-   * for a table - &#x60;delete_table_versions&#x60;: Delete version ranges from a table -
-   * &#x60;deregister_table&#x60;: Deregister (soft-delete) a table All operations are committed
-   * atomically: either all succeed or none are applied. Physical file operations (e.g., writing
-   * manifest files, deleting version files) are best-effort — metadata is the source of truth.
+   * transaction at the metadata layer. Supported operation types: - &#x60;DeclareTable&#x60;:
+   * Declare (reserve) a new table - &#x60;CreateTableVersion&#x60;: Create a new version entry for
+   * a table - &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table -
+   * &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table All operations are committed
+   * atomically: either all succeed or none are applied.
    *
    * @param batchCommitTablesRequest (required)
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
@@ -839,7 +838,7 @@ public interface TableApi {
       operationId = "batchCommitTables",
       summary = "Atomically commit a batch of mixed table operations",
       description =
-          "Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `declare_table`: Declare (reserve) a new table - `create_table_version`: Create a new version entry for a table - `delete_table_versions`: Delete version ranges from a table - `deregister_table`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. Physical file operations (e.g., writing manifest files, deleting version files) are best-effort — metadata is the source of truth. ",
+          "Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `DeclareTable`: Declare (reserve) a new table - `CreateTableVersion`: Create a new version entry for a table - `DeleteTableVersions`: Delete version ranges from a table - `DeregisterTable`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. ",
       tags = {"Table", "Metadata", "Transaction"},
       responses = {
         @ApiResponse(
@@ -940,7 +939,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"results\" : [ { \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"type\" : \"declare_table\" }, { \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"type\" : \"declare_table\" } ] }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"results\" : [ { \"deregister_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }, \"create_table_version\" : { \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }, \"delete_table_versions\" : { \"transaction_id\" : \"transaction_id\", \"deleted_count\" : 0 }, \"declare_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } } }, { \"deregister_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }, \"create_table_version\" : { \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }, \"delete_table_versions\" : { \"transaction_id\" : \"transaction_id\", \"deleted_count\" : 0 }, \"declare_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } } } ] }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }

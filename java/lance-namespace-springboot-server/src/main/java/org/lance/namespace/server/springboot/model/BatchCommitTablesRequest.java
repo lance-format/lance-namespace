@@ -29,15 +29,14 @@ import java.util.Objects;
 /**
  * Request to atomically commit a batch of table operations. This replaces
  * &#x60;BatchCreateTableVersionsRequest&#x60; with a more general interface that supports mixed
- * operations (declare, create version, delete versions, deregister) within a single atomic
- * transaction at the metadata layer. All operations are committed atomically: either all succeed or
- * none are applied. Physical file operations (e.g., writing manifest files, deleting version files)
- * are best-effort — metadata is the source of truth.
+ * operations (DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable) within a
+ * single atomic transaction at the metadata layer. All operations are committed atomically: either
+ * all succeed or none are applied.
  */
 @Schema(
     name = "BatchCommitTablesRequest",
     description =
-        "Request to atomically commit a batch of table operations. This replaces `BatchCreateTableVersionsRequest` with a more general interface that supports mixed operations (declare, create version, delete versions, deregister) within a single atomic transaction at the metadata layer.  All operations are committed atomically: either all succeed or none are applied. Physical file operations (e.g., writing manifest files, deleting version files) are best-effort — metadata is the source of truth. ")
+        "Request to atomically commit a batch of table operations. This replaces `BatchCreateTableVersionsRequest` with a more general interface that supports mixed operations (DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable) within a single atomic transaction at the metadata layer.  All operations are committed atomically: either all succeed or none are applied. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
     comments = "Generator version: 7.12.0")
@@ -47,14 +46,14 @@ public class BatchCommitTablesRequest {
 
   @Valid private Map<String, String> context = new HashMap<>();
 
-  @Valid private List<CommitTableOperation> operations = new ArrayList<>();
+  @Valid private List<@Valid CommitTableOperation> operations = new ArrayList<>();
 
   public BatchCommitTablesRequest() {
     super();
   }
 
   /** Constructor with only required parameters */
-  public BatchCommitTablesRequest(List<CommitTableOperation> operations) {
+  public BatchCommitTablesRequest(List<@Valid CommitTableOperation> operations) {
     this.operations = operations;
   }
 
@@ -114,7 +113,7 @@ public class BatchCommitTablesRequest {
     this.context = context;
   }
 
-  public BatchCommitTablesRequest operations(List<CommitTableOperation> operations) {
+  public BatchCommitTablesRequest operations(List<@Valid CommitTableOperation> operations) {
     this.operations = operations;
     return this;
   }
@@ -128,8 +127,8 @@ public class BatchCommitTablesRequest {
   }
 
   /**
-   * List of operations to commit atomically. Supported operation types: declare_table,
-   * create_table_version, delete_table_versions, deregister_table.
+   * List of operations to commit atomically. Supported operation types: DeclareTable,
+   * CreateTableVersion, DeleteTableVersions, DeregisterTable.
    *
    * @return operations
    */
@@ -138,14 +137,14 @@ public class BatchCommitTablesRequest {
   @Schema(
       name = "operations",
       description =
-          "List of operations to commit atomically. Supported operation types: declare_table, create_table_version, delete_table_versions, deregister_table. ",
+          "List of operations to commit atomically. Supported operation types: DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable. ",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("operations")
-  public List<CommitTableOperation> getOperations() {
+  public List<@Valid CommitTableOperation> getOperations() {
     return operations;
   }
 
-  public void setOperations(List<CommitTableOperation> operations) {
+  public void setOperations(List<@Valid CommitTableOperation> operations) {
     this.operations = operations;
   }
 

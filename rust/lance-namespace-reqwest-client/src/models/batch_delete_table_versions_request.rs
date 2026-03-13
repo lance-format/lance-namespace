@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BatchDeleteTableVersionsRequest : Request to delete table version records. Supports deleting ranges of versions for efficient bulk cleanup. This request supports two modes: - Single-table (legacy): Use `id` + `ranges` to delete versions from one table. - Multi-table (transactional): Use `entries` to atomically delete versions   across multiple tables in a single operation. When `entries` is provided, `id` and `ranges` are ignored. 
+/// BatchDeleteTableVersionsRequest : Request to delete table version records. Supports deleting ranges of versions for efficient bulk cleanup. 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BatchDeleteTableVersionsRequest {
     #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
@@ -19,26 +19,22 @@ pub struct BatchDeleteTableVersionsRequest {
     /// Arbitrary context for a request as key-value pairs. How to use the context is custom to the specific implementation.  REST NAMESPACE ONLY Context entries are passed via HTTP headers using the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`. 
     #[serde(rename = "context", skip_serializing_if = "Option::is_none")]
     pub context: Option<std::collections::HashMap<String, String>>,
-    /// The table identifier (single-table mode, legacy). Ignored when `entries` is provided. 
+    /// The table identifier
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<Vec<String>>,
-    /// List of version ranges to delete (single-table mode, legacy). Ignored when `entries` is provided. Each range specifies start (inclusive) and end (exclusive) versions. 
-    #[serde(rename = "ranges", skip_serializing_if = "Option::is_none")]
-    pub ranges: Option<Vec<models::VersionRange>>,
-    /// List of per-table delete entries for multi-table transactional deletion. When provided, the operation atomically deletes versions across all specified tables. 
-    #[serde(rename = "entries", skip_serializing_if = "Option::is_none")]
-    pub entries: Option<Vec<models::DeleteTableVersionsEntry>>,
+    /// List of version ranges to delete. Each range specifies start (inclusive) and end (exclusive) versions. 
+    #[serde(rename = "ranges")]
+    pub ranges: Vec<models::VersionRange>,
 }
 
 impl BatchDeleteTableVersionsRequest {
-    /// Request to delete table version records. Supports deleting ranges of versions for efficient bulk cleanup. This request supports two modes: - Single-table (legacy): Use `id` + `ranges` to delete versions from one table. - Multi-table (transactional): Use `entries` to atomically delete versions   across multiple tables in a single operation. When `entries` is provided, `id` and `ranges` are ignored. 
-    pub fn new() -> BatchDeleteTableVersionsRequest {
+    /// Request to delete table version records. Supports deleting ranges of versions for efficient bulk cleanup. 
+    pub fn new(ranges: Vec<models::VersionRange>) -> BatchDeleteTableVersionsRequest {
         BatchDeleteTableVersionsRequest {
             identity: None,
             context: None,
             id: None,
-            ranges: None,
-            entries: None,
+            ranges,
         }
     }
 }

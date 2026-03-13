@@ -1,16 +1,15 @@
 # CommitTableResult
 
-Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. 
+Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. Exactly one of the result fields will be set. 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** |  | 
-**id** | **List[str]** | The table identifier | 
-**location** | **str** | The storage location of the deregistered table | [optional] 
-**version** | [**TableVersion**](TableVersion.md) | The created table version details | 
-**deleted_count** | **int** | Number of version records deleted | 
+**declare_table** | [**DeclareTableResponse**](DeclareTableResponse.md) | Result of a DeclareTable operation | [optional] 
+**create_table_version** | [**CreateTableVersionResponse**](CreateTableVersionResponse.md) | Result of a CreateTableVersion operation | [optional] 
+**delete_table_versions** | [**BatchDeleteTableVersionsResponse**](BatchDeleteTableVersionsResponse.md) | Result of a DeleteTableVersions operation | [optional] 
+**deregister_table** | [**DeregisterTableResponse**](DeregisterTableResponse.md) | Result of a DeregisterTable operation | [optional] 
 
 ## Example
 

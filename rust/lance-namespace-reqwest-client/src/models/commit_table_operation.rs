@@ -11,24 +11,32 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CommitTableOperation : A single operation within a batch commit. Uses a discriminator on the `type` field to determine the operation kind. 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum CommitTableOperation {
-    #[serde(rename="declare_table")]
-    DeclareTable(Box<models::CommitTableOperationDeclareTable>),
-    #[serde(rename="create_table_version")]
-    CreateTableVersion(Box<models::CommitTableOperationCreateTableVersion>),
-    #[serde(rename="delete_table_versions")]
-    DeleteTableVersions(Box<models::CommitTableOperationDeleteTableVersions>),
-    #[serde(rename="deregister_table")]
-    DeregisterTable(Box<models::CommitTableOperationDeregisterTable>),
+/// CommitTableOperation : A single operation within a batch commit. Provide exactly one of the operation fields to specify the operation kind. 
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct CommitTableOperation {
+    /// Declare (reserve) a new table in the namespace
+    #[serde(rename = "declare_table", skip_serializing_if = "Option::is_none")]
+    pub declare_table: Option<Box<models::DeclareTableRequest>>,
+    /// Create a new version entry for a table
+    #[serde(rename = "create_table_version", skip_serializing_if = "Option::is_none")]
+    pub create_table_version: Option<Box<models::CreateTableVersionRequest>>,
+    /// Delete version ranges from a table
+    #[serde(rename = "delete_table_versions", skip_serializing_if = "Option::is_none")]
+    pub delete_table_versions: Option<Box<models::BatchDeleteTableVersionsRequest>>,
+    /// Deregister (soft-delete) a table
+    #[serde(rename = "deregister_table", skip_serializing_if = "Option::is_none")]
+    pub deregister_table: Option<Box<models::DeregisterTableRequest>>,
 }
 
-impl Default for CommitTableOperation {
-    fn default() -> Self {
-        Self::DeclareTable(Default::default())
+impl CommitTableOperation {
+    /// A single operation within a batch commit. Provide exactly one of the operation fields to specify the operation kind. 
+    pub fn new() -> CommitTableOperation {
+        CommitTableOperation {
+            declare_table: None,
+            create_table_version: None,
+            delete_table_versions: None,
+            deregister_table: None,
+        }
     }
 }
-
 

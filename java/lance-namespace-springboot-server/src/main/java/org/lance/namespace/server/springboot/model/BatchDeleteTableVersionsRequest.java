@@ -28,15 +28,12 @@ import java.util.Objects;
 
 /**
  * Request to delete table version records. Supports deleting ranges of versions for efficient bulk
- * cleanup. This request supports two modes: - Single-table (legacy): Use &#x60;id&#x60; +
- * &#x60;ranges&#x60; to delete versions from one table. - Multi-table (transactional): Use
- * &#x60;entries&#x60; to atomically delete versions across multiple tables in a single operation.
- * When &#x60;entries&#x60; is provided, &#x60;id&#x60; and &#x60;ranges&#x60; are ignored.
+ * cleanup.
  */
 @Schema(
     name = "BatchDeleteTableVersionsRequest",
     description =
-        "Request to delete table version records. Supports deleting ranges of versions for efficient bulk cleanup. This request supports two modes: - Single-table (legacy): Use `id` + `ranges` to delete versions from one table. - Multi-table (transactional): Use `entries` to atomically delete versions   across multiple tables in a single operation. When `entries` is provided, `id` and `ranges` are ignored. ")
+        "Request to delete table version records. Supports deleting ranges of versions for efficient bulk cleanup. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
     comments = "Generator version: 7.12.0")
@@ -50,7 +47,14 @@ public class BatchDeleteTableVersionsRequest {
 
   @Valid private List<@Valid VersionRange> ranges = new ArrayList<>();
 
-  @Valid private List<@Valid DeleteTableVersionsEntry> entries = new ArrayList<>();
+  public BatchDeleteTableVersionsRequest() {
+    super();
+  }
+
+  /** Constructor with only required parameters */
+  public BatchDeleteTableVersionsRequest(List<@Valid VersionRange> ranges) {
+    this.ranges = ranges;
+  }
 
   public BatchDeleteTableVersionsRequest identity(Identity identity) {
     this.identity = identity;
@@ -122,14 +126,13 @@ public class BatchDeleteTableVersionsRequest {
   }
 
   /**
-   * The table identifier (single-table mode, legacy). Ignored when `entries` is provided.
+   * The table identifier
    *
    * @return id
    */
   @Schema(
       name = "id",
-      description =
-          "The table identifier (single-table mode, legacy). Ignored when `entries` is provided. ",
+      description = "The table identifier",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("id")
   public List<String> getId() {
@@ -154,17 +157,18 @@ public class BatchDeleteTableVersionsRequest {
   }
 
   /**
-   * List of version ranges to delete (single-table mode, legacy). Ignored when `entries` is
-   * provided. Each range specifies start (inclusive) and end (exclusive) versions.
+   * List of version ranges to delete. Each range specifies start (inclusive) and end (exclusive)
+   * versions.
    *
    * @return ranges
    */
+  @NotNull
   @Valid
   @Schema(
       name = "ranges",
       description =
-          "List of version ranges to delete (single-table mode, legacy). Ignored when `entries` is provided. Each range specifies start (inclusive) and end (exclusive) versions. ",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+          "List of version ranges to delete. Each range specifies start (inclusive) and end (exclusive) versions. ",
+      requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("ranges")
   public List<@Valid VersionRange> getRanges() {
     return ranges;
@@ -172,40 +176,6 @@ public class BatchDeleteTableVersionsRequest {
 
   public void setRanges(List<@Valid VersionRange> ranges) {
     this.ranges = ranges;
-  }
-
-  public BatchDeleteTableVersionsRequest entries(List<@Valid DeleteTableVersionsEntry> entries) {
-    this.entries = entries;
-    return this;
-  }
-
-  public BatchDeleteTableVersionsRequest addEntriesItem(DeleteTableVersionsEntry entriesItem) {
-    if (this.entries == null) {
-      this.entries = new ArrayList<>();
-    }
-    this.entries.add(entriesItem);
-    return this;
-  }
-
-  /**
-   * List of per-table delete entries for multi-table transactional deletion. When provided, the
-   * operation atomically deletes versions across all specified tables.
-   *
-   * @return entries
-   */
-  @Valid
-  @Schema(
-      name = "entries",
-      description =
-          "List of per-table delete entries for multi-table transactional deletion. When provided, the operation atomically deletes versions across all specified tables. ",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("entries")
-  public List<@Valid DeleteTableVersionsEntry> getEntries() {
-    return entries;
-  }
-
-  public void setEntries(List<@Valid DeleteTableVersionsEntry> entries) {
-    this.entries = entries;
   }
 
   @Override
@@ -221,13 +191,12 @@ public class BatchDeleteTableVersionsRequest {
     return Objects.equals(this.identity, batchDeleteTableVersionsRequest.identity)
         && Objects.equals(this.context, batchDeleteTableVersionsRequest.context)
         && Objects.equals(this.id, batchDeleteTableVersionsRequest.id)
-        && Objects.equals(this.ranges, batchDeleteTableVersionsRequest.ranges)
-        && Objects.equals(this.entries, batchDeleteTableVersionsRequest.entries);
+        && Objects.equals(this.ranges, batchDeleteTableVersionsRequest.ranges);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, ranges, entries);
+    return Objects.hash(identity, context, id, ranges);
   }
 
   @Override
@@ -238,7 +207,6 @@ public class BatchDeleteTableVersionsRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    ranges: ").append(toIndentedString(ranges)).append("\n");
-    sb.append("    entries: ").append(toIndentedString(entries)).append("\n");
     sb.append("}");
     return sb.toString();
   }

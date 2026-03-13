@@ -48,21 +48,15 @@ class TestBatchDeleteTableVersionsRequest(unittest.TestCase):
                     lance_namespace_urllib3_client.models.version_range.VersionRange(
                         start_version = 56, 
                         end_version = 56, )
-                    ],
-                entries = [
-                    lance_namespace_urllib3_client.models.delete_table_versions_entry.DeleteTableVersionsEntry(
-                        id = [
-                            ''
-                            ], 
-                        ranges = [
-                            lance_namespace_urllib3_client.models.version_range.VersionRange(
-                                start_version = 56, 
-                                end_version = 56, )
-                            ], )
                     ]
             )
         else:
             return BatchDeleteTableVersionsRequest(
+                ranges = [
+                    lance_namespace_urllib3_client.models.version_range.VersionRange(
+                        start_version = 56, 
+                        end_version = 56, )
+                    ],
         )
         """
 
