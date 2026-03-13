@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BatchCommitTablesRequest : Request to atomically commit a batch of table operations. This replaces `BatchCreateTableVersionsRequest` with a more general interface that supports mixed operations (declare, create version, delete versions, deregister) within a single atomic transaction at the metadata layer.  All operations are committed atomically: either all succeed or none are applied. Physical file operations (e.g., writing manifest files, deleting version files) are best-effort — metadata is the source of truth. 
+/// BatchCommitTablesRequest : Request to atomically commit a batch of table operations. This replaces `BatchCreateTableVersionsRequest` with a more general interface that supports mixed operations (DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable) within a single atomic transaction at the metadata layer.  All operations are committed atomically: either all succeed or none are applied. 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BatchCommitTablesRequest {
     #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
@@ -19,13 +19,13 @@ pub struct BatchCommitTablesRequest {
     /// Arbitrary context for a request as key-value pairs. How to use the context is custom to the specific implementation.  REST NAMESPACE ONLY Context entries are passed via HTTP headers using the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`. 
     #[serde(rename = "context", skip_serializing_if = "Option::is_none")]
     pub context: Option<std::collections::HashMap<String, String>>,
-    /// List of operations to commit atomically. Supported operation types: declare_table, create_table_version, delete_table_versions, deregister_table. 
+    /// List of operations to commit atomically. Supported operation types: DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable. 
     #[serde(rename = "operations")]
     pub operations: Vec<models::CommitTableOperation>,
 }
 
 impl BatchCommitTablesRequest {
-    /// Request to atomically commit a batch of table operations. This replaces `BatchCreateTableVersionsRequest` with a more general interface that supports mixed operations (declare, create version, delete versions, deregister) within a single atomic transaction at the metadata layer.  All operations are committed atomically: either all succeed or none are applied. Physical file operations (e.g., writing manifest files, deleting version files) are best-effort — metadata is the source of truth. 
+    /// Request to atomically commit a batch of table operations. This replaces `BatchCreateTableVersionsRequest` with a more general interface that supports mixed operations (DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable) within a single atomic transaction at the metadata layer.  All operations are committed atomically: either all succeed or none are applied. 
     pub fn new(operations: Vec<models::CommitTableOperation>) -> BatchCommitTablesRequest {
         BatchCommitTablesRequest {
             identity: None,

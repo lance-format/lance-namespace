@@ -355,14 +355,12 @@ of `BatchCreateTableVersions` that supports mixed operation types within a
 single atomic transaction at the metadata layer.
 
 Supported operation types:
-- `declare_table`: Declare (reserve) a new table
-- `create_table_version`: Create a new version entry for a table
-- `delete_table_versions`: Delete version ranges from a table
-- `deregister_table`: Deregister (soft-delete) a table
+- `DeclareTable`: Declare (reserve) a new table
+- `CreateTableVersion`: Create a new version entry for a table
+- `DeleteTableVersions`: Delete version ranges from a table
+- `DeregisterTable`: Deregister (soft-delete) a table
 
 All operations are committed atomically: either all succeed or none are applied.
-Physical file operations (e.g., writing manifest files, deleting version files)
-are best-effort — metadata is the source of truth.
 
 
 ### Example

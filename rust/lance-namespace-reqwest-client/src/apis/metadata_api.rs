@@ -683,7 +683,7 @@ pub async fn alter_transaction(configuration: &configuration::Configuration, id:
     }
 }
 
-/// Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `declare_table`: Declare (reserve) a new table - `create_table_version`: Create a new version entry for a table - `delete_table_versions`: Delete version ranges from a table - `deregister_table`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. Physical file operations (e.g., writing manifest files, deleting version files) are best-effort — metadata is the source of truth. 
+/// Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `DeclareTable`: Declare (reserve) a new table - `CreateTableVersion`: Create a new version entry for a table - `DeleteTableVersions`: Delete version ranges from a table - `DeregisterTable`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. 
 pub async fn batch_commit_tables(configuration: &configuration::Configuration, batch_commit_tables_request: models::BatchCommitTablesRequest, delimiter: Option<&str>) -> Result<models::BatchCommitTablesResponse, Error<BatchCommitTablesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_batch_commit_tables_request = batch_commit_tables_request;

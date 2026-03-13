@@ -39,14 +39,14 @@ public class BatchCommitTablesResponse {
 
   private String transactionId;
 
-  @Valid private List<CommitTableResult> results = new ArrayList<>();
+  @Valid private List<@Valid CommitTableResult> results = new ArrayList<>();
 
   public BatchCommitTablesResponse() {
     super();
   }
 
   /** Constructor with only required parameters */
-  public BatchCommitTablesResponse(List<CommitTableResult> results) {
+  public BatchCommitTablesResponse(List<@Valid CommitTableResult> results) {
     this.results = results;
   }
 
@@ -73,7 +73,7 @@ public class BatchCommitTablesResponse {
     this.transactionId = transactionId;
   }
 
-  public BatchCommitTablesResponse results(List<CommitTableResult> results) {
+  public BatchCommitTablesResponse results(List<@Valid CommitTableResult> results) {
     this.results = results;
     return this;
   }
@@ -100,11 +100,11 @@ public class BatchCommitTablesResponse {
           "Results for each operation, in the same order as the request operations. Each result contains the outcome of the corresponding operation. ",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("results")
-  public List<CommitTableResult> getResults() {
+  public List<@Valid CommitTableResult> getResults() {
     return results;
   }
 
-  public void setResults(List<CommitTableResult> results) {
+  public void setResults(List<@Valid CommitTableResult> results) {
     this.results = results;
   }
 

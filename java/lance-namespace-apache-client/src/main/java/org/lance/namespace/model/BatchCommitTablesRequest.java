@@ -29,10 +29,9 @@ import java.util.StringJoiner;
 /**
  * Request to atomically commit a batch of table operations. This replaces
  * &#x60;BatchCreateTableVersionsRequest&#x60; with a more general interface that supports mixed
- * operations (declare, create version, delete versions, deregister) within a single atomic
- * transaction at the metadata layer. All operations are committed atomically: either all succeed or
- * none are applied. Physical file operations (e.g., writing manifest files, deleting version files)
- * are best-effort — metadata is the source of truth.
+ * operations (DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable) within a
+ * single atomic transaction at the metadata layer. All operations are committed atomically: either
+ * all succeed or none are applied.
  */
 @JsonPropertyOrder({
   BatchCommitTablesRequest.JSON_PROPERTY_IDENTITY,
@@ -130,8 +129,8 @@ public class BatchCommitTablesRequest {
   }
 
   /**
-   * List of operations to commit atomically. Supported operation types: declare_table,
-   * create_table_version, delete_table_versions, deregister_table.
+   * List of operations to commit atomically. Supported operation types: DeclareTable,
+   * CreateTableVersion, DeleteTableVersions, DeregisterTable.
    *
    * @return operations
    */

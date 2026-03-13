@@ -47,7 +47,7 @@ Name | Type | Description  | Required | Notes
 > models::BatchCommitTablesResponse batch_commit_tables(batch_commit_tables_request, delimiter)
 Atomically commit a batch of mixed table operations
 
-Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `declare_table`: Declare (reserve) a new table - `create_table_version`: Create a new version entry for a table - `delete_table_versions`: Delete version ranges from a table - `deregister_table`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. Physical file operations (e.g., writing manifest files, deleting version files) are best-effort — metadata is the source of truth. 
+Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `DeclareTable`: Declare (reserve) a new table - `CreateTableVersion`: Create a new version entry for a table - `DeleteTableVersions`: Delete version ranges from a table - `DeregisterTable`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. 
 
 ### Parameters
 

@@ -28,17 +28,13 @@ import java.util.StringJoiner;
 
 /**
  * Request to delete table version records. Supports deleting ranges of versions for efficient bulk
- * cleanup. This request supports two modes: - Single-table (legacy): Use &#x60;id&#x60; +
- * &#x60;ranges&#x60; to delete versions from one table. - Multi-table (transactional): Use
- * &#x60;entries&#x60; to atomically delete versions across multiple tables in a single operation.
- * When &#x60;entries&#x60; is provided, &#x60;id&#x60; and &#x60;ranges&#x60; are ignored.
+ * cleanup.
  */
 @JsonPropertyOrder({
   BatchDeleteTableVersionsRequest.JSON_PROPERTY_IDENTITY,
   BatchDeleteTableVersionsRequest.JSON_PROPERTY_CONTEXT,
   BatchDeleteTableVersionsRequest.JSON_PROPERTY_ID,
-  BatchDeleteTableVersionsRequest.JSON_PROPERTY_RANGES,
-  BatchDeleteTableVersionsRequest.JSON_PROPERTY_ENTRIES
+  BatchDeleteTableVersionsRequest.JSON_PROPERTY_RANGES
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -54,10 +50,7 @@ public class BatchDeleteTableVersionsRequest {
   @javax.annotation.Nullable private List<String> id = new ArrayList<>();
 
   public static final String JSON_PROPERTY_RANGES = "ranges";
-  @javax.annotation.Nullable private List<VersionRange> ranges = new ArrayList<>();
-
-  public static final String JSON_PROPERTY_ENTRIES = "entries";
-  @javax.annotation.Nullable private List<DeleteTableVersionsEntry> entries = new ArrayList<>();
+  @javax.annotation.Nonnull private List<VersionRange> ranges = new ArrayList<>();
 
   public BatchDeleteTableVersionsRequest() {}
 
@@ -137,7 +130,7 @@ public class BatchDeleteTableVersionsRequest {
   }
 
   /**
-   * The table identifier (single-table mode, legacy). Ignored when &#x60;entries&#x60; is provided.
+   * The table identifier
    *
    * @return id
    */
@@ -155,7 +148,7 @@ public class BatchDeleteTableVersionsRequest {
   }
 
   public BatchDeleteTableVersionsRequest ranges(
-      @javax.annotation.Nullable List<VersionRange> ranges) {
+      @javax.annotation.Nonnull List<VersionRange> ranges) {
 
     this.ranges = ranges;
     return this;
@@ -170,56 +163,22 @@ public class BatchDeleteTableVersionsRequest {
   }
 
   /**
-   * List of version ranges to delete (single-table mode, legacy). Ignored when &#x60;entries&#x60;
-   * is provided. Each range specifies start (inclusive) and end (exclusive) versions.
+   * List of version ranges to delete. Each range specifies start (inclusive) and end (exclusive)
+   * versions.
    *
    * @return ranges
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_RANGES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<VersionRange> getRanges() {
     return ranges;
   }
 
   @JsonProperty(JSON_PROPERTY_RANGES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRanges(@javax.annotation.Nullable List<VersionRange> ranges) {
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRanges(@javax.annotation.Nonnull List<VersionRange> ranges) {
     this.ranges = ranges;
-  }
-
-  public BatchDeleteTableVersionsRequest entries(
-      @javax.annotation.Nullable List<DeleteTableVersionsEntry> entries) {
-
-    this.entries = entries;
-    return this;
-  }
-
-  public BatchDeleteTableVersionsRequest addEntriesItem(DeleteTableVersionsEntry entriesItem) {
-    if (this.entries == null) {
-      this.entries = new ArrayList<>();
-    }
-    this.entries.add(entriesItem);
-    return this;
-  }
-
-  /**
-   * List of per-table delete entries for multi-table transactional deletion. When provided, the
-   * operation atomically deletes versions across all specified tables.
-   *
-   * @return entries
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ENTRIES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<DeleteTableVersionsEntry> getEntries() {
-    return entries;
-  }
-
-  @JsonProperty(JSON_PROPERTY_ENTRIES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEntries(@javax.annotation.Nullable List<DeleteTableVersionsEntry> entries) {
-    this.entries = entries;
   }
 
   @Override
@@ -235,13 +194,12 @@ public class BatchDeleteTableVersionsRequest {
     return Objects.equals(this.identity, batchDeleteTableVersionsRequest.identity)
         && Objects.equals(this.context, batchDeleteTableVersionsRequest.context)
         && Objects.equals(this.id, batchDeleteTableVersionsRequest.id)
-        && Objects.equals(this.ranges, batchDeleteTableVersionsRequest.ranges)
-        && Objects.equals(this.entries, batchDeleteTableVersionsRequest.entries);
+        && Objects.equals(this.ranges, batchDeleteTableVersionsRequest.ranges);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, ranges, entries);
+    return Objects.hash(identity, context, id, ranges);
   }
 
   @Override
@@ -252,7 +210,6 @@ public class BatchDeleteTableVersionsRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    ranges: ").append(toIndentedString(ranges)).append("\n");
-    sb.append("    entries: ").append(toIndentedString(entries)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -357,25 +314,6 @@ public class BatchDeleteTableVersionsRequest {
                   .toUrlQueryString(
                       String.format(
                           "%sranges%s%s",
-                          prefix,
-                          suffix,
-                          "".equals(suffix)
-                              ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
-        }
-      }
-    }
-
-    // add `entries` to the URL query string
-    if (getEntries() != null) {
-      for (int i = 0; i < getEntries().size(); i++) {
-        if (getEntries().get(i) != null) {
-          joiner.add(
-              getEntries()
-                  .get(i)
-                  .toUrlQueryString(
-                      String.format(
-                          "%sentries%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
