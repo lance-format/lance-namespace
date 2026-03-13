@@ -4020,13 +4020,49 @@ components:
       description: |
         Request to delete table version records.
         Supports deleting ranges of versions for efficient bulk cleanup.
-      required:
-        - ranges
+        This request supports two modes:
+        - Single-table (legacy): Use `id` + `ranges` to delete versions from one table.
+        - Multi-table (transactional): Use `entries` to atomically delete versions
+          across multiple tables in a single operation.
+        When `entries` is provided, `id` and `ranges` are ignored.
       properties:
         identity:
           $ref: "#/components/schemas/Identity"
         context:
           $ref: "#/components/schemas/Context"
+        id:
+          type: array
+          items:
+            type: string
+          description: |
+            The table identifier (single-table mode, legacy).
+            Ignored when `entries` is provided.
+        ranges:
+          type: array
+          items:
+            $ref: "#/components/schemas/VersionRange"
+          description: |
+            List of version ranges to delete (single-table mode, legacy).
+            Ignored when `entries` is provided.
+            Each range specifies start (inclusive) and end (exclusive) versions.
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/DeleteTableVersionsEntry"
+          description: |
+            List of per-table delete entries for multi-table transactional deletion.
+            When provided, the operation atomically deletes versions
+            across all specified tables.
+
+    DeleteTableVersionsEntry:
+      type: object
+      description: |
+        An entry for deleting table versions in a batch operation.
+        Each entry specifies a table and the version ranges to delete.
+      required:
+        - id
+        - ranges
+      properties:
         id:
           type: array
           items:

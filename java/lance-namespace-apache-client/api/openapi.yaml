@@ -5928,7 +5928,29 @@ components:
       description: |
         Request to delete table version records.
         Supports deleting ranges of versions for efficient bulk cleanup.
+        This request supports two modes:
+        - Single-table (legacy): Use `id` + `ranges` to delete versions from one table.
+        - Multi-table (transactional): Use `entries` to atomically delete versions
+          across multiple tables in a single operation.
+        When `entries` is provided, `id` and `ranges` are ignored.
       example:
+        entries:
+        - ranges:
+          - start_version: 0
+            end_version: 6
+          - start_version: 0
+            end_version: 6
+          id:
+          - id
+          - id
+        - ranges:
+          - start_version: 0
+            end_version: 6
+          - start_version: 0
+            end_version: 6
+          id:
+          - id
+          - id
         ranges:
         - start_version: 0
           end_version: 6
@@ -5957,6 +5979,43 @@ components:
             `x-lance-ctx-<key>: <value>`. For example, a context entry
             `{"trace_id": "abc123"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
         id:
+          description: |
+            The table identifier (single-table mode, legacy).
+            Ignored when `entries` is provided.
+          items:
+            type: string
+          type: array
+        ranges:
+          description: |
+            List of version ranges to delete (single-table mode, legacy).
+            Ignored when `entries` is provided.
+            Each range specifies start (inclusive) and end (exclusive) versions.
+          items:
+            $ref: '#/components/schemas/VersionRange'
+          type: array
+        entries:
+          description: |
+            List of per-table delete entries for multi-table transactional deletion.
+            When provided, the operation atomically deletes versions
+            across all specified tables.
+          items:
+            $ref: '#/components/schemas/DeleteTableVersionsEntry'
+          type: array
+    DeleteTableVersionsEntry:
+      description: |
+        An entry for deleting table versions in a batch operation.
+        Each entry specifies a table and the version ranges to delete.
+      example:
+        ranges:
+        - start_version: 0
+          end_version: 6
+        - start_version: 0
+          end_version: 6
+        id:
+        - id
+        - id
+      properties:
+        id:
           description: The table identifier
           items:
             type: string
@@ -5969,6 +6028,7 @@ components:
             $ref: '#/components/schemas/VersionRange'
           type: array
       required:
+      - id
       - ranges
     VersionRange:
       description: |

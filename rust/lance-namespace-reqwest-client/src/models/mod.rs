@@ -86,6 +86,8 @@ pub mod delete_table_tag_request;
 pub use self::delete_table_tag_request::DeleteTableTagRequest;
 pub mod delete_table_tag_response;
 pub use self::delete_table_tag_response::DeleteTableTagResponse;
+pub mod delete_table_versions_entry;
+pub use self::delete_table_versions_entry::DeleteTableVersionsEntry;
 pub mod deregister_table_request;
 pub use self::deregister_table_request::DeregisterTableRequest;
 pub mod deregister_table_response;
