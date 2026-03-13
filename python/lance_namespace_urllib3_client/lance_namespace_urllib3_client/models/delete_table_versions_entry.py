@@ -18,23 +18,18 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from lance_namespace_urllib3_client.models.delete_table_versions_entry import DeleteTableVersionsEntry
-from lance_namespace_urllib3_client.models.identity import Identity
+from typing import Any, ClassVar, Dict, List
 from lance_namespace_urllib3_client.models.version_range import VersionRange
 from typing import Optional, Set
 from typing_extensions import Self
 
-class BatchDeleteTableVersionsRequest(BaseModel):
+class DeleteTableVersionsEntry(BaseModel):
     """
-    Request to delete table version records. Supports deleting ranges of versions for efficient bulk cleanup. This request supports two modes: - Single-table (legacy): Use `id` + `ranges` to delete versions from one table. - Multi-table (transactional): Use `entries` to atomically delete versions   across multiple tables in a single operation. When `entries` is provided, `id` and `ranges` are ignored. 
+    An entry for deleting table versions in a batch operation. Each entry specifies a table and the version ranges to delete. 
     """ # noqa: E501
-    identity: Optional[Identity] = None
-    context: Optional[Dict[str, StrictStr]] = Field(default=None, description="Arbitrary context for a request as key-value pairs. How to use the context is custom to the specific implementation.  REST NAMESPACE ONLY Context entries are passed via HTTP headers using the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`. ")
-    id: Optional[List[StrictStr]] = Field(default=None, description="The table identifier (single-table mode, legacy). Ignored when `entries` is provided. ")
-    ranges: Optional[List[VersionRange]] = Field(default=None, description="List of version ranges to delete (single-table mode, legacy). Ignored when `entries` is provided. Each range specifies start (inclusive) and end (exclusive) versions. ")
-    entries: Optional[List[DeleteTableVersionsEntry]] = Field(default=None, description="List of per-table delete entries for multi-table transactional deletion. When provided, the operation atomically deletes versions across all specified tables. ")
-    __properties: ClassVar[List[str]] = ["identity", "context", "id", "ranges", "entries"]
+    id: List[StrictStr] = Field(description="The table identifier")
+    ranges: List[VersionRange] = Field(description="List of version ranges to delete. Each range specifies start (inclusive) and end (exclusive) versions. ")
+    __properties: ClassVar[List[str]] = ["id", "ranges"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -54,7 +49,7 @@ class BatchDeleteTableVersionsRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of BatchDeleteTableVersionsRequest from a JSON string"""
+        """Create an instance of DeleteTableVersionsEntry from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,9 +70,6 @@ class BatchDeleteTableVersionsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of identity
-        if self.identity:
-            _dict['identity'] = self.identity.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in ranges (list)
         _items = []
         if self.ranges:
@@ -85,18 +77,11 @@ class BatchDeleteTableVersionsRequest(BaseModel):
                 if _item_ranges:
                     _items.append(_item_ranges.to_dict())
             _dict['ranges'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in entries (list)
-        _items = []
-        if self.entries:
-            for _item_entries in self.entries:
-                if _item_entries:
-                    _items.append(_item_entries.to_dict())
-            _dict['entries'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of BatchDeleteTableVersionsRequest from a dict"""
+        """Create an instance of DeleteTableVersionsEntry from a dict"""
         if obj is None:
             return None
 
@@ -104,11 +89,8 @@ class BatchDeleteTableVersionsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "identity": Identity.from_dict(obj["identity"]) if obj.get("identity") is not None else None,
-            "context": obj.get("context"),
             "id": obj.get("id"),
-            "ranges": [VersionRange.from_dict(_item) for _item in obj["ranges"]] if obj.get("ranges") is not None else None,
-            "entries": [DeleteTableVersionsEntry.from_dict(_item) for _item in obj["entries"]] if obj.get("entries") is not None else None
+            "ranges": [VersionRange.from_dict(_item) for _item in obj["ranges"]] if obj.get("ranges") is not None else None
         })
         return _obj
 

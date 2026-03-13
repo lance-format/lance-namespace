@@ -187,6 +187,7 @@ Class | Method | HTTP request | Description
  - [DeleteFromTableResponse](docs/DeleteFromTableResponse.md)
  - [DeleteTableTagRequest](docs/DeleteTableTagRequest.md)
  - [DeleteTableTagResponse](docs/DeleteTableTagResponse.md)
+ - [DeleteTableVersionsEntry](docs/DeleteTableVersionsEntry.md)
  - [DeregisterTableRequest](docs/DeregisterTableRequest.md)
  - [DeregisterTableResponse](docs/DeregisterTableResponse.md)
  - [DescribeNamespaceRequest](docs/DescribeNamespaceRequest.md)

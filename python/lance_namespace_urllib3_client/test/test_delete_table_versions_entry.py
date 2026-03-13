@@ -14,10 +14,10 @@
 
 import unittest
 
-from lance_namespace_urllib3_client.models.batch_delete_table_versions_request import BatchDeleteTableVersionsRequest
+from lance_namespace_urllib3_client.models.delete_table_versions_entry import DeleteTableVersionsEntry
 
-class TestBatchDeleteTableVersionsRequest(unittest.TestCase):
-    """BatchDeleteTableVersionsRequest unit test stubs"""
+class TestDeleteTableVersionsEntry(unittest.TestCase):
+    """DeleteTableVersionsEntry unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,22 +25,27 @@ class TestBatchDeleteTableVersionsRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> BatchDeleteTableVersionsRequest:
-        """Test BatchDeleteTableVersionsRequest
+    def make_instance(self, include_optional) -> DeleteTableVersionsEntry:
+        """Test DeleteTableVersionsEntry
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `BatchDeleteTableVersionsRequest`
+        # uncomment below to create an instance of `DeleteTableVersionsEntry`
         """
-        model = BatchDeleteTableVersionsRequest()
+        model = DeleteTableVersionsEntry()
         if include_optional:
-            return BatchDeleteTableVersionsRequest(
-                identity = lance_namespace_urllib3_client.models.identity.Identity(
-                    api_key = '', 
-                    auth_token = '', ),
-                context = {
-                    'key' : ''
-                    },
+            return DeleteTableVersionsEntry(
+                id = [
+                    ''
+                    ],
+                ranges = [
+                    lance_namespace_urllib3_client.models.version_range.VersionRange(
+                        start_version = 56, 
+                        end_version = 56, )
+                    ]
+            )
+        else:
+            return DeleteTableVersionsEntry(
                 id = [
                     ''
                     ],
@@ -49,25 +54,11 @@ class TestBatchDeleteTableVersionsRequest(unittest.TestCase):
                         start_version = 56, 
                         end_version = 56, )
                     ],
-                entries = [
-                    lance_namespace_urllib3_client.models.delete_table_versions_entry.DeleteTableVersionsEntry(
-                        id = [
-                            ''
-                            ], 
-                        ranges = [
-                            lance_namespace_urllib3_client.models.version_range.VersionRange(
-                                start_version = 56, 
-                                end_version = 56, )
-                            ], )
-                    ]
-            )
-        else:
-            return BatchDeleteTableVersionsRequest(
         )
         """
 
-    def testBatchDeleteTableVersionsRequest(self):
-        """Test BatchDeleteTableVersionsRequest"""
+    def testDeleteTableVersionsEntry(self):
+        """Test DeleteTableVersionsEntry"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
