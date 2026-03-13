@@ -942,6 +942,58 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
+  /v1/table/batch-commit:
+    parameters:
+    - $ref: '#/components/parameters/delimiter'
+    post:
+      description: |
+        Atomically commit a batch of table operations. This is a generalized version
+        of `BatchCreateTableVersions` that supports mixed operation types within a
+        single atomic transaction at the metadata layer.
+
+        Supported operation types:
+        - `declare_table`: Declare (reserve) a new table
+        - `create_table_version`: Create a new version entry for a table
+        - `delete_table_versions`: Delete version ranges from a table
+        - `deregister_table`: Deregister (soft-delete) a table
+
+        All operations are committed atomically: either all succeed or none are applied.
+        Physical file operations (e.g., writing manifest files, deleting version files)
+        are best-effort — metadata is the source of truth.
+      operationId: BatchCommitTables
+      parameters:
+      - $ref: '#/components/parameters/delimiter'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchCommitTablesRequest'
+        required: true
+      responses:
+        "200":
+          $ref: '#/components/responses/BatchCommitTablesResponse'
+        "400":
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        "401":
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        "403":
+          $ref: '#/components/responses/ForbiddenErrorResponse'
+        "404":
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        "409":
+          $ref: '#/components/responses/ConflictErrorResponse'
+        "503":
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
+        "5XX":
+          $ref: '#/components/responses/ServerErrorResponse'
+      summary: Atomically commit a batch of mixed table operations
+      tags:
+      - Table
+      - Metadata
+      - Transaction
+      x-content-type: application/json
+      x-accepts:
+      - application/json
   /v1/table/{id}/alter_columns:
     parameters:
     - $ref: '#/components/parameters/id'
@@ -2589,6 +2641,12 @@ components:
           schema:
             $ref: '#/components/schemas/BatchCreateTableVersionsResponse'
       description: Result of atomically creating table versions
+    BatchCommitTablesResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BatchCommitTablesResponse'
+      description: Result of atomically committing a batch of mixed table operations
     ExplainTableQueryPlanResponse:
       content:
         application/json:
@@ -6212,6 +6270,315 @@ components:
           type: array
       required:
       - versions
+    BatchCommitTablesRequest:
+      description: |
+        Request to atomically commit a batch of table operations.
+        This replaces `BatchCreateTableVersionsRequest` with a more general interface
+        that supports mixed operations (declare, create version, delete versions, deregister)
+        within a single atomic transaction at the metadata layer.
+
+        All operations are committed atomically: either all succeed or none are applied.
+        Physical file operations (e.g., writing manifest files, deleting version files)
+        are best-effort — metadata is the source of truth.
+      example:
+        operations:
+        - location: location
+          id:
+          - id
+          - id
+          type: declare_table
+          properties:
+            key: properties
+        - location: location
+          id:
+          - id
+          - id
+          type: declare_table
+          properties:
+            key: properties
+        identity:
+          api_key: api_key
+          auth_token: auth_token
+        context:
+          key: context
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        context:
+          additionalProperties:
+            type: string
+          description: |
+            Arbitrary context for a request as key-value pairs.
+            How to use the context is custom to the specific implementation.
+
+            REST NAMESPACE ONLY
+            Context entries are passed via HTTP headers using the naming convention
+            `x-lance-ctx-<key>: <value>`. For example, a context entry
+            `{"trace_id": "abc123"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
+        operations:
+          description: |
+            List of operations to commit atomically.
+            Supported operation types: declare_table, create_table_version,
+            delete_table_versions, deregister_table.
+          items:
+            $ref: '#/components/schemas/CommitTableOperation'
+          type: array
+      required:
+      - operations
+    CommitTableOperation:
+      description: |
+        A single operation within a batch commit.
+        Uses a discriminator on the `type` field to determine the operation kind.
+      discriminator:
+        mapping:
+          declare_table: '#/components/schemas/CommitTableOperationDeclareTable'
+          create_table_version: '#/components/schemas/CommitTableOperationCreateTableVersion'
+          delete_table_versions: '#/components/schemas/CommitTableOperationDeleteTableVersions'
+          deregister_table: '#/components/schemas/CommitTableOperationDeregisterTable'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/CommitTableOperationDeclareTable'
+      - $ref: '#/components/schemas/CommitTableOperationCreateTableVersion'
+      - $ref: '#/components/schemas/CommitTableOperationDeleteTableVersions'
+      - $ref: '#/components/schemas/CommitTableOperationDeregisterTable'
+    CommitTableOperationDeclareTable:
+      description: Declare (reserve) a new table in the namespace.
+      example:
+        location: location
+        id:
+        - id
+        - id
+        type: declare_table
+        properties:
+          key: properties
+      properties:
+        type:
+          enum:
+          - declare_table
+          type: string
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        location:
+          description: Optional storage location for the table
+          type: string
+        properties:
+          additionalProperties:
+            type: string
+          description: Optional table properties
+      required:
+      - id
+      - type
+    CommitTableOperationCreateTableVersion:
+      description: Create a new version entry for a table.
+      properties:
+        type:
+          enum:
+          - create_table_version
+          type: string
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        version:
+          description: Version number to create
+          format: int64
+          minimum: 0
+          type: integer
+        manifest_path:
+          description: Path to the manifest file for this version
+          type: string
+        manifest_size:
+          description: Size of the manifest file in bytes
+          format: int64
+          minimum: 0
+          type: integer
+        e_tag:
+          description: Optional ETag for the manifest file
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: Optional metadata for the version
+        naming_scheme:
+          description: |
+            The naming scheme used for manifest files in the `_versions/` directory.
+
+            Known values:
+            - `V1`: `_versions/{version}.manifest` - Simple version-based naming
+            - `V2`: `_versions/{inverted_version}.manifest` - Zero-padded, reversed version number
+              (uses `u64::MAX - version`) for O(1) lookup of latest version on object stores
+
+            V2 is preferred for new tables as it enables efficient latest-version discovery
+            without needing to list all versions.
+          example: V2
+          type: string
+      required:
+      - id
+      - manifest_path
+      - type
+      - version
+    CommitTableOperationDeleteTableVersions:
+      description: Delete version ranges from a table.
+      properties:
+        type:
+          enum:
+          - delete_table_versions
+          type: string
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        ranges:
+          description: List of version ranges to delete
+          items:
+            $ref: '#/components/schemas/VersionRange'
+          type: array
+      required:
+      - id
+      - ranges
+      - type
+    CommitTableOperationDeregisterTable:
+      description: Deregister (soft-delete) a table. The table's physical data remains
+        intact.
+      properties:
+        type:
+          enum:
+          - deregister_table
+          type: string
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+      required:
+      - id
+      - type
+    CommitTableResult:
+      description: |
+        Result of a single operation within a batch commit.
+        Each result corresponds to one operation in the request, in the same order.
+      discriminator:
+        mapping:
+          declare_table: '#/components/schemas/CommitTableResultDeclareTable'
+          create_table_version: '#/components/schemas/CommitTableResultCreateTableVersion'
+          delete_table_versions: '#/components/schemas/CommitTableResultDeleteTableVersions'
+          deregister_table: '#/components/schemas/CommitTableResultDeregisterTable'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/CommitTableResultDeclareTable'
+      - $ref: '#/components/schemas/CommitTableResultCreateTableVersion'
+      - $ref: '#/components/schemas/CommitTableResultDeleteTableVersions'
+      - $ref: '#/components/schemas/CommitTableResultDeregisterTable'
+    CommitTableResultDeclareTable:
+      description: Result of a declare_table operation.
+      example:
+        location: location
+        id:
+        - id
+        - id
+        type: declare_table
+      properties:
+        type:
+          enum:
+          - declare_table
+          type: string
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        location:
+          description: The resolved storage location for the declared table
+          type: string
+      required:
+      - id
+      - type
+    CommitTableResultCreateTableVersion:
+      description: Result of a create_table_version operation.
+      properties:
+        type:
+          enum:
+          - create_table_version
+          type: string
+        version:
+          $ref: '#/components/schemas/TableVersion'
+      required:
+      - type
+      - version
+    CommitTableResultDeleteTableVersions:
+      description: Result of a delete_table_versions operation.
+      properties:
+        type:
+          enum:
+          - delete_table_versions
+          type: string
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        deleted_count:
+          description: Number of version records deleted
+          format: int64
+          minimum: 0
+          type: integer
+      required:
+      - deleted_count
+      - id
+      - type
+    CommitTableResultDeregisterTable:
+      description: Result of a deregister_table operation.
+      properties:
+        type:
+          enum:
+          - deregister_table
+          type: string
+        id:
+          description: The table identifier
+          items:
+            type: string
+          type: array
+        location:
+          description: The storage location of the deregistered table
+          type: string
+      required:
+      - id
+      - type
+    BatchCommitTablesResponse:
+      description: |
+        Response for a batch commit of table operations.
+        Contains the results of each operation in the same order as the request.
+      example:
+        transaction_id: transaction_id
+        results:
+        - location: location
+          id:
+          - id
+          - id
+          type: declare_table
+        - location: location
+          id:
+          - id
+          - id
+          type: declare_table
+      properties:
+        transaction_id:
+          description: Optional transaction identifier for the batch commit
+          type: string
+        results:
+          description: |
+            Results for each operation, in the same order as the request operations.
+            Each result contains the outcome of the corresponding operation.
+          items:
+            $ref: '#/components/schemas/CommitTableResult'
+          type: array
+      required:
+      - results
     TableVersion:
       example:
         metadata:
