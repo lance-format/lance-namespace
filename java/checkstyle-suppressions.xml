@@ -7,9 +7,13 @@
 <suppressions>
     <suppress checks="MethodName" files="lance-namespace-apache-client/src/main/java/org/lance/namespace/client/apache/*"/>
     <suppress checks="MethodName" files="lance-namespace-apache-client/src/main/java/org/lance/namespace/model/*"/>
+    <suppress checks="MethodName" files="lance-namespace-async-client/src/main/java/org/lance/namespace/client/async/*"/>
+    <suppress checks="MethodName" files="lance-namespace-async-client/src/main/java/org/lance/namespace/model/*"/>
     <suppress checks="MethodName" files="lance-namespace-springboot-server/src/main/java/org/lance/namespace/server/springboot/*"/>
     <suppress checks="LineLength" files="lance-namespace-apache-client/src/main/java/org/lance/namespace/client/apache/*"/>
+    <suppress checks="LineLength" files="lance-namespace-async-client/src/main/java/org/lance/namespace/client/async/*"/>
     <suppress checks="LineLength" files="lance-namespace-springboot-server/src/main/java/org/lance/namespace/server/springboot/*"/>
     <suppress checks="RedundantModifier" files="lance-namespace-springboot-server/src/main/java/org/lance/namespace/server/springboot/*"/>
     <suppress checks="NeedBraces" files="lance-namespace-apache-client/src/main/java/org/lance/namespace/client/apache/*"/>
+    <suppress checks="NeedBraces" files="lance-namespace-async-client/src/main/java/org/lance/namespace/client/async/*"/>
 </suppressions>

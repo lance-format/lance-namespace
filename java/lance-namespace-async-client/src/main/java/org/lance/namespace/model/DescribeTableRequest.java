@@ -1,0 +1,410 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.lance.namespace.model;
+
+import org.lance.namespace.client.async.ApiClient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.StringJoiner;
+
+/** DescribeTableRequest */
+@JsonPropertyOrder({
+  DescribeTableRequest.JSON_PROPERTY_IDENTITY,
+  DescribeTableRequest.JSON_PROPERTY_CONTEXT,
+  DescribeTableRequest.JSON_PROPERTY_ID,
+  DescribeTableRequest.JSON_PROPERTY_VERSION,
+  DescribeTableRequest.JSON_PROPERTY_WITH_TABLE_URI,
+  DescribeTableRequest.JSON_PROPERTY_LOAD_DETAILED_METADATA,
+  DescribeTableRequest.JSON_PROPERTY_VEND_CREDENTIALS
+})
+@javax.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.12.0")
+public class DescribeTableRequest {
+  public static final String JSON_PROPERTY_IDENTITY = "identity";
+  @javax.annotation.Nullable private Identity identity;
+
+  public static final String JSON_PROPERTY_CONTEXT = "context";
+  @javax.annotation.Nullable private Map<String, String> context = new HashMap<>();
+
+  public static final String JSON_PROPERTY_ID = "id";
+  @javax.annotation.Nullable private List<String> id = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @javax.annotation.Nullable private Long version;
+
+  public static final String JSON_PROPERTY_WITH_TABLE_URI = "with_table_uri";
+  @javax.annotation.Nullable private Boolean withTableUri = false;
+
+  public static final String JSON_PROPERTY_LOAD_DETAILED_METADATA = "load_detailed_metadata";
+  @javax.annotation.Nullable private Boolean loadDetailedMetadata;
+
+  public static final String JSON_PROPERTY_VEND_CREDENTIALS = "vend_credentials";
+  @javax.annotation.Nullable private Boolean vendCredentials;
+
+  public DescribeTableRequest() {}
+
+  public DescribeTableRequest identity(@javax.annotation.Nullable Identity identity) {
+    this.identity = identity;
+    return this;
+  }
+
+  /**
+   * Get identity
+   *
+   * @return identity
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Identity getIdentity() {
+    return identity;
+  }
+
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIdentity(@javax.annotation.Nullable Identity identity) {
+    this.identity = identity;
+  }
+
+  public DescribeTableRequest context(@javax.annotation.Nullable Map<String, String> context) {
+    this.context = context;
+    return this;
+  }
+
+  public DescribeTableRequest putContextItem(String key, String contextItem) {
+    if (this.context == null) {
+      this.context = new HashMap<>();
+    }
+    this.context.put(key, contextItem);
+    return this;
+  }
+
+  /**
+   * Arbitrary context for a request as key-value pairs. How to use the context is custom to the
+   * specific implementation. REST NAMESPACE ONLY Context entries are passed via HTTP headers using
+   * the naming convention &#x60;x-lance-ctx-&lt;key&gt;: &lt;value&gt;&#x60;. For example, a
+   * context entry &#x60;{\&quot;trace_id\&quot;: \&quot;abc123\&quot;}&#x60; would be sent as the
+   * header &#x60;x-lance-ctx-trace_id: abc123&#x60;.
+   *
+   * @return context
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getContext() {
+    return context;
+  }
+
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setContext(@javax.annotation.Nullable Map<String, String> context) {
+    this.context = context;
+  }
+
+  public DescribeTableRequest id(@javax.annotation.Nullable List<String> id) {
+    this.id = id;
+    return this;
+  }
+
+  public DescribeTableRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Get id
+   *
+   * @return id
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getId() {
+    return id;
+  }
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable List<String> id) {
+    this.id = id;
+  }
+
+  public DescribeTableRequest version(@javax.annotation.Nullable Long version) {
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Version of the table to describe. If not specified, server should resolve it to the latest
+   * version. minimum: 0
+   *
+   * @return version
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Long getVersion() {
+    return version;
+  }
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@javax.annotation.Nullable Long version) {
+    this.version = version;
+  }
+
+  public DescribeTableRequest withTableUri(@javax.annotation.Nullable Boolean withTableUri) {
+    this.withTableUri = withTableUri;
+    return this;
+  }
+
+  /**
+   * Whether to include the table URI in the response. Default is false.
+   *
+   * @return withTableUri
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_WITH_TABLE_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getWithTableUri() {
+    return withTableUri;
+  }
+
+  @JsonProperty(JSON_PROPERTY_WITH_TABLE_URI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setWithTableUri(@javax.annotation.Nullable Boolean withTableUri) {
+    this.withTableUri = withTableUri;
+  }
+
+  public DescribeTableRequest loadDetailedMetadata(
+      @javax.annotation.Nullable Boolean loadDetailedMetadata) {
+    this.loadDetailedMetadata = loadDetailedMetadata;
+    return this;
+  }
+
+  /**
+   * Whether to load detailed metadata that requires opening the dataset. When true, the response
+   * must include all detailed metadata such as &#x60;version&#x60;, &#x60;schema&#x60;, and
+   * &#x60;stats&#x60; which require reading the dataset. When not set, the implementation can
+   * decide whether to return detailed metadata and which parts of detailed metadata to return.
+   *
+   * @return loadDetailedMetadata
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LOAD_DETAILED_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getLoadDetailedMetadata() {
+    return loadDetailedMetadata;
+  }
+
+  @JsonProperty(JSON_PROPERTY_LOAD_DETAILED_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLoadDetailedMetadata(@javax.annotation.Nullable Boolean loadDetailedMetadata) {
+    this.loadDetailedMetadata = loadDetailedMetadata;
+  }
+
+  public DescribeTableRequest vendCredentials(@javax.annotation.Nullable Boolean vendCredentials) {
+    this.vendCredentials = vendCredentials;
+    return this;
+  }
+
+  /**
+   * Whether to include vended credentials in the response &#x60;storage_options&#x60;. When true,
+   * the implementation should provide vended credentials for accessing storage. When not set, the
+   * implementation can decide whether to return vended credentials.
+   *
+   * @return vendCredentials
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VEND_CREDENTIALS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getVendCredentials() {
+    return vendCredentials;
+  }
+
+  @JsonProperty(JSON_PROPERTY_VEND_CREDENTIALS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVendCredentials(@javax.annotation.Nullable Boolean vendCredentials) {
+    this.vendCredentials = vendCredentials;
+  }
+
+  /** Return true if this DescribeTableRequest object is equal to o. */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DescribeTableRequest describeTableRequest = (DescribeTableRequest) o;
+    return Objects.equals(this.identity, describeTableRequest.identity)
+        && Objects.equals(this.context, describeTableRequest.context)
+        && Objects.equals(this.id, describeTableRequest.id)
+        && Objects.equals(this.version, describeTableRequest.version)
+        && Objects.equals(this.withTableUri, describeTableRequest.withTableUri)
+        && Objects.equals(this.loadDetailedMetadata, describeTableRequest.loadDetailedMetadata)
+        && Objects.equals(this.vendCredentials, describeTableRequest.vendCredentials);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        identity, context, id, version, withTableUri, loadDetailedMetadata, vendCredentials);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DescribeTableRequest {\n");
+    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
+    sb.append("    context: ").append(toIndentedString(context)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    withTableUri: ").append(toIndentedString(withTableUri)).append("\n");
+    sb.append("    loadDetailedMetadata: ")
+        .append(toIndentedString(loadDetailedMetadata))
+        .append("\n");
+    sb.append("    vendCredentials: ").append(toIndentedString(vendCredentials)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `identity` to the URL query string
+    if (getIdentity() != null) {
+      joiner.add(getIdentity().toUrlQueryString(prefix + "identity" + suffix));
+    }
+
+    // add `context` to the URL query string
+    if (getContext() != null) {
+      for (String _key : getContext().keySet()) {
+        joiner.add(
+            String.format(
+                "%scontext%s%s=%s",
+                prefix,
+                suffix,
+                "".equals(suffix)
+                    ? ""
+                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                getContext().get(_key),
+                ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
+      }
+    }
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      for (int i = 0; i < getId().size(); i++) {
+        joiner.add(
+            String.format(
+                "%sid%s%s=%s",
+                prefix,
+                suffix,
+                "".equals(suffix)
+                    ? ""
+                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
+      }
+    }
+
+    // add `version` to the URL query string
+    if (getVersion() != null) {
+      joiner.add(
+          String.format(
+              "%sversion%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+    }
+
+    // add `with_table_uri` to the URL query string
+    if (getWithTableUri() != null) {
+      joiner.add(
+          String.format(
+              "%swith_table_uri%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getWithTableUri()))));
+    }
+
+    // add `load_detailed_metadata` to the URL query string
+    if (getLoadDetailedMetadata() != null) {
+      joiner.add(
+          String.format(
+              "%sload_detailed_metadata%s=%s",
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getLoadDetailedMetadata()))));
+    }
+
+    // add `vend_credentials` to the URL query string
+    if (getVendCredentials() != null) {
+      joiner.add(
+          String.format(
+              "%svend_credentials%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVendCredentials()))));
+    }
+
+    return joiner.toString();
+  }
+}

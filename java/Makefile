@@ -12,6 +12,36 @@
 
 VERSION = 0.5.2
 
+.PHONY: clean-async-client
+clean-async-client:
+	rm -rf lance-namespace-async-client
+
+.PHONY: gen-async-client
+gen-async-client: clean-async-client
+	uv run openapi-generator-cli generate \
+	  -i ../docs/src/rest.yaml \
+	  -g java \
+	  -o lance-namespace-async-client \
+	  --ignore-file-override=.async-client-ignore \
+	  --type-mappings=file=byte[] \
+	  --additional-properties=groupId=org.lance,artifactId=lance-namespace-async-client,artifactVersion=$(VERSION),parentGroupId=org.lance,parentArtifactId=lance-namespace-root,parentVersion=$(VERSION),parentRelativePath=pom.xml,library=native,asyncNative=true,apiPackage=org.lance.namespace.client.async.api,modelPackage=org.lance.namespace.model,hideGenerationTimestamp=true,licenseName=Apache-2.0,licenseUrl=https://www.apache.org/licenses/LICENSE-2.0.txt
+	rm -rf lance-namespace-async-client/.openapi-generator-ignore
+	rm -rf lance-namespace-async-client/.openapi-generator
+	rm -rf lance-namespace-async-client/pom.xml
+	cp async-client-pom.xml lance-namespace-async-client/pom.xml
+
+.PHONY: lint-async-client
+lint-async-client: gen-async-client
+	./mvnw spotless:apply -pl lance-namespace-async-client -am
+
+.PHONY: build-async-client
+build-async-client: gen-async-client lint-async-client
+	./mvnw install -pl lance-namespace-async-client -am
+
+.PHONY: check-async-client
+check-async-client:
+	./mvnw checkstyle:check spotless:check -pl lance-namespace-async-client -am
+
 .PHONY: clean-apache-client
 clean-apache-client:
 	rm -rf lance-namespace-apache-client
@@ -75,11 +105,24 @@ build-core: build-apache-client lint-core
 check-core:
 	./mvnw checkstyle:check spotless:check -pl lance-namespace-core -am
 
+# lance-namespace-core-async module (hand-written, no codegen)
+.PHONY: lint-core-async
+lint-core-async: gen-async-client
+	./mvnw spotless:apply -pl lance-namespace-core-async -am
+
+.PHONY: build-core-async
+build-core-async: build-async-client lint-core-async
+	./mvnw install -pl lance-namespace-core-async -am
+
+.PHONY: check-core-async
+check-core-async:
+	./mvnw checkstyle:check spotless:check -pl lance-namespace-core-async -am
+
 .PHONY: clean
-clean: clean-apache-client clean-springboot-server
+clean: clean-apache-client clean-async-client clean-springboot-server
 
 .PHONY: gen
-gen: gen-apache-client gen-springboot-server lint-apache-client lint-springboot-server
+gen: gen-apache-client gen-async-client gen-springboot-server lint-apache-client lint-async-client lint-springboot-server
 
 .PHONY: check-apache-client
 check-apache-client:
@@ -90,10 +133,10 @@ check-springboot-server:
 	./mvnw checkstyle:check spotless:check -pl lance-namespace-springboot-server -am
 
 .PHONY: check
-check: check-apache-client check-springboot-server check-core
+check: check-apache-client check-async-client check-springboot-server check-core check-core-async
 
 .PHONY: lint
-lint: lint-apache-client lint-springboot-server lint-core
+lint: lint-apache-client lint-async-client lint-springboot-server lint-core lint-core-async
 
 .PHONY: build
-build: build-apache-client build-springboot-server build-core
+build: build-apache-client build-async-client build-springboot-server build-core build-core-async

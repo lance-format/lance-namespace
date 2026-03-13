@@ -1,0 +1,325 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.lance.namespace.model;
+
+import org.lance.namespace.client.async.ApiClient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.StringJoiner;
+
+/** CreateTableResponse */
+@JsonPropertyOrder({
+  CreateTableResponse.JSON_PROPERTY_TRANSACTION_ID,
+  CreateTableResponse.JSON_PROPERTY_LOCATION,
+  CreateTableResponse.JSON_PROPERTY_VERSION,
+  CreateTableResponse.JSON_PROPERTY_STORAGE_OPTIONS,
+  CreateTableResponse.JSON_PROPERTY_PROPERTIES
+})
+@javax.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaClientCodegen",
+    comments = "Generator version: 7.12.0")
+public class CreateTableResponse {
+  public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
+  @javax.annotation.Nullable private String transactionId;
+
+  public static final String JSON_PROPERTY_LOCATION = "location";
+  @javax.annotation.Nullable private String location;
+
+  public static final String JSON_PROPERTY_VERSION = "version";
+  @javax.annotation.Nullable private Long version;
+
+  public static final String JSON_PROPERTY_STORAGE_OPTIONS = "storage_options";
+  @javax.annotation.Nullable private Map<String, String> storageOptions = new HashMap<>();
+
+  public static final String JSON_PROPERTY_PROPERTIES = "properties";
+  @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
+
+  public CreateTableResponse() {}
+
+  public CreateTableResponse transactionId(@javax.annotation.Nullable String transactionId) {
+    this.transactionId = transactionId;
+    return this;
+  }
+
+  /**
+   * Optional transaction identifier
+   *
+   * @return transactionId
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getTransactionId() {
+    return transactionId;
+  }
+
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTransactionId(@javax.annotation.Nullable String transactionId) {
+    this.transactionId = transactionId;
+  }
+
+  public CreateTableResponse location(@javax.annotation.Nullable String location) {
+    this.location = location;
+    return this;
+  }
+
+  /**
+   * Get location
+   *
+   * @return location
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getLocation() {
+    return location;
+  }
+
+  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLocation(@javax.annotation.Nullable String location) {
+    this.location = location;
+  }
+
+  public CreateTableResponse version(@javax.annotation.Nullable Long version) {
+    this.version = version;
+    return this;
+  }
+
+  /**
+   * Get version minimum: 0
+   *
+   * @return version
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Long getVersion() {
+    return version;
+  }
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersion(@javax.annotation.Nullable Long version) {
+    this.version = version;
+  }
+
+  public CreateTableResponse storageOptions(
+      @javax.annotation.Nullable Map<String, String> storageOptions) {
+    this.storageOptions = storageOptions;
+    return this;
+  }
+
+  public CreateTableResponse putStorageOptionsItem(String key, String storageOptionsItem) {
+    if (this.storageOptions == null) {
+      this.storageOptions = new HashMap<>();
+    }
+    this.storageOptions.put(key, storageOptionsItem);
+    return this;
+  }
+
+  /**
+   * Configuration options to be used to access storage. The available options depend on the type of
+   * storage in use. These will be passed directly to Lance to initialize storage access.
+   *
+   * @return storageOptions
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getStorageOptions() {
+    return storageOptions;
+  }
+
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorageOptions(@javax.annotation.Nullable Map<String, String> storageOptions) {
+    this.storageOptions = storageOptions;
+  }
+
+  public CreateTableResponse properties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public CreateTableResponse putPropertiesItem(String key, String propertiesItem) {
+    if (this.properties == null) {
+      this.properties = new HashMap<>();
+    }
+    this.properties.put(key, propertiesItem);
+    return this;
+  }
+
+  /**
+   * If the implementation does not support table properties, it should return null for this field.
+   * Otherwise it should return the properties.
+   *
+   * @return properties
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
+    this.properties = properties;
+  }
+
+  /** Return true if this CreateTableResponse object is equal to o. */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateTableResponse createTableResponse = (CreateTableResponse) o;
+    return Objects.equals(this.transactionId, createTableResponse.transactionId)
+        && Objects.equals(this.location, createTableResponse.location)
+        && Objects.equals(this.version, createTableResponse.version)
+        && Objects.equals(this.storageOptions, createTableResponse.storageOptions)
+        && Objects.equals(this.properties, createTableResponse.properties);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(transactionId, location, version, storageOptions, properties);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateTableResponse {\n");
+    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
+    sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `transaction_id` to the URL query string
+    if (getTransactionId() != null) {
+      joiner.add(
+          String.format(
+              "%stransaction_id%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
+    }
+
+    // add `location` to the URL query string
+    if (getLocation() != null) {
+      joiner.add(
+          String.format(
+              "%slocation%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLocation()))));
+    }
+
+    // add `version` to the URL query string
+    if (getVersion() != null) {
+      joiner.add(
+          String.format(
+              "%sversion%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+    }
+
+    // add `storage_options` to the URL query string
+    if (getStorageOptions() != null) {
+      for (String _key : getStorageOptions().keySet()) {
+        joiner.add(
+            String.format(
+                "%sstorage_options%s%s=%s",
+                prefix,
+                suffix,
+                "".equals(suffix)
+                    ? ""
+                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                getStorageOptions().get(_key),
+                ApiClient.urlEncode(ApiClient.valueToString(getStorageOptions().get(_key)))));
+      }
+    }
+
+    // add `properties` to the URL query string
+    if (getProperties() != null) {
+      for (String _key : getProperties().keySet()) {
+        joiner.add(
+            String.format(
+                "%sproperties%s%s=%s",
+                prefix,
+                suffix,
+                "".equals(suffix)
+                    ? ""
+                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                getProperties().get(_key),
+                ApiClient.urlEncode(ApiClient.valueToString(getProperties().get(_key)))));
+      }
+    }
+
+    return joiner.toString();
+  }
+}

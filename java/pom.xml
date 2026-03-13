@@ -88,8 +88,10 @@
 
     <modules>
         <module>lance-namespace-apache-client</module>
+        <module>lance-namespace-async-client</module>
         <module>lance-namespace-springboot-server</module>
         <module>lance-namespace-core</module>
+        <module>lance-namespace-core-async</module>
     </modules>
 
     <dependencyManagement>
