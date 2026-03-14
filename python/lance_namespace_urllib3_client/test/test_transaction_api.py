@@ -33,6 +33,13 @@ class TestTransactionApi(unittest.TestCase):
         """
         pass
 
+    def test_batch_commit_tables(self) -> None:
+        """Test case for batch_commit_tables
+
+        Atomically commit a batch of mixed table operations
+        """
+        pass
+
     def test_describe_transaction(self) -> None:
         """Test case for describe_transaction
 

@@ -853,6 +853,52 @@ paths:
         5XX:
           $ref: "#/components/responses/ServerErrorResponse"
 
+  /v1/table/batch-commit:
+    parameters:
+      - $ref: "#/components/parameters/delimiter"
+    post:
+      tags:
+        - Table
+        - Metadata
+        - Transaction
+      summary: Atomically commit a batch of mixed table operations
+      operationId: BatchCommitTables
+      description: |
+        Atomically commit a batch of table operations. This is a generalized version
+        of `BatchCreateTableVersions` that supports mixed operation types within a
+        single atomic transaction at the metadata layer.
+
+        Supported operation types:
+        - `DeclareTable`: Declare (reserve) a new table
+        - `CreateTableVersion`: Create a new version entry for a table
+        - `DeleteTableVersions`: Delete version ranges from a table
+        - `DeregisterTable`: Deregister (soft-delete) a table
+
+        All operations are committed atomically: either all succeed or none are applied.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BatchCommitTablesRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/BatchCommitTablesResponse"
+        400:
+          $ref: "#/components/responses/BadRequestErrorResponse"
+        401:
+          $ref: "#/components/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "#/components/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "#/components/responses/NotFoundErrorResponse"
+        409:
+          $ref: "#/components/responses/ConflictErrorResponse"
+        503:
+          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+        5XX:
+          $ref: "#/components/responses/ServerErrorResponse"
+
   /v1/table/{id}/alter_columns:
     parameters:
       - $ref: "#/components/parameters/id"
@@ -4151,6 +4197,90 @@ components:
             $ref: "#/components/schemas/TableVersion"
           description: List of created table versions in the same order as the request entries
 
+    BatchCommitTablesRequest:
+      type: object
+      description: |
+        Request to atomically commit a batch of table operations.
+        This replaces `BatchCreateTableVersionsRequest` with a more general interface
+        that supports mixed operations (DeclareTable, CreateTableVersion,
+        DeleteTableVersions, DeregisterTable)
+        within a single atomic transaction at the metadata layer.
+
+        All operations are committed atomically: either all succeed or none are applied.
+      required:
+        - operations
+      properties:
+        identity:
+          $ref: "#/components/schemas/Identity"
+        context:
+          $ref: "#/components/schemas/Context"
+        operations:
+          type: array
+          items:
+            $ref: "#/components/schemas/CommitTableOperation"
+          description: |
+            List of operations to commit atomically.
+            Supported operation types: DeclareTable, CreateTableVersion,
+            DeleteTableVersions, DeregisterTable.
+
+    CommitTableOperation:
+      type: object
+      description: |
+        A single operation within a batch commit.
+        Provide exactly one of the operation fields to specify the operation kind.
+      properties:
+        declare_table:
+          $ref: "#/components/schemas/DeclareTableRequest"
+          description: Declare (reserve) a new table in the namespace
+        create_table_version:
+          $ref: "#/components/schemas/CreateTableVersionRequest"
+          description: Create a new version entry for a table
+        delete_table_versions:
+          $ref: "#/components/schemas/BatchDeleteTableVersionsRequest"
+          description: Delete version ranges from a table
+        deregister_table:
+          $ref: "#/components/schemas/DeregisterTableRequest"
+          description: Deregister (soft-delete) a table
+
+    CommitTableResult:
+      type: object
+      description: |
+        Result of a single operation within a batch commit.
+        Each result corresponds to one operation in the request, in the same order.
+        Exactly one of the result fields will be set.
+      properties:
+        declare_table:
+          $ref: "#/components/schemas/DeclareTableResponse"
+          description: Result of a DeclareTable operation
+        create_table_version:
+          $ref: "#/components/schemas/CreateTableVersionResponse"
+          description: Result of a CreateTableVersion operation
+        delete_table_versions:
+          $ref: "#/components/schemas/BatchDeleteTableVersionsResponse"
+          description: Result of a DeleteTableVersions operation
+        deregister_table:
+          $ref: "#/components/schemas/DeregisterTableResponse"
+          description: Result of a DeregisterTable operation
+
+    BatchCommitTablesResponse:
+      type: object
+      description: |
+        Response for a batch commit of table operations.
+        Contains the results of each operation in the same order as the request.
+      required:
+        - results
+      properties:
+        transaction_id:
+          type: string
+          description: Optional transaction identifier for the batch commit
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/CommitTableResult"
+          description: |
+            Results for each operation, in the same order as the request operations.
+            Each result contains the outcome of the corresponding operation.
+
     TableVersion:
       type: object
       required:
@@ -4971,6 +5101,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/BatchCreateTableVersionsResponse"
+
+    BatchCommitTablesResponse:
+      description: Result of atomically committing a batch of mixed table operations
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BatchCommitTablesResponse"
 
     ExplainTableQueryPlanResponse:
       description: Query execution plan explanation

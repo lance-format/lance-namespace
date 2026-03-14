@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
 *MetadataApi* | [**alter_table_alter_columns**](docs/MetadataApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *MetadataApi* | [**alter_table_drop_columns**](docs/MetadataApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *MetadataApi* | [**alter_transaction**](docs/MetadataApi.md#alter_transaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction.
+*MetadataApi* | [**batch_commit_tables**](docs/MetadataApi.md#batch_commit_tables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
 *MetadataApi* | [**batch_create_table_versions**](docs/MetadataApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *MetadataApi* | [**batch_delete_table_versions**](docs/MetadataApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *MetadataApi* | [**create_empty_table**](docs/MetadataApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
@@ -174,6 +175,7 @@ Class | Method | HTTP request | Description
 *TableApi* | [**alter_table_alter_columns**](docs/TableApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *TableApi* | [**alter_table_drop_columns**](docs/TableApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *TableApi* | [**analyze_table_query_plan**](docs/TableApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
+*TableApi* | [**batch_commit_tables**](docs/TableApi.md#batch_commit_tables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
 *TableApi* | [**batch_create_table_versions**](docs/TableApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *TableApi* | [**batch_delete_table_versions**](docs/TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *TableApi* | [**count_table_rows**](docs/TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
@@ -216,6 +218,7 @@ Class | Method | HTTP request | Description
 *TagApi* | [**list_table_tags**](docs/TagApi.md#list_table_tags) | **POST** /v1/table/{id}/tags/list | List all tags for a table
 *TagApi* | [**update_table_tag**](docs/TagApi.md#update_table_tag) | **POST** /v1/table/{id}/tags/update | Update a tag to point to a different version
 *TransactionApi* | [**alter_transaction**](docs/TransactionApi.md#alter_transaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction.
+*TransactionApi* | [**batch_commit_tables**](docs/TransactionApi.md#batch_commit_tables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
 *TransactionApi* | [**describe_transaction**](docs/TransactionApi.md#describe_transaction) | **POST** /v1/transaction/{id}/describe | Describe information about a transaction
 
 
@@ -238,12 +241,16 @@ Class | Method | HTTP request | Description
  - [AlterVirtualColumnEntry](docs/AlterVirtualColumnEntry.md)
  - [AnalyzeTableQueryPlanRequest](docs/AnalyzeTableQueryPlanRequest.md)
  - [AnalyzeTableQueryPlanResponse](docs/AnalyzeTableQueryPlanResponse.md)
+ - [BatchCommitTablesRequest](docs/BatchCommitTablesRequest.md)
+ - [BatchCommitTablesResponse](docs/BatchCommitTablesResponse.md)
  - [BatchCreateTableVersionsRequest](docs/BatchCreateTableVersionsRequest.md)
  - [BatchCreateTableVersionsResponse](docs/BatchCreateTableVersionsResponse.md)
  - [BatchDeleteTableVersionsRequest](docs/BatchDeleteTableVersionsRequest.md)
  - [BatchDeleteTableVersionsResponse](docs/BatchDeleteTableVersionsResponse.md)
  - [BooleanQuery](docs/BooleanQuery.md)
  - [BoostQuery](docs/BoostQuery.md)
+ - [CommitTableOperation](docs/CommitTableOperation.md)
+ - [CommitTableResult](docs/CommitTableResult.md)
  - [CountTableRowsRequest](docs/CountTableRowsRequest.md)
  - [CreateEmptyTableRequest](docs/CreateEmptyTableRequest.md)
  - [CreateEmptyTableResponse](docs/CreateEmptyTableResponse.md)

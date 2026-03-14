@@ -20,6 +20,8 @@ import org.lance.namespace.client.apache.Configuration;
 import org.lance.namespace.client.apache.Pair;
 import org.lance.namespace.model.AlterTransactionRequest;
 import org.lance.namespace.model.AlterTransactionResponse;
+import org.lance.namespace.model.BatchCommitTablesRequest;
+import org.lance.namespace.model.BatchCommitTablesResponse;
 import org.lance.namespace.model.DescribeTransactionRequest;
 import org.lance.namespace.model.DescribeTransactionResponse;
 
@@ -133,6 +135,101 @@ public class TransactionApi extends BaseApi {
 
     TypeReference<AlterTransactionResponse> localVarReturnType =
         new TypeReference<AlterTransactionResponse>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType);
+  }
+
+  /**
+   * Atomically commit a batch of mixed table operations Atomically commit a batch of table
+   * operations. This is a generalized version of &#x60;BatchCreateTableVersions&#x60; that supports
+   * mixed operation types within a single atomic transaction at the metadata layer. Supported
+   * operation types: - &#x60;DeclareTable&#x60;: Declare (reserve) a new table -
+   * &#x60;CreateTableVersion&#x60;: Create a new version entry for a table -
+   * &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table -
+   * &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table All operations are committed
+   * atomically: either all succeed or none are applied.
+   *
+   * @param batchCommitTablesRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return BatchCommitTablesResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BatchCommitTablesResponse batchCommitTables(
+      BatchCommitTablesRequest batchCommitTablesRequest, String delimiter) throws ApiException {
+    return this.batchCommitTables(batchCommitTablesRequest, delimiter, Collections.emptyMap());
+  }
+
+  /**
+   * Atomically commit a batch of mixed table operations Atomically commit a batch of table
+   * operations. This is a generalized version of &#x60;BatchCreateTableVersions&#x60; that supports
+   * mixed operation types within a single atomic transaction at the metadata layer. Supported
+   * operation types: - &#x60;DeclareTable&#x60;: Declare (reserve) a new table -
+   * &#x60;CreateTableVersion&#x60;: Create a new version entry for a table -
+   * &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table -
+   * &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table All operations are committed
+   * atomically: either all succeed or none are applied.
+   *
+   * @param batchCommitTablesRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return BatchCommitTablesResponse
+   * @throws ApiException if fails to make API call
+   */
+  public BatchCommitTablesResponse batchCommitTables(
+      BatchCommitTablesRequest batchCommitTablesRequest,
+      String delimiter,
+      Map<String, String> additionalHeaders)
+      throws ApiException {
+    Object localVarPostBody = batchCommitTablesRequest;
+
+    // verify the required parameter 'batchCommitTablesRequest' is set
+    if (batchCommitTablesRequest == null) {
+      throw new ApiException(
+          400,
+          "Missing the required parameter 'batchCommitTablesRequest' when calling batchCommitTables");
+    }
+
+    // create path and map variables
+    String localVarPath = "/v1/table/batch-commit";
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
+
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = {"application/json"};
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {"application/json"};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
+
+    TypeReference<BatchCommitTablesResponse> localVarReturnType =
+        new TypeReference<BatchCommitTablesResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",

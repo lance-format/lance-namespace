@@ -20,6 +20,8 @@ import org.lance.namespace.server.springboot.model.AlterTableAlterColumnsRespons
 import org.lance.namespace.server.springboot.model.AlterTableDropColumnsRequest;
 import org.lance.namespace.server.springboot.model.AlterTableDropColumnsResponse;
 import org.lance.namespace.server.springboot.model.AnalyzeTableQueryPlanRequest;
+import org.lance.namespace.server.springboot.model.BatchCommitTablesRequest;
+import org.lance.namespace.server.springboot.model.BatchCommitTablesResponse;
 import org.lance.namespace.server.springboot.model.BatchCreateTableVersionsRequest;
 import org.lance.namespace.server.springboot.model.BatchCreateTableVersionsResponse;
 import org.lance.namespace.server.springboot.model.BatchDeleteTableVersionsRequest;
@@ -762,6 +764,191 @@ public interface TableApi {
         .ifPresent(
             request -> {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+              }
+            });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
+
+  /**
+   * POST /v1/table/batch-commit : Atomically commit a batch of mixed table operations Atomically
+   * commit a batch of table operations. This is a generalized version of
+   * &#x60;BatchCreateTableVersions&#x60; that supports mixed operation types within a single atomic
+   * transaction at the metadata layer. Supported operation types: - &#x60;DeclareTable&#x60;:
+   * Declare (reserve) a new table - &#x60;CreateTableVersion&#x60;: Create a new version entry for
+   * a table - &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table -
+   * &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table All operations are committed
+   * atomically: either all succeed or none are applied.
+   *
+   * @param batchCommitTablesRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return Result of atomically committing a batch of mixed table operations (status code 200) or
+   *     Indicates a bad request error. It could be caused by an unexpected request body format or
+   *     other forms of request validation failure, such as invalid json. Usually serves
+   *     application/json content, although in some cases simple text/plain content might be
+   *     returned by the server&#39;s middleware. (status code 400) or Unauthorized. The request
+   *     lacks valid authentication credentials for the operation. (status code 401) or Forbidden.
+   *     Authenticated user does not have the necessary permissions. (status code 403) or A
+   *     server-side problem that means can not find the specified resource. (status code 404) or
+   *     The request conflicts with the current state of the target resource. (status code 409) or
+   *     The service is not ready to handle the request. The client should wait and retry. The
+   *     service may additionally send a Retry-After header to indicate when to retry. (status code
+   *     503) or A server-side problem that might not be addressable from the client side. Used for
+   *     server 5xx errors without more specific documentation in individual routes. (status code
+   *     5XX)
+   */
+  @Operation(
+      operationId = "batchCommitTables",
+      summary = "Atomically commit a batch of mixed table operations",
+      description =
+          "Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `DeclareTable`: Declare (reserve) a new table - `CreateTableVersion`: Create a new version entry for a table - `DeleteTableVersions`: Delete version ranges from a table - `DeregisterTable`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. ",
+      tags = {"Table", "Metadata", "Transaction"},
+      responses = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Result of atomically committing a batch of mixed table operations",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = BatchCommitTablesResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "400",
+            description =
+                "Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server's middleware.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "401",
+            description =
+                "Unauthorized. The request lacks valid authentication credentials for the operation.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "403",
+            description = "Forbidden. Authenticated user does not have the necessary permissions.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "404",
+            description = "A server-side problem that means can not find the specified resource.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "409",
+            description = "The request conflicts with the current state of the target resource.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "503",
+            description =
+                "The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            }),
+        @ApiResponse(
+            responseCode = "5XX",
+            description =
+                "A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes.",
+            content = {
+              @Content(
+                  mediaType = "application/json",
+                  schema = @Schema(implementation = ErrorResponse.class))
+            })
+      },
+      security = {
+        @SecurityRequirement(name = "OAuth2"),
+        @SecurityRequirement(name = "ApiKeyAuth"),
+        @SecurityRequirement(name = "BearerAuth")
+      })
+  @RequestMapping(
+      method = RequestMethod.POST,
+      value = "/v1/table/batch-commit",
+      produces = {"application/json"},
+      consumes = {"application/json"})
+  default ResponseEntity<BatchCommitTablesResponse> batchCommitTables(
+      @Parameter(name = "BatchCommitTablesRequest", description = "", required = true)
+          @Valid
+          @RequestBody
+          BatchCommitTablesRequest batchCommitTablesRequest,
+      @Parameter(
+              name = "delimiter",
+              description =
+                  "An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "delimiter", required = false)
+          Optional<String> delimiter) {
+    getRequest()
+        .ifPresent(
+            request -> {
+              for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"transaction_id\" : \"transaction_id\", \"results\" : [ { \"deregister_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }, \"create_table_version\" : { \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }, \"delete_table_versions\" : { \"transaction_id\" : \"transaction_id\", \"deleted_count\" : 0 }, \"declare_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } } }, { \"deregister_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }, \"create_table_version\" : { \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }, \"delete_table_versions\" : { \"transaction_id\" : \"transaction_id\", \"deleted_count\" : 0 }, \"declare_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } } } ] }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
                       "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";

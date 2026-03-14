@@ -151,6 +151,7 @@ Class | Method | HTTP request | Description
 *MetadataApi* | [**alterTableAlterColumns**](docs/MetadataApi.md#alterTableAlterColumns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *MetadataApi* | [**alterTableDropColumns**](docs/MetadataApi.md#alterTableDropColumns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *MetadataApi* | [**alterTransaction**](docs/MetadataApi.md#alterTransaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction.
+*MetadataApi* | [**batchCommitTables**](docs/MetadataApi.md#batchCommitTables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
 *MetadataApi* | [**batchCreateTableVersions**](docs/MetadataApi.md#batchCreateTableVersions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *MetadataApi* | [**batchDeleteTableVersions**](docs/MetadataApi.md#batchDeleteTableVersions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *MetadataApi* | [**createEmptyTable**](docs/MetadataApi.md#createEmptyTable) | **POST** /v1/table/{id}/create-empty | Create an empty table
@@ -194,6 +195,7 @@ Class | Method | HTTP request | Description
 *TableApi* | [**alterTableAlterColumns**](docs/TableApi.md#alterTableAlterColumns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *TableApi* | [**alterTableDropColumns**](docs/TableApi.md#alterTableDropColumns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *TableApi* | [**analyzeTableQueryPlan**](docs/TableApi.md#analyzeTableQueryPlan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
+*TableApi* | [**batchCommitTables**](docs/TableApi.md#batchCommitTables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
 *TableApi* | [**batchCreateTableVersions**](docs/TableApi.md#batchCreateTableVersions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *TableApi* | [**batchDeleteTableVersions**](docs/TableApi.md#batchDeleteTableVersions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *TableApi* | [**countTableRows**](docs/TableApi.md#countTableRows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
@@ -236,6 +238,7 @@ Class | Method | HTTP request | Description
 *TagApi* | [**listTableTags**](docs/TagApi.md#listTableTags) | **POST** /v1/table/{id}/tags/list | List all tags for a table
 *TagApi* | [**updateTableTag**](docs/TagApi.md#updateTableTag) | **POST** /v1/table/{id}/tags/update | Update a tag to point to a different version
 *TransactionApi* | [**alterTransaction**](docs/TransactionApi.md#alterTransaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction.
+*TransactionApi* | [**batchCommitTables**](docs/TransactionApi.md#batchCommitTables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
 *TransactionApi* | [**describeTransaction**](docs/TransactionApi.md#describeTransaction) | **POST** /v1/transaction/{id}/describe | Describe information about a transaction
 
 
@@ -258,12 +261,16 @@ Class | Method | HTTP request | Description
  - [AlterVirtualColumnEntry](docs/AlterVirtualColumnEntry.md)
  - [AnalyzeTableQueryPlanRequest](docs/AnalyzeTableQueryPlanRequest.md)
  - [AnalyzeTableQueryPlanResponse](docs/AnalyzeTableQueryPlanResponse.md)
+ - [BatchCommitTablesRequest](docs/BatchCommitTablesRequest.md)
+ - [BatchCommitTablesResponse](docs/BatchCommitTablesResponse.md)
  - [BatchCreateTableVersionsRequest](docs/BatchCreateTableVersionsRequest.md)
  - [BatchCreateTableVersionsResponse](docs/BatchCreateTableVersionsResponse.md)
  - [BatchDeleteTableVersionsRequest](docs/BatchDeleteTableVersionsRequest.md)
  - [BatchDeleteTableVersionsResponse](docs/BatchDeleteTableVersionsResponse.md)
  - [BooleanQuery](docs/BooleanQuery.md)
  - [BoostQuery](docs/BoostQuery.md)
+ - [CommitTableOperation](docs/CommitTableOperation.md)
+ - [CommitTableResult](docs/CommitTableResult.md)
  - [CountTableRowsRequest](docs/CountTableRowsRequest.md)
  - [CreateEmptyTableRequest](docs/CreateEmptyTableRequest.md)
  - [CreateEmptyTableResponse](docs/CreateEmptyTableResponse.md)
