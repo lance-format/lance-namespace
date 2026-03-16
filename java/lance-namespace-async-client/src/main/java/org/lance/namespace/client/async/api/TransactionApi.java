@@ -20,6 +20,8 @@ import org.lance.namespace.client.async.Configuration;
 import org.lance.namespace.client.async.Pair;
 import org.lance.namespace.model.AlterTransactionRequest;
 import org.lance.namespace.model.AlterTransactionResponse;
+import org.lance.namespace.model.BatchCommitTablesRequest;
+import org.lance.namespace.model.BatchCommitTablesResponse;
 import org.lance.namespace.model.DescribeTransactionRequest;
 import org.lance.namespace.model.DescribeTransactionResponse;
 
@@ -218,6 +220,155 @@ public class TransactionApi {
 
     try {
       byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(alterTransactionRequest);
+      localVarRequestBuilder.method(
+          "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+
+  /**
+   * Atomically commit a batch of mixed table operations Atomically commit a batch of table
+   * operations. This is a generalized version of &#x60;BatchCreateTableVersions&#x60; that supports
+   * mixed operation types within a single atomic transaction at the metadata layer. Supported
+   * operation types: - &#x60;DeclareTable&#x60;: Declare (reserve) a new table -
+   * &#x60;CreateTableVersion&#x60;: Create a new version entry for a table -
+   * &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table -
+   * &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table All operations are committed
+   * atomically: either all succeed or none are applied.
+   *
+   * @param batchCommitTablesRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return CompletableFuture&lt;BatchCommitTablesResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<BatchCommitTablesResponse> batchCommitTables(
+      BatchCommitTablesRequest batchCommitTablesRequest, String delimiter) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder =
+          batchCommitTablesRequestBuilder(batchCommitTablesRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("batchCommitTables", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<BatchCommitTablesResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
+    } catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  /**
+   * Atomically commit a batch of mixed table operations Atomically commit a batch of table
+   * operations. This is a generalized version of &#x60;BatchCreateTableVersions&#x60; that supports
+   * mixed operation types within a single atomic transaction at the metadata layer. Supported
+   * operation types: - &#x60;DeclareTable&#x60;: Declare (reserve) a new table -
+   * &#x60;CreateTableVersion&#x60;: Create a new version entry for a table -
+   * &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table -
+   * &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table All operations are committed
+   * atomically: either all succeed or none are applied.
+   *
+   * @param batchCommitTablesRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;BatchCommitTablesResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<BatchCommitTablesResponse>> batchCommitTablesWithHttpInfo(
+      BatchCommitTablesRequest batchCommitTablesRequest, String delimiter) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder =
+          batchCommitTablesRequestBuilder(batchCommitTablesRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("batchCommitTables", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<BatchCommitTablesResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody,
+                                  new TypeReference<BatchCommitTablesResponse>() {})));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
+    } catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder batchCommitTablesRequestBuilder(
+      BatchCommitTablesRequest batchCommitTablesRequest, String delimiter) throws ApiException {
+    // verify the required parameter 'batchCommitTablesRequest' is set
+    if (batchCommitTablesRequest == null) {
+      throw new ApiException(
+          400,
+          "Missing the required parameter 'batchCommitTablesRequest' when calling batchCommitTables");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/v1/table/batch-commit";
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "delimiter";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("delimiter", delimiter));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(
+          URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(batchCommitTablesRequest);
       localVarRequestBuilder.method(
           "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
     } catch (IOException e) {

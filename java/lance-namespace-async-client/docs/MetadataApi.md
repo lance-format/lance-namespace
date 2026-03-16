@@ -10,6 +10,8 @@ All URIs are relative to *http://localhost:2333*
 | [**alterTableDropColumnsWithHttpInfo**](MetadataApi.md#alterTableDropColumnsWithHttpInfo) | **POST** /v1/table/{id}/drop_columns | Remove columns from table |
 | [**alterTransaction**](MetadataApi.md#alterTransaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction. |
 | [**alterTransactionWithHttpInfo**](MetadataApi.md#alterTransactionWithHttpInfo) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction. |
+| [**batchCommitTables**](MetadataApi.md#batchCommitTables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations |
+| [**batchCommitTablesWithHttpInfo**](MetadataApi.md#batchCommitTablesWithHttpInfo) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations |
 | [**batchCreateTableVersions**](MetadataApi.md#batchCreateTableVersions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables |
 | [**batchCreateTableVersionsWithHttpInfo**](MetadataApi.md#batchCreateTableVersionsWithHttpInfo) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables |
 | [**batchDeleteTableVersions**](MetadataApi.md#batchDeleteTableVersions) | **POST** /v1/table/{id}/version/delete | Delete table version records |
@@ -651,6 +653,197 @@ CompletableFuture<ApiResponse<[**AlterTransactionResponse**](AlterTransactionRes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Response of AlterTransaction |  -  |
+| **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+| **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+| **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+| **404** | A server-side problem that means can not find the specified resource. |  -  |
+| **409** | The request conflicts with the current state of the target resource. |  -  |
+| **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+| **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+
+## batchCommitTables
+
+> CompletableFuture<BatchCommitTablesResponse> batchCommitTables(batchCommitTablesRequest, delimiter)
+
+Atomically commit a batch of mixed table operations
+
+Atomically commit a batch of table operations. This is a generalized version of &#x60;BatchCreateTableVersions&#x60; that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - &#x60;DeclareTable&#x60;: Declare (reserve) a new table - &#x60;CreateTableVersion&#x60;: Create a new version entry for a table - &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table - &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. 
+
+### Example
+
+```java
+// Import classes:
+import org.lance.namespace.client.async.ApiClient;
+import org.lance.namespace.client.async.ApiException;
+import org.lance.namespace.client.async.Configuration;
+import org.lance.namespace.client.async.auth.*;
+import org.lance.namespace.client.async.models.*;
+import org.lance.namespace.client.async.api.MetadataApi;
+import java.util.concurrent.CompletableFuture;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:2333");
+        
+        // Configure OAuth2 access token for authorization: OAuth2
+        OAuth OAuth2 = (OAuth) defaultClient.getAuthentication("OAuth2");
+        OAuth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Configure HTTP bearer authorization: BearerAuth
+        HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+        BearerAuth.setBearerToken("BEARER TOKEN");
+
+        MetadataApi apiInstance = new MetadataApi(defaultClient);
+        BatchCommitTablesRequest batchCommitTablesRequest = new BatchCommitTablesRequest(); // BatchCommitTablesRequest | 
+        String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
+        try {
+            CompletableFuture<BatchCommitTablesResponse> result = apiInstance.batchCommitTables(batchCommitTablesRequest, delimiter);
+            System.out.println(result.get());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MetadataApi#batchCommitTables");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **batchCommitTablesRequest** | [**BatchCommitTablesRequest**](BatchCommitTablesRequest.md)|  | |
+| **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
+
+### Return type
+
+CompletableFuture<[**BatchCommitTablesResponse**](BatchCommitTablesResponse.md)>
+
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Result of atomically committing a batch of mixed table operations |  -  |
+| **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
+| **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
+| **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
+| **404** | A server-side problem that means can not find the specified resource. |  -  |
+| **409** | The request conflicts with the current state of the target resource. |  -  |
+| **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
+| **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
+
+## batchCommitTablesWithHttpInfo
+
+> CompletableFuture<ApiResponse<BatchCommitTablesResponse>> batchCommitTables batchCommitTablesWithHttpInfo(batchCommitTablesRequest, delimiter)
+
+Atomically commit a batch of mixed table operations
+
+Atomically commit a batch of table operations. This is a generalized version of &#x60;BatchCreateTableVersions&#x60; that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - &#x60;DeclareTable&#x60;: Declare (reserve) a new table - &#x60;CreateTableVersion&#x60;: Create a new version entry for a table - &#x60;DeleteTableVersions&#x60;: Delete version ranges from a table - &#x60;DeregisterTable&#x60;: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. 
+
+### Example
+
+```java
+// Import classes:
+import org.lance.namespace.client.async.ApiClient;
+import org.lance.namespace.client.async.ApiException;
+import org.lance.namespace.client.async.ApiResponse;
+import org.lance.namespace.client.async.Configuration;
+import org.lance.namespace.client.async.auth.*;
+import org.lance.namespace.client.async.models.*;
+import org.lance.namespace.client.async.api.MetadataApi;
+import java.util.concurrent.CompletableFuture;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost:2333");
+        
+        // Configure OAuth2 access token for authorization: OAuth2
+        OAuth OAuth2 = (OAuth) defaultClient.getAuthentication("OAuth2");
+        OAuth2.setAccessToken("YOUR ACCESS TOKEN");
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Configure HTTP bearer authorization: BearerAuth
+        HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+        BearerAuth.setBearerToken("BEARER TOKEN");
+
+        MetadataApi apiInstance = new MetadataApi(defaultClient);
+        BatchCommitTablesRequest batchCommitTablesRequest = new BatchCommitTablesRequest(); // BatchCommitTablesRequest | 
+        String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
+        try {
+            CompletableFuture<ApiResponse<BatchCommitTablesResponse>> response = apiInstance.batchCommitTablesWithHttpInfo(batchCommitTablesRequest, delimiter);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling MetadataApi#batchCommitTables");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MetadataApi#batchCommitTables");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **batchCommitTablesRequest** | [**BatchCommitTablesRequest**](BatchCommitTablesRequest.md)|  | |
+| **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**BatchCommitTablesResponse**](BatchCommitTablesResponse.md)>>
+
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Result of atomically committing a batch of mixed table operations |  -  |
 | **400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
 | **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
 | **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |

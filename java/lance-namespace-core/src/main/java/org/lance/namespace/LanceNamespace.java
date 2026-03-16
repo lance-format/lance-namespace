@@ -573,6 +573,26 @@ public interface LanceNamespace {
   }
 
   /**
+   * Atomically commit a batch of mixed table operations.
+   *
+   * <p>This is a generalized version of {@link
+   * #batchCreateTableVersions(BatchCreateTableVersionsRequest)} that supports mixed operation types
+   * (DeclareTable, CreateTableVersion, DeleteTableVersions, DeregisterTable) within a single atomic
+   * transaction at the metadata layer.
+   *
+   * <p>All operations are committed atomically: either all succeed or none are applied.
+   *
+   * @param request The batch commit tables request
+   * @return The batch commit tables response
+   * @throws org.lance.namespace.errors.NamespaceNotFoundException if any namespace does not exist
+   * @throws org.lance.namespace.errors.TableNotFoundException if any table does not exist
+   * @throws org.lance.namespace.errors.ConcurrentModificationException if any operation conflicts
+   */
+  default BatchCommitTablesResponse batchCommitTables(BatchCommitTablesRequest request) {
+    throw new UnsupportedOperationException("Not supported: batchCommitTables");
+  }
+
+  /**
    * Update table schema metadata.
    *
    * @param request The update table schema metadata request

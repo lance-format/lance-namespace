@@ -67,10 +67,14 @@ from lance_namespace_urllib3_client.models import (
     AlterTransactionRequest,
     AlterTransactionResponse,
     AnalyzeTableQueryPlanRequest,
+    BatchCommitTablesRequest,
+    BatchCommitTablesResponse,
     BatchCreateTableVersionsRequest,
     BatchCreateTableVersionsResponse,
     BatchDeleteTableVersionsRequest,
     BatchDeleteTableVersionsResponse,
+    CommitTableOperation,
+    CommitTableResult,
     CountTableRowsRequest,
     CreateTableVersionEntry,
     CreateEmptyTableRequest,
@@ -190,10 +194,14 @@ __all__ = [
     "AlterTransactionRequest",
     "AlterTransactionResponse",
     "AnalyzeTableQueryPlanRequest",
+    "BatchCommitTablesRequest",
+    "BatchCommitTablesResponse",
     "BatchCreateTableVersionsRequest",
     "BatchCreateTableVersionsResponse",
     "BatchDeleteTableVersionsRequest",
     "BatchDeleteTableVersionsResponse",
+    "CommitTableOperation",
+    "CommitTableResult",
     "CountTableRowsRequest",
     "CreateTableVersionEntry",
     "CreateEmptyTableRequest",
@@ -826,6 +834,28 @@ class LanceNamespace(ABC):
             If any version already exists.
         """
         raise UnsupportedOperationError("Not supported: batch_create_table_versions")
+
+    def batch_commit_tables(
+        self, request: BatchCommitTablesRequest
+    ) -> BatchCommitTablesResponse:
+        """Atomically commit a batch of mixed table operations.
+
+        This is a generalized version of `batch_create_table_versions` that supports
+        mixed operation types (DeclareTable, CreateTableVersion, DeleteTableVersions,
+        DeregisterTable) within a single atomic transaction at the metadata layer.
+
+        All operations are committed atomically: either all succeed or none are applied.
+
+        Raises
+        ------
+        NamespaceNotFoundError
+            If any namespace does not exist.
+        TableNotFoundError
+            If any table does not exist.
+        ConcurrentModificationError
+            If any operation conflicts.
+        """
+        raise UnsupportedOperationError("Not supported: batch_commit_tables")
 
     def update_table_schema_metadata(
         self, request: UpdateTableSchemaMetadataRequest
