@@ -2401,12 +2401,13 @@ components:
           $ref: "#/components/schemas/PageToken"
         limit:
           $ref: "#/components/schemas/PageLimit"
-        list_declared:
+        include_declared:
           type: boolean
           description: |
             When true, includes tables that have been declared in the namespace
-            but not yet created on storage. Default is false.
-          default: false
+            but not yet created on storage, in addition to tables that have
+            been created. When false or not set, only tables with storage
+            components are returned.
 
     ListTablesResponse:
       type: object
@@ -2550,8 +2551,8 @@ components:
             but not yet created on storage. This means the table exists in the
             namespace but has no data files on the underlying storage.
             Operations like describe_table with load_detailed_metadata=true may fail
-            for such tables.
-          default: false
+            for such tables. When false or not set, the table has storage components
+            (data and metadata files).
 
     TableBasicStats:
       type: object

@@ -33,7 +33,7 @@ import java.util.StringJoiner;
   ListTablesRequest.JSON_PROPERTY_ID,
   ListTablesRequest.JSON_PROPERTY_PAGE_TOKEN,
   ListTablesRequest.JSON_PROPERTY_LIMIT,
-  ListTablesRequest.JSON_PROPERTY_LIST_DECLARED
+  ListTablesRequest.JSON_PROPERTY_INCLUDE_DECLARED
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -54,8 +54,8 @@ public class ListTablesRequest {
   public static final String JSON_PROPERTY_LIMIT = "limit";
   @javax.annotation.Nullable private Integer limit;
 
-  public static final String JSON_PROPERTY_LIST_DECLARED = "list_declared";
-  @javax.annotation.Nullable private Boolean listDeclared = false;
+  public static final String JSON_PROPERTY_INCLUDE_DECLARED = "include_declared";
+  @javax.annotation.Nullable private Boolean includeDeclared;
 
   public ListTablesRequest() {}
 
@@ -206,29 +206,30 @@ public class ListTablesRequest {
     this.limit = limit;
   }
 
-  public ListTablesRequest listDeclared(@javax.annotation.Nullable Boolean listDeclared) {
+  public ListTablesRequest includeDeclared(@javax.annotation.Nullable Boolean includeDeclared) {
 
-    this.listDeclared = listDeclared;
+    this.includeDeclared = includeDeclared;
     return this;
   }
 
   /**
    * When true, includes tables that have been declared in the namespace but not yet created on
-   * storage. Default is false.
+   * storage, in addition to tables that have been created. When false or not set, only tables with
+   * storage components are returned.
    *
-   * @return listDeclared
+   * @return includeDeclared
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LIST_DECLARED)
+  @JsonProperty(JSON_PROPERTY_INCLUDE_DECLARED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public Boolean getListDeclared() {
-    return listDeclared;
+  public Boolean getIncludeDeclared() {
+    return includeDeclared;
   }
 
-  @JsonProperty(JSON_PROPERTY_LIST_DECLARED)
+  @JsonProperty(JSON_PROPERTY_INCLUDE_DECLARED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setListDeclared(@javax.annotation.Nullable Boolean listDeclared) {
-    this.listDeclared = listDeclared;
+  public void setIncludeDeclared(@javax.annotation.Nullable Boolean includeDeclared) {
+    this.includeDeclared = includeDeclared;
   }
 
   @Override
@@ -245,12 +246,12 @@ public class ListTablesRequest {
         && Objects.equals(this.id, listTablesRequest.id)
         && Objects.equals(this.pageToken, listTablesRequest.pageToken)
         && Objects.equals(this.limit, listTablesRequest.limit)
-        && Objects.equals(this.listDeclared, listTablesRequest.listDeclared);
+        && Objects.equals(this.includeDeclared, listTablesRequest.includeDeclared);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, pageToken, limit, listDeclared);
+    return Objects.hash(identity, context, id, pageToken, limit, includeDeclared);
   }
 
   @Override
@@ -262,7 +263,7 @@ public class ListTablesRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    pageToken: ").append(toIndentedString(pageToken)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
-    sb.append("    listDeclared: ").append(toIndentedString(listDeclared)).append("\n");
+    sb.append("    includeDeclared: ").append(toIndentedString(includeDeclared)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -388,15 +389,15 @@ public class ListTablesRequest {
       }
     }
 
-    // add `list_declared` to the URL query string
-    if (getListDeclared() != null) {
+    // add `include_declared` to the URL query string
+    if (getIncludeDeclared() != null) {
       try {
         joiner.add(
             String.format(
-                "%slist_declared%s=%s",
+                "%sinclude_declared%s=%s",
                 prefix,
                 suffix,
-                URLEncoder.encode(String.valueOf(getListDeclared()), "UTF-8")
+                URLEncoder.encode(String.valueOf(getIncludeDeclared()), "UTF-8")
                     .replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported

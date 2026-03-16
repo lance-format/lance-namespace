@@ -3330,11 +3330,12 @@ components:
             number of results that a caller will receive.
           type: integer
           nullable: true
-        list_declared:
-          default: false
+        include_declared:
           description: |
             When true, includes tables that have been declared in the namespace
-            but not yet created on storage. Default is false.
+            but not yet created on storage, in addition to tables that have
+            been created. When false or not set, only tables with storage
+            components are returned.
           type: boolean
     ListTablesResponse:
       example:
@@ -3458,7 +3459,7 @@ components:
               - null
               - null
               type: type
-        is_only_declared: false
+        is_only_declared: true
         metadata:
           key: metadata
         table_uri: table_uri
@@ -3547,13 +3548,13 @@ components:
             to manage table versions instead of relying on Lance's native version management.
           type: boolean
         is_only_declared:
-          default: false
           description: |
             When true, indicates that the table has been declared in the namespace
             but not yet created on storage. This means the table exists in the
             namespace but has no data files on the underlying storage.
             Operations like describe_table with load_detailed_metadata=true may fail
-            for such tables.
+            for such tables. When false or not set, the table has storage components
+            (data and metadata files).
           type: boolean
     TableBasicStats:
       example:

@@ -18,7 +18,7 @@
 |**metadata** | **Map&lt;String, String&gt;** | Optional table metadata as key-value pairs. This records the information of the table and requires loading the table. It is only populated when &#x60;load_detailed_metadata&#x60; is true.  |  [optional] |
 |**properties** | **Map&lt;String, String&gt;** | Properties stored on the table, if supported by the server. This records the information managed by the namespace. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object. |  [optional] |
 |**managedVersioning** | **Boolean** | When true, the caller should use namespace table version operations (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance&#39;s native version management.  |  [optional] |
-|**isOnlyDeclared** | **Boolean** | When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. Operations like describe_table with load_detailed_metadata&#x3D;true may fail for such tables.  |  [optional] |
+|**isOnlyDeclared** | **Boolean** | When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. Operations like describe_table with load_detailed_metadata&#x3D;true may fail for such tables. When false or not set, the table has storage components (data and metadata files).  |  [optional] |
 
 
 

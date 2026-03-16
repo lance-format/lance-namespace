@@ -79,7 +79,7 @@ public class DescribeTableResponse {
   @javax.annotation.Nullable private Boolean managedVersioning;
 
   public static final String JSON_PROPERTY_IS_ONLY_DECLARED = "is_only_declared";
-  @javax.annotation.Nullable private Boolean isOnlyDeclared = false;
+  @javax.annotation.Nullable private Boolean isOnlyDeclared;
 
   public DescribeTableResponse() {}
 
@@ -407,7 +407,7 @@ public class DescribeTableResponse {
    * When true, indicates that the table has been declared in the namespace but not yet created on
    * storage. This means the table exists in the namespace but has no data files on the underlying
    * storage. Operations like describe_table with load_detailed_metadata&#x3D;true may fail for such
-   * tables.
+   * tables. When false or not set, the table has storage components (data and metadata files).
    *
    * @return isOnlyDeclared
    */
