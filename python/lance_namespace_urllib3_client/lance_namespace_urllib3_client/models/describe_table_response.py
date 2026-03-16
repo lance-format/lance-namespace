@@ -40,7 +40,8 @@ class DescribeTableResponse(BaseModel):
     metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="Optional table metadata as key-value pairs. This records the information of the table and requires loading the table. It is only populated when `load_detailed_metadata` is true. ")
     properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Properties stored on the table, if supported by the server. This records the information managed by the namespace. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object.")
     managed_versioning: Optional[StrictBool] = Field(default=None, description="When true, the caller should use namespace table version operations (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. ")
-    __properties: ClassVar[List[str]] = ["table", "namespace", "version", "location", "table_uri", "schema", "storage_options", "stats", "metadata", "properties", "managed_versioning"]
+    is_only_declared: Optional[StrictBool] = Field(default=False, description="When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. Operations like describe_table with load_detailed_metadata=true may fail for such tables. ")
+    __properties: ClassVar[List[str]] = ["table", "namespace", "version", "location", "table_uri", "schema", "storage_options", "stats", "metadata", "properties", "managed_versioning", "is_only_declared"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,7 +110,8 @@ class DescribeTableResponse(BaseModel):
             "stats": TableBasicStats.from_dict(obj["stats"]) if obj.get("stats") is not None else None,
             "metadata": obj.get("metadata"),
             "properties": obj.get("properties"),
-            "managed_versioning": obj.get("managed_versioning")
+            "managed_versioning": obj.get("managed_versioning"),
+            "is_only_declared": obj.get("is_only_declared") if obj.get("is_only_declared") is not None else False
         })
         return _obj
 

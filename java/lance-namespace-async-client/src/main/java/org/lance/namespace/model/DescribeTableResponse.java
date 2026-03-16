@@ -38,7 +38,8 @@ import java.util.StringJoiner;
   DescribeTableResponse.JSON_PROPERTY_STATS,
   DescribeTableResponse.JSON_PROPERTY_METADATA,
   DescribeTableResponse.JSON_PROPERTY_PROPERTIES,
-  DescribeTableResponse.JSON_PROPERTY_MANAGED_VERSIONING
+  DescribeTableResponse.JSON_PROPERTY_MANAGED_VERSIONING,
+  DescribeTableResponse.JSON_PROPERTY_IS_ONLY_DECLARED
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -76,6 +77,9 @@ public class DescribeTableResponse {
 
   public static final String JSON_PROPERTY_MANAGED_VERSIONING = "managed_versioning";
   @javax.annotation.Nullable private Boolean managedVersioning;
+
+  public static final String JSON_PROPERTY_IS_ONLY_DECLARED = "is_only_declared";
+  @javax.annotation.Nullable private Boolean isOnlyDeclared = false;
 
   public DescribeTableResponse() {}
 
@@ -382,6 +386,32 @@ public class DescribeTableResponse {
     this.managedVersioning = managedVersioning;
   }
 
+  public DescribeTableResponse isOnlyDeclared(@javax.annotation.Nullable Boolean isOnlyDeclared) {
+    this.isOnlyDeclared = isOnlyDeclared;
+    return this;
+  }
+
+  /**
+   * When true, indicates that the table has been declared in the namespace but not yet created on
+   * storage. This means the table exists in the namespace but has no data files on the underlying
+   * storage. Operations like describe_table with load_detailed_metadata&#x3D;true may fail for such
+   * tables.
+   *
+   * @return isOnlyDeclared
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_ONLY_DECLARED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getIsOnlyDeclared() {
+    return isOnlyDeclared;
+  }
+
+  @JsonProperty(JSON_PROPERTY_IS_ONLY_DECLARED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsOnlyDeclared(@javax.annotation.Nullable Boolean isOnlyDeclared) {
+    this.isOnlyDeclared = isOnlyDeclared;
+  }
+
   /** Return true if this DescribeTableResponse object is equal to o. */
   @Override
   public boolean equals(Object o) {
@@ -402,7 +432,8 @@ public class DescribeTableResponse {
         && Objects.equals(this.stats, describeTableResponse.stats)
         && Objects.equals(this.metadata, describeTableResponse.metadata)
         && Objects.equals(this.properties, describeTableResponse.properties)
-        && Objects.equals(this.managedVersioning, describeTableResponse.managedVersioning);
+        && Objects.equals(this.managedVersioning, describeTableResponse.managedVersioning)
+        && Objects.equals(this.isOnlyDeclared, describeTableResponse.isOnlyDeclared);
   }
 
   @Override
@@ -418,7 +449,8 @@ public class DescribeTableResponse {
         stats,
         metadata,
         properties,
-        managedVersioning);
+        managedVersioning,
+        isOnlyDeclared);
   }
 
   @Override
@@ -436,6 +468,7 @@ public class DescribeTableResponse {
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("    managedVersioning: ").append(toIndentedString(managedVersioning)).append("\n");
+    sb.append("    isOnlyDeclared: ").append(toIndentedString(isOnlyDeclared)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -595,6 +628,14 @@ public class DescribeTableResponse {
               prefix,
               suffix,
               ApiClient.urlEncode(ApiClient.valueToString(getManagedVersioning()))));
+    }
+
+    // add `is_only_declared` to the URL query string
+    if (getIsOnlyDeclared() != null) {
+      joiner.add(
+          String.format(
+              "%sis_only_declared%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIsOnlyDeclared()))));
     }
 
     return joiner.toString();

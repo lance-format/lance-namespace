@@ -2739,6 +2739,10 @@ Insert records into a table
 
 Insert new records into table `id`.
 
+For tables that have been declared but not yet created on storage
+(is_only_declared=true), this operation will create the table with
+the provided data.
+
 REST NAMESPACE ONLY
 REST namespace uses Arrow IPC stream as the request body.
 It passes in the `InsertIntoTableRequest` information in the following way:
@@ -3386,6 +3390,10 @@ Performs a merge insert (upsert) operation on table `id`.
 This operation updates existing rows
 based on a matching column and inserts new rows that don't match.
 It returns the number of rows inserted and updated.
+
+For tables that have been declared but not yet created on storage
+(is_only_declared=true), this operation will create the table with
+the provided data (since there are no existing rows to merge with).
 
 REST NAMESPACE ONLY
 REST namespace uses Arrow IPC stream as the request body.

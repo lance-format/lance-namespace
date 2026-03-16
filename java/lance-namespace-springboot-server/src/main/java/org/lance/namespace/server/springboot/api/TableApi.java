@@ -3505,7 +3505,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"schema\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"fields\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } }, { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } } ] }, \"metadata\" : { \"key\" : \"metadata\" }, \"table_uri\" : \"table_uri\", \"stats\" : { \"num_deleted_rows\" : 0, \"num_fragments\" : 0 }, \"namespace\" : [ \"namespace\", \"namespace\" ], \"location\" : \"location\", \"version\" : 0, \"table\" : \"table\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                      "{ \"schema\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"fields\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } }, { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } } ] }, \"is_only_declared\" : false, \"metadata\" : { \"key\" : \"metadata\" }, \"table_uri\" : \"table_uri\", \"stats\" : { \"num_deleted_rows\" : 0, \"num_fragments\" : 0 }, \"namespace\" : [ \"namespace\", \"namespace\" ], \"location\" : \"location\", \"version\" : 0, \"table\" : \"table\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -4784,10 +4784,12 @@ public interface TableApi {
 
   /**
    * POST /v1/table/{id}/insert : Insert records into a table Insert new records into table
-   * &#x60;id&#x60;. REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body.
-   * It passes in the &#x60;InsertIntoTableRequest&#x60; information in the following way: -
-   * &#x60;id&#x60;: pass through path parameter of the same name - &#x60;mode&#x60;: pass through
-   * query parameter of the same name
+   * &#x60;id&#x60;. For tables that have been declared but not yet created on storage
+   * (is_only_declared&#x3D;true), this operation will create the table with the provided data. REST
+   * NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
+   * &#x60;InsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;: pass
+   * through path parameter of the same name - &#x60;mode&#x60;: pass through query parameter of the
+   * same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -4818,7 +4820,7 @@ public interface TableApi {
       operationId = "insertIntoTable",
       summary = "Insert records into a table",
       description =
-          "Insert new records into table `id`.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `InsertIntoTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `mode`: pass through query parameter of the same name ",
+          "Insert new records into table `id`.  For tables that have been declared but not yet created on storage (is_only_declared=true), this operation will create the table with the provided data.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `InsertIntoTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `mode`: pass through query parameter of the same name ",
       tags = {"Table", "Data"},
       responses = {
         @ApiResponse(
@@ -5708,15 +5710,18 @@ public interface TableApi {
    * POST /v1/table/{id}/merge_insert : Merge insert (upsert) records into a table Performs a merge
    * insert (upsert) operation on table &#x60;id&#x60;. This operation updates existing rows based
    * on a matching column and inserts new rows that don&#39;t match. It returns the number of rows
-   * inserted and updated. REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request
-   * body. It passes in the &#x60;MergeInsertIntoTableRequest&#x60; information in the following
-   * way: - &#x60;id&#x60;: pass through path parameter of the same name - &#x60;on&#x60;: pass
-   * through query parameter of the same name - &#x60;when_matched_update_all&#x60;: pass through
-   * query parameter of the same name - &#x60;when_matched_update_all_filt&#x60;: pass through query
-   * parameter of the same name - &#x60;when_not_matched_insert_all&#x60;: pass through query
-   * parameter of the same name - &#x60;when_not_matched_by_source_delete&#x60;: pass through query
-   * parameter of the same name - &#x60;when_not_matched_by_source_delete_filt&#x60;: pass through
-   * query parameter of the same name
+   * inserted and updated. For tables that have been declared but not yet created on storage
+   * (is_only_declared&#x3D;true), this operation will create the table with the provided data
+   * (since there are no existing rows to merge with). REST NAMESPACE ONLY REST namespace uses Arrow
+   * IPC stream as the request body. It passes in the &#x60;MergeInsertIntoTableRequest&#x60;
+   * information in the following way: - &#x60;id&#x60;: pass through path parameter of the same
+   * name - &#x60;on&#x60;: pass through query parameter of the same name -
+   * &#x60;when_matched_update_all&#x60;: pass through query parameter of the same name -
+   * &#x60;when_matched_update_all_filt&#x60;: pass through query parameter of the same name -
+   * &#x60;when_not_matched_insert_all&#x60;: pass through query parameter of the same name -
+   * &#x60;when_not_matched_by_source_delete&#x60;: pass through query parameter of the same name -
+   * &#x60;when_not_matched_by_source_delete_filt&#x60;: pass through query parameter of the same
+   * name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -5755,7 +5760,7 @@ public interface TableApi {
       operationId = "mergeInsertIntoTable",
       summary = "Merge insert (upsert) records into a table",
       description =
-          "Performs a merge insert (upsert) operation on table `id`. This operation updates existing rows based on a matching column and inserts new rows that don't match. It returns the number of rows inserted and updated.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `MergeInsertIntoTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `on`: pass through query parameter of the same name - `when_matched_update_all`: pass through query parameter of the same name - `when_matched_update_all_filt`: pass through query parameter of the same name - `when_not_matched_insert_all`: pass through query parameter of the same name - `when_not_matched_by_source_delete`: pass through query parameter of the same name - `when_not_matched_by_source_delete_filt`: pass through query parameter of the same name ",
+          "Performs a merge insert (upsert) operation on table `id`. This operation updates existing rows based on a matching column and inserts new rows that don't match. It returns the number of rows inserted and updated.  For tables that have been declared but not yet created on storage (is_only_declared=true), this operation will create the table with the provided data (since there are no existing rows to merge with).  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `MergeInsertIntoTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `on`: pass through query parameter of the same name - `when_matched_update_all`: pass through query parameter of the same name - `when_matched_update_all_filt`: pass through query parameter of the same name - `when_not_matched_insert_all`: pass through query parameter of the same name - `when_not_matched_by_source_delete`: pass through query parameter of the same name - `when_not_matched_by_source_delete_filt`: pass through query parameter of the same name ",
       tags = {"Table", "Data"},
       responses = {
         @ApiResponse(

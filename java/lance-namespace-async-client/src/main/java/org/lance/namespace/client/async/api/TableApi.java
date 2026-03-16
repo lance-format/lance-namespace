@@ -4197,11 +4197,12 @@ public class TableApi {
   }
 
   /**
-   * Insert records into a table Insert new records into table &#x60;id&#x60;. REST NAMESPACE ONLY
-   * REST namespace uses Arrow IPC stream as the request body. It passes in the
-   * &#x60;InsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;: pass
-   * through path parameter of the same name - &#x60;mode&#x60;: pass through query parameter of the
-   * same name
+   * Insert records into a table Insert new records into table &#x60;id&#x60;. For tables that have
+   * been declared but not yet created on storage (is_only_declared&#x3D;true), this operation will
+   * create the table with the provided data. REST NAMESPACE ONLY REST namespace uses Arrow IPC
+   * stream as the request body. It passes in the &#x60;InsertIntoTableRequest&#x60; information in
+   * the following way: - &#x60;id&#x60;: pass through path parameter of the same name -
+   * &#x60;mode&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -4248,11 +4249,12 @@ public class TableApi {
   }
 
   /**
-   * Insert records into a table Insert new records into table &#x60;id&#x60;. REST NAMESPACE ONLY
-   * REST namespace uses Arrow IPC stream as the request body. It passes in the
-   * &#x60;InsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;: pass
-   * through path parameter of the same name - &#x60;mode&#x60;: pass through query parameter of the
-   * same name
+   * Insert records into a table Insert new records into table &#x60;id&#x60;. For tables that have
+   * been declared but not yet created on storage (is_only_declared&#x3D;true), this operation will
+   * create the table with the provided data. REST NAMESPACE ONLY REST namespace uses Arrow IPC
+   * stream as the request body. It passes in the &#x60;InsertIntoTableRequest&#x60; information in
+   * the following way: - &#x60;id&#x60;: pass through path parameter of the same name -
+   * &#x60;mode&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -5117,8 +5119,10 @@ public class TableApi {
   /**
    * Merge insert (upsert) records into a table Performs a merge insert (upsert) operation on table
    * &#x60;id&#x60;. This operation updates existing rows based on a matching column and inserts new
-   * rows that don&#39;t match. It returns the number of rows inserted and updated. REST NAMESPACE
-   * ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
+   * rows that don&#39;t match. It returns the number of rows inserted and updated. For tables that
+   * have been declared but not yet created on storage (is_only_declared&#x3D;true), this operation
+   * will create the table with the provided data (since there are no existing rows to merge with).
+   * REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
    * &#x60;MergeInsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;:
    * pass through path parameter of the same name - &#x60;on&#x60;: pass through query parameter of
    * the same name - &#x60;when_matched_update_all&#x60;: pass through query parameter of the same
@@ -5205,8 +5209,10 @@ public class TableApi {
   /**
    * Merge insert (upsert) records into a table Performs a merge insert (upsert) operation on table
    * &#x60;id&#x60;. This operation updates existing rows based on a matching column and inserts new
-   * rows that don&#39;t match. It returns the number of rows inserted and updated. REST NAMESPACE
-   * ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
+   * rows that don&#39;t match. It returns the number of rows inserted and updated. For tables that
+   * have been declared but not yet created on storage (is_only_declared&#x3D;true), this operation
+   * will create the table with the provided data (since there are no existing rows to merge with).
+   * REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
    * &#x60;MergeInsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;:
    * pass through path parameter of the same name - &#x60;on&#x60;: pass through query parameter of
    * the same name - &#x60;when_matched_update_all&#x60;: pass through query parameter of the same

@@ -67,7 +67,8 @@ class TestDescribeTableResponse(unittest.TestCase):
                     'key' : ''
                     },
                 properties = {owner=Ralph, created_at=1452120468},
-                managed_versioning = True
+                managed_versioning = True,
+                is_only_declared = True
             )
         else:
             return DescribeTableResponse(

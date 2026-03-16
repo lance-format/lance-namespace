@@ -46,6 +46,9 @@ pub struct DescribeTableResponse {
     /// When true, the caller should use namespace table version operations (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management. 
     #[serde(rename = "managed_versioning", skip_serializing_if = "Option::is_none")]
     pub managed_versioning: Option<bool>,
+    /// When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. Operations like describe_table with load_detailed_metadata=true may fail for such tables. 
+    #[serde(rename = "is_only_declared", skip_serializing_if = "Option::is_none")]
+    pub is_only_declared: Option<bool>,
 }
 
 impl DescribeTableResponse {
@@ -62,6 +65,7 @@ impl DescribeTableResponse {
             metadata: None,
             properties: None,
             managed_versioning: None,
+            is_only_declared: None,
         }
     }
 }

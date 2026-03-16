@@ -45,7 +45,8 @@ class TestListTablesRequest(unittest.TestCase):
                     ''
                     ],
                 page_token = '',
-                limit = 56
+                limit = 56,
+                list_declared = True
             )
         else:
             return ListTablesRequest(

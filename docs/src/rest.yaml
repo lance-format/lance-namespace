@@ -1026,6 +1026,10 @@ paths:
       description: |
         Insert new records into table `id`.
 
+        For tables that have been declared but not yet created on storage
+        (is_only_declared=true), this operation will create the table with
+        the provided data.
+
         REST NAMESPACE ONLY
         REST namespace uses Arrow IPC stream as the request body.
         It passes in the `InsertIntoTableRequest` information in the following way:
@@ -1121,6 +1125,10 @@ paths:
         This operation updates existing rows
         based on a matching column and inserts new rows that don't match.
         It returns the number of rows inserted and updated.
+
+        For tables that have been declared but not yet created on storage
+        (is_only_declared=true), this operation will create the table with
+        the provided data (since there are no existing rows to merge with).
 
         REST NAMESPACE ONLY
         REST namespace uses Arrow IPC stream as the request body.
@@ -2393,6 +2401,12 @@ components:
           $ref: "#/components/schemas/PageToken"
         limit:
           $ref: "#/components/schemas/PageLimit"
+        list_declared:
+          type: boolean
+          description: |
+            When true, includes tables that have been declared in the namespace
+            but not yet created on storage. Default is false.
+          default: false
 
     ListTablesResponse:
       type: object
@@ -2529,6 +2543,15 @@ components:
             When true, the caller should use namespace table version operations
             (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions)
             to manage table versions instead of relying on Lance's native version management.
+        is_only_declared:
+          type: boolean
+          description: |
+            When true, indicates that the table has been declared in the namespace
+            but not yet created on storage. This means the table exists in the
+            namespace but has no data files on the underlying storage.
+            Operations like describe_table with load_detailed_metadata=true may fail
+            for such tables.
+          default: false
 
     TableBasicStats:
       type: object

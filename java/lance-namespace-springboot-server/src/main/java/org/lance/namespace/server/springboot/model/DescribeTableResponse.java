@@ -54,6 +54,8 @@ public class DescribeTableResponse {
 
   private Boolean managedVersioning;
 
+  private Boolean isOnlyDeclared = false;
+
   public DescribeTableResponse table(String table) {
     this.table = table;
     return this;
@@ -362,6 +364,33 @@ public class DescribeTableResponse {
     this.managedVersioning = managedVersioning;
   }
 
+  public DescribeTableResponse isOnlyDeclared(Boolean isOnlyDeclared) {
+    this.isOnlyDeclared = isOnlyDeclared;
+    return this;
+  }
+
+  /**
+   * When true, indicates that the table has been declared in the namespace but not yet created on
+   * storage. This means the table exists in the namespace but has no data files on the underlying
+   * storage. Operations like describe_table with load_detailed_metadata=true may fail for such
+   * tables.
+   *
+   * @return isOnlyDeclared
+   */
+  @Schema(
+      name = "is_only_declared",
+      description =
+          "When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. Operations like describe_table with load_detailed_metadata=true may fail for such tables. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("is_only_declared")
+  public Boolean getIsOnlyDeclared() {
+    return isOnlyDeclared;
+  }
+
+  public void setIsOnlyDeclared(Boolean isOnlyDeclared) {
+    this.isOnlyDeclared = isOnlyDeclared;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -381,7 +410,8 @@ public class DescribeTableResponse {
         && Objects.equals(this.stats, describeTableResponse.stats)
         && Objects.equals(this.metadata, describeTableResponse.metadata)
         && Objects.equals(this.properties, describeTableResponse.properties)
-        && Objects.equals(this.managedVersioning, describeTableResponse.managedVersioning);
+        && Objects.equals(this.managedVersioning, describeTableResponse.managedVersioning)
+        && Objects.equals(this.isOnlyDeclared, describeTableResponse.isOnlyDeclared);
   }
 
   @Override
@@ -397,7 +427,8 @@ public class DescribeTableResponse {
         stats,
         metadata,
         properties,
-        managedVersioning);
+        managedVersioning,
+        isOnlyDeclared);
   }
 
   @Override
@@ -415,6 +446,7 @@ public class DescribeTableResponse {
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
     sb.append("    managedVersioning: ").append(toIndentedString(managedVersioning)).append("\n");
+    sb.append("    isOnlyDeclared: ").append(toIndentedString(isOnlyDeclared)).append("\n");
     sb.append("}");
     return sb.toString();
   }

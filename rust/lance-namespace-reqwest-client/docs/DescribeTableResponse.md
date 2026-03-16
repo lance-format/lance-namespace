@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Optional table metadata as key-value pairs. This records the information of the table and requires loading the table. It is only populated when `load_detailed_metadata` is true.  | [optional]
 **properties** | Option<**std::collections::HashMap<String, String>**> | Properties stored on the table, if supported by the server. This records the information managed by the namespace. If the server does not support table properties, it should return null for this field. If table properties are supported, but none are set, it should return an empty object. | [optional][default to {}]
 **managed_versioning** | Option<**bool**> | When true, the caller should use namespace table version operations (CreateTableVersion, BatchCreateTableVersions, DescribeTableVersion, ListTableVersions, BatchDeleteTableVersions) to manage table versions instead of relying on Lance's native version management.  | [optional]
+**is_only_declared** | Option<**bool**> | When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. Operations like describe_table with load_detailed_metadata=true may fail for such tables.  | [optional][default to false]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

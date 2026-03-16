@@ -42,6 +42,8 @@ public class ListTablesRequest {
 
   private Integer limit;
 
+  private Boolean listDeclared = false;
+
   public ListTablesRequest identity(Identity identity) {
     this.identity = identity;
     return this;
@@ -181,6 +183,31 @@ public class ListTablesRequest {
     this.limit = limit;
   }
 
+  public ListTablesRequest listDeclared(Boolean listDeclared) {
+    this.listDeclared = listDeclared;
+    return this;
+  }
+
+  /**
+   * When true, includes tables that have been declared in the namespace but not yet created on
+   * storage. Default is false.
+   *
+   * @return listDeclared
+   */
+  @Schema(
+      name = "list_declared",
+      description =
+          "When true, includes tables that have been declared in the namespace but not yet created on storage. Default is false. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("list_declared")
+  public Boolean getListDeclared() {
+    return listDeclared;
+  }
+
+  public void setListDeclared(Boolean listDeclared) {
+    this.listDeclared = listDeclared;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -194,12 +221,13 @@ public class ListTablesRequest {
         && Objects.equals(this.context, listTablesRequest.context)
         && Objects.equals(this.id, listTablesRequest.id)
         && Objects.equals(this.pageToken, listTablesRequest.pageToken)
-        && Objects.equals(this.limit, listTablesRequest.limit);
+        && Objects.equals(this.limit, listTablesRequest.limit)
+        && Objects.equals(this.listDeclared, listTablesRequest.listDeclared);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, pageToken, limit);
+    return Objects.hash(identity, context, id, pageToken, limit, listDeclared);
   }
 
   @Override
@@ -211,6 +239,7 @@ public class ListTablesRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    pageToken: ").append(toIndentedString(pageToken)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    listDeclared: ").append(toIndentedString(listDeclared)).append("\n");
     sb.append("}");
     return sb.toString();
   }
