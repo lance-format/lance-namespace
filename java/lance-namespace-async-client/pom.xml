@@ -105,6 +105,14 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <release>11</release>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
