@@ -31,7 +31,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class UpdateTableSchemaMetadataResponse {
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable private Map<String, String> metadata = new HashMap<>();
@@ -61,13 +61,13 @@ public class UpdateTableSchemaMetadataResponse {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -85,13 +85,13 @@ public class UpdateTableSchemaMetadataResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -174,12 +174,14 @@ public class UpdateTableSchemaMetadataResponse {
       for (String _key : getMetadata().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%smetadata%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getMetadata().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getMetadata().get(_key)))));
       }
@@ -189,8 +191,11 @@ public class UpdateTableSchemaMetadataResponse {
     if (getTransactionId() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%stransaction_id%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
     }
 
     return joiner.toString();

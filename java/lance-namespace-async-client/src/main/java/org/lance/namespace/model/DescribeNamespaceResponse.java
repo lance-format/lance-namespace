@@ -28,7 +28,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({DescribeNamespaceResponse.JSON_PROPERTY_PROPERTIES})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DescribeNamespaceResponse {
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
   @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
@@ -57,13 +57,13 @@ public class DescribeNamespaceResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -143,12 +143,14 @@ public class DescribeNamespaceResponse {
       for (String _key : getProperties().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sproperties%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getProperties().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getProperties().get(_key)))));
       }

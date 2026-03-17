@@ -4,7 +4,7 @@ Lance Namespace Specification
 
 - API version: 1.0.0
 
-- Generator version: 7.12.0
+- Generator version: 7.20.0
 
 This OpenAPI specification is a part of the Lance namespace specification. It contains 2 parts:
 

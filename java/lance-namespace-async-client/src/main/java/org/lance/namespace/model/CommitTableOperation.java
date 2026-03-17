@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CommitTableOperation {
   public static final String JSON_PROPERTY_DECLARE_TABLE = "declare_table";
   @javax.annotation.Nullable private DeclareTableRequest declareTable;
@@ -60,13 +60,13 @@ public class CommitTableOperation {
    * @return declareTable
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DECLARE_TABLE)
+  @JsonProperty(value = JSON_PROPERTY_DECLARE_TABLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public DeclareTableRequest getDeclareTable() {
     return declareTable;
   }
 
-  @JsonProperty(JSON_PROPERTY_DECLARE_TABLE)
+  @JsonProperty(value = JSON_PROPERTY_DECLARE_TABLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeclareTable(@javax.annotation.Nullable DeclareTableRequest declareTable) {
     this.declareTable = declareTable;
@@ -84,13 +84,13 @@ public class CommitTableOperation {
    * @return createTableVersion
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATE_TABLE_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_CREATE_TABLE_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public CreateTableVersionRequest getCreateTableVersion() {
     return createTableVersion;
   }
 
-  @JsonProperty(JSON_PROPERTY_CREATE_TABLE_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_CREATE_TABLE_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreateTableVersion(
       @javax.annotation.Nullable CreateTableVersionRequest createTableVersion) {
@@ -109,13 +109,13 @@ public class CommitTableOperation {
    * @return deleteTableVersions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DELETE_TABLE_VERSIONS)
+  @JsonProperty(value = JSON_PROPERTY_DELETE_TABLE_VERSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public BatchDeleteTableVersionsRequest getDeleteTableVersions() {
     return deleteTableVersions;
   }
 
-  @JsonProperty(JSON_PROPERTY_DELETE_TABLE_VERSIONS)
+  @JsonProperty(value = JSON_PROPERTY_DELETE_TABLE_VERSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeleteTableVersions(
       @javax.annotation.Nullable BatchDeleteTableVersionsRequest deleteTableVersions) {
@@ -134,13 +134,13 @@ public class CommitTableOperation {
    * @return deregisterTable
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEREGISTER_TABLE)
+  @JsonProperty(value = JSON_PROPERTY_DEREGISTER_TABLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public DeregisterTableRequest getDeregisterTable() {
     return deregisterTable;
   }
 
-  @JsonProperty(JSON_PROPERTY_DEREGISTER_TABLE)
+  @JsonProperty(value = JSON_PROPERTY_DEREGISTER_TABLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeregisterTable(
       @javax.annotation.Nullable DeregisterTableRequest deregisterTable) {

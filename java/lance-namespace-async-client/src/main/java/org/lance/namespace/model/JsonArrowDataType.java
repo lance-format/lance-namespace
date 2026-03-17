@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class JsonArrowDataType {
   public static final String JSON_PROPERTY_FIELDS = "fields";
   @javax.annotation.Nullable private List<JsonArrowField> fields = new ArrayList<>();
@@ -64,13 +64,13 @@ public class JsonArrowDataType {
    * @return fields
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FIELDS)
+  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<JsonArrowField> getFields() {
     return fields;
   }
 
-  @JsonProperty(JSON_PROPERTY_FIELDS)
+  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFields(@javax.annotation.Nullable List<JsonArrowField> fields) {
     this.fields = fields;
@@ -87,13 +87,13 @@ public class JsonArrowDataType {
    * @return length
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LENGTH)
+  @JsonProperty(value = JSON_PROPERTY_LENGTH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getLength() {
     return length;
   }
 
-  @JsonProperty(JSON_PROPERTY_LENGTH)
+  @JsonProperty(value = JSON_PROPERTY_LENGTH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLength(@javax.annotation.Nullable Long length) {
     this.length = length;
@@ -110,13 +110,13 @@ public class JsonArrowDataType {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getType() {
     return type;
   }
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
@@ -204,12 +204,18 @@ public class JsonArrowDataType {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%sfields%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }
@@ -218,16 +224,22 @@ public class JsonArrowDataType {
     if (getLength() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%slength%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLength()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getLength()))));
     }
 
     // add `type` to the URL query string
     if (getType() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%stype%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getType()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getType()))));
     }
 
     return joiner.toString();

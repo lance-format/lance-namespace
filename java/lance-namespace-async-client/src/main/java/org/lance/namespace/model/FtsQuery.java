@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class FtsQuery {
   public static final String JSON_PROPERTY_MATCH = "match";
   @javax.annotation.Nullable private MatchQuery match;
@@ -64,13 +64,13 @@ public class FtsQuery {
    * @return match
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MATCH)
+  @JsonProperty(value = JSON_PROPERTY_MATCH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public MatchQuery getMatch() {
     return match;
   }
 
-  @JsonProperty(JSON_PROPERTY_MATCH)
+  @JsonProperty(value = JSON_PROPERTY_MATCH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMatch(@javax.annotation.Nullable MatchQuery match) {
     this.match = match;
@@ -87,13 +87,13 @@ public class FtsQuery {
    * @return phrase
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PHRASE)
+  @JsonProperty(value = JSON_PROPERTY_PHRASE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public PhraseQuery getPhrase() {
     return phrase;
   }
 
-  @JsonProperty(JSON_PROPERTY_PHRASE)
+  @JsonProperty(value = JSON_PROPERTY_PHRASE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhrase(@javax.annotation.Nullable PhraseQuery phrase) {
     this.phrase = phrase;
@@ -110,13 +110,13 @@ public class FtsQuery {
    * @return boost
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BOOST)
+  @JsonProperty(value = JSON_PROPERTY_BOOST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public BoostQuery getBoost() {
     return boost;
   }
 
-  @JsonProperty(JSON_PROPERTY_BOOST)
+  @JsonProperty(value = JSON_PROPERTY_BOOST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBoost(@javax.annotation.Nullable BoostQuery boost) {
     this.boost = boost;
@@ -133,13 +133,13 @@ public class FtsQuery {
    * @return multiMatch
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MULTI_MATCH)
+  @JsonProperty(value = JSON_PROPERTY_MULTI_MATCH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public MultiMatchQuery getMultiMatch() {
     return multiMatch;
   }
 
-  @JsonProperty(JSON_PROPERTY_MULTI_MATCH)
+  @JsonProperty(value = JSON_PROPERTY_MULTI_MATCH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMultiMatch(@javax.annotation.Nullable MultiMatchQuery multiMatch) {
     this.multiMatch = multiMatch;
@@ -156,13 +156,13 @@ public class FtsQuery {
    * @return _boolean
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BOOLEAN)
+  @JsonProperty(value = JSON_PROPERTY_BOOLEAN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public BooleanQuery getBoolean() {
     return _boolean;
   }
 
-  @JsonProperty(JSON_PROPERTY_BOOLEAN)
+  @JsonProperty(value = JSON_PROPERTY_BOOLEAN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBoolean(@javax.annotation.Nullable BooleanQuery _boolean) {
     this._boolean = _boolean;

@@ -40,7 +40,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class UpdateTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -73,13 +73,13 @@ public class UpdateTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -108,13 +108,13 @@ public class UpdateTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -139,13 +139,13 @@ public class UpdateTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -162,13 +162,13 @@ public class UpdateTableRequest {
    * @return predicate
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PREDICATE)
+  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPredicate() {
     return predicate;
   }
 
-  @JsonProperty(JSON_PROPERTY_PREDICATE)
+  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPredicate(@javax.annotation.Nullable String predicate) {
     this.predicate = predicate;
@@ -193,13 +193,13 @@ public class UpdateTableRequest {
    * @return updates
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UPDATES)
+  @JsonProperty(value = JSON_PROPERTY_UPDATES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<List<String>> getUpdates() {
     return updates;
   }
 
-  @JsonProperty(JSON_PROPERTY_UPDATES)
+  @JsonProperty(value = JSON_PROPERTY_UPDATES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUpdates(@javax.annotation.Nonnull List<List<String>> updates) {
     this.updates = updates;
@@ -224,13 +224,13 @@ public class UpdateTableRequest {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -325,12 +325,14 @@ public class UpdateTableRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -341,12 +343,14 @@ public class UpdateTableRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -355,8 +359,11 @@ public class UpdateTableRequest {
     if (getPredicate() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%spredicate%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPredicate()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getPredicate()))));
     }
 
     // add `updates` to the URL query string
@@ -364,12 +371,14 @@ public class UpdateTableRequest {
       for (int i = 0; i < getUpdates().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%supdates%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getUpdates().get(i)))));
       }
     }
@@ -379,12 +388,14 @@ public class UpdateTableRequest {
       for (String _key : getProperties().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sproperties%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getProperties().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getProperties().get(_key)))));
       }

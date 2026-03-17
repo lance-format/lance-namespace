@@ -38,7 +38,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class BatchDeleteTableVersionsRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -65,13 +65,13 @@ public class BatchDeleteTableVersionsRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -101,13 +101,13 @@ public class BatchDeleteTableVersionsRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -132,13 +132,13 @@ public class BatchDeleteTableVersionsRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -165,13 +165,13 @@ public class BatchDeleteTableVersionsRequest {
    * @return ranges
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RANGES)
+  @JsonProperty(value = JSON_PROPERTY_RANGES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<VersionRange> getRanges() {
     return ranges;
   }
 
-  @JsonProperty(JSON_PROPERTY_RANGES)
+  @JsonProperty(value = JSON_PROPERTY_RANGES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setRanges(@javax.annotation.Nonnull List<VersionRange> ranges) {
     this.ranges = ranges;
@@ -263,12 +263,14 @@ public class BatchDeleteTableVersionsRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -279,12 +281,14 @@ public class BatchDeleteTableVersionsRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -298,12 +302,18 @@ public class BatchDeleteTableVersionsRequest {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%sranges%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }

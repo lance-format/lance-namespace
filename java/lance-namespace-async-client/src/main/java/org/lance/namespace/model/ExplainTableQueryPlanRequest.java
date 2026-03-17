@@ -36,7 +36,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class ExplainTableQueryPlanRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -66,13 +66,13 @@ public class ExplainTableQueryPlanRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -102,13 +102,13 @@ public class ExplainTableQueryPlanRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -133,13 +133,13 @@ public class ExplainTableQueryPlanRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -156,13 +156,13 @@ public class ExplainTableQueryPlanRequest {
    * @return query
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_QUERY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public QueryTableRequest getQuery() {
     return query;
   }
 
-  @JsonProperty(JSON_PROPERTY_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_QUERY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setQuery(@javax.annotation.Nonnull QueryTableRequest query) {
     this.query = query;
@@ -179,13 +179,13 @@ public class ExplainTableQueryPlanRequest {
    * @return verbose
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERBOSE)
+  @JsonProperty(value = JSON_PROPERTY_VERBOSE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getVerbose() {
     return verbose;
   }
 
-  @JsonProperty(JSON_PROPERTY_VERBOSE)
+  @JsonProperty(value = JSON_PROPERTY_VERBOSE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVerbose(@javax.annotation.Nullable Boolean verbose) {
     this.verbose = verbose;
@@ -278,12 +278,14 @@ public class ExplainTableQueryPlanRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -294,12 +296,14 @@ public class ExplainTableQueryPlanRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -313,8 +317,11 @@ public class ExplainTableQueryPlanRequest {
     if (getVerbose() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sverbose%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVerbose()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getVerbose()))));
     }
 
     return joiner.toString();

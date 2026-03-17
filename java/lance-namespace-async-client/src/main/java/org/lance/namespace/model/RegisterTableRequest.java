@@ -37,7 +37,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class RegisterTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -70,13 +70,13 @@ public class RegisterTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -105,13 +105,13 @@ public class RegisterTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -136,13 +136,13 @@ public class RegisterTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -159,13 +159,13 @@ public class RegisterTableRequest {
    * @return location
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getLocation() {
     return location;
   }
 
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLocation(@javax.annotation.Nonnull String location) {
     this.location = location;
@@ -185,13 +185,13 @@ public class RegisterTableRequest {
    * @return mode
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MODE)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getMode() {
     return mode;
   }
 
-  @JsonProperty(JSON_PROPERTY_MODE)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMode(@javax.annotation.Nullable String mode) {
     this.mode = mode;
@@ -217,13 +217,13 @@ public class RegisterTableRequest {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -318,12 +318,14 @@ public class RegisterTableRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -334,12 +336,14 @@ public class RegisterTableRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -348,16 +352,22 @@ public class RegisterTableRequest {
     if (getLocation() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%slocation%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLocation()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getLocation()))));
     }
 
     // add `mode` to the URL query string
     if (getMode() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%smode%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
     }
 
     // add `properties` to the URL query string
@@ -365,12 +375,14 @@ public class RegisterTableRequest {
       for (String _key : getProperties().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sproperties%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getProperties().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getProperties().get(_key)))));
       }

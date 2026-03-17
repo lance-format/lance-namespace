@@ -36,7 +36,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CountTableRowsRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -66,13 +66,13 @@ public class CountTableRowsRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -101,13 +101,13 @@ public class CountTableRowsRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -132,13 +132,13 @@ public class CountTableRowsRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -156,13 +156,13 @@ public class CountTableRowsRequest {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -179,13 +179,13 @@ public class CountTableRowsRequest {
    * @return predicate
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PREDICATE)
+  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPredicate() {
     return predicate;
   }
 
-  @JsonProperty(JSON_PROPERTY_PREDICATE)
+  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPredicate(@javax.annotation.Nullable String predicate) {
     this.predicate = predicate;
@@ -278,12 +278,14 @@ public class CountTableRowsRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -294,12 +296,14 @@ public class CountTableRowsRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -308,16 +312,22 @@ public class CountTableRowsRequest {
     if (getVersion() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sversion%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
     }
 
     // add `predicate` to the URL query string
     if (getPredicate() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%spredicate%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPredicate()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getPredicate()))));
     }
 
     return joiner.toString();

@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class QueryTableRequestVector {
   public static final String JSON_PROPERTY_SINGLE_VECTOR = "single_vector";
   @javax.annotation.Nullable private List<Float> singleVector = new ArrayList<>();
@@ -62,13 +62,13 @@ public class QueryTableRequestVector {
    * @return singleVector
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SINGLE_VECTOR)
+  @JsonProperty(value = JSON_PROPERTY_SINGLE_VECTOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Float> getSingleVector() {
     return singleVector;
   }
 
-  @JsonProperty(JSON_PROPERTY_SINGLE_VECTOR)
+  @JsonProperty(value = JSON_PROPERTY_SINGLE_VECTOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSingleVector(@javax.annotation.Nullable List<Float> singleVector) {
     this.singleVector = singleVector;
@@ -94,13 +94,13 @@ public class QueryTableRequestVector {
    * @return multiVector
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MULTI_VECTOR)
+  @JsonProperty(value = JSON_PROPERTY_MULTI_VECTOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<List<Float>> getMultiVector() {
     return multiVector;
   }
 
-  @JsonProperty(JSON_PROPERTY_MULTI_VECTOR)
+  @JsonProperty(value = JSON_PROPERTY_MULTI_VECTOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMultiVector(@javax.annotation.Nullable List<List<Float>> multiVector) {
     this.multiVector = multiVector;
@@ -182,12 +182,14 @@ public class QueryTableRequestVector {
       for (int i = 0; i < getSingleVector().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%ssingle_vector%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getSingleVector().get(i)))));
       }
     }
@@ -197,12 +199,14 @@ public class QueryTableRequestVector {
       for (int i = 0; i < getMultiVector().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%smulti_vector%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getMultiVector().get(i)))));
       }
     }

@@ -42,7 +42,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class MergeInsertIntoTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -94,13 +94,13 @@ public class MergeInsertIntoTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -130,13 +130,13 @@ public class MergeInsertIntoTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -161,13 +161,13 @@ public class MergeInsertIntoTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -184,13 +184,13 @@ public class MergeInsertIntoTableRequest {
    * @return on
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ON)
+  @JsonProperty(value = JSON_PROPERTY_ON, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getOn() {
     return on;
   }
 
-  @JsonProperty(JSON_PROPERTY_ON)
+  @JsonProperty(value = JSON_PROPERTY_ON, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOn(@javax.annotation.Nullable String on) {
     this.on = on;
@@ -208,13 +208,13 @@ public class MergeInsertIntoTableRequest {
    * @return whenMatchedUpdateAll
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getWhenMatchedUpdateAll() {
     return whenMatchedUpdateAll;
   }
 
-  @JsonProperty(JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhenMatchedUpdateAll(@javax.annotation.Nullable Boolean whenMatchedUpdateAll) {
     this.whenMatchedUpdateAll = whenMatchedUpdateAll;
@@ -233,13 +233,13 @@ public class MergeInsertIntoTableRequest {
    * @return whenMatchedUpdateAllFilt
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL_FILT)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL_FILT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getWhenMatchedUpdateAllFilt() {
     return whenMatchedUpdateAllFilt;
   }
 
-  @JsonProperty(JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL_FILT)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_MATCHED_UPDATE_ALL_FILT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhenMatchedUpdateAllFilt(
       @javax.annotation.Nullable String whenMatchedUpdateAllFilt) {
@@ -258,13 +258,13 @@ public class MergeInsertIntoTableRequest {
    * @return whenNotMatchedInsertAll
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WHEN_NOT_MATCHED_INSERT_ALL)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_NOT_MATCHED_INSERT_ALL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getWhenNotMatchedInsertAll() {
     return whenNotMatchedInsertAll;
   }
 
-  @JsonProperty(JSON_PROPERTY_WHEN_NOT_MATCHED_INSERT_ALL)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_NOT_MATCHED_INSERT_ALL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhenNotMatchedInsertAll(
       @javax.annotation.Nullable Boolean whenNotMatchedInsertAll) {
@@ -283,13 +283,13 @@ public class MergeInsertIntoTableRequest {
    * @return whenNotMatchedBySourceDelete
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getWhenNotMatchedBySourceDelete() {
     return whenNotMatchedBySourceDelete;
   }
 
-  @JsonProperty(JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhenNotMatchedBySourceDelete(
       @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete) {
@@ -308,13 +308,13 @@ public class MergeInsertIntoTableRequest {
    * @return whenNotMatchedBySourceDeleteFilt
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE_FILT)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE_FILT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getWhenNotMatchedBySourceDeleteFilt() {
     return whenNotMatchedBySourceDeleteFilt;
   }
 
-  @JsonProperty(JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE_FILT)
+  @JsonProperty(value = JSON_PROPERTY_WHEN_NOT_MATCHED_BY_SOURCE_DELETE_FILT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWhenNotMatchedBySourceDeleteFilt(
       @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt) {
@@ -332,13 +332,13 @@ public class MergeInsertIntoTableRequest {
    * @return timeout
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @JsonProperty(value = JSON_PROPERTY_TIMEOUT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTimeout() {
     return timeout;
   }
 
-  @JsonProperty(JSON_PROPERTY_TIMEOUT)
+  @JsonProperty(value = JSON_PROPERTY_TIMEOUT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimeout(@javax.annotation.Nullable String timeout) {
     this.timeout = timeout;
@@ -355,13 +355,13 @@ public class MergeInsertIntoTableRequest {
    * @return useIndex
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USE_INDEX)
+  @JsonProperty(value = JSON_PROPERTY_USE_INDEX, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getUseIndex() {
     return useIndex;
   }
 
-  @JsonProperty(JSON_PROPERTY_USE_INDEX)
+  @JsonProperty(value = JSON_PROPERTY_USE_INDEX, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUseIndex(@javax.annotation.Nullable Boolean useIndex) {
     this.useIndex = useIndex;
@@ -494,12 +494,14 @@ public class MergeInsertIntoTableRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -510,12 +512,14 @@ public class MergeInsertIntoTableRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -524,13 +528,18 @@ public class MergeInsertIntoTableRequest {
     if (getOn() != null) {
       joiner.add(
           String.format(
-              "%son%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOn()))));
+              java.util.Locale.ROOT,
+              "%son%s=%s",
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getOn()))));
     }
 
     // add `when_matched_update_all` to the URL query string
     if (getWhenMatchedUpdateAll() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%swhen_matched_update_all%s=%s",
               prefix,
               suffix,
@@ -541,6 +550,7 @@ public class MergeInsertIntoTableRequest {
     if (getWhenMatchedUpdateAllFilt() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%swhen_matched_update_all_filt%s=%s",
               prefix,
               suffix,
@@ -551,6 +561,7 @@ public class MergeInsertIntoTableRequest {
     if (getWhenNotMatchedInsertAll() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%swhen_not_matched_insert_all%s=%s",
               prefix,
               suffix,
@@ -561,6 +572,7 @@ public class MergeInsertIntoTableRequest {
     if (getWhenNotMatchedBySourceDelete() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%swhen_not_matched_by_source_delete%s=%s",
               prefix,
               suffix,
@@ -571,6 +583,7 @@ public class MergeInsertIntoTableRequest {
     if (getWhenNotMatchedBySourceDeleteFilt() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%swhen_not_matched_by_source_delete_filt%s=%s",
               prefix,
               suffix,
@@ -581,16 +594,22 @@ public class MergeInsertIntoTableRequest {
     if (getTimeout() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%stimeout%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTimeout()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getTimeout()))));
     }
 
     // add `use_index` to the URL query string
     if (getUseIndex() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%suse_index%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getUseIndex()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getUseIndex()))));
     }
 
     return joiner.toString();

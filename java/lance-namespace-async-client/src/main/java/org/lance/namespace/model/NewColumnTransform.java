@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class NewColumnTransform {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull private String name;
@@ -54,13 +54,13 @@ public class NewColumnTransform {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getName() {
     return name;
   }
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
@@ -77,13 +77,13 @@ public class NewColumnTransform {
    * @return expression
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXPRESSION)
+  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getExpression() {
     return expression;
   }
 
-  @JsonProperty(JSON_PROPERTY_EXPRESSION)
+  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpression(@javax.annotation.Nullable String expression) {
     this.expression = expression;
@@ -101,13 +101,13 @@ public class NewColumnTransform {
    * @return virtualColumn
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VIRTUAL_COLUMN)
+  @JsonProperty(value = JSON_PROPERTY_VIRTUAL_COLUMN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public AddVirtualColumnEntry getVirtualColumn() {
     return virtualColumn;
   }
 
-  @JsonProperty(JSON_PROPERTY_VIRTUAL_COLUMN)
+  @JsonProperty(value = JSON_PROPERTY_VIRTUAL_COLUMN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVirtualColumn(@javax.annotation.Nullable AddVirtualColumnEntry virtualColumn) {
     this.virtualColumn = virtualColumn;
@@ -190,16 +190,22 @@ public class NewColumnTransform {
     if (getName() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sname%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getName()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getName()))));
     }
 
     // add `expression` to the URL query string
     if (getExpression() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sexpression%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getExpression()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getExpression()))));
     }
 
     // add `virtual_column` to the URL query string

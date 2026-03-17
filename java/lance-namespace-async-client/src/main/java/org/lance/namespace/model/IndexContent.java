@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class IndexContent {
   public static final String JSON_PROPERTY_INDEX_NAME = "index_name";
   @javax.annotation.Nonnull private String indexName;
@@ -60,13 +60,13 @@ public class IndexContent {
    * @return indexName
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INDEX_NAME)
+  @JsonProperty(value = JSON_PROPERTY_INDEX_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getIndexName() {
     return indexName;
   }
 
-  @JsonProperty(JSON_PROPERTY_INDEX_NAME)
+  @JsonProperty(value = JSON_PROPERTY_INDEX_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIndexName(@javax.annotation.Nonnull String indexName) {
     this.indexName = indexName;
@@ -83,13 +83,13 @@ public class IndexContent {
    * @return indexUuid
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INDEX_UUID)
+  @JsonProperty(value = JSON_PROPERTY_INDEX_UUID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getIndexUuid() {
     return indexUuid;
   }
 
-  @JsonProperty(JSON_PROPERTY_INDEX_UUID)
+  @JsonProperty(value = JSON_PROPERTY_INDEX_UUID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIndexUuid(@javax.annotation.Nonnull String indexUuid) {
     this.indexUuid = indexUuid;
@@ -114,13 +114,13 @@ public class IndexContent {
    * @return columns
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_COLUMNS)
+  @JsonProperty(value = JSON_PROPERTY_COLUMNS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<String> getColumns() {
     return columns;
   }
 
-  @JsonProperty(JSON_PROPERTY_COLUMNS)
+  @JsonProperty(value = JSON_PROPERTY_COLUMNS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setColumns(@javax.annotation.Nonnull List<String> columns) {
     this.columns = columns;
@@ -137,13 +137,13 @@ public class IndexContent {
    * @return status
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getStatus() {
     return status;
   }
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStatus(@javax.annotation.Nonnull String status) {
     this.status = status;
@@ -228,16 +228,22 @@ public class IndexContent {
     if (getIndexName() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sindex_name%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIndexName()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getIndexName()))));
     }
 
     // add `index_uuid` to the URL query string
     if (getIndexUuid() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sindex_uuid%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIndexUuid()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getIndexUuid()))));
     }
 
     // add `columns` to the URL query string
@@ -245,12 +251,14 @@ public class IndexContent {
       for (int i = 0; i < getColumns().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scolumns%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getColumns().get(i)))));
       }
     }
@@ -259,8 +267,11 @@ public class IndexContent {
     if (getStatus() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sstatus%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
     }
 
     return joiner.toString();

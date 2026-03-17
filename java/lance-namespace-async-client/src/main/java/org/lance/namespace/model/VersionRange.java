@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class VersionRange {
   public static final String JSON_PROPERTY_START_VERSION = "start_version";
   @javax.annotation.Nonnull private Long startVersion;
@@ -53,13 +53,13 @@ public class VersionRange {
    * @return startVersion
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_START_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_START_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getStartVersion() {
     return startVersion;
   }
 
-  @JsonProperty(JSON_PROPERTY_START_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_START_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStartVersion(@javax.annotation.Nonnull Long startVersion) {
     this.startVersion = startVersion;
@@ -77,13 +77,13 @@ public class VersionRange {
    * @return endVersion
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_END_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_END_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getEndVersion() {
     return endVersion;
   }
 
-  @JsonProperty(JSON_PROPERTY_END_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_END_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEndVersion(@javax.annotation.Nonnull Long endVersion) {
     this.endVersion = endVersion;
@@ -164,16 +164,22 @@ public class VersionRange {
     if (getStartVersion() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sstart_version%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStartVersion()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getStartVersion()))));
     }
 
     // add `end_version` to the URL query string
     if (getEndVersion() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%send_version%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getEndVersion()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getEndVersion()))));
     }
 
     return joiner.toString();

@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTransactionUnsetProperty {
   public static final String JSON_PROPERTY_KEY = "key";
   @javax.annotation.Nullable private String key;
@@ -50,13 +50,13 @@ public class AlterTransactionUnsetProperty {
    * @return key
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getKey() {
     return key;
   }
 
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKey(@javax.annotation.Nullable String key) {
     this.key = key;
@@ -75,13 +75,13 @@ public class AlterTransactionUnsetProperty {
    * @return mode
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MODE)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getMode() {
     return mode;
   }
 
-  @JsonProperty(JSON_PROPERTY_MODE)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMode(@javax.annotation.Nullable String mode) {
     this.mode = mode;
@@ -162,16 +162,22 @@ public class AlterTransactionUnsetProperty {
     if (getKey() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%skey%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getKey()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getKey()))));
     }
 
     // add `mode` to the URL query string
     if (getMode() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%smode%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
     }
 
     return joiner.toString();

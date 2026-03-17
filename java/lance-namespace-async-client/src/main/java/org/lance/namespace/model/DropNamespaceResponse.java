@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DropNamespaceResponse {
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
   @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
@@ -64,13 +64,13 @@ public class DropNamespaceResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -97,13 +97,13 @@ public class DropNamespaceResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable List<String> transactionId) {
     this.transactionId = transactionId;
@@ -185,12 +185,14 @@ public class DropNamespaceResponse {
       for (String _key : getProperties().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sproperties%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getProperties().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getProperties().get(_key)))));
       }
@@ -201,12 +203,14 @@ public class DropNamespaceResponse {
       for (int i = 0; i < getTransactionId().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%stransaction_id%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getTransactionId().get(i)))));
       }
     }

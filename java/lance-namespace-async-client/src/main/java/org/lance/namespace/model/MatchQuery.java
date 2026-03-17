@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class MatchQuery {
   public static final String JSON_PROPERTY_BOOST = "boost";
   @javax.annotation.Nullable private Float boost;
@@ -70,13 +70,13 @@ public class MatchQuery {
    * @return boost
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BOOST)
+  @JsonProperty(value = JSON_PROPERTY_BOOST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Float getBoost() {
     return boost;
   }
 
-  @JsonProperty(JSON_PROPERTY_BOOST)
+  @JsonProperty(value = JSON_PROPERTY_BOOST, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBoost(@javax.annotation.Nullable Float boost) {
     this.boost = boost;
@@ -93,13 +93,13 @@ public class MatchQuery {
    * @return column
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COLUMN)
+  @JsonProperty(value = JSON_PROPERTY_COLUMN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getColumn() {
     return column;
   }
 
-  @JsonProperty(JSON_PROPERTY_COLUMN)
+  @JsonProperty(value = JSON_PROPERTY_COLUMN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setColumn(@javax.annotation.Nullable String column) {
     this.column = column;
@@ -116,13 +116,13 @@ public class MatchQuery {
    * @return fuzziness
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FUZZINESS)
+  @JsonProperty(value = JSON_PROPERTY_FUZZINESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getFuzziness() {
     return fuzziness;
   }
 
-  @JsonProperty(JSON_PROPERTY_FUZZINESS)
+  @JsonProperty(value = JSON_PROPERTY_FUZZINESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFuzziness(@javax.annotation.Nullable Integer fuzziness) {
     this.fuzziness = fuzziness;
@@ -139,13 +139,13 @@ public class MatchQuery {
    * @return maxExpansions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MAX_EXPANSIONS)
+  @JsonProperty(value = JSON_PROPERTY_MAX_EXPANSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getMaxExpansions() {
     return maxExpansions;
   }
 
-  @JsonProperty(JSON_PROPERTY_MAX_EXPANSIONS)
+  @JsonProperty(value = JSON_PROPERTY_MAX_EXPANSIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxExpansions(@javax.annotation.Nullable Integer maxExpansions) {
     this.maxExpansions = maxExpansions;
@@ -157,19 +157,20 @@ public class MatchQuery {
   }
 
   /**
-   * The operator to use for combining terms. Case insensitive, supports both PascalCase and
-   * snake_case. Valid values are: - And: All terms must match. - Or: At least one term must match.
+   * The operator to use for combining terms. This can be either &#x60;And&#x60; or &#x60;Or&#x60;,
+   * it&#39;s &#39;Or&#39; by default. - &#x60;And&#x60;: All terms must match. - &#x60;Or&#x60;: At
+   * least one term must match.
    *
    * @return operator
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
+  @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getOperator() {
     return operator;
   }
 
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
+  @JsonProperty(value = JSON_PROPERTY_OPERATOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOperator(@javax.annotation.Nullable String operator) {
     this.operator = operator;
@@ -186,13 +187,13 @@ public class MatchQuery {
    * @return prefixLength
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PREFIX_LENGTH)
+  @JsonProperty(value = JSON_PROPERTY_PREFIX_LENGTH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getPrefixLength() {
     return prefixLength;
   }
 
-  @JsonProperty(JSON_PROPERTY_PREFIX_LENGTH)
+  @JsonProperty(value = JSON_PROPERTY_PREFIX_LENGTH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrefixLength(@javax.annotation.Nullable Integer prefixLength) {
     this.prefixLength = prefixLength;
@@ -209,13 +210,13 @@ public class MatchQuery {
    * @return terms
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TERMS)
+  @JsonProperty(value = JSON_PROPERTY_TERMS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getTerms() {
     return terms;
   }
 
-  @JsonProperty(JSON_PROPERTY_TERMS)
+  @JsonProperty(value = JSON_PROPERTY_TERMS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTerms(@javax.annotation.Nonnull String terms) {
     this.terms = terms;
@@ -306,56 +307,77 @@ public class MatchQuery {
     if (getBoost() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sboost%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getBoost()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getBoost()))));
     }
 
     // add `column` to the URL query string
     if (getColumn() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%scolumn%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getColumn()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getColumn()))));
     }
 
     // add `fuzziness` to the URL query string
     if (getFuzziness() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sfuzziness%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFuzziness()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getFuzziness()))));
     }
 
     // add `max_expansions` to the URL query string
     if (getMaxExpansions() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%smax_expansions%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMaxExpansions()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getMaxExpansions()))));
     }
 
     // add `operator` to the URL query string
     if (getOperator() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%soperator%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOperator()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getOperator()))));
     }
 
     // add `prefix_length` to the URL query string
     if (getPrefixLength() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sprefix_length%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPrefixLength()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getPrefixLength()))));
     }
 
     // add `terms` to the URL query string
     if (getTerms() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sterms%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTerms()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getTerms()))));
     }
 
     return joiner.toString();

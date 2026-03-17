@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class TagContents {
   public static final String JSON_PROPERTY_BRANCH = "branch";
   @javax.annotation.Nullable private String branch;
@@ -54,13 +54,13 @@ public class TagContents {
    * @return branch
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BRANCH)
+  @JsonProperty(value = JSON_PROPERTY_BRANCH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getBranch() {
     return branch;
   }
 
-  @JsonProperty(JSON_PROPERTY_BRANCH)
+  @JsonProperty(value = JSON_PROPERTY_BRANCH, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBranch(@javax.annotation.Nullable String branch) {
     this.branch = branch;
@@ -77,13 +77,13 @@ public class TagContents {
    * @return version
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersion(@javax.annotation.Nonnull Long version) {
     this.version = version;
@@ -100,13 +100,13 @@ public class TagContents {
    * @return manifestSize
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST_SIZE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getManifestSize() {
     return manifestSize;
   }
 
-  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST_SIZE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setManifestSize(@javax.annotation.Nonnull Long manifestSize) {
     this.manifestSize = manifestSize;
@@ -189,24 +189,33 @@ public class TagContents {
     if (getBranch() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sbranch%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getBranch()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getBranch()))));
     }
 
     // add `version` to the URL query string
     if (getVersion() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sversion%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
     }
 
     // add `manifestSize` to the URL query string
     if (getManifestSize() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%smanifestSize%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getManifestSize()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getManifestSize()))));
     }
 
     return joiner.toString();

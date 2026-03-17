@@ -29,7 +29,7 @@ import java.util.Set;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class JSON {
   private ObjectMapper mapper;
 
@@ -87,7 +87,7 @@ public class JSON {
   /** Helper class to register the discriminator mappings. */
   @javax.annotation.Generated(
       value = "org.openapitools.codegen.languages.JavaClientCodegen",
-      comments = "Generator version: 7.12.0")
+      comments = "Generator version: 7.20.0")
   private static class ClassDiscriminatorMapping {
     // The model class name.
     Class<?> modelClass;

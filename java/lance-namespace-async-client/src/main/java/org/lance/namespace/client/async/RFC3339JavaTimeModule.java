@@ -13,27 +13,29 @@
  */
 package org.lance.namespace.client.async;
 
+import com.fasterxml.jackson.databind.Module.SetupContext;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.20.0")
-public class Pair {
-  private final String name;
-  private final String value;
+public class RFC3339JavaTimeModule extends SimpleModule {
+  private static final long serialVersionUID = 1L;
 
-  public Pair(String name, String value) {
-    this.name = isValidString(name) ? name : "";
-    this.value = isValidString(value) ? value : "";
+  public RFC3339JavaTimeModule() {
+    super("RFC3339JavaTimeModule");
   }
 
-  public String getName() {
-    return this.name;
-  }
+  @Override
+  public void setupModule(SetupContext context) {
+    super.setupModule(context);
 
-  public String getValue() {
-    return this.value;
-  }
-
-  private static boolean isValidString(String arg) {
-    return arg != null;
+    addDeserializer(Instant.class, RFC3339InstantDeserializer.INSTANT);
+    addDeserializer(OffsetDateTime.class, RFC3339InstantDeserializer.OFFSET_DATE_TIME);
+    addDeserializer(ZonedDateTime.class, RFC3339InstantDeserializer.ZONED_DATE_TIME);
   }
 }

@@ -31,6 +31,7 @@ import org.lance.namespace.model.UpdateTableTagResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -40,21 +41,43 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class TagApi {
+  /** Utility class for extending HttpRequest.Builder functionality. */
+  private static class HttpRequestBuilderExtensions {
+    /**
+     * Adds additional headers to the provided HttpRequest.Builder. Useful for adding
+     * method/endpoint specific headers.
+     *
+     * @param builder the HttpRequest.Builder to which headers will be added
+     * @param headers a map of header names and values to add; may be null
+     * @return the same HttpRequest.Builder instance with the additional headers set
+     */
+    static HttpRequest.Builder withAdditionalHeaders(
+        HttpRequest.Builder builder, Map<String, String> headers) {
+      if (headers != null) {
+        for (Map.Entry<String, String> entry : headers.entrySet()) {
+          builder.header(entry.getKey(), entry.getValue());
+        }
+      }
+      return builder;
+    }
+  }
+
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
   private final String memberVarBaseUri;
   private final Consumer<HttpRequest.Builder> memberVarInterceptor;
   private final Duration memberVarReadTimeout;
   private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+  private final Consumer<HttpResponse<InputStream>> memberVarAsyncResponseInterceptor;
 
   public TagApi() {
     this(Configuration.getDefaultApiClient());
@@ -70,9 +93,19 @@ public class TagApi {
     memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
   }
 
-  private ApiException getApiException(String operationId, HttpResponse<String> response) {
-    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
-    return new ApiException(response.statusCode(), message, response.headers(), response.body());
+  private ApiException getApiException(String operationId, HttpResponse<InputStream> response) {
+    try {
+      InputStream responseBody = ApiClient.getResponseBody(response);
+      String body = null;
+      if (responseBody != null) {
+        body = new String(responseBody.readAllBytes());
+        responseBody.close();
+      }
+      String message = formatExceptionMessage(operationId, response.statusCode(), body);
+      return new ApiException(response.statusCode(), message, response.headers(), body);
+    } catch (IOException e) {
+      return new ApiException(e);
+    }
   }
 
   private String formatExceptionMessage(String operationId, int statusCode, String body) {
@@ -80,6 +113,60 @@ public class TagApi {
       body = "[no body]";
     }
     return operationId + " call failed with: " + statusCode + " - " + body;
+  }
+
+  /**
+   * Download file from the given response.
+   *
+   * @param response Response
+   * @return File
+   * @throws ApiException If fail to read file content from response and write to disk
+   */
+  public File downloadFileFromResponse(HttpResponse<InputStream> response, InputStream responseBody)
+      throws ApiException {
+    if (responseBody == null) {
+      throw new ApiException(new IOException("Response body is empty"));
+    }
+    try {
+      File file = prepareDownloadFile(response);
+      java.nio.file.Files.copy(
+          responseBody, file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+      return file;
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+  }
+
+  /**
+   * Prepare the file for download from the response.
+   *
+   * @param response a {@link java.net.http.HttpResponse} object.
+   * @return a {@link java.io.File} object.
+   * @throws java.io.IOException if any.
+   */
+  private File prepareDownloadFile(HttpResponse<InputStream> response) throws IOException {
+    String filename = null;
+    java.util.Optional<String> contentDisposition =
+        response.headers().firstValue("Content-Disposition");
+    if (contentDisposition.isPresent() && !"".equals(contentDisposition.get())) {
+      // Get filename from the Content-Disposition header.
+      java.util.regex.Pattern pattern =
+          java.util.regex.Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
+      java.util.regex.Matcher matcher = pattern.matcher(contentDisposition.get());
+      if (matcher.find()) filename = matcher.group(1);
+    }
+    File file = null;
+    if (filename != null) {
+      java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("swagger-gen-native");
+      java.nio.file.Path filePath = java.nio.file.Files.createFile(tempDir.resolve(filename));
+      file = filePath.toFile();
+      tempDir.toFile().deleteOnExit(); // best effort cleanup
+      file.deleteOnExit(); // best effort cleanup
+    } else {
+      file = java.nio.file.Files.createTempFile("download-", "").toFile();
+      file.deleteOnExit(); // best effort cleanup
+    }
+    return file;
   }
 
   /**
@@ -97,30 +184,37 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<CreateTableTagResponse> createTableTag(
-      String id, CreateTableTagRequest createTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return createTableTag(id, createTableTagRequest, delimiter, null);
+  }
+
+  /**
+   * Create a new tag Create a new tag for table &#x60;id&#x60; that points to a specific version.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param createTableTagRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;CreateTableTagResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<CreateTableTagResponse> createTableTag(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
-      HttpRequest.Builder localVarRequestBuilder =
-          createTableTagRequestBuilder(id, createTableTagRequest, delimiter);
-      return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-          .thenComposeAsync(
-              localVarResponse -> {
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("createTableTag", localVarResponse));
-                }
-                try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      responseBody == null || responseBody.isBlank()
-                          ? null
-                          : memberVarObjectMapper.readValue(
-                              responseBody, new TypeReference<CreateTableTagResponse>() {}));
-                } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-                }
-              });
+      return createTableTagWithHttpInfo(id, createTableTagRequest, delimiter, headers)
+          .thenApply(ApiResponse::getData);
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -141,13 +235,39 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<CreateTableTagResponse>> createTableTagWithHttpInfo(
-      String id, CreateTableTagRequest createTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return createTableTagWithHttpInfo(id, createTableTagRequest, delimiter, null);
+  }
+
+  /**
+   * Create a new tag Create a new tag for table &#x60;id&#x60; that points to a specific version.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param createTableTagRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;ApiResponse&lt;CreateTableTagResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<CreateTableTagResponse>> createTableTagWithHttpInfo(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          createTableTagRequestBuilder(id, createTableTagRequest, delimiter);
+          createTableTagRequestBuilder(id, createTableTagRequest, delimiter, headers);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
                 if (memberVarAsyncResponseInterceptor != null) {
@@ -158,15 +278,33 @@ public class TagApi {
                       getApiException("createTableTag", localVarResponse));
                 }
                 try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      new ApiResponse<CreateTableTagResponse>(
-                          localVarResponse.statusCode(),
-                          localVarResponse.headers().map(),
-                          responseBody == null || responseBody.isBlank()
-                              ? null
-                              : memberVarObjectMapper.readValue(
-                                  responseBody, new TypeReference<CreateTableTagResponse>() {})));
+                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  try {
+                    if (localVarResponseBody == null) {
+                      return CompletableFuture.completedFuture(
+                          new ApiResponse<CreateTableTagResponse>(
+                              localVarResponse.statusCode(),
+                              localVarResponse.headers().map(),
+                              null));
+                    }
+
+                    String responseBody = new String(localVarResponseBody.readAllBytes());
+                    CreateTableTagResponse responseValue =
+                        responseBody.isBlank()
+                            ? null
+                            : memberVarObjectMapper.readValue(
+                                responseBody, new TypeReference<CreateTableTagResponse>() {});
+
+                    return CompletableFuture.completedFuture(
+                        new ApiResponse<CreateTableTagResponse>(
+                            localVarResponse.statusCode(),
+                            localVarResponse.headers().map(),
+                            responseValue));
+                  } finally {
+                    if (localVarResponseBody != null) {
+                      localVarResponseBody.close();
+                    }
+                  }
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -177,7 +315,10 @@ public class TagApi {
   }
 
   private HttpRequest.Builder createTableTagRequestBuilder(
-      String id, CreateTableTagRequest createTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -227,6 +368,9 @@ public class TagApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder =
+        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -248,30 +392,37 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<DeleteTableTagResponse> deleteTableTag(
-      String id, DeleteTableTagRequest deleteTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return deleteTableTag(id, deleteTableTagRequest, delimiter, null);
+  }
+
+  /**
+   * Delete a tag Delete an existing tag from table &#x60;id&#x60;.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param deleteTableTagRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;DeleteTableTagResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<DeleteTableTagResponse> deleteTableTag(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
-      HttpRequest.Builder localVarRequestBuilder =
-          deleteTableTagRequestBuilder(id, deleteTableTagRequest, delimiter);
-      return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-          .thenComposeAsync(
-              localVarResponse -> {
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("deleteTableTag", localVarResponse));
-                }
-                try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      responseBody == null || responseBody.isBlank()
-                          ? null
-                          : memberVarObjectMapper.readValue(
-                              responseBody, new TypeReference<DeleteTableTagResponse>() {}));
-                } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-                }
-              });
+      return deleteTableTagWithHttpInfo(id, deleteTableTagRequest, delimiter, headers)
+          .thenApply(ApiResponse::getData);
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -292,13 +443,39 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<DeleteTableTagResponse>> deleteTableTagWithHttpInfo(
-      String id, DeleteTableTagRequest deleteTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return deleteTableTagWithHttpInfo(id, deleteTableTagRequest, delimiter, null);
+  }
+
+  /**
+   * Delete a tag Delete an existing tag from table &#x60;id&#x60;.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param deleteTableTagRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;ApiResponse&lt;DeleteTableTagResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<DeleteTableTagResponse>> deleteTableTagWithHttpInfo(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          deleteTableTagRequestBuilder(id, deleteTableTagRequest, delimiter);
+          deleteTableTagRequestBuilder(id, deleteTableTagRequest, delimiter, headers);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
                 if (memberVarAsyncResponseInterceptor != null) {
@@ -309,15 +486,33 @@ public class TagApi {
                       getApiException("deleteTableTag", localVarResponse));
                 }
                 try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      new ApiResponse<DeleteTableTagResponse>(
-                          localVarResponse.statusCode(),
-                          localVarResponse.headers().map(),
-                          responseBody == null || responseBody.isBlank()
-                              ? null
-                              : memberVarObjectMapper.readValue(
-                                  responseBody, new TypeReference<DeleteTableTagResponse>() {})));
+                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  try {
+                    if (localVarResponseBody == null) {
+                      return CompletableFuture.completedFuture(
+                          new ApiResponse<DeleteTableTagResponse>(
+                              localVarResponse.statusCode(),
+                              localVarResponse.headers().map(),
+                              null));
+                    }
+
+                    String responseBody = new String(localVarResponseBody.readAllBytes());
+                    DeleteTableTagResponse responseValue =
+                        responseBody.isBlank()
+                            ? null
+                            : memberVarObjectMapper.readValue(
+                                responseBody, new TypeReference<DeleteTableTagResponse>() {});
+
+                    return CompletableFuture.completedFuture(
+                        new ApiResponse<DeleteTableTagResponse>(
+                            localVarResponse.statusCode(),
+                            localVarResponse.headers().map(),
+                            responseValue));
+                  } finally {
+                    if (localVarResponseBody != null) {
+                      localVarResponseBody.close();
+                    }
+                  }
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -328,7 +523,10 @@ public class TagApi {
   }
 
   private HttpRequest.Builder deleteTableTagRequestBuilder(
-      String id, DeleteTableTagRequest deleteTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -378,6 +576,9 @@ public class TagApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder =
+        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -400,30 +601,38 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<GetTableTagVersionResponse> getTableTagVersion(
-      String id, GetTableTagVersionRequest getTableTagVersionRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return getTableTagVersion(id, getTableTagVersionRequest, delimiter, null);
+  }
+
+  /**
+   * Get version for a specific tag Get the version number that a specific tag points to for table
+   * &#x60;id&#x60;.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param getTableTagVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;GetTableTagVersionResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<GetTableTagVersionResponse> getTableTagVersion(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
-      HttpRequest.Builder localVarRequestBuilder =
-          getTableTagVersionRequestBuilder(id, getTableTagVersionRequest, delimiter);
-      return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-          .thenComposeAsync(
-              localVarResponse -> {
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("getTableTagVersion", localVarResponse));
-                }
-                try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      responseBody == null || responseBody.isBlank()
-                          ? null
-                          : memberVarObjectMapper.readValue(
-                              responseBody, new TypeReference<GetTableTagVersionResponse>() {}));
-                } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-                }
-              });
+      return getTableTagVersionWithHttpInfo(id, getTableTagVersionRequest, delimiter, headers)
+          .thenApply(ApiResponse::getData);
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -445,13 +654,40 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<GetTableTagVersionResponse>> getTableTagVersionWithHttpInfo(
-      String id, GetTableTagVersionRequest getTableTagVersionRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return getTableTagVersionWithHttpInfo(id, getTableTagVersionRequest, delimiter, null);
+  }
+
+  /**
+   * Get version for a specific tag Get the version number that a specific tag points to for table
+   * &#x60;id&#x60;.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param getTableTagVersionRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;ApiResponse&lt;GetTableTagVersionResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<GetTableTagVersionResponse>> getTableTagVersionWithHttpInfo(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          getTableTagVersionRequestBuilder(id, getTableTagVersionRequest, delimiter);
+          getTableTagVersionRequestBuilder(id, getTableTagVersionRequest, delimiter, headers);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
                 if (memberVarAsyncResponseInterceptor != null) {
@@ -462,16 +698,33 @@ public class TagApi {
                       getApiException("getTableTagVersion", localVarResponse));
                 }
                 try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      new ApiResponse<GetTableTagVersionResponse>(
-                          localVarResponse.statusCode(),
-                          localVarResponse.headers().map(),
-                          responseBody == null || responseBody.isBlank()
-                              ? null
-                              : memberVarObjectMapper.readValue(
-                                  responseBody,
-                                  new TypeReference<GetTableTagVersionResponse>() {})));
+                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  try {
+                    if (localVarResponseBody == null) {
+                      return CompletableFuture.completedFuture(
+                          new ApiResponse<GetTableTagVersionResponse>(
+                              localVarResponse.statusCode(),
+                              localVarResponse.headers().map(),
+                              null));
+                    }
+
+                    String responseBody = new String(localVarResponseBody.readAllBytes());
+                    GetTableTagVersionResponse responseValue =
+                        responseBody.isBlank()
+                            ? null
+                            : memberVarObjectMapper.readValue(
+                                responseBody, new TypeReference<GetTableTagVersionResponse>() {});
+
+                    return CompletableFuture.completedFuture(
+                        new ApiResponse<GetTableTagVersionResponse>(
+                            localVarResponse.statusCode(),
+                            localVarResponse.headers().map(),
+                            responseValue));
+                  } finally {
+                    if (localVarResponseBody != null) {
+                      localVarResponseBody.close();
+                    }
+                  }
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -482,7 +735,10 @@ public class TagApi {
   }
 
   private HttpRequest.Builder getTableTagVersionRequestBuilder(
-      String id, GetTableTagVersionRequest getTableTagVersionRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -532,6 +788,9 @@ public class TagApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder =
+        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -559,29 +818,45 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ListTableTagsResponse> listTableTags(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String pageToken,
+      @javax.annotation.Nullable Integer limit)
+      throws ApiException {
+    return listTableTags(id, delimiter, pageToken, limit, null);
+  }
+
+  /**
+   * List all tags for a table List all tags that have been created for table &#x60;id&#x60;.
+   * Returns a map of tag names to their corresponding version numbers and metadata. REST NAMESPACE
+   * ONLY REST namespace does not use a request body for this operation. The
+   * &#x60;ListTableTagsRequest&#x60; information is passed in the following way: - &#x60;id&#x60;:
+   * pass through path parameter of the same name - &#x60;page_token&#x60;: pass through query
+   * parameter of the same name - &#x60;limit&#x60;: pass through query parameter of the same name
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param pageToken Pagination token from a previous request (optional)
+   * @param limit Maximum number of items to return (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;ListTableTagsResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ListTableTagsResponse> listTableTags(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String pageToken,
+      @javax.annotation.Nullable Integer limit,
+      Map<String, String> headers)
+      throws ApiException {
     try {
-      HttpRequest.Builder localVarRequestBuilder =
-          listTableTagsRequestBuilder(id, delimiter, pageToken, limit);
-      return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-          .thenComposeAsync(
-              localVarResponse -> {
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("listTableTags", localVarResponse));
-                }
-                try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      responseBody == null || responseBody.isBlank()
-                          ? null
-                          : memberVarObjectMapper.readValue(
-                              responseBody, new TypeReference<ListTableTagsResponse>() {}));
-                } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-                }
-              });
+      return listTableTagsWithHttpInfo(id, delimiter, pageToken, limit, headers)
+          .thenApply(ApiResponse::getData);
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -608,12 +883,47 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<ListTableTagsResponse>> listTableTagsWithHttpInfo(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String pageToken,
+      @javax.annotation.Nullable Integer limit)
+      throws ApiException {
+    return listTableTagsWithHttpInfo(id, delimiter, pageToken, limit, null);
+  }
+
+  /**
+   * List all tags for a table List all tags that have been created for table &#x60;id&#x60;.
+   * Returns a map of tag names to their corresponding version numbers and metadata. REST NAMESPACE
+   * ONLY REST namespace does not use a request body for this operation. The
+   * &#x60;ListTableTagsRequest&#x60; information is passed in the following way: - &#x60;id&#x60;:
+   * pass through path parameter of the same name - &#x60;page_token&#x60;: pass through query
+   * parameter of the same name - &#x60;limit&#x60;: pass through query parameter of the same name
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param pageToken Pagination token from a previous request (optional)
+   * @param limit Maximum number of items to return (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;ApiResponse&lt;ListTableTagsResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<ListTableTagsResponse>> listTableTagsWithHttpInfo(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String pageToken,
+      @javax.annotation.Nullable Integer limit,
+      Map<String, String> headers)
+      throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          listTableTagsRequestBuilder(id, delimiter, pageToken, limit);
+          listTableTagsRequestBuilder(id, delimiter, pageToken, limit, headers);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
                 if (memberVarAsyncResponseInterceptor != null) {
@@ -624,15 +934,33 @@ public class TagApi {
                       getApiException("listTableTags", localVarResponse));
                 }
                 try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      new ApiResponse<ListTableTagsResponse>(
-                          localVarResponse.statusCode(),
-                          localVarResponse.headers().map(),
-                          responseBody == null || responseBody.isBlank()
-                              ? null
-                              : memberVarObjectMapper.readValue(
-                                  responseBody, new TypeReference<ListTableTagsResponse>() {})));
+                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  try {
+                    if (localVarResponseBody == null) {
+                      return CompletableFuture.completedFuture(
+                          new ApiResponse<ListTableTagsResponse>(
+                              localVarResponse.statusCode(),
+                              localVarResponse.headers().map(),
+                              null));
+                    }
+
+                    String responseBody = new String(localVarResponseBody.readAllBytes());
+                    ListTableTagsResponse responseValue =
+                        responseBody.isBlank()
+                            ? null
+                            : memberVarObjectMapper.readValue(
+                                responseBody, new TypeReference<ListTableTagsResponse>() {});
+
+                    return CompletableFuture.completedFuture(
+                        new ApiResponse<ListTableTagsResponse>(
+                            localVarResponse.statusCode(),
+                            localVarResponse.headers().map(),
+                            responseValue));
+                  } finally {
+                    if (localVarResponseBody != null) {
+                      localVarResponseBody.close();
+                    }
+                  }
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -643,7 +971,12 @@ public class TagApi {
   }
 
   private HttpRequest.Builder listTableTagsRequestBuilder(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String pageToken,
+      @javax.annotation.Nullable Integer limit,
+      Map<String, String> headers)
+      throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling listTableTags");
@@ -682,6 +1015,9 @@ public class TagApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder =
+        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -704,30 +1040,38 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<UpdateTableTagResponse> updateTableTag(
-      String id, UpdateTableTagRequest updateTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return updateTableTag(id, updateTableTagRequest, delimiter, null);
+  }
+
+  /**
+   * Update a tag to point to a different version Update an existing tag for table &#x60;id&#x60; to
+   * point to a different version.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param updateTableTagRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;UpdateTableTagResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<UpdateTableTagResponse> updateTableTag(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
-      HttpRequest.Builder localVarRequestBuilder =
-          updateTableTagRequestBuilder(id, updateTableTagRequest, delimiter);
-      return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-          .thenComposeAsync(
-              localVarResponse -> {
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("updateTableTag", localVarResponse));
-                }
-                try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      responseBody == null || responseBody.isBlank()
-                          ? null
-                          : memberVarObjectMapper.readValue(
-                              responseBody, new TypeReference<UpdateTableTagResponse>() {}));
-                } catch (IOException e) {
-                  return CompletableFuture.failedFuture(new ApiException(e));
-                }
-              });
+      return updateTableTagWithHttpInfo(id, updateTableTagRequest, delimiter, headers)
+          .thenApply(ApiResponse::getData);
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -749,13 +1093,40 @@ public class TagApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<UpdateTableTagResponse>> updateTableTagWithHttpInfo(
-      String id, UpdateTableTagRequest updateTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
+    return updateTableTagWithHttpInfo(id, updateTableTagRequest, delimiter, null);
+  }
+
+  /**
+   * Update a tag to point to a different version Update an existing tag for table &#x60;id&#x60; to
+   * point to a different version.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param updateTableTagRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param headers Optional headers to include in the request
+   * @return CompletableFuture&lt;ApiResponse&lt;UpdateTableTagResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<UpdateTableTagResponse>> updateTableTagWithHttpInfo(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          updateTableTagRequestBuilder(id, updateTableTagRequest, delimiter);
+          updateTableTagRequestBuilder(id, updateTableTagRequest, delimiter, headers);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
                 if (memberVarAsyncResponseInterceptor != null) {
@@ -766,15 +1137,33 @@ public class TagApi {
                       getApiException("updateTableTag", localVarResponse));
                 }
                 try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      new ApiResponse<UpdateTableTagResponse>(
-                          localVarResponse.statusCode(),
-                          localVarResponse.headers().map(),
-                          responseBody == null || responseBody.isBlank()
-                              ? null
-                              : memberVarObjectMapper.readValue(
-                                  responseBody, new TypeReference<UpdateTableTagResponse>() {})));
+                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  try {
+                    if (localVarResponseBody == null) {
+                      return CompletableFuture.completedFuture(
+                          new ApiResponse<UpdateTableTagResponse>(
+                              localVarResponse.statusCode(),
+                              localVarResponse.headers().map(),
+                              null));
+                    }
+
+                    String responseBody = new String(localVarResponseBody.readAllBytes());
+                    UpdateTableTagResponse responseValue =
+                        responseBody.isBlank()
+                            ? null
+                            : memberVarObjectMapper.readValue(
+                                responseBody, new TypeReference<UpdateTableTagResponse>() {});
+
+                    return CompletableFuture.completedFuture(
+                        new ApiResponse<UpdateTableTagResponse>(
+                            localVarResponse.statusCode(),
+                            localVarResponse.headers().map(),
+                            responseValue));
+                  } finally {
+                    if (localVarResponseBody != null) {
+                      localVarResponseBody.close();
+                    }
+                  }
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -785,7 +1174,10 @@ public class TagApi {
   }
 
   private HttpRequest.Builder updateTableTagRequestBuilder(
-      String id, UpdateTableTagRequest updateTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> headers)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -835,6 +1227,9 @@ public class TagApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder =
+        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }

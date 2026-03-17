@@ -31,7 +31,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class GetTableStatsResponse {
   public static final String JSON_PROPERTY_TOTAL_BYTES = "total_bytes";
   @javax.annotation.Nonnull private Long totalBytes;
@@ -58,13 +58,13 @@ public class GetTableStatsResponse {
    * @return totalBytes
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOTAL_BYTES)
+  @JsonProperty(value = JSON_PROPERTY_TOTAL_BYTES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getTotalBytes() {
     return totalBytes;
   }
 
-  @JsonProperty(JSON_PROPERTY_TOTAL_BYTES)
+  @JsonProperty(value = JSON_PROPERTY_TOTAL_BYTES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTotalBytes(@javax.annotation.Nonnull Long totalBytes) {
     this.totalBytes = totalBytes;
@@ -81,13 +81,13 @@ public class GetTableStatsResponse {
    * @return numRows
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NUM_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_ROWS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getNumRows() {
     return numRows;
   }
 
-  @JsonProperty(JSON_PROPERTY_NUM_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_ROWS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNumRows(@javax.annotation.Nonnull Long numRows) {
     this.numRows = numRows;
@@ -104,13 +104,13 @@ public class GetTableStatsResponse {
    * @return numIndices
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NUM_INDICES)
+  @JsonProperty(value = JSON_PROPERTY_NUM_INDICES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getNumIndices() {
     return numIndices;
   }
 
-  @JsonProperty(JSON_PROPERTY_NUM_INDICES)
+  @JsonProperty(value = JSON_PROPERTY_NUM_INDICES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNumIndices(@javax.annotation.Nonnull Long numIndices) {
     this.numIndices = numIndices;
@@ -128,13 +128,13 @@ public class GetTableStatsResponse {
    * @return fragmentStats
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FRAGMENT_STATS)
+  @JsonProperty(value = JSON_PROPERTY_FRAGMENT_STATS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public FragmentStats getFragmentStats() {
     return fragmentStats;
   }
 
-  @JsonProperty(JSON_PROPERTY_FRAGMENT_STATS)
+  @JsonProperty(value = JSON_PROPERTY_FRAGMENT_STATS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFragmentStats(@javax.annotation.Nonnull FragmentStats fragmentStats) {
     this.fragmentStats = fragmentStats;
@@ -219,24 +219,33 @@ public class GetTableStatsResponse {
     if (getTotalBytes() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%stotal_bytes%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTotalBytes()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getTotalBytes()))));
     }
 
     // add `num_rows` to the URL query string
     if (getNumRows() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%snum_rows%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumRows()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getNumRows()))));
     }
 
     // add `num_indices` to the URL query string
     if (getNumIndices() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%snum_indices%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumIndices()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getNumIndices()))));
     }
 
     // add `fragment_stats` to the URL query string

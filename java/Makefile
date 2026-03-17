@@ -18,11 +18,12 @@ clean-async-client:
 
 .PHONY: gen-async-client
 gen-async-client: clean-async-client
-	uv run openapi-generator-cli generate \
+	uvx openapi-generator-cli==7.20.0 generate \
 	  -i ../docs/src/rest.yaml \
 	  -g java \
 	  -o lance-namespace-async-client \
 	  --ignore-file-override=.async-client-ignore \
+	  --template-dir openapi-templates \
 	  --type-mappings=file=byte[] \
 	  --additional-properties=groupId=org.lance,artifactId=lance-namespace-async-client,artifactVersion=$(VERSION),parentGroupId=org.lance,parentArtifactId=lance-namespace-root,parentVersion=$(VERSION),parentRelativePath=pom.xml,library=native,asyncNative=true,apiPackage=org.lance.namespace.client.async.api,modelPackage=org.lance.namespace.model,hideGenerationTimestamp=true,licenseName=Apache-2.0,licenseUrl=https://www.apache.org/licenses/LICENSE-2.0.txt
 	rm -rf lance-namespace-async-client/.openapi-generator-ignore

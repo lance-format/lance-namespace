@@ -31,7 +31,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CreateNamespaceResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -52,13 +52,13 @@ public class CreateNamespaceResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -86,13 +86,13 @@ public class CreateNamespaceResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -173,8 +173,11 @@ public class CreateNamespaceResponse {
     if (getTransactionId() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%stransaction_id%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
     }
 
     // add `properties` to the URL query string
@@ -182,12 +185,14 @@ public class CreateNamespaceResponse {
       for (String _key : getProperties().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sproperties%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getProperties().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getProperties().get(_key)))));
       }

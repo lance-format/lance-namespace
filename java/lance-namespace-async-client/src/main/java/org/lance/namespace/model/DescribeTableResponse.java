@@ -42,7 +42,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DescribeTableResponse {
   public static final String JSON_PROPERTY_TABLE = "table";
   @javax.annotation.Nullable private String table;
@@ -90,13 +90,13 @@ public class DescribeTableResponse {
    * @return table
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TABLE)
+  @JsonProperty(value = JSON_PROPERTY_TABLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTable() {
     return table;
   }
 
-  @JsonProperty(JSON_PROPERTY_TABLE)
+  @JsonProperty(value = JSON_PROPERTY_TABLE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTable(@javax.annotation.Nullable String table) {
     this.table = table;
@@ -122,13 +122,13 @@ public class DescribeTableResponse {
    * @return namespace
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getNamespace() {
     return namespace;
   }
 
-  @JsonProperty(JSON_PROPERTY_NAMESPACE)
+  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespace(@javax.annotation.Nullable List<String> namespace) {
     this.namespace = namespace;
@@ -146,13 +146,13 @@ public class DescribeTableResponse {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -169,13 +169,13 @@ public class DescribeTableResponse {
    * @return location
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getLocation() {
     return location;
   }
 
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(@javax.annotation.Nullable String location) {
     this.location = location;
@@ -193,13 +193,13 @@ public class DescribeTableResponse {
    * @return tableUri
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TABLE_URI)
+  @JsonProperty(value = JSON_PROPERTY_TABLE_URI, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTableUri() {
     return tableUri;
   }
 
-  @JsonProperty(JSON_PROPERTY_TABLE_URI)
+  @JsonProperty(value = JSON_PROPERTY_TABLE_URI, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTableUri(@javax.annotation.Nullable String tableUri) {
     this.tableUri = tableUri;
@@ -217,13 +217,13 @@ public class DescribeTableResponse {
    * @return schema
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SCHEMA)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public JsonArrowSchema getSchema() {
     return schema;
   }
 
-  @JsonProperty(JSON_PROPERTY_SCHEMA)
+  @JsonProperty(value = JSON_PROPERTY_SCHEMA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchema(@javax.annotation.Nullable JsonArrowSchema schema) {
     this.schema = schema;
@@ -253,13 +253,13 @@ public class DescribeTableResponse {
    * @return storageOptions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getStorageOptions() {
     return storageOptions;
   }
 
-  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageOptions(@javax.annotation.Nullable Map<String, String> storageOptions) {
     this.storageOptions = storageOptions;
@@ -276,13 +276,13 @@ public class DescribeTableResponse {
    * @return stats
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATS)
+  @JsonProperty(value = JSON_PROPERTY_STATS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public TableBasicStats getStats() {
     return stats;
   }
 
-  @JsonProperty(JSON_PROPERTY_STATS)
+  @JsonProperty(value = JSON_PROPERTY_STATS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStats(@javax.annotation.Nullable TableBasicStats stats) {
     this.stats = stats;
@@ -309,13 +309,13 @@ public class DescribeTableResponse {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -344,13 +344,13 @@ public class DescribeTableResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -370,13 +370,13 @@ public class DescribeTableResponse {
    * @return managedVersioning
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
+  @JsonProperty(value = JSON_PROPERTY_MANAGED_VERSIONING, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getManagedVersioning() {
     return managedVersioning;
   }
 
-  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
+  @JsonProperty(value = JSON_PROPERTY_MANAGED_VERSIONING, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setManagedVersioning(@javax.annotation.Nullable Boolean managedVersioning) {
     this.managedVersioning = managedVersioning;
@@ -486,8 +486,11 @@ public class DescribeTableResponse {
     if (getTable() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%stable%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTable()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getTable()))));
     }
 
     // add `namespace` to the URL query string
@@ -495,12 +498,14 @@ public class DescribeTableResponse {
       for (int i = 0; i < getNamespace().size(); i++) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%snamespace%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getNamespace().get(i)))));
       }
     }
@@ -509,24 +514,33 @@ public class DescribeTableResponse {
     if (getVersion() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%sversion%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
     }
 
     // add `location` to the URL query string
     if (getLocation() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%slocation%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLocation()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getLocation()))));
     }
 
     // add `table_uri` to the URL query string
     if (getTableUri() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%stable_uri%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTableUri()))));
+              prefix,
+              suffix,
+              ApiClient.urlEncode(ApiClient.valueToString(getTableUri()))));
     }
 
     // add `schema` to the URL query string
@@ -539,12 +553,14 @@ public class DescribeTableResponse {
       for (String _key : getStorageOptions().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sstorage_options%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getStorageOptions().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getStorageOptions().get(_key)))));
       }
@@ -560,12 +576,14 @@ public class DescribeTableResponse {
       for (String _key : getMetadata().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%smetadata%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getMetadata().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getMetadata().get(_key)))));
       }
@@ -576,12 +594,14 @@ public class DescribeTableResponse {
       for (String _key : getProperties().keySet()) {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sproperties%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format(
+                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                 getProperties().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getProperties().get(_key)))));
       }
@@ -591,6 +611,7 @@ public class DescribeTableResponse {
     if (getManagedVersioning() != null) {
       joiner.add(
           String.format(
+              java.util.Locale.ROOT,
               "%smanaged_versioning%s=%s",
               prefix,
               suffix,

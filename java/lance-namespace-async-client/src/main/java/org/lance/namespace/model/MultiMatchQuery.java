@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({MultiMatchQuery.JSON_PROPERTY_MATCH_QUERIES})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class MultiMatchQuery {
   public static final String JSON_PROPERTY_MATCH_QUERIES = "match_queries";
   @javax.annotation.Nonnull private List<MatchQuery> matchQueries = new ArrayList<>();
@@ -52,13 +52,13 @@ public class MultiMatchQuery {
    * @return matchQueries
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MATCH_QUERIES)
+  @JsonProperty(value = JSON_PROPERTY_MATCH_QUERIES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<MatchQuery> getMatchQueries() {
     return matchQueries;
   }
 
-  @JsonProperty(JSON_PROPERTY_MATCH_QUERIES)
+  @JsonProperty(value = JSON_PROPERTY_MATCH_QUERIES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMatchQueries(@javax.annotation.Nonnull List<MatchQuery> matchQueries) {
     this.matchQueries = matchQueries;
@@ -142,12 +142,18 @@ public class MultiMatchQuery {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%smatch_queries%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }

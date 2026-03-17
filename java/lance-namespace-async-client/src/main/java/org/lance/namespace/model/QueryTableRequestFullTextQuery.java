@@ -27,7 +27,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class QueryTableRequestFullTextQuery {
   public static final String JSON_PROPERTY_STRING_QUERY = "string_query";
   @javax.annotation.Nullable private StringFtsQuery stringQuery;
@@ -49,13 +49,13 @@ public class QueryTableRequestFullTextQuery {
    * @return stringQuery
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STRING_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_STRING_QUERY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public StringFtsQuery getStringQuery() {
     return stringQuery;
   }
 
-  @JsonProperty(JSON_PROPERTY_STRING_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_STRING_QUERY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStringQuery(@javax.annotation.Nullable StringFtsQuery stringQuery) {
     this.stringQuery = stringQuery;
@@ -73,13 +73,13 @@ public class QueryTableRequestFullTextQuery {
    * @return structuredQuery
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STRUCTURED_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_STRUCTURED_QUERY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public StructuredFtsQuery getStructuredQuery() {
     return structuredQuery;
   }
 
-  @JsonProperty(JSON_PROPERTY_STRUCTURED_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_STRUCTURED_QUERY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStructuredQuery(@javax.annotation.Nullable StructuredFtsQuery structuredQuery) {
     this.structuredQuery = structuredQuery;
