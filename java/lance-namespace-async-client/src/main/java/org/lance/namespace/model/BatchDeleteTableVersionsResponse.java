@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class BatchDeleteTableVersionsResponse {
   public static final String JSON_PROPERTY_DELETED_COUNT = "deleted_count";
   @javax.annotation.Nullable private Long deletedCount;
@@ -51,13 +51,13 @@ public class BatchDeleteTableVersionsResponse {
    * @return deletedCount
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DELETED_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_DELETED_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getDeletedCount() {
     return deletedCount;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_DELETED_COUNT, required = false)
+  @JsonProperty(JSON_PROPERTY_DELETED_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeletedCount(@javax.annotation.Nullable Long deletedCount) {
     this.deletedCount = deletedCount;
@@ -75,13 +75,13 @@ public class BatchDeleteTableVersionsResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -163,22 +163,16 @@ public class BatchDeleteTableVersionsResponse {
     if (getDeletedCount() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sdeleted_count%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getDeletedCount()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDeletedCount()))));
     }
 
     // add `transaction_id` to the URL query string
     if (getTransactionId() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%stransaction_id%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
     }
 
     return joiner.toString();

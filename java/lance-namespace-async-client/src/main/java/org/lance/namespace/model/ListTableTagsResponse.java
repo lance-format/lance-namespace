@@ -31,7 +31,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class ListTableTagsResponse {
   public static final String JSON_PROPERTY_TAGS = "tags";
   @javax.annotation.Nonnull private Map<String, TagContents> tags = new HashMap<>();
@@ -60,13 +60,13 @@ public class ListTableTagsResponse {
    * @return tags
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TAGS, required = true)
+  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Map<String, TagContents> getTags() {
     return tags;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TAGS, required = true)
+  @JsonProperty(JSON_PROPERTY_TAGS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTags(@javax.annotation.Nonnull Map<String, TagContents> tags) {
     this.tags = tags;
@@ -90,13 +90,13 @@ public class ListTableTagsResponse {
    * @return pageToken
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPageToken() {
     return pageToken;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageToken(@javax.annotation.Nullable String pageToken) {
     this.pageToken = pageToken;
@@ -182,18 +182,12 @@ public class ListTableTagsResponse {
                   .get(_key)
                   .toUrlQueryString(
                       String.format(
-                          java.util.Locale.ROOT,
                           "%stags%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format(
-                                  java.util.Locale.ROOT,
-                                  "%s%d%s",
-                                  containerPrefix,
-                                  _key,
-                                  containerSuffix))));
+                              : String.format("%s%d%s", containerPrefix, _key, containerSuffix))));
         }
       }
     }
@@ -202,11 +196,8 @@ public class ListTableTagsResponse {
     if (getPageToken() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%spage_token%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getPageToken()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPageToken()))));
     }
 
     return joiner.toString();

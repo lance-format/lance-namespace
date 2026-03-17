@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class AlterColumnsEntry {
   public static final String JSON_PROPERTY_PATH = "path";
   @javax.annotation.Nonnull private String path;
@@ -62,13 +62,13 @@ public class AlterColumnsEntry {
    * @return path
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_PATH, required = true)
+  @JsonProperty(JSON_PROPERTY_PATH)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getPath() {
     return path;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PATH, required = true)
+  @JsonProperty(JSON_PROPERTY_PATH)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPath(@javax.annotation.Nonnull String path) {
     this.path = path;
@@ -85,13 +85,13 @@ public class AlterColumnsEntry {
    * @return dataType
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DATA_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Object getDataType() {
     return dataType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_DATA_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDataType(@javax.annotation.Nonnull Object dataType) {
     this.dataType = dataType;
@@ -108,13 +108,13 @@ public class AlterColumnsEntry {
    * @return rename
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_RENAME, required = false)
+  @JsonProperty(JSON_PROPERTY_RENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getRename() {
     return rename;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_RENAME, required = false)
+  @JsonProperty(JSON_PROPERTY_RENAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRename(@javax.annotation.Nullable String rename) {
     this.rename = rename;
@@ -131,13 +131,13 @@ public class AlterColumnsEntry {
    * @return nullable
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NULLABLE, required = false)
+  @JsonProperty(JSON_PROPERTY_NULLABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getNullable() {
     return nullable;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NULLABLE, required = false)
+  @JsonProperty(JSON_PROPERTY_NULLABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNullable(@javax.annotation.Nullable Boolean nullable) {
     this.nullable = nullable;
@@ -155,13 +155,13 @@ public class AlterColumnsEntry {
    * @return virtualColumn
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VIRTUAL_COLUMN, required = false)
+  @JsonProperty(JSON_PROPERTY_VIRTUAL_COLUMN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public AlterVirtualColumnEntry getVirtualColumn() {
     return virtualColumn;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VIRTUAL_COLUMN, required = false)
+  @JsonProperty(JSON_PROPERTY_VIRTUAL_COLUMN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVirtualColumn(@javax.annotation.Nullable AlterVirtualColumnEntry virtualColumn) {
     this.virtualColumn = virtualColumn;
@@ -248,44 +248,32 @@ public class AlterColumnsEntry {
     if (getPath() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%spath%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getPath()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPath()))));
     }
 
     // add `data_type` to the URL query string
     if (getDataType() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sdata_type%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getDataType()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDataType()))));
     }
 
     // add `rename` to the URL query string
     if (getRename() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%srename%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getRename()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getRename()))));
     }
 
     // add `nullable` to the URL query string
     if (getNullable() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%snullable%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getNullable()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNullable()))));
     }
 
     // add `virtual_column` to the URL query string

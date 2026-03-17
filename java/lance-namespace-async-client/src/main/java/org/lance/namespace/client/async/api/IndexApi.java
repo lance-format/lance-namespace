@@ -30,6 +30,7 @@ import org.lance.namespace.model.ListTableIndicesResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,7 +48,7 @@ import java.util.function.Consumer;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class IndexApi {
   /** Utility class for extending HttpRequest.Builder functionality. */
   private static class HttpRequestBuilderExtensions {
@@ -76,7 +77,7 @@ public class IndexApi {
   private final Consumer<HttpRequest.Builder> memberVarInterceptor;
   private final Duration memberVarReadTimeout;
   private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<InputStream>> memberVarAsyncResponseInterceptor;
+  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
   public IndexApi() {
     this(Configuration.getDefaultApiClient());
@@ -92,9 +93,9 @@ public class IndexApi {
     memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
   }
 
-  private ApiException getApiException(String operationId, HttpResponse<InputStream> response) {
+  private ApiException getApiException(
+      String operationId, HttpResponse<?> response, InputStream responseBody) {
     try {
-      InputStream responseBody = ApiClient.getResponseBody(response);
       String body = null;
       if (responseBody != null) {
         body = new String(responseBody.readAllBytes());
@@ -112,6 +113,51 @@ public class IndexApi {
       body = "[no body]";
     }
     return operationId + " call failed with: " + statusCode + " - " + body;
+  }
+
+  private HttpResponse<String> toStringResponse(
+      HttpResponse<InputStream> response, String responseBody) {
+    return new HttpResponse<String>() {
+      @Override
+      public int statusCode() {
+        return response.statusCode();
+      }
+
+      @Override
+      public HttpRequest request() {
+        return response.request();
+      }
+
+      @Override
+      public java.util.Optional<HttpResponse<String>> previousResponse() {
+        return java.util.Optional.empty();
+      }
+
+      @Override
+      public java.net.http.HttpHeaders headers() {
+        return response.headers();
+      }
+
+      @Override
+      public String body() {
+        return responseBody;
+      }
+
+      @Override
+      public java.util.Optional<javax.net.ssl.SSLSession> sslSession() {
+        return response.sslSession();
+      }
+
+      @Override
+      public URI uri() {
+        return response.uri();
+      }
+
+      @Override
+      public HttpClient.Version version() {
+        return response.version();
+      }
+    };
   }
 
   /**
@@ -285,15 +331,24 @@ public class IndexApi {
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
-                if (memberVarAsyncResponseInterceptor != null) {
-                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                }
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("createTableIndex", localVarResponse));
-                }
                 try {
-                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  InputStream localVarResponseBody = localVarResponse.body();
+                  if (memberVarAsyncResponseInterceptor != null) {
+                    String localVarResponseBodyText = null;
+                    if (localVarResponseBody != null) {
+                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
+                      localVarResponseBody.close();
+                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
+                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
+                    }
+                    memberVarAsyncResponseInterceptor.accept(
+                        toStringResponse(localVarResponse, localVarResponseBodyText));
+                  }
+                  if (localVarResponse.statusCode() / 100 != 2) {
+                    return CompletableFuture.failedFuture(
+                        getApiException(
+                            "createTableIndex", localVarResponse, localVarResponseBody));
+                  }
                   try {
                     if (localVarResponseBody == null) {
                       return CompletableFuture.completedFuture(
@@ -511,15 +566,24 @@ public class IndexApi {
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
-                if (memberVarAsyncResponseInterceptor != null) {
-                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                }
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("createTableScalarIndex", localVarResponse));
-                }
                 try {
-                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  InputStream localVarResponseBody = localVarResponse.body();
+                  if (memberVarAsyncResponseInterceptor != null) {
+                    String localVarResponseBodyText = null;
+                    if (localVarResponseBody != null) {
+                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
+                      localVarResponseBody.close();
+                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
+                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
+                    }
+                    memberVarAsyncResponseInterceptor.accept(
+                        toStringResponse(localVarResponse, localVarResponseBodyText));
+                  }
+                  if (localVarResponse.statusCode() / 100 != 2) {
+                    return CompletableFuture.failedFuture(
+                        getApiException(
+                            "createTableScalarIndex", localVarResponse, localVarResponseBody));
+                  }
                   try {
                     if (localVarResponseBody == null) {
                       return CompletableFuture.completedFuture(
@@ -737,15 +801,24 @@ public class IndexApi {
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
-                if (memberVarAsyncResponseInterceptor != null) {
-                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                }
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("describeTableIndexStats", localVarResponse));
-                }
                 try {
-                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  InputStream localVarResponseBody = localVarResponse.body();
+                  if (memberVarAsyncResponseInterceptor != null) {
+                    String localVarResponseBodyText = null;
+                    if (localVarResponseBody != null) {
+                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
+                      localVarResponseBody.close();
+                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
+                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
+                    }
+                    memberVarAsyncResponseInterceptor.accept(
+                        toStringResponse(localVarResponse, localVarResponseBodyText));
+                  }
+                  if (localVarResponse.statusCode() / 100 != 2) {
+                    return CompletableFuture.failedFuture(
+                        getApiException(
+                            "describeTableIndexStats", localVarResponse, localVarResponseBody));
+                  }
                   try {
                     if (localVarResponseBody == null) {
                       return CompletableFuture.completedFuture(
@@ -971,15 +1044,23 @@ public class IndexApi {
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
-                if (memberVarAsyncResponseInterceptor != null) {
-                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                }
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("dropTableIndex", localVarResponse));
-                }
                 try {
-                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  InputStream localVarResponseBody = localVarResponse.body();
+                  if (memberVarAsyncResponseInterceptor != null) {
+                    String localVarResponseBodyText = null;
+                    if (localVarResponseBody != null) {
+                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
+                      localVarResponseBody.close();
+                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
+                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
+                    }
+                    memberVarAsyncResponseInterceptor.accept(
+                        toStringResponse(localVarResponse, localVarResponseBodyText));
+                  }
+                  if (localVarResponse.statusCode() / 100 != 2) {
+                    return CompletableFuture.failedFuture(
+                        getApiException("dropTableIndex", localVarResponse, localVarResponseBody));
+                  }
                   try {
                     if (localVarResponseBody == null) {
                       return CompletableFuture.completedFuture(
@@ -1177,15 +1258,24 @@ public class IndexApi {
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
-                if (memberVarAsyncResponseInterceptor != null) {
-                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                }
-                if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("listTableIndices", localVarResponse));
-                }
                 try {
-                  InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+                  InputStream localVarResponseBody = localVarResponse.body();
+                  if (memberVarAsyncResponseInterceptor != null) {
+                    String localVarResponseBodyText = null;
+                    if (localVarResponseBody != null) {
+                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
+                      localVarResponseBody.close();
+                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
+                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
+                    }
+                    memberVarAsyncResponseInterceptor.accept(
+                        toStringResponse(localVarResponse, localVarResponseBodyText));
+                  }
+                  if (localVarResponse.statusCode() / 100 != 2) {
+                    return CompletableFuture.failedFuture(
+                        getApiException(
+                            "listTableIndices", localVarResponse, localVarResponseBody));
+                  }
                   try {
                     if (localVarResponseBody == null) {
                       return CompletableFuture.completedFuture(

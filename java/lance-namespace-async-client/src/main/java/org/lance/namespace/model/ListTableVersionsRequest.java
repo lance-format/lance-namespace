@@ -37,7 +37,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class ListTableVersionsRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -70,13 +70,13 @@ public class ListTableVersionsRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -105,13 +105,13 @@ public class ListTableVersionsRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -136,13 +136,13 @@ public class ListTableVersionsRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -166,13 +166,13 @@ public class ListTableVersionsRequest {
    * @return pageToken
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPageToken() {
     return pageToken;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageToken(@javax.annotation.Nullable String pageToken) {
     this.pageToken = pageToken;
@@ -189,13 +189,13 @@ public class ListTableVersionsRequest {
    * @return limit
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LIMIT, required = false)
+  @JsonProperty(JSON_PROPERTY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getLimit() {
     return limit;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LIMIT, required = false)
+  @JsonProperty(JSON_PROPERTY_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLimit(@javax.annotation.Nullable Integer limit) {
     this.limit = limit;
@@ -213,13 +213,13 @@ public class ListTableVersionsRequest {
    * @return descending
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DESCENDING, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCENDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getDescending() {
     return descending;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_DESCENDING, required = false)
+  @JsonProperty(JSON_PROPERTY_DESCENDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescending(@javax.annotation.Nullable Boolean descending) {
     this.descending = descending;
@@ -314,14 +314,12 @@ public class ListTableVersionsRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -332,14 +330,12 @@ public class ListTableVersionsRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -348,33 +344,24 @@ public class ListTableVersionsRequest {
     if (getPageToken() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%spage_token%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getPageToken()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPageToken()))));
     }
 
     // add `limit` to the URL query string
     if (getLimit() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%slimit%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getLimit()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLimit()))));
     }
 
     // add `descending` to the URL query string
     if (getDescending() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sdescending%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getDescending()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDescending()))));
     }
 
     return joiner.toString();

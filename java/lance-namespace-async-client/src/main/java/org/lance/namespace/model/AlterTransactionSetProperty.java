@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class AlterTransactionSetProperty {
   public static final String JSON_PROPERTY_KEY = "key";
   @javax.annotation.Nullable private String key;
@@ -54,13 +54,13 @@ public class AlterTransactionSetProperty {
    * @return key
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
+  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getKey() {
     return key;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
+  @JsonProperty(JSON_PROPERTY_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKey(@javax.annotation.Nullable String key) {
     this.key = key;
@@ -77,13 +77,13 @@ public class AlterTransactionSetProperty {
    * @return value
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getValue() {
     return value;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
+  @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValue(@javax.annotation.Nullable String value) {
     this.value = value;
@@ -103,13 +103,13 @@ public class AlterTransactionSetProperty {
    * @return mode
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
+  @JsonProperty(JSON_PROPERTY_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getMode() {
     return mode;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
+  @JsonProperty(JSON_PROPERTY_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMode(@javax.annotation.Nullable String mode) {
     this.mode = mode;
@@ -192,33 +192,24 @@ public class AlterTransactionSetProperty {
     if (getKey() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%skey%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getKey()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getKey()))));
     }
 
     // add `value` to the URL query string
     if (getValue() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%svalue%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getValue()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getValue()))));
     }
 
     // add `mode` to the URL query string
     if (getMode() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%smode%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
     }
 
     return joiner.toString();

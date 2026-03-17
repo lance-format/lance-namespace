@@ -90,11 +90,11 @@ public class {{classname}} {
   private final Duration memberVarReadTimeout;
 {{#useUnaryInterceptor}}
   private final UnaryOperator<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final UnaryOperator<HttpResponse<InputStream>> memberVarAsyncResponseInterceptor;
+  private final UnaryOperator<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 {{/useUnaryInterceptor}}
 {{^useUnaryInterceptor}}
   private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<InputStream>> memberVarAsyncResponseInterceptor;
+  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 {{/useUnaryInterceptor}}
 
   public {{classname}}() {
@@ -113,9 +113,8 @@ public class {{classname}} {
 
   {{#asyncNative}}
 
-  private ApiException getApiException(String operationId, HttpResponse<InputStream> response) {
+  private ApiException getApiException(String operationId, HttpResponse<?> response, InputStream responseBody) {
     try {
-      InputStream responseBody = ApiClient.getResponseBody(response);
       String body = null;
       if (responseBody != null) {
         body = new String(responseBody.readAllBytes());
@@ -131,7 +130,7 @@ public class {{classname}} {
   {{^asyncNative}}
 
   protected ApiException getApiException(String operationId, HttpResponse<InputStream> response) throws IOException {
-    InputStream responseBody = ApiClient.getResponseBody(response);
+    InputStream responseBody = response.body();
     String body = null;
     try {
       body = responseBody == null ? null : new String(responseBody.readAllBytes());
@@ -151,6 +150,52 @@ public class {{classname}} {
     }
     return operationId + " call failed with: " + statusCode + " - " + body;
   }
+
+  {{#asyncNative}}
+  private HttpResponse<String> toStringResponse(HttpResponse<InputStream> response, String responseBody) {
+    return new HttpResponse<String>() {
+      @Override
+      public int statusCode() {
+        return response.statusCode();
+      }
+
+      @Override
+      public HttpRequest request() {
+        return response.request();
+      }
+
+      @Override
+      public java.util.Optional<HttpResponse<String>> previousResponse() {
+        return java.util.Optional.empty();
+      }
+
+      @Override
+      public java.net.http.HttpHeaders headers() {
+        return response.headers();
+      }
+
+      @Override
+      public String body() {
+        return responseBody;
+      }
+
+      @Override
+      public java.util.Optional<javax.net.ssl.SSLSession> sslSession() {
+        return response.sslSession();
+      }
+
+      @Override
+      public URI uri() {
+        return response.uri();
+      }
+
+      @Override
+      public HttpClient.Version version() {
+        return response.version();
+      }
+    };
+  }
+  {{/asyncNative}}
 
   /**
    * Download file from the given response.
@@ -541,19 +586,26 @@ public class {{classname}} {
       return memberVarHttpClient.sendAsync(
           localVarRequestBuilder.build(),
           HttpResponse.BodyHandlers.ofInputStream()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              {{#useUnaryInterceptor}}
-              localVarResponse = memberVarAsyncResponseInterceptor.apply(localVarResponse);
-              {{/useUnaryInterceptor}}
-              {{^useUnaryInterceptor}}
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-              {{/useUnaryInterceptor}}
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("{{operationId}}", localVarResponse));
-            }
             try {
-              InputStream localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+              InputStream localVarResponseBody = localVarResponse.body();
+              if (memberVarAsyncResponseInterceptor != null) {
+                String localVarResponseBodyText = null;
+                if (localVarResponseBody != null) {
+                  byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
+                  localVarResponseBody.close();
+                  localVarResponseBodyText = new String(localVarResponseBodyBytes);
+                  localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
+                }
+                {{#useUnaryInterceptor}}
+                memberVarAsyncResponseInterceptor.apply(toStringResponse(localVarResponse, localVarResponseBodyText));
+                {{/useUnaryInterceptor}}
+                {{^useUnaryInterceptor}}
+                memberVarAsyncResponseInterceptor.accept(toStringResponse(localVarResponse, localVarResponseBodyText));
+                {{/useUnaryInterceptor}}
+              }
+              if (localVarResponse.statusCode()/ 100 != 2) {
+                return CompletableFuture.failedFuture(getApiException("{{operationId}}", localVarResponse, localVarResponseBody));
+              }
               try {
                 {{#vendorExtensions.x-java-text-plain-string}}
                 if (localVarResponse.headers().map().containsKey("Content-Type") &&
@@ -625,8 +677,7 @@ public class {{classname}} {
             } catch (IOException e) {
               return CompletableFuture.failedFuture(new ApiException(e));
             }
-        }
-      );
+          });
     }
     catch (ApiException e) {
       return CompletableFuture.failedFuture(e);

@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({GetTableTagVersionResponse.JSON_PROPERTY_VERSION})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class GetTableTagVersionResponse {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull private Long version;
@@ -44,13 +44,13 @@ public class GetTableTagVersionResponse {
    * @return version
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersion(@javax.annotation.Nonnull Long version) {
     this.version = version;
@@ -129,11 +129,8 @@ public class GetTableTagVersionResponse {
     if (getVersion() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sversion%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
     }
 
     return joiner.toString();

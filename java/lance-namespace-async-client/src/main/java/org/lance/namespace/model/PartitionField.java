@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class PartitionField {
   public static final String JSON_PROPERTY_FIELD_ID = "field_id";
   @javax.annotation.Nonnull private String fieldId;
@@ -64,13 +64,13 @@ public class PartitionField {
    * @return fieldId
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_FIELD_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_FIELD_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getFieldId() {
     return fieldId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_FIELD_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_FIELD_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFieldId(@javax.annotation.Nonnull String fieldId) {
     this.fieldId = fieldId;
@@ -95,13 +95,13 @@ public class PartitionField {
    * @return sourceIds
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_SOURCE_IDS, required = true)
+  @JsonProperty(JSON_PROPERTY_SOURCE_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<Integer> getSourceIds() {
     return sourceIds;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_SOURCE_IDS, required = true)
+  @JsonProperty(JSON_PROPERTY_SOURCE_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSourceIds(@javax.annotation.Nonnull List<Integer> sourceIds) {
     this.sourceIds = sourceIds;
@@ -118,13 +118,13 @@ public class PartitionField {
    * @return transform
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSFORM, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSFORM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public PartitionTransform getTransform() {
     return transform;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSFORM, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSFORM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransform(@javax.annotation.Nullable PartitionTransform transform) {
     this.transform = transform;
@@ -142,13 +142,13 @@ public class PartitionField {
    * @return expression
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
+  @JsonProperty(JSON_PROPERTY_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getExpression() {
     return expression;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_EXPRESSION, required = false)
+  @JsonProperty(JSON_PROPERTY_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setExpression(@javax.annotation.Nullable String expression) {
     this.expression = expression;
@@ -165,13 +165,13 @@ public class PartitionField {
    * @return resultType
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_RESULT_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_RESULT_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public JsonArrowDataType getResultType() {
     return resultType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_RESULT_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_RESULT_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setResultType(@javax.annotation.Nonnull JsonArrowDataType resultType) {
     this.resultType = resultType;
@@ -258,11 +258,8 @@ public class PartitionField {
     if (getFieldId() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sfield_id%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getFieldId()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getFieldId()))));
     }
 
     // add `source_ids` to the URL query string
@@ -270,14 +267,12 @@ public class PartitionField {
       for (int i = 0; i < getSourceIds().size(); i++) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%ssource_ids%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getSourceIds().get(i)))));
       }
     }
@@ -291,11 +286,8 @@ public class PartitionField {
     if (getExpression() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sexpression%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getExpression()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getExpression()))));
     }
 
     // add `result_type` to the URL query string

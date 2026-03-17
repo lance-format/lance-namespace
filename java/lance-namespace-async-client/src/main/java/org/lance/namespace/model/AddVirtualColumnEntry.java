@@ -35,7 +35,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class AddVirtualColumnEntry {
   public static final String JSON_PROPERTY_INPUT_COLUMNS = "input_columns";
   @javax.annotation.Nonnull private List<String> inputColumns = new ArrayList<>();
@@ -76,13 +76,13 @@ public class AddVirtualColumnEntry {
    * @return inputColumns
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_INPUT_COLUMNS, required = true)
+  @JsonProperty(JSON_PROPERTY_INPUT_COLUMNS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<String> getInputColumns() {
     return inputColumns;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_INPUT_COLUMNS, required = true)
+  @JsonProperty(JSON_PROPERTY_INPUT_COLUMNS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInputColumns(@javax.annotation.Nonnull List<String> inputColumns) {
     this.inputColumns = inputColumns;
@@ -99,13 +99,13 @@ public class AddVirtualColumnEntry {
    * @return dataType
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_DATA_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Object getDataType() {
     return dataType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_DATA_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDataType(@javax.annotation.Nonnull Object dataType) {
     this.dataType = dataType;
@@ -122,13 +122,13 @@ public class AddVirtualColumnEntry {
    * @return image
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_IMAGE, required = true)
+  @JsonProperty(JSON_PROPERTY_IMAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getImage() {
     return image;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IMAGE, required = true)
+  @JsonProperty(JSON_PROPERTY_IMAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setImage(@javax.annotation.Nonnull String image) {
     this.image = image;
@@ -145,13 +145,13 @@ public class AddVirtualColumnEntry {
    * @return udf
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_UDF, required = true)
+  @JsonProperty(JSON_PROPERTY_UDF)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getUdf() {
     return udf;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_UDF, required = true)
+  @JsonProperty(JSON_PROPERTY_UDF)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUdf(@javax.annotation.Nonnull String udf) {
     this.udf = udf;
@@ -168,13 +168,13 @@ public class AddVirtualColumnEntry {
    * @return udfName
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_UDF_NAME, required = true)
+  @JsonProperty(JSON_PROPERTY_UDF_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getUdfName() {
     return udfName;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_UDF_NAME, required = true)
+  @JsonProperty(JSON_PROPERTY_UDF_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUdfName(@javax.annotation.Nonnull String udfName) {
     this.udfName = udfName;
@@ -191,13 +191,13 @@ public class AddVirtualColumnEntry {
    * @return udfVersion
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_UDF_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_UDF_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getUdfVersion() {
     return udfVersion;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_UDF_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_UDF_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUdfVersion(@javax.annotation.Nonnull String udfVersion) {
     this.udfVersion = udfVersion;
@@ -287,14 +287,12 @@ public class AddVirtualColumnEntry {
       for (int i = 0; i < getInputColumns().size(); i++) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sinput_columns%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getInputColumns().get(i)))));
       }
     }
@@ -303,55 +301,40 @@ public class AddVirtualColumnEntry {
     if (getDataType() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sdata_type%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getDataType()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDataType()))));
     }
 
     // add `image` to the URL query string
     if (getImage() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%simage%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getImage()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getImage()))));
     }
 
     // add `udf` to the URL query string
     if (getUdf() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sudf%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getUdf()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getUdf()))));
     }
 
     // add `udf_name` to the URL query string
     if (getUdfName() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sudf_name%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getUdfName()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getUdfName()))));
     }
 
     // add `udf_version` to the URL query string
     if (getUdfVersion() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sudf_version%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getUdfVersion()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getUdfVersion()))));
     }
 
     return joiner.toString();

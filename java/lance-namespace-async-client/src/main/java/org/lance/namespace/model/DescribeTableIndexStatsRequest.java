@@ -36,7 +36,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableIndexStatsRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -66,13 +66,13 @@ public class DescribeTableIndexStatsRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -102,13 +102,13 @@ public class DescribeTableIndexStatsRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -133,13 +133,13 @@ public class DescribeTableIndexStatsRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -156,13 +156,13 @@ public class DescribeTableIndexStatsRequest {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -179,13 +179,13 @@ public class DescribeTableIndexStatsRequest {
    * @return indexName
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INDEX_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_INDEX_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getIndexName() {
     return indexName;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_INDEX_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_INDEX_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIndexName(@javax.annotation.Nullable String indexName) {
     this.indexName = indexName;
@@ -279,14 +279,12 @@ public class DescribeTableIndexStatsRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -297,14 +295,12 @@ public class DescribeTableIndexStatsRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -313,22 +309,16 @@ public class DescribeTableIndexStatsRequest {
     if (getVersion() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sversion%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
     }
 
     // add `index_name` to the URL query string
     if (getIndexName() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sindex_name%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getIndexName()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIndexName()))));
     }
 
     return joiner.toString();

@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class JsonArrowField {
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable private Map<String, String> metadata = new HashMap<>();
@@ -68,13 +68,13 @@ public class JsonArrowField {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -91,13 +91,13 @@ public class JsonArrowField {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getName() {
     return name;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
@@ -114,13 +114,13 @@ public class JsonArrowField {
    * @return nullable
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NULLABLE, required = true)
+  @JsonProperty(JSON_PROPERTY_NULLABLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Boolean getNullable() {
     return nullable;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NULLABLE, required = true)
+  @JsonProperty(JSON_PROPERTY_NULLABLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNullable(@javax.annotation.Nonnull Boolean nullable) {
     this.nullable = nullable;
@@ -137,13 +137,13 @@ public class JsonArrowField {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public JsonArrowDataType getType() {
     return type;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull JsonArrowDataType type) {
     this.type = type;
@@ -229,14 +229,12 @@ public class JsonArrowField {
       for (String _key : getMetadata().keySet()) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smetadata%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                 getMetadata().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getMetadata().get(_key)))));
       }
@@ -246,22 +244,16 @@ public class JsonArrowField {
     if (getName() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sname%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getName()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getName()))));
     }
 
     // add `nullable` to the URL query string
     if (getNullable() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%snullable%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getNullable()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNullable()))));
     }
 
     // add `type` to the URL query string

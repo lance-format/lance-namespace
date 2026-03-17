@@ -36,7 +36,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DropNamespaceRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -66,13 +66,13 @@ public class DropNamespaceRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -101,13 +101,13 @@ public class DropNamespaceRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -132,13 +132,13 @@ public class DropNamespaceRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -158,13 +158,13 @@ public class DropNamespaceRequest {
    * @return mode
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
+  @JsonProperty(JSON_PROPERTY_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getMode() {
     return mode;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
+  @JsonProperty(JSON_PROPERTY_MODE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMode(@javax.annotation.Nullable String mode) {
     this.mode = mode;
@@ -185,13 +185,13 @@ public class DropNamespaceRequest {
    * @return behavior
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_BEHAVIOR, required = false)
+  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getBehavior() {
     return behavior;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_BEHAVIOR, required = false)
+  @JsonProperty(JSON_PROPERTY_BEHAVIOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBehavior(@javax.annotation.Nullable String behavior) {
     this.behavior = behavior;
@@ -284,14 +284,12 @@ public class DropNamespaceRequest {
       for (String _key : getContext().keySet()) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%scontext%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                 getContext().get(_key),
                 ApiClient.urlEncode(ApiClient.valueToString(getContext().get(_key)))));
       }
@@ -302,14 +300,12 @@ public class DropNamespaceRequest {
       for (int i = 0; i < getId().size(); i++) {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sid%s%s=%s",
                 prefix,
                 suffix,
                 "".equals(suffix)
                     ? ""
-                    : String.format(
-                        java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                 ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
       }
     }
@@ -318,22 +314,16 @@ public class DropNamespaceRequest {
     if (getMode() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%smode%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getMode()))));
     }
 
     // add `behavior` to the URL query string
     if (getBehavior() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sbehavior%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getBehavior()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getBehavior()))));
     }
 
     return joiner.toString();

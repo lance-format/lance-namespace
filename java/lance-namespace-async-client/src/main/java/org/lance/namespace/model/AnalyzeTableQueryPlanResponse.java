@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({AnalyzeTableQueryPlanResponse.JSON_PROPERTY_ANALYSIS})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class AnalyzeTableQueryPlanResponse {
   public static final String JSON_PROPERTY_ANALYSIS = "analysis";
   @javax.annotation.Nonnull private String analysis;
@@ -44,13 +44,13 @@ public class AnalyzeTableQueryPlanResponse {
    * @return analysis
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ANALYSIS, required = true)
+  @JsonProperty(JSON_PROPERTY_ANALYSIS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getAnalysis() {
     return analysis;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ANALYSIS, required = true)
+  @JsonProperty(JSON_PROPERTY_ANALYSIS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAnalysis(@javax.annotation.Nonnull String analysis) {
     this.analysis = analysis;
@@ -129,11 +129,8 @@ public class AnalyzeTableQueryPlanResponse {
     if (getAnalysis() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sanalysis%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getAnalysis()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAnalysis()))));
     }
 
     return joiner.toString();

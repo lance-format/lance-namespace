@@ -24,7 +24,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({StructuredFtsQuery.JSON_PROPERTY_QUERY})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class StructuredFtsQuery {
   public static final String JSON_PROPERTY_QUERY = "query";
   @javax.annotation.Nonnull private FtsQuery query;
@@ -42,13 +42,13 @@ public class StructuredFtsQuery {
    * @return query
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_QUERY, required = true)
+  @JsonProperty(JSON_PROPERTY_QUERY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public FtsQuery getQuery() {
     return query;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_QUERY, required = true)
+  @JsonProperty(JSON_PROPERTY_QUERY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setQuery(@javax.annotation.Nonnull FtsQuery query) {
     this.query = query;

@@ -28,7 +28,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({PartitionSpec.JSON_PROPERTY_ID, PartitionSpec.JSON_PROPERTY_FIELDS})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class PartitionSpec {
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nonnull private Integer id;
@@ -49,13 +49,13 @@ public class PartitionSpec {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Integer getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setId(@javax.annotation.Nonnull Integer id) {
     this.id = id;
@@ -80,13 +80,13 @@ public class PartitionSpec {
    * @return fields
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = true)
+  @JsonProperty(JSON_PROPERTY_FIELDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<PartitionField> getFields() {
     return fields;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = true)
+  @JsonProperty(JSON_PROPERTY_FIELDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFields(@javax.annotation.Nonnull List<PartitionField> fields) {
     this.fields = fields;
@@ -167,11 +167,7 @@ public class PartitionSpec {
     if (getId() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
-              "%sid%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getId()))));
+              "%sid%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
     }
 
     // add `fields` to the URL query string
@@ -183,18 +179,12 @@ public class PartitionSpec {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
-                          java.util.Locale.ROOT,
                           "%sfields%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format(
-                                  java.util.Locale.ROOT,
-                                  "%s%d%s",
-                                  containerPrefix,
-                                  i,
-                                  containerSuffix))));
+                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

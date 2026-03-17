@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class MergeInsertIntoTableResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -63,13 +63,13 @@ public class MergeInsertIntoTableResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -87,13 +87,13 @@ public class MergeInsertIntoTableResponse {
    * @return numUpdatedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NUM_UPDATED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_UPDATED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumUpdatedRows() {
     return numUpdatedRows;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_UPDATED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_UPDATED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumUpdatedRows(@javax.annotation.Nullable Long numUpdatedRows) {
     this.numUpdatedRows = numUpdatedRows;
@@ -111,13 +111,13 @@ public class MergeInsertIntoTableResponse {
    * @return numInsertedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NUM_INSERTED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_INSERTED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumInsertedRows() {
     return numInsertedRows;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_INSERTED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_INSERTED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumInsertedRows(@javax.annotation.Nullable Long numInsertedRows) {
     this.numInsertedRows = numInsertedRows;
@@ -135,13 +135,13 @@ public class MergeInsertIntoTableResponse {
    * @return numDeletedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NUM_DELETED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_DELETED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumDeletedRows() {
     return numDeletedRows;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_DELETED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_DELETED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumDeletedRows(@javax.annotation.Nullable Long numDeletedRows) {
     this.numDeletedRows = numDeletedRows;
@@ -158,13 +158,13 @@ public class MergeInsertIntoTableResponse {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -251,55 +251,40 @@ public class MergeInsertIntoTableResponse {
     if (getTransactionId() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%stransaction_id%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
     }
 
     // add `num_updated_rows` to the URL query string
     if (getNumUpdatedRows() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%snum_updated_rows%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getNumUpdatedRows()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumUpdatedRows()))));
     }
 
     // add `num_inserted_rows` to the URL query string
     if (getNumInsertedRows() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%snum_inserted_rows%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getNumInsertedRows()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumInsertedRows()))));
     }
 
     // add `num_deleted_rows` to the URL query string
     if (getNumDeletedRows() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%snum_deleted_rows%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getNumDeletedRows()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumDeletedRows()))));
     }
 
     // add `version` to the URL query string
     if (getVersion() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%sversion%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
     }
 
     return joiner.toString();

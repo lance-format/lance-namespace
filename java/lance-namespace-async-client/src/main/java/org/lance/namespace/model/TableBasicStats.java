@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class TableBasicStats {
   public static final String JSON_PROPERTY_NUM_DELETED_ROWS = "num_deleted_rows";
   @javax.annotation.Nonnull private Integer numDeletedRows;
@@ -50,13 +50,13 @@ public class TableBasicStats {
    * @return numDeletedRows
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NUM_DELETED_ROWS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_DELETED_ROWS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Integer getNumDeletedRows() {
     return numDeletedRows;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_DELETED_ROWS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_DELETED_ROWS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNumDeletedRows(@javax.annotation.Nonnull Integer numDeletedRows) {
     this.numDeletedRows = numDeletedRows;
@@ -73,13 +73,13 @@ public class TableBasicStats {
    * @return numFragments
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NUM_FRAGMENTS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_FRAGMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Integer getNumFragments() {
     return numFragments;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_FRAGMENTS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_FRAGMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNumFragments(@javax.annotation.Nonnull Integer numFragments) {
     this.numFragments = numFragments;
@@ -160,22 +160,16 @@ public class TableBasicStats {
     if (getNumDeletedRows() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%snum_deleted_rows%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getNumDeletedRows()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumDeletedRows()))));
     }
 
     // add `num_fragments` to the URL query string
     if (getNumFragments() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%snum_fragments%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getNumFragments()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getNumFragments()))));
     }
 
     return joiner.toString();

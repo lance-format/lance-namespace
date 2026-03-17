@@ -15,14 +15,30 @@ package org.lance.namespace.client.async;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class Pair {
-  private final String name;
-  private final String value;
+  private String name = "";
+  private String value = "";
 
   public Pair(String name, String value) {
-    this.name = isValidString(name) ? name : "";
-    this.value = isValidString(value) ? value : "";
+    setName(name);
+    setValue(value);
+  }
+
+  private void setName(String name) {
+    if (!isValidString(name)) {
+      return;
+    }
+
+    this.name = name;
+  }
+
+  private void setValue(String value) {
+    if (!isValidString(value)) {
+      return;
+    }
+
+    this.value = value;
   }
 
   public String getName() {
@@ -33,7 +49,11 @@ public class Pair {
     return this.value;
   }
 
-  private static boolean isValidString(String arg) {
-    return arg != null;
+  private boolean isValidString(String arg) {
+    if (arg == null) {
+      return false;
+    }
+
+    return true;
   }
 }

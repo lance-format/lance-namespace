@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({ExplainTableQueryPlanResponse.JSON_PROPERTY_PLAN})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class ExplainTableQueryPlanResponse {
   public static final String JSON_PROPERTY_PLAN = "plan";
   @javax.annotation.Nonnull private String plan;
@@ -44,13 +44,13 @@ public class ExplainTableQueryPlanResponse {
    * @return plan
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_PLAN, required = true)
+  @JsonProperty(JSON_PROPERTY_PLAN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getPlan() {
     return plan;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PLAN, required = true)
+  @JsonProperty(JSON_PROPERTY_PLAN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPlan(@javax.annotation.Nonnull String plan) {
     this.plan = plan;
@@ -129,11 +129,8 @@ public class ExplainTableQueryPlanResponse {
     if (getPlan() != null) {
       joiner.add(
           String.format(
-              java.util.Locale.ROOT,
               "%splan%s=%s",
-              prefix,
-              suffix,
-              ApiClient.urlEncode(ApiClient.valueToString(getPlan()))));
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPlan()))));
     }
 
     return joiner.toString();

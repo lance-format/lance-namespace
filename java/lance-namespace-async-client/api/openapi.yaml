@@ -65,8 +65,8 @@ tags:
 paths:
   /v1/namespace/{id}/create:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Create new namespace `id`.
@@ -76,33 +76,33 @@ paths:
         omitting any specific property, or performing actions based on any property value.
       operationId: CreateNamespace
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateNamespaceRequest"
+              $ref: '#/components/schemas/CreateNamespaceRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CreateNamespaceResponse"
+          $ref: '#/components/responses/CreateNamespaceResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "406":
-          $ref: "#/components/responses/UnsupportedOperationErrorResponse"
+          $ref: '#/components/responses/UnsupportedOperationErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Create a new namespace
       tags:
       - Namespace
@@ -123,27 +123,27 @@ paths:
         - `limit`: pass through query parameter of the same name
       operationId: ListNamespaces
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
-      - $ref: "#/components/parameters/page_token"
-      - $ref: "#/components/parameters/limit"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      - $ref: '#/components/parameters/page_token'
+      - $ref: '#/components/parameters/limit'
       responses:
         "200":
-          $ref: "#/components/responses/ListNamespacesResponse"
+          $ref: '#/components/responses/ListNamespacesResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "406":
-          $ref: "#/components/responses/UnsupportedOperationErrorResponse"
+          $ref: '#/components/responses/UnsupportedOperationErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: List namespaces
       tags:
       - Namespace
@@ -151,42 +151,42 @@ paths:
       x-accepts:
       - application/json
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
-    - $ref: "#/components/parameters/page_token"
-    - $ref: "#/components/parameters/limit"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    - $ref: '#/components/parameters/page_token'
+    - $ref: '#/components/parameters/limit'
   /v1/namespace/{id}/describe:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Describe the detailed information for namespace `id`.
       operationId: DescribeNamespace
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DescribeNamespaceRequest"
+              $ref: '#/components/schemas/DescribeNamespaceRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DescribeNamespaceResponse"
+          $ref: '#/components/responses/DescribeNamespaceResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Describe a namespace
       tags:
       - Namespace
@@ -196,38 +196,38 @@ paths:
       - application/json
   /v1/namespace/{id}/drop:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Drop namespace `id` from its parent namespace.
       operationId: DropNamespace
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DropNamespaceRequest"
+              $ref: '#/components/schemas/DropNamespaceRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DropNamespaceResponse"
+          $ref: '#/components/responses/DropNamespaceResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Drop a namespace
       tags:
       - Namespace
@@ -237,8 +237,8 @@ paths:
       - application/json
   /v1/namespace/{id}/exists:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Check if namespace `id` exists.
@@ -247,29 +247,29 @@ paths:
         except it does not contain a response body.
       operationId: NamespaceExists
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/NamespaceExistsRequest"
+              $ref: '#/components/schemas/NamespaceExistsRequest'
         required: true
       responses:
         "200":
           description: "Success, no content"
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Check if a namespace exists
       tags:
       - Namespace
@@ -290,27 +290,27 @@ paths:
         - `limit`: pass through query parameter of the same name
       operationId: ListTables
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
-      - $ref: "#/components/parameters/page_token"
-      - $ref: "#/components/parameters/limit"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      - $ref: '#/components/parameters/page_token'
+      - $ref: '#/components/parameters/limit'
       responses:
         "200":
-          $ref: "#/components/responses/ListTablesResponse"
+          $ref: '#/components/responses/ListTablesResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "406":
-          $ref: "#/components/responses/UnsupportedOperationErrorResponse"
+          $ref: '#/components/responses/UnsupportedOperationErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: List tables in a namespace
       tags:
       - Namespace
@@ -319,10 +319,10 @@ paths:
       x-accepts:
       - application/json
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
-    - $ref: "#/components/parameters/page_token"
-    - $ref: "#/components/parameters/limit"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    - $ref: '#/components/parameters/page_token'
+    - $ref: '#/components/parameters/limit'
   /v1/table:
     get:
       description: |
@@ -336,22 +336,22 @@ paths:
         - `delimiter`: pass through query parameter of the same name
       operationId: ListAllTables
       parameters:
-      - $ref: "#/components/parameters/delimiter"
-      - $ref: "#/components/parameters/page_token"
-      - $ref: "#/components/parameters/limit"
+      - $ref: '#/components/parameters/delimiter'
+      - $ref: '#/components/parameters/page_token'
+      - $ref: '#/components/parameters/limit'
       responses:
         "200":
-          $ref: "#/components/responses/ListTablesResponse"
+          $ref: '#/components/responses/ListTablesResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: List all tables
       tags:
       - Table
@@ -359,40 +359,40 @@ paths:
       - application/json
   /v1/table/{id}/register:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Register an existing table at a given storage location as `id`.
       operationId: RegisterTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RegisterTableRequest"
+              $ref: '#/components/schemas/RegisterTableRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/RegisterTableResponse"
+          $ref: '#/components/responses/RegisterTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "406":
-          $ref: "#/components/responses/UnsupportedOperationErrorResponse"
+          $ref: '#/components/responses/UnsupportedOperationErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Register a table to a namespace
       tags:
       - Table
@@ -402,10 +402,10 @@ paths:
       - application/json
   /v1/table/{id}/describe:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
-    - $ref: "#/components/parameters/with_table_uri"
-    - $ref: "#/components/parameters/load_detailed_metadata"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    - $ref: '#/components/parameters/with_table_uri'
+    - $ref: '#/components/parameters/load_detailed_metadata'
     post:
       description: |
         Describe the detailed information for table `id`.
@@ -414,31 +414,31 @@ paths:
         REST namespace passes `with_table_uri` and `load_detailed_metadata` as query parameters instead of in the request body.
       operationId: DescribeTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
-      - $ref: "#/components/parameters/with_table_uri"
-      - $ref: "#/components/parameters/load_detailed_metadata"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      - $ref: '#/components/parameters/with_table_uri'
+      - $ref: '#/components/parameters/load_detailed_metadata'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DescribeTableRequest"
+              $ref: '#/components/schemas/DescribeTableRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DescribeTableResponse"
+          $ref: '#/components/responses/DescribeTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Describe information of a table
       tags:
       - Table
@@ -448,8 +448,8 @@ paths:
       - application/json
   /v1/table/{id}/exists:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Check if table `id` exists.
@@ -462,29 +462,29 @@ paths:
         - A `.lance-reserved` file exists in the table directory (declared table created with DeclareTable)
       operationId: TableExists
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TableExistsRequest"
+              $ref: '#/components/schemas/TableExistsRequest'
         required: true
       responses:
         "200":
           description: "Success, no content"
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Check if a table exists
       tags:
       - Table
@@ -494,8 +494,8 @@ paths:
       - application/json
   /v1/table/{id}/drop:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Drop table `id` and delete its data.
@@ -506,23 +506,23 @@ paths:
         - `id`: pass through path parameter of the same name
       operationId: DropTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       responses:
         "200":
-          $ref: "#/components/responses/DropTableResponse"
+          $ref: '#/components/responses/DropTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Drop a table
       tags:
       - Table
@@ -531,36 +531,36 @@ paths:
       - application/json
   /v1/table/{id}/deregister:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Deregister table `id` from its namespace.
       operationId: DeregisterTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeregisterTableRequest"
+              $ref: '#/components/schemas/DeregisterTableRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DeregisterTableResponse"
+          $ref: '#/components/responses/DeregisterTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Deregister a table
       tags:
       - Table
@@ -570,36 +570,36 @@ paths:
       - application/json
   /v1/table/{id}/restore:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Restore table `id` to a specific version.
       operationId: RestoreTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RestoreTableRequest"
+              $ref: '#/components/schemas/RestoreTableRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/RestoreTableResponse"
+          $ref: '#/components/responses/RestoreTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Restore table to a specific version
       tags:
       - Table
@@ -609,38 +609,38 @@ paths:
       - application/json
   /v1/table/{id}/rename:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Rename table `id` to a new name.
       operationId: RenameTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RenameTableRequest"
+              $ref: '#/components/schemas/RenameTableRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/RenameTableResponse"
+          $ref: '#/components/responses/RenameTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Rename a table
       tags:
       - Table
@@ -650,8 +650,8 @@ paths:
       - application/json
   /v1/table/{id}/schema_metadata/update:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Replace the schema metadata for table `id` with the provided key-value pairs.
@@ -661,8 +661,8 @@ paths:
         instead of the wrapped `UpdateTableSchemaMetadataRequest` and `UpdateTableSchemaMetadataResponse`.
       operationId: UpdateTableSchemaMetadata
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
@@ -681,17 +681,17 @@ paths:
                 description: The updated schema metadata
           description: Schema metadata update result
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Update table schema metadata
       tags:
       - Table
@@ -701,10 +701,10 @@ paths:
       - application/json
   /v1/table/{id}/version/list:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
-    - $ref: "#/components/parameters/page_token"
-    - $ref: "#/components/parameters/limit"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    - $ref: '#/components/parameters/page_token'
+    - $ref: '#/components/parameters/limit'
     - description: |
         When true, versions are guaranteed to be returned in descending order (latest to oldest).
         When false or not specified, the ordering is implementation-defined.
@@ -731,10 +731,10 @@ paths:
         - `descending`: pass through query parameter of the same name
       operationId: ListTableVersions
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
-      - $ref: "#/components/parameters/page_token"
-      - $ref: "#/components/parameters/limit"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      - $ref: '#/components/parameters/page_token'
+      - $ref: '#/components/parameters/limit'
       - description: |
           When true, versions are guaranteed to be returned in descending order (latest to oldest).
           When false or not specified, the ordering is implementation-defined.
@@ -747,19 +747,19 @@ paths:
         style: form
       responses:
         "200":
-          $ref: "#/components/responses/ListTableVersionsResponse"
+          $ref: '#/components/responses/ListTableVersionsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: List all versions of a table
       tags:
       - Table
@@ -768,8 +768,8 @@ paths:
       - application/json
   /v1/table/{id}/version/create:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Create a new version entry for table `id`.
@@ -778,31 +778,31 @@ paths:
         The operation will fail with 409 Conflict if the version already exists.
       operationId: CreateTableVersion
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateTableVersionRequest"
+              $ref: '#/components/schemas/CreateTableVersionRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CreateTableVersionResponse"
+          $ref: '#/components/responses/CreateTableVersionResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Create a new table version
       tags:
       - Table
@@ -812,8 +812,8 @@ paths:
       - application/json
   /v1/table/{id}/version/describe:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Describe the detailed information for a specific version of table `id`.
@@ -821,29 +821,29 @@ paths:
         Returns the manifest path and metadata for the specified version.
       operationId: DescribeTableVersion
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DescribeTableVersionRequest"
+              $ref: '#/components/schemas/DescribeTableVersionRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DescribeTableVersionResponse"
+          $ref: '#/components/responses/DescribeTableVersionResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Describe a specific table version
       tags:
       - Table
@@ -853,8 +853,8 @@ paths:
       - application/json
   /v1/table/{id}/version/delete:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Delete version metadata records for table `id`.
@@ -866,29 +866,29 @@ paths:
         - `start_version: 0` with `end_version: -1` means delete ALL version records
       operationId: BatchDeleteTableVersions
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/BatchDeleteTableVersionsRequest"
+              $ref: '#/components/schemas/BatchDeleteTableVersionsRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/BatchDeleteTableVersionsResponse"
+          $ref: '#/components/responses/BatchDeleteTableVersionsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Delete table version records
       tags:
       - Table
@@ -898,7 +898,7 @@ paths:
       - application/json
   /v1/table/version/batch-create:
     parameters:
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Atomically create new version entries for multiple tables.
@@ -911,30 +911,30 @@ paths:
         This supports `put_if_not_exists` semantics for each version entry.
       operationId: BatchCreateTableVersions
       parameters:
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/BatchCreateTableVersionsRequest"
+              $ref: '#/components/schemas/BatchCreateTableVersionsRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/BatchCreateTableVersionsResponse"
+          $ref: '#/components/responses/BatchCreateTableVersionsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Atomically create versions for multiple tables
       tags:
       - Table
@@ -944,7 +944,7 @@ paths:
       - application/json
   /v1/table/batch-commit:
     parameters:
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Atomically commit a batch of table operations. This is a generalized version
@@ -960,30 +960,30 @@ paths:
         All operations are committed atomically: either all succeed or none are applied.
       operationId: BatchCommitTables
       parameters:
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/BatchCommitTablesRequest"
+              $ref: '#/components/schemas/BatchCommitTablesRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/BatchCommitTablesResponse"
+          $ref: '#/components/responses/BatchCommitTablesResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Atomically commit a batch of mixed table operations
       tags:
       - Table
@@ -994,36 +994,36 @@ paths:
       - application/json
   /v1/table/{id}/alter_columns:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Modify existing columns in table `id`, such as renaming or changing data types.
       operationId: AlterTableAlterColumns
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AlterTableAlterColumnsRequest"
+              $ref: '#/components/schemas/AlterTableAlterColumnsRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/AlterTableAlterColumnsResponse"
+          $ref: '#/components/responses/AlterTableAlterColumnsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Modify existing columns
       tags:
       - Table
@@ -1033,36 +1033,36 @@ paths:
       - application/json
   /v1/table/{id}/drop_columns:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Remove specified columns from table `id`.
       operationId: AlterTableDropColumns
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AlterTableDropColumnsRequest"
+              $ref: '#/components/schemas/AlterTableDropColumnsRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/AlterTableDropColumnsResponse"
+          $ref: '#/components/responses/AlterTableDropColumnsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Remove columns from table
       tags:
       - Table
@@ -1072,36 +1072,36 @@ paths:
       - application/json
   /v1/table/{id}/stats:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Get statistics for table `id`, including row counts, data sizes, and column statistics.
       operationId: GetTableStats
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GetTableStatsRequest"
+              $ref: '#/components/schemas/GetTableStatsRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/GetTableStatsResponse"
+          $ref: '#/components/responses/GetTableStatsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Get table statistics
       tags:
       - Table
@@ -1111,8 +1111,8 @@ paths:
       - application/json
   /v1/table/{id}/insert:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     - description: |
         How the insert should behave. Case insensitive, supports both PascalCase and snake_case. Valid values are:
         - Append (default): insert data to the existing table
@@ -1136,8 +1136,8 @@ paths:
         - `mode`: pass through query parameter of the same name
       operationId: InsertIntoTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       - description: |
           How the insert should behave. Case insensitive, supports both PascalCase and snake_case. Valid values are:
           - Append (default): insert data to the existing table
@@ -1160,19 +1160,19 @@ paths:
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/InsertIntoTableResponse"
+          $ref: '#/components/responses/InsertIntoTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Insert records into a table
       tags:
       - Table
@@ -1182,8 +1182,8 @@ paths:
       - application/json
   /v1/table/{id}/merge_insert:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     - description: Column name to use for matching rows (required)
       explode: true
       in: query
@@ -1274,8 +1274,8 @@ paths:
         - `when_not_matched_by_source_delete_filt`: pass through query parameter of the same name
       operationId: MergeInsertIntoTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       - description: Column name to use for matching rows (required)
         explode: true
         in: query
@@ -1357,19 +1357,19 @@ paths:
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/MergeInsertIntoTableResponse"
+          $ref: '#/components/responses/MergeInsertIntoTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Merge insert (upsert) records into a table
       tags:
       - Table
@@ -1379,37 +1379,37 @@ paths:
       - application/json
   /v1/table/{id}/update:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Update existing rows in table `id`.
       operationId: UpdateTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateTableRequest"
+              $ref: '#/components/schemas/UpdateTableRequest'
         description: Update request
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/UpdateTableResponse"
+          $ref: '#/components/responses/UpdateTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Update rows in a table
       tags:
       - Table
@@ -1419,37 +1419,37 @@ paths:
       - application/json
   /v1/table/{id}/delete:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Delete rows from table `id`.
       operationId: DeleteFromTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeleteFromTableRequest"
+              $ref: '#/components/schemas/DeleteFromTableRequest'
         description: Delete request
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DeleteFromTableResponse"
+          $ref: '#/components/responses/DeleteFromTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Delete rows from a table
       tags:
       - Table
@@ -1459,8 +1459,8 @@ paths:
       - application/json
   /v1/table/{id}/query:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Query table `id` with vector search, full text search and optional SQL filtering.
@@ -1471,30 +1471,30 @@ paths:
         instead of the `QueryTableResponse` JSON object.
       operationId: QueryTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/QueryTableRequest"
+              $ref: '#/components/schemas/QueryTableRequest'
         description: Query request
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/QueryTableResponse"
+          $ref: '#/components/responses/QueryTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Query a table
       tags:
       - Table
@@ -1505,8 +1505,8 @@ paths:
       - application/vnd.apache.arrow.file
   /v1/table/{id}/count_rows:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Count the number of rows in table `id`
@@ -1516,29 +1516,29 @@ paths:
         instead of the `CountTableRowsResponse` JSON object.
       operationId: CountTableRows
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CountTableRowsRequest"
+              $ref: '#/components/schemas/CountTableRowsRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CountTableRowsResponse"
+          $ref: '#/components/responses/CountTableRowsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Count rows in a table
       tags:
       - Table
@@ -1548,8 +1548,8 @@ paths:
       - application/json
   /v1/table/{id}/create:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     - explode: true
       in: query
       name: mode
@@ -1571,8 +1571,8 @@ paths:
         - `mode`: pass through query parameter of the same name
       operationId: CreateTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       - explode: true
         in: query
         name: mode
@@ -1590,19 +1590,19 @@ paths:
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CreateTableResponse"
+          $ref: '#/components/responses/CreateTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Create a table with the given name
       tags:
       - Table
@@ -1612,8 +1612,8 @@ paths:
       - application/json
   /v1/table/{id}/explain_plan:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Get the query execution plan for a query against table `id`.
@@ -1624,29 +1624,29 @@ paths:
         instead of the `ExplainTableQueryPlanResponse` JSON object.
       operationId: ExplainTableQueryPlan
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ExplainTableQueryPlanRequest"
+              $ref: '#/components/schemas/ExplainTableQueryPlanRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/ExplainTableQueryPlanResponse"
+          $ref: '#/components/responses/ExplainTableQueryPlanResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Get query execution plan explanation
       tags:
       - Table
@@ -1656,8 +1656,8 @@ paths:
       - application/json
   /v1/table/{id}/analyze_plan:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Analyze the query execution plan for a query against table `id`.
@@ -1668,29 +1668,29 @@ paths:
         instead of the `AnalyzeTableQueryPlanResponse` JSON object.
       operationId: AnalyzeTableQueryPlan
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AnalyzeTableQueryPlanRequest"
+              $ref: '#/components/schemas/AnalyzeTableQueryPlanRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/AnalyzeTableQueryPlanResponse"
+          $ref: '#/components/responses/AnalyzeTableQueryPlanResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Analyze query execution plan
       tags:
       - Table
@@ -1700,36 +1700,36 @@ paths:
       - application/json
   /v1/table/{id}/add_columns:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Add new columns to table `id` using SQL expressions or default values.
       operationId: AlterTableAddColumns
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AlterTableAddColumnsRequest"
+              $ref: '#/components/schemas/AlterTableAddColumnsRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/AlterTableAddColumnsResponse"
+          $ref: '#/components/responses/AlterTableAddColumnsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Add new columns to table schema
       tags:
       - Table
@@ -1739,8 +1739,8 @@ paths:
       - application/json
   /v1/table/{id}/create_index:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Create an index on a table column for faster search operations.
@@ -1749,30 +1749,30 @@ paths:
         Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress.
       operationId: CreateTableIndex
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateTableIndexRequest"
+              $ref: '#/components/schemas/CreateTableIndexRequest'
         description: Index creation request
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CreateTableIndexResponse"
+          $ref: '#/components/responses/CreateTableIndexResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Create an index on a table
       tags:
       - Table
@@ -1783,8 +1783,8 @@ paths:
       - application/json
   /v1/table/{id}/create_scalar_index:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Create a scalar index on a table column for faster filtering operations.
@@ -1794,30 +1794,30 @@ paths:
         Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress.
       operationId: CreateTableScalarIndex
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateTableIndexRequest"
+              $ref: '#/components/schemas/CreateTableIndexRequest'
         description: Scalar index creation request
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CreateTableScalarIndexResponse"
+          $ref: '#/components/responses/CreateTableScalarIndexResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Create a scalar index on a table
       tags:
       - Table
@@ -1828,38 +1828,38 @@ paths:
       - application/json
   /v1/table/{id}/index/list:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         List all indices created on a table. Returns information about each index
         including name, columns, status, and UUID.
       operationId: ListTableIndices
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ListTableIndicesRequest"
+              $ref: '#/components/schemas/ListTableIndicesRequest'
         description: Index list request
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/ListTableIndicesResponse"
+          $ref: '#/components/responses/ListTableIndicesResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: List indexes on a table
       tags:
       - Table
@@ -1870,8 +1870,8 @@ paths:
       - application/json
   /v1/table/{id}/index/{index_name}/stats:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     - description: Name of the index to get stats for
       explode: false
       in: path
@@ -1886,8 +1886,8 @@ paths:
         the index type, distance type (for vector indices), and row counts.
       operationId: DescribeTableIndexStats
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       - description: Name of the index to get stats for
         explode: false
         in: path
@@ -1900,24 +1900,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DescribeTableIndexStatsRequest"
+              $ref: '#/components/schemas/DescribeTableIndexStatsRequest'
         description: Index stats request
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DescribeTableIndexStatsResponse"
+          $ref: '#/components/responses/DescribeTableIndexStatsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Get table index statistics
       tags:
       - Table
@@ -1928,8 +1928,8 @@ paths:
       - application/json
   /v1/table/{id}/index/{index_name}/drop:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     - description: Name of the index to drop
       explode: false
       in: path
@@ -1949,8 +1949,8 @@ paths:
         - `index_name`: pass through path parameter of the same name
       operationId: DropTableIndex
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       - description: Name of the index to drop
         explode: false
         in: path
@@ -1961,19 +1961,19 @@ paths:
         style: simple
       responses:
         "200":
-          $ref: "#/components/responses/DropTableIndexResponse"
+          $ref: '#/components/responses/DropTableIndexResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Drop a specific index
       tags:
       - Table
@@ -1983,10 +1983,10 @@ paths:
       - application/json
   /v1/table/{id}/tags/list:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
-    - $ref: "#/components/parameters/page_token"
-    - $ref: "#/components/parameters/limit"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
+    - $ref: '#/components/parameters/page_token'
+    - $ref: '#/components/parameters/limit'
     post:
       description: |
         List all tags that have been created for table `id`.
@@ -2000,25 +2000,25 @@ paths:
         - `limit`: pass through query parameter of the same name
       operationId: ListTableTags
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
-      - $ref: "#/components/parameters/page_token"
-      - $ref: "#/components/parameters/limit"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
+      - $ref: '#/components/parameters/page_token'
+      - $ref: '#/components/parameters/limit'
       responses:
         "200":
-          $ref: "#/components/responses/ListTableTagsResponse"
+          $ref: '#/components/responses/ListTableTagsResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: List all tags for a table
       tags:
       - Table
@@ -2028,36 +2028,36 @@ paths:
       - application/json
   /v1/table/{id}/tags/version:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Get the version number that a specific tag points to for table `id`.
       operationId: GetTableTagVersion
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/GetTableTagVersionRequest"
+              $ref: '#/components/schemas/GetTableTagVersionRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/GetTableTagVersionResponse"
+          $ref: '#/components/responses/GetTableTagVersionResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Get version for a specific tag
       tags:
       - Table
@@ -2068,8 +2068,8 @@ paths:
       - application/json
   /v1/table/{id}/declare:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Declare a table with the given name without touching storage.
@@ -2079,31 +2079,31 @@ paths:
         to mark the table's existence without creating actual Lance data files.
       operationId: DeclareTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeclareTableRequest"
+              $ref: '#/components/schemas/DeclareTableRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DeclareTableResponse"
+          $ref: '#/components/responses/DeclareTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Declare a table
       tags:
       - Table
@@ -2113,8 +2113,8 @@ paths:
       - application/json
   /v1/table/{id}/create-empty:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       deprecated: true
       description: |
@@ -2127,31 +2127,31 @@ paths:
         **Deprecated**: Use `DeclareTable` instead.
       operationId: CreateEmptyTable
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateEmptyTableRequest"
+              $ref: '#/components/schemas/CreateEmptyTableRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CreateEmptyTableResponse"
+          $ref: '#/components/responses/CreateEmptyTableResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Create an empty table
       tags:
       - Table
@@ -2161,38 +2161,38 @@ paths:
       - application/json
   /v1/table/{id}/tags/create:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Create a new tag for table `id` that points to a specific version.
       operationId: CreateTableTag
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateTableTagRequest"
+              $ref: '#/components/schemas/CreateTableTagRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/CreateTableTagResponse"
+          $ref: '#/components/responses/CreateTableTagResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Create a new tag
       tags:
       - Table
@@ -2203,36 +2203,36 @@ paths:
       - application/json
   /v1/table/{id}/tags/delete:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Delete an existing tag from table `id`.
       operationId: DeleteTableTag
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeleteTableTagRequest"
+              $ref: '#/components/schemas/DeleteTableTagRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DeleteTableTagResponse"
+          $ref: '#/components/responses/DeleteTableTagResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Delete a tag
       tags:
       - Table
@@ -2243,36 +2243,36 @@ paths:
       - application/json
   /v1/table/{id}/tags/update:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Update an existing tag for table `id` to point to a different version.
       operationId: UpdateTableTag
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateTableTagRequest"
+              $ref: '#/components/schemas/UpdateTableTagRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/UpdateTableTagResponse"
+          $ref: '#/components/responses/UpdateTableTagResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Update a tag to point to a different version
       tags:
       - Table
@@ -2283,36 +2283,36 @@ paths:
       - application/json
   /v1/transaction/{id}/describe:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Return a detailed information for a given transaction
       operationId: DescribeTransaction
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DescribeTransactionRequest"
+              $ref: '#/components/schemas/DescribeTransactionRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/DescribeTransactionResponse"
+          $ref: '#/components/responses/DescribeTransactionResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Describe information about a transaction
       tags:
       - Transaction
@@ -2322,39 +2322,39 @@ paths:
       - application/json
   /v1/transaction/{id}/alter:
     parameters:
-    - $ref: "#/components/parameters/id"
-    - $ref: "#/components/parameters/delimiter"
+    - $ref: '#/components/parameters/id'
+    - $ref: '#/components/parameters/delimiter'
     post:
       description: |
         Alter a transaction with a list of actions such as setting status or properties.
         The server should either succeed and apply all actions, or fail and apply no action.
       operationId: AlterTransaction
       parameters:
-      - $ref: "#/components/parameters/id"
-      - $ref: "#/components/parameters/delimiter"
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/delimiter'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AlterTransactionRequest"
+              $ref: '#/components/schemas/AlterTransactionRequest'
         required: true
       responses:
         "200":
-          $ref: "#/components/responses/AlterTransactionResponse"
+          $ref: '#/components/responses/AlterTransactionResponse'
         "400":
-          $ref: "#/components/responses/BadRequestErrorResponse"
+          $ref: '#/components/responses/BadRequestErrorResponse'
         "401":
-          $ref: "#/components/responses/UnauthorizedErrorResponse"
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
         "403":
-          $ref: "#/components/responses/ForbiddenErrorResponse"
+          $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
-          $ref: "#/components/responses/NotFoundErrorResponse"
+          $ref: '#/components/responses/NotFoundErrorResponse'
         "409":
-          $ref: "#/components/responses/ConflictErrorResponse"
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
-          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
-          $ref: "#/components/responses/ServerErrorResponse"
+          $ref: '#/components/responses/ServerErrorResponse'
       summary: Alter information of a transaction.
       tags:
       - Transaction
@@ -2405,7 +2405,7 @@ components:
       name: page_token
       required: false
       schema:
-        $ref: "#/components/schemas/PageToken"
+        $ref: '#/components/schemas/PageToken'
       style: form
     limit:
       description: Maximum number of items to return
@@ -2414,7 +2414,7 @@ components:
       name: limit
       required: false
       schema:
-        $ref: "#/components/schemas/PageLimit"
+        $ref: '#/components/schemas/PageLimit'
       style: form
     with_table_uri:
       description: Whether to include the table URI in the response
@@ -2445,108 +2445,108 @@ components:
         application/json:
           examples:
             NonEmptyResponse:
-              $ref: "#/components/examples/ListNamespacesNonEmptyExample"
+              $ref: '#/components/examples/ListNamespacesNonEmptyExample'
             EmptyResponse:
-              $ref: "#/components/examples/ListNamespacesEmptyExample"
+              $ref: '#/components/examples/ListNamespacesEmptyExample'
           schema:
-            $ref: "#/components/schemas/ListNamespacesResponse"
+            $ref: '#/components/schemas/ListNamespacesResponse'
       description: A list of namespaces
     DescribeNamespaceResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DescribeNamespaceResponse"
+            $ref: '#/components/schemas/DescribeNamespaceResponse'
       description: "Returns a namespace, as well as any properties stored on the namespace\
         \ if namespace properties are supported by the server."
     CreateNamespaceResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateNamespaceResponse"
+            $ref: '#/components/schemas/CreateNamespaceResponse'
       description: Result of creating a namespace
     DropNamespaceResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DropNamespaceResponse"
+            $ref: '#/components/schemas/DropNamespaceResponse'
       description: Result of dropping a namespace
     ListTablesResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ListTablesResponse"
+            $ref: '#/components/schemas/ListTablesResponse'
       description: A list of tables
     DescribeTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DescribeTableResponse"
+            $ref: '#/components/schemas/DescribeTableResponse'
       description: Table properties result when loading a table
     CountTableRowsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CountTableRowsResponse"
+            $ref: '#/components/schemas/CountTableRowsResponse'
       description: Result of counting rows in a table
     CreateTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateTableResponse"
+            $ref: '#/components/schemas/CreateTableResponse'
       description: Table properties result when creating a table
     InsertIntoTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/InsertIntoTableResponse"
+            $ref: '#/components/schemas/InsertIntoTableResponse'
       description: Result of inserting records into a table
     MergeInsertIntoTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/MergeInsertIntoTableResponse"
+            $ref: '#/components/schemas/MergeInsertIntoTableResponse'
       description: Result of merge insert operation
     RegisterTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/RegisterTableResponse"
+            $ref: '#/components/schemas/RegisterTableResponse'
       description: Table properties result when registering a table
     DescribeTransactionResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DescribeTransactionResponse"
+            $ref: '#/components/schemas/DescribeTransactionResponse'
       description: Response of DescribeTransaction
     AlterTransactionResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/AlterTransactionResponse"
+            $ref: '#/components/schemas/AlterTransactionResponse'
       description: Response of AlterTransaction
     DropTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DropTableResponse"
+            $ref: '#/components/schemas/DropTableResponse'
       description: Response of DropTable
     DeregisterTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeregisterTableResponse"
+            $ref: '#/components/schemas/DeregisterTableResponse'
       description: Response of DeregisterTable
     UpdateTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateTableResponse"
+            $ref: '#/components/schemas/UpdateTableResponse'
       description: Update successful
     DeleteFromTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeleteFromTableResponse"
+            $ref: '#/components/schemas/DeleteFromTableResponse'
       description: Delete successful
     QueryTableResponse:
       content:
@@ -2559,91 +2559,91 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateTableIndexResponse"
+            $ref: '#/components/schemas/CreateTableIndexResponse'
       description: Index created successfully
     CreateTableScalarIndexResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateTableScalarIndexResponse"
+            $ref: '#/components/schemas/CreateTableScalarIndexResponse'
       description: Scalar index created successfully
     ListTableIndicesResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ListTableIndicesResponse"
+            $ref: '#/components/schemas/ListTableIndicesResponse'
       description: List of indices on the table
     DescribeTableIndexStatsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DescribeTableIndexStatsResponse"
+            $ref: '#/components/schemas/DescribeTableIndexStatsResponse'
       description: Index statistics
     ListTableTagsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ListTableTagsResponse"
+            $ref: '#/components/schemas/ListTableTagsResponse'
       description: List of table tags
     GetTableTagVersionResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetTableTagVersionResponse"
+            $ref: '#/components/schemas/GetTableTagVersionResponse'
       description: Tag version information
     CreateTableTagResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateTableTagResponse"
+            $ref: '#/components/schemas/CreateTableTagResponse'
       description: Create tag response
     DeleteTableTagResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeleteTableTagResponse"
+            $ref: '#/components/schemas/DeleteTableTagResponse'
       description: Delete tag response
     UpdateTableTagResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateTableTagResponse"
+            $ref: '#/components/schemas/UpdateTableTagResponse'
       description: Update tag response
     ListTableVersionsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ListTableVersionsResponse"
+            $ref: '#/components/schemas/ListTableVersionsResponse'
       description: List of table versions
     CreateTableVersionResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateTableVersionResponse"
+            $ref: '#/components/schemas/CreateTableVersionResponse'
       description: Result of creating a table version
     DescribeTableVersionResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DescribeTableVersionResponse"
+            $ref: '#/components/schemas/DescribeTableVersionResponse'
       description: Table version information
     BatchDeleteTableVersionsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/BatchDeleteTableVersionsResponse"
+            $ref: '#/components/schemas/BatchDeleteTableVersionsResponse'
       description: Result of deleting table version records
     BatchCreateTableVersionsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/BatchCreateTableVersionsResponse"
+            $ref: '#/components/schemas/BatchCreateTableVersionsResponse'
       description: Result of atomically creating table versions
     BatchCommitTablesResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/BatchCommitTablesResponse"
+            $ref: '#/components/schemas/BatchCommitTablesResponse'
       description: Result of atomically committing a batch of mixed table operations
     ExplainTableQueryPlanResponse:
       content:
@@ -2663,55 +2663,55 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/AlterTableAddColumnsResponse"
+            $ref: '#/components/schemas/AlterTableAddColumnsResponse'
       description: Add columns operation result
     AlterTableAlterColumnsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/AlterTableAlterColumnsResponse"
+            $ref: '#/components/schemas/AlterTableAlterColumnsResponse'
       description: Alter columns operation result
     AlterTableDropColumnsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/AlterTableDropColumnsResponse"
+            $ref: '#/components/schemas/AlterTableDropColumnsResponse'
       description: Drop columns operation result
     GetTableStatsResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetTableStatsResponse"
+            $ref: '#/components/schemas/GetTableStatsResponse'
       description: Table statistics
     RestoreTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/RestoreTableResponse"
+            $ref: '#/components/schemas/RestoreTableResponse'
       description: Table restore operation result
     RenameTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/RenameTableResponse"
+            $ref: '#/components/schemas/RenameTableResponse'
       description: Table rename operation result
     DropTableIndexResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DropTableIndexResponse"
+            $ref: '#/components/schemas/DropTableIndexResponse'
       description: Index drop operation result
     DeclareTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/DeclareTableResponse"
+            $ref: '#/components/schemas/DeclareTableResponse'
       description: Table properties result when declaring a table
     CreateEmptyTableResponse:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateEmptyTableResponse"
+            $ref: '#/components/schemas/CreateEmptyTableResponse'
       description: Table properties result when creating an empty table
     BadRequestErrorResponse:
       content:
@@ -2723,7 +2723,7 @@ components:
             detail: ""
             instance: /v1/namespaces
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: "Indicates a bad request error. It could be caused by an unexpected\
         \ request body format or other forms of request validation failure, such as\
         \ invalid json. Usually serves application/json content, although in some\
@@ -2738,7 +2738,7 @@ components:
             detail: ""
             instance: /v1/namespaces
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: Unauthorized. The request lacks valid authentication credentials
         for the operation.
     ForbiddenErrorResponse:
@@ -2751,7 +2751,7 @@ components:
             detail: ""
             instance: /v1/namespaces
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: Forbidden. Authenticated user does not have the necessary permissions.
     NotFoundErrorResponse:
       content:
@@ -2763,7 +2763,7 @@ components:
             detail: ""
             instance: "/v1/namespaces/{ns}"
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: A server-side problem that means can not find the specified resource.
     UnsupportedOperationErrorResponse:
       content:
@@ -2775,7 +2775,7 @@ components:
             detail: ""
             instance: /v1/namespaces
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: Not Acceptable / Unsupported Operation. The server does not support
         this operation.
     ConflictErrorResponse:
@@ -2788,7 +2788,7 @@ components:
             detail: ""
             instance: "/v1/namespaces/{ns}"
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: The request conflicts with the current state of the target resource.
     ServiceUnavailableErrorResponse:
       content:
@@ -2800,7 +2800,7 @@ components:
             detail: ""
             instance: /v1/namespaces
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: The service is not ready to handle the request. The client should
         wait and retry. The service may additionally send a Retry-After header to
         indicate when to retry.
@@ -2814,7 +2814,7 @@ components:
             detail: ""
             instance: /v1/namespaces
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
       description: A server-side problem that might not be addressable from the client
         side. Used for server 5xx errors without more specific documentation in individual
         routes.
@@ -2923,7 +2923,7 @@ components:
           key: properties
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -2973,7 +2973,7 @@ components:
     ListNamespacesRequest:
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3061,7 +3061,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3109,7 +3109,7 @@ components:
         behavior: behavior
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3171,7 +3171,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3228,7 +3228,7 @@ components:
           key: properties
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3281,7 +3281,7 @@ components:
     ListTablesRequest:
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3375,7 +3375,7 @@ components:
         vend_credentials: true
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3420,11 +3420,36 @@ components:
           type: boolean
     DescribeTableResponse:
       example:
-        schema: ""
+        schema:
+          metadata:
+            key: metadata
+          fields:
+          - metadata:
+              key: metadata
+            nullable: true
+            name: name
+            type:
+              length: 0
+              fields:
+              - null
+              - null
+              type: type
+          - metadata:
+              key: metadata
+            nullable: true
+            name: name
+            type:
+              length: 0
+              fields:
+              - null
+              - null
+              type: type
         metadata:
           key: metadata
         table_uri: table_uri
-        stats: ""
+        stats:
+          num_deleted_rows: 0
+          num_fragments: 0
         namespace:
         - namespace
         - namespace
@@ -3467,11 +3492,7 @@ components:
             Only returned when `with_table_uri` is true.
           type: string
         schema:
-          allOf:
-          - $ref: "#/components/schemas/JsonArrowSchema"
-          description: |
-            Table schema in JSON Arrow format.
-            Only populated when `load_detailed_metadata` is true.
+          $ref: '#/components/schemas/JsonArrowSchema'
         storage_options:
           additionalProperties:
             type: string
@@ -3483,12 +3504,7 @@ components:
             If the vended credentials are temporary, the `expires_at_millis` key should be
             included to indicate the millisecond timestamp when the credentials expire.
         stats:
-          allOf:
-          - $ref: "#/components/schemas/TableBasicStats"
-          description: |
-            Table statistics.
-            Only populated when `load_detailed_metadata` is true.
-          nullable: true
+          $ref: '#/components/schemas/TableBasicStats'
         metadata:
           additionalProperties:
             type: string
@@ -3516,6 +3532,9 @@ components:
             to manage table versions instead of relying on Lance's native version management.
           type: boolean
     TableBasicStats:
+      example:
+        num_deleted_rows: 0
+        num_fragments: 0
       properties:
         num_deleted_rows:
           description: Number of deleted rows in the table
@@ -3542,7 +3561,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3581,7 +3600,7 @@ components:
         Request for inserting records into a table, excluding the Arrow IPC stream.
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3617,7 +3636,7 @@ components:
         Request for merging or inserting records into a table, excluding the Arrow IPC stream.
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3720,7 +3739,7 @@ components:
           key: properties
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3801,7 +3820,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3883,7 +3902,7 @@ components:
                 column: column
                 boost: 6.0274563
                 prefix_length: 0
-                operator: ""
+                operator: operator
                 max_expansions: 0
               boost:
                 negative: null
@@ -3896,14 +3915,14 @@ components:
                   column: column
                   boost: 6.0274563
                   prefix_length: 0
-                  operator: ""
+                  operator: operator
                   max_expansions: 0
                 - fuzziness: 0
                   terms: terms
                   column: column
                   boost: 6.0274563
                   prefix_length: 0
-                  operator: ""
+                  operator: operator
                   max_expansions: 0
         distance_type: distance_type
         lower_bound: 3.6160767
@@ -3928,7 +3947,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -3948,7 +3967,7 @@ components:
           description: Whether to bypass vector index
           type: boolean
         columns:
-          $ref: "#/components/schemas/QueryTableRequest_columns"
+          $ref: '#/components/schemas/QueryTableRequest_columns'
         distance_type:
           description: Distance metric to use
           type: string
@@ -3963,7 +3982,7 @@ components:
           description: Optional SQL filter expression
           type: string
         full_text_query:
-          $ref: "#/components/schemas/QueryTableRequest_full_text_query"
+          $ref: '#/components/schemas/QueryTableRequest_full_text_query'
         k:
           description: Number of results to return
           minimum: 0
@@ -3993,7 +4012,7 @@ components:
           format: float
           type: number
         vector:
-          $ref: "#/components/schemas/QueryTableRequest_vector"
+          $ref: '#/components/schemas/QueryTableRequest_vector'
         vector_column:
           description: Name of the vector column to search
           type: string
@@ -4032,7 +4051,7 @@ components:
         stem: true
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4131,7 +4150,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4199,7 +4218,7 @@ components:
         indexes:
           description: List of indexes on the table
           items:
-            $ref: "#/components/schemas/IndexContent"
+            $ref: '#/components/schemas/IndexContent'
           type: array
         page_token:
           description: |
@@ -4264,7 +4283,7 @@ components:
         index_name: index_name
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4326,10 +4345,34 @@ components:
     JsonArrowSchema:
       description: |
         JSON representation of a Apache Arrow schema.
+      example:
+        metadata:
+          key: metadata
+        fields:
+        - metadata:
+            key: metadata
+          nullable: true
+          name: name
+          type:
+            length: 0
+            fields:
+            - null
+            - null
+            type: type
+        - metadata:
+            key: metadata
+          nullable: true
+          name: name
+          type:
+            length: 0
+            fields:
+            - null
+            - null
+            type: type
       properties:
         fields:
           items:
-            $ref: "#/components/schemas/JsonArrowField"
+            $ref: '#/components/schemas/JsonArrowField'
           type: array
         metadata:
           additionalProperties:
@@ -4339,6 +4382,17 @@ components:
     JsonArrowField:
       description: |
         JSON representation of an Apache Arrow field.
+      example:
+        metadata:
+          key: metadata
+        nullable: true
+        name: name
+        type:
+          length: 0
+          fields:
+          - null
+          - null
+          type: type
       properties:
         metadata:
           additionalProperties:
@@ -4348,18 +4402,24 @@ components:
         nullable:
           type: boolean
         type:
-          $ref: "#/components/schemas/JsonArrowDataType"
+          $ref: '#/components/schemas/JsonArrowDataType'
       required:
       - name
       - nullable
       - type
     JsonArrowDataType:
       description: JSON representation of an Apache Arrow DataType
+      example:
+        length: 0
+        fields:
+        - null
+        - null
+        type: type
       properties:
         fields:
           description: "Fields for complex types like Struct, Union, etc."
           items:
-            $ref: "#/components/schemas/JsonArrowField"
+            $ref: '#/components/schemas/JsonArrowField'
           type: array
         length:
           description: Length for fixed-size types
@@ -4379,7 +4439,7 @@ components:
         Request for creating a table, excluding the Arrow IPC stream.
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4467,7 +4527,7 @@ components:
         vend_credentials: true
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4554,7 +4614,7 @@ components:
         vend_credentials: true
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4640,7 +4700,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4685,7 +4745,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4802,11 +4862,11 @@ components:
           key: key
       properties:
         setStatusAction:
-          $ref: "#/components/schemas/AlterTransactionSetStatus"
+          $ref: '#/components/schemas/AlterTransactionSetStatus'
         setPropertyAction:
-          $ref: "#/components/schemas/AlterTransactionSetProperty"
+          $ref: '#/components/schemas/AlterTransactionSetProperty'
         unsetPropertyAction:
-          $ref: "#/components/schemas/AlterTransactionUnsetProperty"
+          $ref: '#/components/schemas/AlterTransactionUnsetProperty'
     AlterTransactionRequest:
       description: |
         Alter a transaction with a list of actions.
@@ -4841,7 +4901,7 @@ components:
             key: key
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4859,7 +4919,7 @@ components:
           type: array
         actions:
           items:
-            $ref: "#/components/schemas/AlterTransactionAction"
+            $ref: '#/components/schemas/AlterTransactionAction'
           minItems: 1
           type: array
       required:
@@ -4891,7 +4951,7 @@ components:
         Otherwise, return a transaction ID that client can use to track deletion progress.
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -4951,7 +5011,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5035,7 +5095,7 @@ components:
             column: column
             boost: 6.0274563
             prefix_length: 0
-            operator: ""
+            operator: operator
             max_expansions: 0
           boost:
             negative: null
@@ -5048,18 +5108,18 @@ components:
               column: column
               boost: 6.0274563
               prefix_length: 0
-              operator: ""
+              operator: operator
               max_expansions: 0
             - fuzziness: 0
               terms: terms
               column: column
               boost: 6.0274563
               prefix_length: 0
-              operator: ""
+              operator: operator
               max_expansions: 0
       properties:
         query:
-          $ref: "#/components/schemas/FtsQuery"
+          $ref: '#/components/schemas/FtsQuery'
       required:
       - query
     FtsQuery:
@@ -5088,7 +5148,7 @@ components:
           column: column
           boost: 6.0274563
           prefix_length: 0
-          operator: ""
+          operator: operator
           max_expansions: 0
         boost:
           negative: null
@@ -5101,26 +5161,26 @@ components:
             column: column
             boost: 6.0274563
             prefix_length: 0
-            operator: ""
+            operator: operator
             max_expansions: 0
           - fuzziness: 0
             terms: terms
             column: column
             boost: 6.0274563
             prefix_length: 0
-            operator: ""
+            operator: operator
             max_expansions: 0
       properties:
         match:
-          $ref: "#/components/schemas/MatchQuery"
+          $ref: '#/components/schemas/MatchQuery'
         phrase:
-          $ref: "#/components/schemas/PhraseQuery"
+          $ref: '#/components/schemas/PhraseQuery'
         boost:
-          $ref: "#/components/schemas/BoostQuery"
+          $ref: '#/components/schemas/BoostQuery'
         multi_match:
-          $ref: "#/components/schemas/MultiMatchQuery"
+          $ref: '#/components/schemas/MultiMatchQuery'
         boolean:
-          $ref: "#/components/schemas/BooleanQuery"
+          $ref: '#/components/schemas/BooleanQuery'
     MatchQuery:
       example:
         fuzziness: 0
@@ -5128,7 +5188,7 @@ components:
         column: column
         boost: 6.0274563
         prefix_length: 0
-        operator: ""
+        operator: operator
         max_expansions: 0
       properties:
         boost:
@@ -5147,13 +5207,12 @@ components:
           minimum: 0
           type: integer
         operator:
-          allOf:
-          - $ref: "#/components/schemas/Operator"
-          description: |-
+          description: |
             The operator to use for combining terms.
-            This can be either `And` or `Or`, it's 'Or' by default.
-            - `And`: All terms must match.
-            - `Or`: At least one term must match.
+            Case insensitive, supports both PascalCase and snake_case. Valid values are:
+            - And: All terms must match.
+            - Or: At least one term must match.
+          type: string
         prefix_length:
           description: |-
             The number of beginning characters being unchanged for fuzzy matching.
@@ -5190,9 +5249,9 @@ components:
         positive: null
       properties:
         positive:
-          $ref: "#/components/schemas/FtsQuery"
+          $ref: '#/components/schemas/FtsQuery'
         negative:
-          $ref: "#/components/schemas/FtsQuery"
+          $ref: '#/components/schemas/FtsQuery'
         negative_boost:
           default: 0.5
           description: "Boost factor for negative query (default: 0.5)"
@@ -5209,19 +5268,19 @@ components:
           column: column
           boost: 6.0274563
           prefix_length: 0
-          operator: ""
+          operator: operator
           max_expansions: 0
         - fuzziness: 0
           terms: terms
           column: column
           boost: 6.0274563
           prefix_length: 0
-          operator: ""
+          operator: operator
           max_expansions: 0
       properties:
         match_queries:
           items:
-            $ref: "#/components/schemas/MatchQuery"
+            $ref: '#/components/schemas/MatchQuery'
           type: array
       required:
       - match_queries
@@ -5241,17 +5300,17 @@ components:
         must:
           description: Queries that must match (AND)
           items:
-            $ref: "#/components/schemas/FtsQuery"
+            $ref: '#/components/schemas/FtsQuery'
           type: array
         must_not:
           description: Queries that must not match (NOT)
           items:
-            $ref: "#/components/schemas/FtsQuery"
+            $ref: '#/components/schemas/FtsQuery'
           type: array
         should:
           description: Queries that should match (OR)
           items:
-            $ref: "#/components/schemas/FtsQuery"
+            $ref: '#/components/schemas/FtsQuery'
           type: array
       required:
       - must
@@ -5277,7 +5336,7 @@ components:
         tag: tag
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5323,7 +5382,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5371,7 +5430,7 @@ components:
         tag: tag
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5414,7 +5473,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5452,7 +5511,7 @@ components:
     ListTableTagsRequest:
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5506,7 +5565,7 @@ components:
       properties:
         tags:
           additionalProperties:
-            $ref: "#/components/schemas/TagContents"
+            $ref: '#/components/schemas/TagContents'
           description: Map of tag names to their contents
         page_token:
           description: |
@@ -5564,7 +5623,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5611,7 +5670,7 @@ components:
         - new_namespace_id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5649,7 +5708,7 @@ components:
     UpdateTableSchemaMetadataRequest:
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5682,7 +5741,7 @@ components:
     ListTableVersionsRequest:
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5752,7 +5811,7 @@ components:
             List of table versions. When `descending=true`, guaranteed to be ordered from latest to oldest.
             Otherwise, ordering is implementation-defined.
           items:
-            $ref: "#/components/schemas/TableVersion"
+            $ref: '#/components/schemas/TableVersion'
           type: array
         page_token:
           description: |
@@ -5798,7 +5857,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5868,7 +5927,7 @@ components:
           description: Optional transaction identifier
           type: string
         version:
-          $ref: "#/components/schemas/TableVersion"
+          $ref: '#/components/schemas/TableVersion'
     DescribeTableVersionRequest:
       description: Request to describe a specific table version
       example:
@@ -5883,7 +5942,7 @@ components:
         version: 0
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5908,12 +5967,17 @@ components:
     DescribeTableVersionResponse:
       description: Response containing the table version information
       example:
-        version: ""
+        version:
+          metadata:
+            key: metadata
+          manifest_path: manifest_path
+          timestamp_millis: 1
+          manifest_size: 0
+          e_tag: e_tag
+          version: 0
       properties:
         version:
-          allOf:
-          - $ref: "#/components/schemas/TableVersion"
-          description: The table version information
+          $ref: '#/components/schemas/TableVersion'
       required:
       - version
     BatchDeleteTableVersionsRequest:
@@ -5936,7 +6000,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -5958,7 +6022,7 @@ components:
             List of version ranges to delete.
             Each range specifies start (inclusive) and end (exclusive) versions.
           items:
-            $ref: "#/components/schemas/VersionRange"
+            $ref: '#/components/schemas/VersionRange'
           type: array
       required:
       - ranges
@@ -6033,7 +6097,7 @@ components:
           key: context
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6048,7 +6112,7 @@ components:
         entries:
           description: List of table version entries to create atomically
           items:
-            $ref: "#/components/schemas/CreateTableVersionEntry"
+            $ref: '#/components/schemas/CreateTableVersionEntry'
           type: array
       required:
       - entries
@@ -6140,7 +6204,7 @@ components:
           description: List of created table versions in the same order as the request
             entries
           items:
-            $ref: "#/components/schemas/TableVersion"
+            $ref: '#/components/schemas/TableVersion'
           type: array
       required:
       - versions
@@ -6155,14 +6219,110 @@ components:
         All operations are committed atomically: either all succeed or none are applied.
       example:
         operations:
-        - deregister_table: ""
-          create_table_version: ""
-          delete_table_versions: ""
-          declare_table: ""
-        - deregister_table: ""
-          create_table_version: ""
-          delete_table_versions: ""
-          declare_table: ""
+        - deregister_table:
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            context:
+              key: context
+            id:
+            - id
+            - id
+          create_table_version:
+            naming_scheme: V2
+            metadata:
+              key: metadata
+            manifest_path: manifest_path
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            manifest_size: 0
+            context:
+              key: context
+            id:
+            - id
+            - id
+            e_tag: e_tag
+            version: 0
+          delete_table_versions:
+            ranges:
+            - start_version: 0
+              end_version: 6
+            - start_version: 0
+              end_version: 6
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            context:
+              key: context
+            id:
+            - id
+            - id
+          declare_table:
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            context:
+              key: context
+            location: location
+            id:
+            - id
+            - id
+            properties:
+              key: properties
+            vend_credentials: true
+        - deregister_table:
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            context:
+              key: context
+            id:
+            - id
+            - id
+          create_table_version:
+            naming_scheme: V2
+            metadata:
+              key: metadata
+            manifest_path: manifest_path
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            manifest_size: 0
+            context:
+              key: context
+            id:
+            - id
+            - id
+            e_tag: e_tag
+            version: 0
+          delete_table_versions:
+            ranges:
+            - start_version: 0
+              end_version: 6
+            - start_version: 0
+              end_version: 6
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            context:
+              key: context
+            id:
+            - id
+            - id
+          declare_table:
+            identity:
+              api_key: api_key
+              auth_token: auth_token
+            context:
+              key: context
+            location: location
+            id:
+            - id
+            - id
+            properties:
+              key: properties
+            vend_credentials: true
         identity:
           api_key: api_key
           auth_token: auth_token
@@ -6170,7 +6330,7 @@ components:
           key: context
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6188,7 +6348,7 @@ components:
             Supported operation types: DeclareTable, CreateTableVersion,
             DeleteTableVersions, DeregisterTable.
           items:
-            $ref: "#/components/schemas/CommitTableOperation"
+            $ref: '#/components/schemas/CommitTableOperation'
           type: array
       required:
       - operations
@@ -6197,54 +6357,113 @@ components:
         A single operation within a batch commit.
         Provide exactly one of the operation fields to specify the operation kind.
       example:
-        deregister_table: ""
-        create_table_version: ""
-        delete_table_versions: ""
-        declare_table: ""
+        deregister_table:
+          identity:
+            api_key: api_key
+            auth_token: auth_token
+          context:
+            key: context
+          id:
+          - id
+          - id
+        create_table_version:
+          naming_scheme: V2
+          metadata:
+            key: metadata
+          manifest_path: manifest_path
+          identity:
+            api_key: api_key
+            auth_token: auth_token
+          manifest_size: 0
+          context:
+            key: context
+          id:
+          - id
+          - id
+          e_tag: e_tag
+          version: 0
+        delete_table_versions:
+          ranges:
+          - start_version: 0
+            end_version: 6
+          - start_version: 0
+            end_version: 6
+          identity:
+            api_key: api_key
+            auth_token: auth_token
+          context:
+            key: context
+          id:
+          - id
+          - id
+        declare_table:
+          identity:
+            api_key: api_key
+            auth_token: auth_token
+          context:
+            key: context
+          location: location
+          id:
+          - id
+          - id
+          properties:
+            key: properties
+          vend_credentials: true
       properties:
         declare_table:
-          allOf:
-          - $ref: "#/components/schemas/DeclareTableRequest"
-          description: Declare (reserve) a new table in the namespace
+          $ref: '#/components/schemas/DeclareTableRequest'
         create_table_version:
-          allOf:
-          - $ref: "#/components/schemas/CreateTableVersionRequest"
-          description: Create a new version entry for a table
+          $ref: '#/components/schemas/CreateTableVersionRequest'
         delete_table_versions:
-          allOf:
-          - $ref: "#/components/schemas/BatchDeleteTableVersionsRequest"
-          description: Delete version ranges from a table
+          $ref: '#/components/schemas/BatchDeleteTableVersionsRequest'
         deregister_table:
-          allOf:
-          - $ref: "#/components/schemas/DeregisterTableRequest"
-          description: Deregister (soft-delete) a table
+          $ref: '#/components/schemas/DeregisterTableRequest'
     CommitTableResult:
       description: |
         Result of a single operation within a batch commit.
         Each result corresponds to one operation in the request, in the same order.
         Exactly one of the result fields will be set.
       example:
-        deregister_table: ""
-        create_table_version: ""
-        delete_table_versions: ""
-        declare_table: ""
+        deregister_table:
+          transaction_id: transaction_id
+          location: location
+          id:
+          - id
+          - id
+          properties:
+            owner: Ralph
+            created_at: "1452120468"
+        create_table_version:
+          transaction_id: transaction_id
+          version:
+            metadata:
+              key: metadata
+            manifest_path: manifest_path
+            timestamp_millis: 1
+            manifest_size: 0
+            e_tag: e_tag
+            version: 0
+        delete_table_versions:
+          transaction_id: transaction_id
+          deleted_count: 0
+        declare_table:
+          transaction_id: transaction_id
+          location: location
+          properties:
+            owner: Ralph
+            created_at: "1452120468"
+          managed_versioning: true
+          storage_options:
+            key: storage_options
       properties:
         declare_table:
-          allOf:
-          - $ref: "#/components/schemas/DeclareTableResponse"
-          description: Result of a DeclareTable operation
+          $ref: '#/components/schemas/DeclareTableResponse'
         create_table_version:
-          allOf:
-          - $ref: "#/components/schemas/CreateTableVersionResponse"
-          description: Result of a CreateTableVersion operation
+          $ref: '#/components/schemas/CreateTableVersionResponse'
         delete_table_versions:
-          allOf:
-          - $ref: "#/components/schemas/BatchDeleteTableVersionsResponse"
-          description: Result of a DeleteTableVersions operation
+          $ref: '#/components/schemas/BatchDeleteTableVersionsResponse'
         deregister_table:
-          allOf:
-          - $ref: "#/components/schemas/DeregisterTableResponse"
-          description: Result of a DeregisterTable operation
+          $ref: '#/components/schemas/DeregisterTableResponse'
     BatchCommitTablesResponse:
       description: |
         Response for a batch commit of table operations.
@@ -6252,14 +6471,68 @@ components:
       example:
         transaction_id: transaction_id
         results:
-        - deregister_table: ""
-          create_table_version: ""
-          delete_table_versions: ""
-          declare_table: ""
-        - deregister_table: ""
-          create_table_version: ""
-          delete_table_versions: ""
-          declare_table: ""
+        - deregister_table:
+            transaction_id: transaction_id
+            location: location
+            id:
+            - id
+            - id
+            properties:
+              owner: Ralph
+              created_at: "1452120468"
+          create_table_version:
+            transaction_id: transaction_id
+            version:
+              metadata:
+                key: metadata
+              manifest_path: manifest_path
+              timestamp_millis: 1
+              manifest_size: 0
+              e_tag: e_tag
+              version: 0
+          delete_table_versions:
+            transaction_id: transaction_id
+            deleted_count: 0
+          declare_table:
+            transaction_id: transaction_id
+            location: location
+            properties:
+              owner: Ralph
+              created_at: "1452120468"
+            managed_versioning: true
+            storage_options:
+              key: storage_options
+        - deregister_table:
+            transaction_id: transaction_id
+            location: location
+            id:
+            - id
+            - id
+            properties:
+              owner: Ralph
+              created_at: "1452120468"
+          create_table_version:
+            transaction_id: transaction_id
+            version:
+              metadata:
+                key: metadata
+              manifest_path: manifest_path
+              timestamp_millis: 1
+              manifest_size: 0
+              e_tag: e_tag
+              version: 0
+          delete_table_versions:
+            transaction_id: transaction_id
+            deleted_count: 0
+          declare_table:
+            transaction_id: transaction_id
+            location: location
+            properties:
+              owner: Ralph
+              created_at: "1452120468"
+            managed_versioning: true
+            storage_options:
+              key: storage_options
       properties:
         transaction_id:
           description: Optional transaction identifier for the batch commit
@@ -6269,7 +6542,7 @@ components:
             Results for each operation, in the same order as the request operations.
             Each result contains the outcome of the corresponding operation.
           items:
-            $ref: "#/components/schemas/CommitTableResult"
+            $ref: '#/components/schemas/CommitTableResult'
           type: array
       required:
       - results
@@ -6377,7 +6650,7 @@ components:
                   column: column
                   boost: 6.0274563
                   prefix_length: 0
-                  operator: ""
+                  operator: operator
                   max_expansions: 0
                 boost:
                   negative: null
@@ -6390,14 +6663,14 @@ components:
                     column: column
                     boost: 6.0274563
                     prefix_length: 0
-                    operator: ""
+                    operator: operator
                     max_expansions: 0
                   - fuzziness: 0
                     terms: terms
                     column: column
                     boost: 6.0274563
                     prefix_length: 0
-                    operator: ""
+                    operator: operator
                     max_expansions: 0
           distance_type: distance_type
           lower_bound: 3.6160767
@@ -6428,7 +6701,7 @@ components:
         verbose: false
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6445,7 +6718,7 @@ components:
             type: string
           type: array
         query:
-          $ref: "#/components/schemas/QueryTableRequest"
+          $ref: '#/components/schemas/QueryTableRequest'
         verbose:
           default: false
           description: Whether to return verbose explanation
@@ -6506,7 +6779,7 @@ components:
                 column: column
                 boost: 6.0274563
                 prefix_length: 0
-                operator: ""
+                operator: operator
                 max_expansions: 0
               boost:
                 negative: null
@@ -6519,14 +6792,14 @@ components:
                   column: column
                   boost: 6.0274563
                   prefix_length: 0
-                  operator: ""
+                  operator: operator
                   max_expansions: 0
                 - fuzziness: 0
                   terms: terms
                   column: column
                   boost: 6.0274563
                   prefix_length: 0
-                  operator: ""
+                  operator: operator
                   max_expansions: 0
         distance_type: distance_type
         lower_bound: 3.6160767
@@ -6551,7 +6824,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6571,7 +6844,7 @@ components:
           description: Whether to bypass vector index
           type: boolean
         columns:
-          $ref: "#/components/schemas/QueryTableRequest_columns"
+          $ref: '#/components/schemas/QueryTableRequest_columns'
         distance_type:
           description: Distance metric to use
           type: string
@@ -6586,7 +6859,7 @@ components:
           description: Optional SQL filter expression
           type: string
         full_text_query:
-          $ref: "#/components/schemas/QueryTableRequest_full_text_query"
+          $ref: '#/components/schemas/QueryTableRequest_full_text_query'
         k:
           description: Number of results to return
           minimum: 0
@@ -6616,7 +6889,7 @@ components:
           format: float
           type: number
         vector:
-          $ref: "#/components/schemas/QueryTableRequest_vector"
+          $ref: '#/components/schemas/QueryTableRequest_vector'
         vector_column:
           description: Name of the vector column to search
           type: string
@@ -6646,10 +6919,26 @@ components:
         new_columns:
         - expression: expression
           name: name
-          virtual_column: ""
+          virtual_column:
+            image: image
+            udf: udf
+            udf_name: udf_name
+            input_columns:
+            - input_columns
+            - input_columns
+            data_type: "{}"
+            udf_version: udf_version
         - expression: expression
           name: name
-          virtual_column: ""
+          virtual_column:
+            image: image
+            udf: udf
+            udf_name: udf_name
+            input_columns:
+            - input_columns
+            - input_columns
+            data_type: "{}"
+            udf_version: udf_version
         context:
           key: context
         id:
@@ -6657,7 +6946,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6676,7 +6965,7 @@ components:
         new_columns:
           description: List of new columns to add
           items:
-            $ref: "#/components/schemas/NewColumnTransform"
+            $ref: '#/components/schemas/NewColumnTransform'
           type: array
       required:
       - new_columns
@@ -6684,7 +6973,15 @@ components:
       example:
         expression: expression
         name: name
-        virtual_column: ""
+        virtual_column:
+          image: image
+          udf: udf
+          udf_name: udf_name
+          input_columns:
+          - input_columns
+          - input_columns
+          data_type: "{}"
+          udf_version: udf_version
       properties:
         name:
           description: Name of the new column
@@ -6695,13 +6992,19 @@ components:
           type: string
           nullable: true
         virtual_column:
-          allOf:
-          - $ref: "#/components/schemas/AddVirtualColumnEntry"
-          description: Virtual column definition (optional if expression is specified)
-          nullable: true
+          $ref: '#/components/schemas/AddVirtualColumnEntry'
       required:
       - name
     AddVirtualColumnEntry:
+      example:
+        image: image
+        udf: udf
+        udf_name: udf_name
+        input_columns:
+        - input_columns
+        - input_columns
+        data_type: "{}"
+        udf_version: udf_version
       properties:
         input_columns:
           description: List of input column names for the virtual column
@@ -6757,18 +7060,32 @@ components:
           nullable: true
           rename: rename
           data_type: "{}"
-          virtual_column: ""
+          virtual_column:
+            image: image
+            udf: udf
+            udf_name: udf_name
+            input_columns:
+            - input_columns
+            - input_columns
+            udf_version: udf_version
         - path: path
           nullable: true
           rename: rename
           data_type: "{}"
-          virtual_column: ""
+          virtual_column:
+            image: image
+            udf: udf
+            udf_name: udf_name
+            input_columns:
+            - input_columns
+            - input_columns
+            udf_version: udf_version
         id:
         - id
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6787,7 +7104,7 @@ components:
         alterations:
           description: List of column alterations to perform
           items:
-            $ref: "#/components/schemas/AlterColumnsEntry"
+            $ref: '#/components/schemas/AlterColumnsEntry'
           type: array
       required:
       - alterations
@@ -6797,7 +7114,14 @@ components:
         nullable: true
         rename: rename
         data_type: "{}"
-        virtual_column: ""
+        virtual_column:
+          image: image
+          udf: udf
+          udf_name: udf_name
+          input_columns:
+          - input_columns
+          - input_columns
+          udf_version: udf_version
       properties:
         path:
           description: Column path to alter
@@ -6814,14 +7138,19 @@ components:
           type: boolean
           nullable: true
         virtual_column:
-          allOf:
-          - $ref: "#/components/schemas/AlterVirtualColumnEntry"
-          description: Virtual column alterations (optional)
-          nullable: true
+          $ref: '#/components/schemas/AlterVirtualColumnEntry'
       required:
       - data_type
       - path
     AlterVirtualColumnEntry:
+      example:
+        image: image
+        udf: udf
+        udf_name: udf_name
+        input_columns:
+        - input_columns
+        - input_columns
+        udf_version: udf_version
       properties:
         input_columns:
           description: List of input column names for the virtual column (optional)
@@ -6875,7 +7204,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6925,7 +7254,7 @@ components:
         - id
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -6946,7 +7275,17 @@ components:
         num_indices: 0
         total_bytes: 0
         num_rows: 0
-        fragment_stats: ""
+        fragment_stats:
+          num_small_fragments: 0
+          lengths:
+            p99: 0
+            p25: 0
+            min: 0
+            max: 0
+            mean: 0
+            p50: 0
+            p75: 0
+          num_fragments: 0
       properties:
         total_bytes:
           description: The total number of bytes in the table
@@ -6964,15 +7303,24 @@ components:
           minimum: 0
           type: integer
         fragment_stats:
-          allOf:
-          - $ref: "#/components/schemas/FragmentStats"
-          description: Statistics on table fragments
+          $ref: '#/components/schemas/FragmentStats'
       required:
       - fragment_stats
       - num_indices
       - num_rows
       - total_bytes
     FragmentStats:
+      example:
+        num_small_fragments: 0
+        lengths:
+          p99: 0
+          p25: 0
+          min: 0
+          max: 0
+          mean: 0
+          p50: 0
+          p75: 0
+        num_fragments: 0
       properties:
         num_fragments:
           description: The number of fragments in the table
@@ -6985,14 +7333,20 @@ components:
           minimum: 0
           type: integer
         lengths:
-          allOf:
-          - $ref: "#/components/schemas/FragmentSummary"
-          description: Statistics on the number of rows in the table fragments
+          $ref: '#/components/schemas/FragmentSummary'
       required:
       - lengths
       - num_fragments
       - num_small_fragments
     FragmentSummary:
+      example:
+        p99: 0
+        p25: 0
+        min: 0
+        max: 0
+        mean: 0
+        p50: 0
+        p75: 0
       properties:
         min:
           format: int64
@@ -7033,7 +7387,7 @@ components:
     DropTableIndexRequest:
       properties:
         identity:
-          $ref: "#/components/schemas/Identity"
+          $ref: '#/components/schemas/Identity'
         context:
           additionalProperties:
             type: string
@@ -7090,21 +7444,14 @@ components:
             type: integer
           type: array
         transform:
-          allOf:
-          - $ref: "#/components/schemas/PartitionTransform"
-          description: Well-known partition transform. Exactly one of transform or
-            expression must be specified.
+          $ref: '#/components/schemas/PartitionTransform'
         expression:
           description: "DataFusion SQL expression using col0, col1, ... as column\
             \ references. Exactly one of transform or expression must be specified."
           example: "date_part('year', col0)"
           type: string
         result_type:
-          allOf:
-          - $ref: "#/components/schemas/JsonArrowDataType"
-          description: The output type of the partition value (JsonArrowDataType format)
-          example:
-            type: int32
+          $ref: '#/components/schemas/JsonArrowDataType'
       required:
       - field_id
       - result_type
@@ -7119,7 +7466,7 @@ components:
         fields:
           description: Array of partition field definitions
           items:
-            $ref: "#/components/schemas/PartitionField"
+            $ref: '#/components/schemas/PartitionField'
           type: array
       required:
       - fields
@@ -7175,7 +7522,7 @@ components:
               column: column
               boost: 6.0274563
               prefix_length: 0
-              operator: ""
+              operator: operator
               max_expansions: 0
             boost:
               negative: null
@@ -7188,20 +7535,20 @@ components:
                 column: column
                 boost: 6.0274563
                 prefix_length: 0
-                operator: ""
+                operator: operator
                 max_expansions: 0
               - fuzziness: 0
                 terms: terms
                 column: column
                 boost: 6.0274563
                 prefix_length: 0
-                operator: ""
+                operator: operator
                 max_expansions: 0
       properties:
         string_query:
-          $ref: "#/components/schemas/StringFtsQuery"
+          $ref: '#/components/schemas/StringFtsQuery'
         structured_query:
-          $ref: "#/components/schemas/StructuredFtsQuery"
+          $ref: '#/components/schemas/StructuredFtsQuery'
       nullable: true
     QueryTableRequest_vector:
       description: "Query vector(s) for similarity search. Provide either single_vector\
