@@ -37,7 +37,7 @@ import java.util.Objects;
         "Response for creating an empty table.  **Deprecated**: Use `DeclareTableResponse` instead. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CreateEmptyTableResponse {
 
   private String transactionId;

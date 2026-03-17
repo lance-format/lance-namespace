@@ -30,7 +30,7 @@ import java.util.Objects;
 @Schema(name = "DeclareTableRequest", description = "Request for declaring a table. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DeclareTableRequest {
 
   private Identity identity;

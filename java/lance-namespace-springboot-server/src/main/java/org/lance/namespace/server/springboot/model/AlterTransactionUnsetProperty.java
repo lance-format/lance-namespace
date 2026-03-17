@@ -24,7 +24,7 @@ import java.util.Objects;
 /** AlterTransactionUnsetProperty */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTransactionUnsetProperty {
 
   private String key;

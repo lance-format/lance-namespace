@@ -35,7 +35,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AddVirtualColumnEntry {
   public static final String JSON_PROPERTY_INPUT_COLUMNS = "input_columns";
   @javax.annotation.Nonnull private List<String> inputColumns = new ArrayList<>();
@@ -77,13 +77,13 @@ public class AddVirtualColumnEntry {
    * @return inputColumns
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INPUT_COLUMNS)
+  @JsonProperty(value = JSON_PROPERTY_INPUT_COLUMNS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<String> getInputColumns() {
     return inputColumns;
   }
 
-  @JsonProperty(JSON_PROPERTY_INPUT_COLUMNS)
+  @JsonProperty(value = JSON_PROPERTY_INPUT_COLUMNS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInputColumns(@javax.annotation.Nonnull List<String> inputColumns) {
     this.inputColumns = inputColumns;
@@ -101,13 +101,13 @@ public class AddVirtualColumnEntry {
    * @return dataType
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_DATA_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Object getDataType() {
     return dataType;
   }
 
-  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_DATA_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDataType(@javax.annotation.Nonnull Object dataType) {
     this.dataType = dataType;
@@ -125,13 +125,13 @@ public class AddVirtualColumnEntry {
    * @return image
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_IMAGE)
+  @JsonProperty(value = JSON_PROPERTY_IMAGE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getImage() {
     return image;
   }
 
-  @JsonProperty(JSON_PROPERTY_IMAGE)
+  @JsonProperty(value = JSON_PROPERTY_IMAGE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setImage(@javax.annotation.Nonnull String image) {
     this.image = image;
@@ -149,13 +149,13 @@ public class AddVirtualColumnEntry {
    * @return udf
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UDF)
+  @JsonProperty(value = JSON_PROPERTY_UDF, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getUdf() {
     return udf;
   }
 
-  @JsonProperty(JSON_PROPERTY_UDF)
+  @JsonProperty(value = JSON_PROPERTY_UDF, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUdf(@javax.annotation.Nonnull String udf) {
     this.udf = udf;
@@ -173,13 +173,13 @@ public class AddVirtualColumnEntry {
    * @return udfName
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UDF_NAME)
+  @JsonProperty(value = JSON_PROPERTY_UDF_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getUdfName() {
     return udfName;
   }
 
-  @JsonProperty(JSON_PROPERTY_UDF_NAME)
+  @JsonProperty(value = JSON_PROPERTY_UDF_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUdfName(@javax.annotation.Nonnull String udfName) {
     this.udfName = udfName;
@@ -197,13 +197,13 @@ public class AddVirtualColumnEntry {
    * @return udfVersion
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UDF_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_UDF_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getUdfVersion() {
     return udfVersion;
   }
 
-  @JsonProperty(JSON_PROPERTY_UDF_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_UDF_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUdfVersion(@javax.annotation.Nonnull String udfVersion) {
     this.udfVersion = udfVersion;
@@ -293,12 +293,14 @@ public class AddVirtualColumnEntry {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%sinput_columns%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getInputColumns().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -313,6 +315,7 @@ public class AddVirtualColumnEntry {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sdata_type%s=%s",
                 prefix,
                 suffix,
@@ -329,6 +332,7 @@ public class AddVirtualColumnEntry {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%simage%s=%s",
                 prefix,
                 suffix,
@@ -344,6 +348,7 @@ public class AddVirtualColumnEntry {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sudf%s=%s",
                 prefix,
                 suffix,
@@ -359,6 +364,7 @@ public class AddVirtualColumnEntry {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sudf_name%s=%s",
                 prefix,
                 suffix,
@@ -374,6 +380,7 @@ public class AddVirtualColumnEntry {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sudf_version%s=%s",
                 prefix,
                 suffix,

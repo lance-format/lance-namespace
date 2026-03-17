@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class MergeInsertIntoTableResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -64,13 +64,13 @@ public class MergeInsertIntoTableResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -89,13 +89,13 @@ public class MergeInsertIntoTableResponse {
    * @return numUpdatedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NUM_UPDATED_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_UPDATED_ROWS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumUpdatedRows() {
     return numUpdatedRows;
   }
 
-  @JsonProperty(JSON_PROPERTY_NUM_UPDATED_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_UPDATED_ROWS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumUpdatedRows(@javax.annotation.Nullable Long numUpdatedRows) {
     this.numUpdatedRows = numUpdatedRows;
@@ -114,13 +114,13 @@ public class MergeInsertIntoTableResponse {
    * @return numInsertedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NUM_INSERTED_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_INSERTED_ROWS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumInsertedRows() {
     return numInsertedRows;
   }
 
-  @JsonProperty(JSON_PROPERTY_NUM_INSERTED_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_INSERTED_ROWS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumInsertedRows(@javax.annotation.Nullable Long numInsertedRows) {
     this.numInsertedRows = numInsertedRows;
@@ -139,13 +139,13 @@ public class MergeInsertIntoTableResponse {
    * @return numDeletedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NUM_DELETED_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_DELETED_ROWS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumDeletedRows() {
     return numDeletedRows;
   }
 
-  @JsonProperty(JSON_PROPERTY_NUM_DELETED_ROWS)
+  @JsonProperty(value = JSON_PROPERTY_NUM_DELETED_ROWS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumDeletedRows(@javax.annotation.Nullable Long numDeletedRows) {
     this.numDeletedRows = numDeletedRows;
@@ -163,13 +163,13 @@ public class MergeInsertIntoTableResponse {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -256,6 +256,7 @@ public class MergeInsertIntoTableResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,
@@ -272,6 +273,7 @@ public class MergeInsertIntoTableResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%snum_updated_rows%s=%s",
                 prefix,
                 suffix,
@@ -288,6 +290,7 @@ public class MergeInsertIntoTableResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%snum_inserted_rows%s=%s",
                 prefix,
                 suffix,
@@ -304,6 +307,7 @@ public class MergeInsertIntoTableResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%snum_deleted_rows%s=%s",
                 prefix,
                 suffix,
@@ -320,6 +324,7 @@ public class MergeInsertIntoTableResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,

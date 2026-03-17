@@ -35,7 +35,7 @@ import java.util.Objects;
         "Delete data from table based on a SQL predicate. Returns the number of rows that were deleted. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DeleteFromTableRequest {
 
   private Identity identity;

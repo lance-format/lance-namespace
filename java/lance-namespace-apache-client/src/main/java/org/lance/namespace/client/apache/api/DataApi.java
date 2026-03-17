@@ -43,7 +43,7 @@ import java.util.StringJoiner;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DataApi extends BaseApi {
 
   public DataApi() {
@@ -70,7 +70,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTableAddColumnsResponse alterTableAddColumns(
-      String id, AlterTableAddColumnsRequest alterTableAddColumnsRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull AlterTableAddColumnsRequest alterTableAddColumnsRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.alterTableAddColumns(
         id, alterTableAddColumnsRequest, delimiter, Collections.emptyMap());
@@ -93,9 +95,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTableAddColumnsResponse alterTableAddColumns(
-      String id,
-      AlterTableAddColumnsRequest alterTableAddColumnsRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull AlterTableAddColumnsRequest alterTableAddColumnsRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = alterTableAddColumnsRequest;
@@ -175,7 +177,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public String analyzeTableQueryPlan(
-      String id, AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.analyzeTableQueryPlan(
         id, analyzeTableQueryPlanRequest, delimiter, Collections.emptyMap());
@@ -200,9 +204,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public String analyzeTableQueryPlan(
-      String id,
-      AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = analyzeTableQueryPlanRequest;
@@ -280,7 +284,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Long countTableRows(
-      String id, CountTableRowsRequest countTableRowsRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CountTableRowsRequest countTableRowsRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.countTableRows(id, countTableRowsRequest, delimiter, Collections.emptyMap());
   }
@@ -303,9 +309,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Long countTableRows(
-      String id,
-      CountTableRowsRequest countTableRowsRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CountTableRowsRequest countTableRowsRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = countTableRowsRequest;
@@ -386,7 +392,11 @@ public class DataApi extends BaseApi {
    * @return CreateTableResponse
    * @throws ApiException if fails to make API call
    */
-  public CreateTableResponse createTable(String id, byte[] body, String delimiter, String mode)
+  public CreateTableResponse createTable(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull byte[] body,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String mode)
       throws ApiException {
     return this.createTable(id, body, delimiter, mode, Collections.emptyMap());
   }
@@ -413,7 +423,11 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableResponse createTable(
-      String id, byte[] body, String delimiter, String mode, Map<String, String> additionalHeaders)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull byte[] body,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String mode,
+      Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = body;
 
@@ -487,7 +501,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeleteFromTableResponse deleteFromTable(
-      String id, DeleteFromTableRequest deleteFromTableRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteFromTableRequest deleteFromTableRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.deleteFromTable(id, deleteFromTableRequest, delimiter, Collections.emptyMap());
   }
@@ -508,9 +524,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeleteFromTableResponse deleteFromTable(
-      String id,
-      DeleteFromTableRequest deleteFromTableRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteFromTableRequest deleteFromTableRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = deleteFromTableRequest;
@@ -590,7 +606,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public String explainTableQueryPlan(
-      String id, ExplainTableQueryPlanRequest explainTableQueryPlanRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.explainTableQueryPlan(
         id, explainTableQueryPlanRequest, delimiter, Collections.emptyMap());
@@ -615,9 +633,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public String explainTableQueryPlan(
-      String id,
-      ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = explainTableQueryPlanRequest;
@@ -701,7 +719,11 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public InsertIntoTableResponse insertIntoTable(
-      String id, byte[] body, String delimiter, String mode) throws ApiException {
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull byte[] body,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String mode)
+      throws ApiException {
     return this.insertIntoTable(id, body, delimiter, mode, Collections.emptyMap());
   }
 
@@ -729,7 +751,11 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public InsertIntoTableResponse insertIntoTable(
-      String id, byte[] body, String delimiter, String mode, Map<String, String> additionalHeaders)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull byte[] body,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String mode,
+      Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = body;
 
@@ -828,17 +854,17 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public MergeInsertIntoTableResponse mergeInsertIntoTable(
-      String id,
-      String on,
-      byte[] body,
-      String delimiter,
-      Boolean whenMatchedUpdateAll,
-      String whenMatchedUpdateAllFilt,
-      Boolean whenNotMatchedInsertAll,
-      Boolean whenNotMatchedBySourceDelete,
-      String whenNotMatchedBySourceDeleteFilt,
-      String timeout,
-      Boolean useIndex)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull String on,
+      @javax.annotation.Nonnull byte[] body,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable Boolean whenMatchedUpdateAll,
+      @javax.annotation.Nullable String whenMatchedUpdateAllFilt,
+      @javax.annotation.Nullable Boolean whenNotMatchedInsertAll,
+      @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete,
+      @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt,
+      @javax.annotation.Nullable String timeout,
+      @javax.annotation.Nullable Boolean useIndex)
       throws ApiException {
     return this.mergeInsertIntoTable(
         id,
@@ -894,17 +920,17 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public MergeInsertIntoTableResponse mergeInsertIntoTable(
-      String id,
-      String on,
-      byte[] body,
-      String delimiter,
-      Boolean whenMatchedUpdateAll,
-      String whenMatchedUpdateAllFilt,
-      Boolean whenNotMatchedInsertAll,
-      Boolean whenNotMatchedBySourceDelete,
-      String whenNotMatchedBySourceDeleteFilt,
-      String timeout,
-      Boolean useIndex,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull String on,
+      @javax.annotation.Nonnull byte[] body,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable Boolean whenMatchedUpdateAll,
+      @javax.annotation.Nullable String whenMatchedUpdateAllFilt,
+      @javax.annotation.Nullable Boolean whenNotMatchedInsertAll,
+      @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete,
+      @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt,
+      @javax.annotation.Nullable String timeout,
+      @javax.annotation.Nullable Boolean useIndex,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = body;
@@ -1003,7 +1029,10 @@ public class DataApi extends BaseApi {
    * @return byte[]
    * @throws ApiException if fails to make API call
    */
-  public byte[] queryTable(String id, QueryTableRequest queryTableRequest, String delimiter)
+  public byte[] queryTable(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull QueryTableRequest queryTableRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.queryTable(id, queryTableRequest, delimiter, Collections.emptyMap());
   }
@@ -1027,9 +1056,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public byte[] queryTable(
-      String id,
-      QueryTableRequest queryTableRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull QueryTableRequest queryTableRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = queryTableRequest;
@@ -1103,7 +1132,10 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public UpdateTableResponse updateTable(
-      String id, UpdateTableRequest updateTableRequest, String delimiter) throws ApiException {
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableRequest updateTableRequest,
+      @javax.annotation.Nullable String delimiter)
+      throws ApiException {
     return this.updateTable(id, updateTableRequest, delimiter, Collections.emptyMap());
   }
 
@@ -1123,9 +1155,9 @@ public class DataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public UpdateTableResponse updateTable(
-      String id,
-      UpdateTableRequest updateTableRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableRequest updateTableRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = updateTableRequest;

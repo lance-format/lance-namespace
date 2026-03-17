@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTransactionAction {
   public static final String JSON_PROPERTY_SET_STATUS_ACTION = "setStatusAction";
   @javax.annotation.Nullable private AlterTransactionSetStatus setStatusAction;
@@ -60,13 +60,13 @@ public class AlterTransactionAction {
    * @return setStatusAction
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SET_STATUS_ACTION)
+  @JsonProperty(value = JSON_PROPERTY_SET_STATUS_ACTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public AlterTransactionSetStatus getSetStatusAction() {
     return setStatusAction;
   }
 
-  @JsonProperty(JSON_PROPERTY_SET_STATUS_ACTION)
+  @JsonProperty(value = JSON_PROPERTY_SET_STATUS_ACTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSetStatusAction(
       @javax.annotation.Nullable AlterTransactionSetStatus setStatusAction) {
@@ -86,13 +86,13 @@ public class AlterTransactionAction {
    * @return setPropertyAction
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SET_PROPERTY_ACTION)
+  @JsonProperty(value = JSON_PROPERTY_SET_PROPERTY_ACTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public AlterTransactionSetProperty getSetPropertyAction() {
     return setPropertyAction;
   }
 
-  @JsonProperty(JSON_PROPERTY_SET_PROPERTY_ACTION)
+  @JsonProperty(value = JSON_PROPERTY_SET_PROPERTY_ACTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSetPropertyAction(
       @javax.annotation.Nullable AlterTransactionSetProperty setPropertyAction) {
@@ -112,13 +112,13 @@ public class AlterTransactionAction {
    * @return unsetPropertyAction
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UNSET_PROPERTY_ACTION)
+  @JsonProperty(value = JSON_PROPERTY_UNSET_PROPERTY_ACTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public AlterTransactionUnsetProperty getUnsetPropertyAction() {
     return unsetPropertyAction;
   }
 
-  @JsonProperty(JSON_PROPERTY_UNSET_PROPERTY_ACTION)
+  @JsonProperty(value = JSON_PROPERTY_UNSET_PROPERTY_ACTION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUnsetPropertyAction(
       @javax.annotation.Nullable AlterTransactionUnsetProperty unsetPropertyAction) {

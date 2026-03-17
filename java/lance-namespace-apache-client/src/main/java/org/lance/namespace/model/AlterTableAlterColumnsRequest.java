@@ -35,7 +35,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTableAlterColumnsRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -63,13 +63,13 @@ public class AlterTableAlterColumnsRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -100,13 +100,13 @@ public class AlterTableAlterColumnsRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -132,13 +132,13 @@ public class AlterTableAlterColumnsRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -165,13 +165,13 @@ public class AlterTableAlterColumnsRequest {
    * @return alterations
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ALTERATIONS)
+  @JsonProperty(value = JSON_PROPERTY_ALTERATIONS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<AlterColumnsEntry> getAlterations() {
     return alterations;
   }
 
-  @JsonProperty(JSON_PROPERTY_ALTERATIONS)
+  @JsonProperty(value = JSON_PROPERTY_ALTERATIONS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAlterations(@javax.annotation.Nonnull List<AlterColumnsEntry> alterations) {
     this.alterations = alterations;
@@ -262,12 +262,14 @@ public class AlterTableAlterColumnsRequest {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -284,12 +286,14 @@ public class AlterTableAlterColumnsRequest {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -308,12 +312,18 @@ public class AlterTableAlterColumnsRequest {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%salterations%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }

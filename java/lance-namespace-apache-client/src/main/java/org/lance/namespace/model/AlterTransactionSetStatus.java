@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({AlterTransactionSetStatus.JSON_PROPERTY_STATUS})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTransactionSetStatus {
   public static final String JSON_PROPERTY_STATUS = "status";
   @javax.annotation.Nullable private String status;
@@ -48,13 +48,13 @@ public class AlterTransactionSetStatus {
    * @return status
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getStatus() {
     return status;
   }
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(@javax.annotation.Nullable String status) {
     this.status = status;
@@ -133,6 +133,7 @@ public class AlterTransactionSetStatus {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sstatus%s=%s",
                 prefix,
                 suffix,

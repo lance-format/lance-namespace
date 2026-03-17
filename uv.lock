@@ -698,7 +698,7 @@ dev = [
     { name = "mkdocs-linkcheck" },
     { name = "mkdocs-macros-plugin" },
     { name = "mkdocs-material" },
-    { name = "openapi-generator-cli", specifier = "==7.12.0" },
+    { name = "openapi-generator-cli", specifier = "==7.20.0" },
     { name = "openapi-spec-validator", specifier = "==0.7.1" },
 ]
 
@@ -1115,11 +1115,11 @@ wheels = [
 
 [[package]]
 name = "openapi-generator-cli"
-version = "7.12.0"
+version = "7.20.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/1b/7d/8f5bb83112179efd887b60390e3b5fdbb38bd993965ef4ce88740d8a6f29/openapi_generator_cli-7.12.0.tar.gz", hash = "sha256:11dc4fd67fc7d839572ae8e29fb1dee5892195a7ac88b98e41a2cd8105e3250f", size = 27094673, upload-time = "2025-03-27T12:51:54.247Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/43/42/fee27b2dc5910899e205d8e166c3cfc750871c2d9ebe668e5b5a294bca43/openapi_generator_cli-7.20.0.tar.gz", hash = "sha256:ed1b7f2f70feeafc9a4d7b666e78c54ce647b1c1def93e127b3e6c95cf011922", size = 27898927, upload-time = "2026-02-17T02:12:14.818Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9b/a8/23b4e7fca4e7015f461c2c520bc49b9b57a6635fd404dd77b0b6f917493e/openapi_generator_cli-7.12.0-py3-none-any.whl", hash = "sha256:cf97e0e40bacc66ca70963845e52b0c003aaab85da7f1d10cc25abf2f1c8bb6e", size = 27108048, upload-time = "2025-03-27T12:51:51.086Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/ac/098a1084ea3b6d8fb9fe0123601eeffb946882c3dc35c6c9f088515178b0/openapi_generator_cli-7.20.0-py3-none-any.whl", hash = "sha256:a6f566b261af11613e75c575f278fa82947940a7d911e7cc357c8decf8001c37", size = 27913192, upload-time = "2026-02-17T02:12:18.566Z" },
 ]
 
 [[package]]

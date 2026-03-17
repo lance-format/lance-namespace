@@ -29,7 +29,7 @@ import java.util.Objects;
 /** CountTableRowsRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CountTableRowsRequest {
 
   private Identity identity;
@@ -137,7 +137,7 @@ public class CountTableRowsRequest {
    *
    * @return version
    */
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "version",
       description =

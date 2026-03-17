@@ -36,7 +36,7 @@ import java.util.Objects;
         "Request to atomically create new version entries for multiple tables. The operation is atomic: all versions are created or none are. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class BatchCreateTableVersionsRequest {
 
   private Identity identity;

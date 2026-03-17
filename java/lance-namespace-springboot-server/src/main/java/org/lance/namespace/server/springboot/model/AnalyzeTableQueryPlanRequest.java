@@ -29,7 +29,7 @@ import java.util.Objects;
 /** AnalyzeTableQueryPlanRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AnalyzeTableQueryPlanRequest {
 
   private Identity identity;
@@ -245,7 +245,7 @@ public class AnalyzeTableQueryPlanRequest {
    *
    * @return ef
    */
-  @Min(0)
+  @Min(value = 0)
   @Schema(
       name = "ef",
       description = "Search effort parameter for HNSW index",
@@ -337,7 +337,7 @@ public class AnalyzeTableQueryPlanRequest {
    * @return k
    */
   @NotNull
-  @Min(0)
+  @Min(value = 0)
   @Schema(
       name = "k",
       description = "Number of results to return",
@@ -384,7 +384,7 @@ public class AnalyzeTableQueryPlanRequest {
    *
    * @return nprobes
    */
-  @Min(0)
+  @Min(value = 0)
   @Schema(
       name = "nprobes",
       description = "Number of probes for IVF index",
@@ -408,7 +408,7 @@ public class AnalyzeTableQueryPlanRequest {
    *
    * @return offset
    */
-  @Min(0)
+  @Min(value = 0)
   @Schema(
       name = "offset",
       description = "Number of results to skip",
@@ -455,7 +455,7 @@ public class AnalyzeTableQueryPlanRequest {
    *
    * @return refineFactor
    */
-  @Min(0)
+  @Min(value = 0)
   @Schema(
       name = "refine_factor",
       description = "Refine factor for search",
@@ -547,7 +547,7 @@ public class AnalyzeTableQueryPlanRequest {
    *
    * @return version
    */
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "version",
       description = "Table version to query",

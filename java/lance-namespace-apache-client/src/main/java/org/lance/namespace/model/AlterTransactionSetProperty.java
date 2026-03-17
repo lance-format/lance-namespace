@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTransactionSetProperty {
   public static final String JSON_PROPERTY_KEY = "key";
   @javax.annotation.Nullable private String key;
@@ -55,13 +55,13 @@ public class AlterTransactionSetProperty {
    * @return key
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getKey() {
     return key;
   }
 
-  @JsonProperty(JSON_PROPERTY_KEY)
+  @JsonProperty(value = JSON_PROPERTY_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setKey(@javax.annotation.Nullable String key) {
     this.key = key;
@@ -79,13 +79,13 @@ public class AlterTransactionSetProperty {
    * @return value
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getValue() {
     return value;
   }
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(value = JSON_PROPERTY_VALUE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setValue(@javax.annotation.Nullable String value) {
     this.value = value;
@@ -106,13 +106,13 @@ public class AlterTransactionSetProperty {
    * @return mode
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MODE)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getMode() {
     return mode;
   }
 
-  @JsonProperty(JSON_PROPERTY_MODE)
+  @JsonProperty(value = JSON_PROPERTY_MODE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMode(@javax.annotation.Nullable String mode) {
     this.mode = mode;
@@ -195,6 +195,7 @@ public class AlterTransactionSetProperty {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%skey%s=%s",
                 prefix,
                 suffix,
@@ -210,6 +211,7 @@ public class AlterTransactionSetProperty {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%svalue%s=%s",
                 prefix,
                 suffix,
@@ -225,6 +227,7 @@ public class AlterTransactionSetProperty {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%smode%s=%s",
                 prefix,
                 suffix,

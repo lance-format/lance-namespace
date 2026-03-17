@@ -36,7 +36,7 @@ import java.util.Objects;
         "Alter a transaction with a list of actions. The server should either succeed and apply all actions, or fail and apply no action. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTransactionRequest {
 
   private Identity identity;

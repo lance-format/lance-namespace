@@ -24,7 +24,7 @@ import java.util.Objects;
 /** GetTableTagVersionResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class GetTableTagVersionResponse {
 
   private Long version;
@@ -49,7 +49,7 @@ public class GetTableTagVersionResponse {
    * @return version
    */
   @NotNull
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "version",
       description = "version number that the tag points to",

@@ -13,6 +13,8 @@ use reqwest;
 use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
+use tokio::fs::File as TokioFile;
+use tokio_util::codec::{BytesCodec, FramedRead};
 
 
 /// struct for typed errors of method [`alter_table_add_columns`]
@@ -149,14 +151,14 @@ pub enum UpdateTableError {
 /// Add new columns to table `id` using SQL expressions or default values. 
 pub async fn alter_table_add_columns(configuration: &configuration::Configuration, id: &str, alter_table_add_columns_request: models::AlterTableAddColumnsRequest, delimiter: Option<&str>) -> Result<models::AlterTableAddColumnsResponse, Error<AlterTableAddColumnsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_alter_table_add_columns_request = alter_table_add_columns_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_alter_table_add_columns_request = alter_table_add_columns_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/add_columns", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/add_columns", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -176,7 +178,7 @@ pub async fn alter_table_add_columns(configuration: &configuration::Configuratio
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_alter_table_add_columns_request);
+    req_builder = req_builder.json(&p_body_alter_table_add_columns_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -206,14 +208,14 @@ pub async fn alter_table_add_columns(configuration: &configuration::Configuratio
 /// Analyze the query execution plan for a query against table `id`. Returns detailed statistics and analysis of the query execution plan.  REST NAMESPACE ONLY REST namespace returns the response as a plain string instead of the `AnalyzeTableQueryPlanResponse` JSON object. 
 pub async fn analyze_table_query_plan(configuration: &configuration::Configuration, id: &str, analyze_table_query_plan_request: models::AnalyzeTableQueryPlanRequest, delimiter: Option<&str>) -> Result<String, Error<AnalyzeTableQueryPlanError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_analyze_table_query_plan_request = analyze_table_query_plan_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_analyze_table_query_plan_request = analyze_table_query_plan_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/analyze_plan", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/analyze_plan", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -233,7 +235,7 @@ pub async fn analyze_table_query_plan(configuration: &configuration::Configurati
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_analyze_table_query_plan_request);
+    req_builder = req_builder.json(&p_body_analyze_table_query_plan_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -263,14 +265,14 @@ pub async fn analyze_table_query_plan(configuration: &configuration::Configurati
 /// Count the number of rows in table `id`  REST NAMESPACE ONLY REST namespace returns the response as a plain integer instead of the `CountTableRowsResponse` JSON object. 
 pub async fn count_table_rows(configuration: &configuration::Configuration, id: &str, count_table_rows_request: models::CountTableRowsRequest, delimiter: Option<&str>) -> Result<i64, Error<CountTableRowsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_count_table_rows_request = count_table_rows_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_count_table_rows_request = count_table_rows_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/count_rows", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/count_rows", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -290,7 +292,7 @@ pub async fn count_table_rows(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_count_table_rows_request);
+    req_builder = req_builder.json(&p_body_count_table_rows_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -320,18 +322,18 @@ pub async fn count_table_rows(configuration: &configuration::Configuration, id: 
 /// Create table `id` in the namespace with the given data in Arrow IPC stream.  The schema of the Arrow IPC stream is used as the table schema. If the stream is empty, the API creates a new empty table.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `CreateTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `mode`: pass through query parameter of the same name 
 pub async fn create_table(configuration: &configuration::Configuration, id: &str, body: Vec<u8>, delimiter: Option<&str>, mode: Option<&str>) -> Result<models::CreateTableResponse, Error<CreateTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_body = body;
-    let p_delimiter = delimiter;
-    let p_mode = mode;
+    let p_path_id = id;
+    let p_body_body = body;
+    let p_query_delimiter = delimiter;
+    let p_query_mode = mode;
 
-    let uri_str = format!("{}/v1/table/{id}/create", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/create", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_mode {
+    if let Some(ref param_value) = p_query_mode {
         req_builder = req_builder.query(&[("mode", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -351,7 +353,9 @@ pub async fn create_table(configuration: &configuration::Configuration, id: &str
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.body(p_body);
+    let file = TokioFile::open(p_body_body).await?;
+    let stream = FramedRead::new(file, BytesCodec::new());
+    req_builder = req_builder.body(reqwest::Body::wrap_stream(stream));
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -381,14 +385,14 @@ pub async fn create_table(configuration: &configuration::Configuration, id: &str
 /// Delete rows from table `id`. 
 pub async fn delete_from_table(configuration: &configuration::Configuration, id: &str, delete_from_table_request: models::DeleteFromTableRequest, delimiter: Option<&str>) -> Result<models::DeleteFromTableResponse, Error<DeleteFromTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delete_from_table_request = delete_from_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_delete_from_table_request = delete_from_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/delete", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/delete", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -408,7 +412,7 @@ pub async fn delete_from_table(configuration: &configuration::Configuration, id:
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_delete_from_table_request);
+    req_builder = req_builder.json(&p_body_delete_from_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -438,14 +442,14 @@ pub async fn delete_from_table(configuration: &configuration::Configuration, id:
 /// Get the query execution plan for a query against table `id`. Returns a human-readable explanation of how the query will be executed.  REST NAMESPACE ONLY REST namespace returns the response as a plain string instead of the `ExplainTableQueryPlanResponse` JSON object. 
 pub async fn explain_table_query_plan(configuration: &configuration::Configuration, id: &str, explain_table_query_plan_request: models::ExplainTableQueryPlanRequest, delimiter: Option<&str>) -> Result<String, Error<ExplainTableQueryPlanError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_explain_table_query_plan_request = explain_table_query_plan_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_explain_table_query_plan_request = explain_table_query_plan_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/explain_plan", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/explain_plan", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -465,7 +469,7 @@ pub async fn explain_table_query_plan(configuration: &configuration::Configurati
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_explain_table_query_plan_request);
+    req_builder = req_builder.json(&p_body_explain_table_query_plan_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -495,18 +499,18 @@ pub async fn explain_table_query_plan(configuration: &configuration::Configurati
 /// Insert new records into table `id`.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `InsertIntoTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `mode`: pass through query parameter of the same name 
 pub async fn insert_into_table(configuration: &configuration::Configuration, id: &str, body: Vec<u8>, delimiter: Option<&str>, mode: Option<&str>) -> Result<models::InsertIntoTableResponse, Error<InsertIntoTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_body = body;
-    let p_delimiter = delimiter;
-    let p_mode = mode;
+    let p_path_id = id;
+    let p_body_body = body;
+    let p_query_delimiter = delimiter;
+    let p_query_mode = mode;
 
-    let uri_str = format!("{}/v1/table/{id}/insert", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/insert", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_mode {
+    if let Some(ref param_value) = p_query_mode {
         req_builder = req_builder.query(&[("mode", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -526,7 +530,9 @@ pub async fn insert_into_table(configuration: &configuration::Configuration, id:
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.body(p_body);
+    let file = TokioFile::open(p_body_body).await?;
+    let stream = FramedRead::new(file, BytesCodec::new());
+    req_builder = req_builder.body(reqwest::Body::wrap_stream(stream));
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -556,44 +562,44 @@ pub async fn insert_into_table(configuration: &configuration::Configuration, id:
 /// Performs a merge insert (upsert) operation on table `id`. This operation updates existing rows based on a matching column and inserts new rows that don't match. It returns the number of rows inserted and updated.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `MergeInsertIntoTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `on`: pass through query parameter of the same name - `when_matched_update_all`: pass through query parameter of the same name - `when_matched_update_all_filt`: pass through query parameter of the same name - `when_not_matched_insert_all`: pass through query parameter of the same name - `when_not_matched_by_source_delete`: pass through query parameter of the same name - `when_not_matched_by_source_delete_filt`: pass through query parameter of the same name 
 pub async fn merge_insert_into_table(configuration: &configuration::Configuration, id: &str, on: &str, body: Vec<u8>, delimiter: Option<&str>, when_matched_update_all: Option<bool>, when_matched_update_all_filt: Option<&str>, when_not_matched_insert_all: Option<bool>, when_not_matched_by_source_delete: Option<bool>, when_not_matched_by_source_delete_filt: Option<&str>, timeout: Option<&str>, use_index: Option<bool>) -> Result<models::MergeInsertIntoTableResponse, Error<MergeInsertIntoTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_on = on;
-    let p_body = body;
-    let p_delimiter = delimiter;
-    let p_when_matched_update_all = when_matched_update_all;
-    let p_when_matched_update_all_filt = when_matched_update_all_filt;
-    let p_when_not_matched_insert_all = when_not_matched_insert_all;
-    let p_when_not_matched_by_source_delete = when_not_matched_by_source_delete;
-    let p_when_not_matched_by_source_delete_filt = when_not_matched_by_source_delete_filt;
-    let p_timeout = timeout;
-    let p_use_index = use_index;
+    let p_path_id = id;
+    let p_query_on = on;
+    let p_body_body = body;
+    let p_query_delimiter = delimiter;
+    let p_query_when_matched_update_all = when_matched_update_all;
+    let p_query_when_matched_update_all_filt = when_matched_update_all_filt;
+    let p_query_when_not_matched_insert_all = when_not_matched_insert_all;
+    let p_query_when_not_matched_by_source_delete = when_not_matched_by_source_delete;
+    let p_query_when_not_matched_by_source_delete_filt = when_not_matched_by_source_delete_filt;
+    let p_query_timeout = timeout;
+    let p_query_use_index = use_index;
 
-    let uri_str = format!("{}/v1/table/{id}/merge_insert", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/merge_insert", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    req_builder = req_builder.query(&[("on", &p_on.to_string())]);
-    if let Some(ref param_value) = p_when_matched_update_all {
+    req_builder = req_builder.query(&[("on", &p_query_on.to_string())]);
+    if let Some(ref param_value) = p_query_when_matched_update_all {
         req_builder = req_builder.query(&[("when_matched_update_all", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_when_matched_update_all_filt {
+    if let Some(ref param_value) = p_query_when_matched_update_all_filt {
         req_builder = req_builder.query(&[("when_matched_update_all_filt", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_when_not_matched_insert_all {
+    if let Some(ref param_value) = p_query_when_not_matched_insert_all {
         req_builder = req_builder.query(&[("when_not_matched_insert_all", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_when_not_matched_by_source_delete {
+    if let Some(ref param_value) = p_query_when_not_matched_by_source_delete {
         req_builder = req_builder.query(&[("when_not_matched_by_source_delete", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_when_not_matched_by_source_delete_filt {
+    if let Some(ref param_value) = p_query_when_not_matched_by_source_delete_filt {
         req_builder = req_builder.query(&[("when_not_matched_by_source_delete_filt", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_timeout {
+    if let Some(ref param_value) = p_query_timeout {
         req_builder = req_builder.query(&[("timeout", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_use_index {
+    if let Some(ref param_value) = p_query_use_index {
         req_builder = req_builder.query(&[("use_index", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -613,7 +619,9 @@ pub async fn merge_insert_into_table(configuration: &configuration::Configuratio
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.body(p_body);
+    let file = TokioFile::open(p_body_body).await?;
+    let stream = FramedRead::new(file, BytesCodec::new());
+    req_builder = req_builder.body(reqwest::Body::wrap_stream(stream));
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -643,14 +651,14 @@ pub async fn merge_insert_into_table(configuration: &configuration::Configuratio
 /// Query table `id` with vector search, full text search and optional SQL filtering. Returns results in Arrow IPC file or stream format.  REST NAMESPACE ONLY REST namespace returns the response as Arrow IPC file binary data instead of the `QueryTableResponse` JSON object. 
 pub async fn query_table(configuration: &configuration::Configuration, id: &str, query_table_request: models::QueryTableRequest, delimiter: Option<&str>) -> Result<reqwest::Response, Error<QueryTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_query_table_request = query_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_query_table_request = query_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/query", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/query", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -670,7 +678,7 @@ pub async fn query_table(configuration: &configuration::Configuration, id: &str,
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_query_table_request);
+    req_builder = req_builder.json(&p_body_query_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -689,14 +697,14 @@ pub async fn query_table(configuration: &configuration::Configuration, id: &str,
 /// Update existing rows in table `id`. 
 pub async fn update_table(configuration: &configuration::Configuration, id: &str, update_table_request: models::UpdateTableRequest, delimiter: Option<&str>) -> Result<models::UpdateTableResponse, Error<UpdateTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_update_table_request = update_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_update_table_request = update_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/update", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/update", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -716,7 +724,7 @@ pub async fn update_table(configuration: &configuration::Configuration, id: &str
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_update_table_request);
+    req_builder = req_builder.json(&p_body_update_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

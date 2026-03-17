@@ -29,7 +29,7 @@ import java.util.Objects;
 /** DescribeTableIndexStatsRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DescribeTableIndexStatsRequest {
 
   private Identity identity;
@@ -136,7 +136,7 @@ public class DescribeTableIndexStatsRequest {
    *
    * @return version
    */
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "version",
       description = "Optional table version to get stats for",

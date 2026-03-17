@@ -40,10 +40,7 @@ class TestPartitionSpec(unittest.TestCase):
                     lance_namespace_urllib3_client.models.partition_field.PartitionField(
                         field_id = 'event_year', 
                         source_ids = [1], 
-                        transform = lance_namespace_urllib3_client.models.partition_transform.PartitionTransform(
-                            type = '', 
-                            num_buckets = 56, 
-                            width = 56, ), 
+                        transform = null, 
                         expression = 'date_part('year', col0)', 
                         result_type = {type=int32}, )
                     ]
@@ -55,10 +52,7 @@ class TestPartitionSpec(unittest.TestCase):
                     lance_namespace_urllib3_client.models.partition_field.PartitionField(
                         field_id = 'event_year', 
                         source_ids = [1], 
-                        transform = lance_namespace_urllib3_client.models.partition_transform.PartitionTransform(
-                            type = '', 
-                            num_buckets = 56, 
-                            width = 56, ), 
+                        transform = null, 
                         expression = 'date_part('year', col0)', 
                         result_type = {type=int32}, )
                     ],

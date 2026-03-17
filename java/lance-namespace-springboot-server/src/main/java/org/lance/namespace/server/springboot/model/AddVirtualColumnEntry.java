@@ -27,7 +27,7 @@ import java.util.Objects;
 /** AddVirtualColumnEntry */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AddVirtualColumnEntry {
 
   @Valid private List<String> inputColumns = new ArrayList<>();

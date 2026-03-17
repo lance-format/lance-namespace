@@ -29,7 +29,7 @@ import java.util.Objects;
 /** CreateTableTagRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CreateTableTagRequest {
 
   private Identity identity;
@@ -171,7 +171,7 @@ public class CreateTableTagRequest {
    * @return version
    */
   @NotNull
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "version",
       description = "Version number for the tag to point to",

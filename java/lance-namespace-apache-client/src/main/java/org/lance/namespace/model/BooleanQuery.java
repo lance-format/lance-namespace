@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class BooleanQuery {
   public static final String JSON_PROPERTY_MUST = "must";
   @javax.annotation.Nonnull private List<FtsQuery> must = new ArrayList<>();
@@ -63,13 +63,13 @@ public class BooleanQuery {
    * @return must
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MUST)
+  @JsonProperty(value = JSON_PROPERTY_MUST, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<FtsQuery> getMust() {
     return must;
   }
 
-  @JsonProperty(JSON_PROPERTY_MUST)
+  @JsonProperty(value = JSON_PROPERTY_MUST, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMust(@javax.annotation.Nonnull List<FtsQuery> must) {
     this.must = must;
@@ -95,13 +95,13 @@ public class BooleanQuery {
    * @return mustNot
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MUST_NOT)
+  @JsonProperty(value = JSON_PROPERTY_MUST_NOT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<FtsQuery> getMustNot() {
     return mustNot;
   }
 
-  @JsonProperty(JSON_PROPERTY_MUST_NOT)
+  @JsonProperty(value = JSON_PROPERTY_MUST_NOT, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMustNot(@javax.annotation.Nonnull List<FtsQuery> mustNot) {
     this.mustNot = mustNot;
@@ -127,13 +127,13 @@ public class BooleanQuery {
    * @return should
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SHOULD)
+  @JsonProperty(value = JSON_PROPERTY_SHOULD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<FtsQuery> getShould() {
     return should;
   }
 
-  @JsonProperty(JSON_PROPERTY_SHOULD)
+  @JsonProperty(value = JSON_PROPERTY_SHOULD, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setShould(@javax.annotation.Nonnull List<FtsQuery> should) {
     this.should = should;
@@ -220,12 +220,18 @@ public class BooleanQuery {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%smust%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }
@@ -239,12 +245,18 @@ public class BooleanQuery {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%smust_not%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }
@@ -258,12 +270,18 @@ public class BooleanQuery {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%sshould%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }

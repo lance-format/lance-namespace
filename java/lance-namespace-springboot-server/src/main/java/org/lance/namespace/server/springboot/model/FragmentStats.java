@@ -25,7 +25,7 @@ import java.util.Objects;
 /** FragmentStats */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class FragmentStats {
 
   private Long numFragments;
@@ -56,7 +56,7 @@ public class FragmentStats {
    * @return numFragments
    */
   @NotNull
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "num_fragments",
       description = "The number of fragments in the table",
@@ -81,7 +81,7 @@ public class FragmentStats {
    * @return numSmallFragments
    */
   @NotNull
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "num_small_fragments",
       description = "The number of uncompacted fragments in the table",

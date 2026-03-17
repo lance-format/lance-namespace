@@ -35,7 +35,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class TableVersion {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull private Long version;
@@ -69,13 +69,13 @@ public class TableVersion {
    * @return version
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersion(@javax.annotation.Nonnull Long version) {
     this.version = version;
@@ -93,13 +93,13 @@ public class TableVersion {
    * @return manifestPath
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST_PATH, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getManifestPath() {
     return manifestPath;
   }
 
-  @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST_PATH, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setManifestPath(@javax.annotation.Nonnull String manifestPath) {
     this.manifestPath = manifestPath;
@@ -117,13 +117,13 @@ public class TableVersion {
    * @return manifestSize
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST_SIZE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getManifestSize() {
     return manifestSize;
   }
 
-  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
+  @JsonProperty(value = JSON_PROPERTY_MANIFEST_SIZE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setManifestSize(@javax.annotation.Nullable Long manifestSize) {
     this.manifestSize = manifestSize;
@@ -141,13 +141,13 @@ public class TableVersion {
    * @return eTag
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_E_TAG)
+  @JsonProperty(value = JSON_PROPERTY_E_TAG, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String geteTag() {
     return eTag;
   }
 
-  @JsonProperty(JSON_PROPERTY_E_TAG)
+  @JsonProperty(value = JSON_PROPERTY_E_TAG, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void seteTag(@javax.annotation.Nullable String eTag) {
     this.eTag = eTag;
@@ -165,13 +165,13 @@ public class TableVersion {
    * @return timestampMillis
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP_MILLIS)
+  @JsonProperty(value = JSON_PROPERTY_TIMESTAMP_MILLIS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getTimestampMillis() {
     return timestampMillis;
   }
 
-  @JsonProperty(JSON_PROPERTY_TIMESTAMP_MILLIS)
+  @JsonProperty(value = JSON_PROPERTY_TIMESTAMP_MILLIS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTimestampMillis(@javax.annotation.Nullable Long timestampMillis) {
     this.timestampMillis = timestampMillis;
@@ -197,13 +197,13 @@ public class TableVersion {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -292,6 +292,7 @@ public class TableVersion {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,
@@ -307,6 +308,7 @@ public class TableVersion {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%smanifest_path%s=%s",
                 prefix,
                 suffix,
@@ -323,6 +325,7 @@ public class TableVersion {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%smanifest_size%s=%s",
                 prefix,
                 suffix,
@@ -339,6 +342,7 @@ public class TableVersion {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%se_tag%s=%s",
                 prefix,
                 suffix,
@@ -354,6 +358,7 @@ public class TableVersion {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%stimestamp_millis%s=%s",
                 prefix,
                 suffix,
@@ -371,12 +376,14 @@ public class TableVersion {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%smetadata%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                   getMetadata().get(_key),
                   URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));

@@ -25,7 +25,7 @@ import java.util.Objects;
 @Schema(name = "DeleteTableTagResponse", description = "Response for delete tag operation")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DeleteTableTagResponse {
 
   private String transactionId;

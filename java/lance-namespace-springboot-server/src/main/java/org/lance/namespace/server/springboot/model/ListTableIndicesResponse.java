@@ -27,7 +27,7 @@ import java.util.Objects;
 /** ListTableIndicesResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class ListTableIndicesResponse {
 
   @Valid private List<@Valid IndexContent> indexes = new ArrayList<>();

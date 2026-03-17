@@ -515,14 +515,14 @@ pub enum UpdateTableTagError {
 /// Modify existing columns in table `id`, such as renaming or changing data types. 
 pub async fn alter_table_alter_columns(configuration: &configuration::Configuration, id: &str, alter_table_alter_columns_request: models::AlterTableAlterColumnsRequest, delimiter: Option<&str>) -> Result<models::AlterTableAlterColumnsResponse, Error<AlterTableAlterColumnsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_alter_table_alter_columns_request = alter_table_alter_columns_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_alter_table_alter_columns_request = alter_table_alter_columns_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/alter_columns", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/alter_columns", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -542,7 +542,7 @@ pub async fn alter_table_alter_columns(configuration: &configuration::Configurat
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_alter_table_alter_columns_request);
+    req_builder = req_builder.json(&p_body_alter_table_alter_columns_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -572,14 +572,14 @@ pub async fn alter_table_alter_columns(configuration: &configuration::Configurat
 /// Remove specified columns from table `id`. 
 pub async fn alter_table_drop_columns(configuration: &configuration::Configuration, id: &str, alter_table_drop_columns_request: models::AlterTableDropColumnsRequest, delimiter: Option<&str>) -> Result<models::AlterTableDropColumnsResponse, Error<AlterTableDropColumnsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_alter_table_drop_columns_request = alter_table_drop_columns_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_alter_table_drop_columns_request = alter_table_drop_columns_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/drop_columns", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/drop_columns", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -599,7 +599,7 @@ pub async fn alter_table_drop_columns(configuration: &configuration::Configurati
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_alter_table_drop_columns_request);
+    req_builder = req_builder.json(&p_body_alter_table_drop_columns_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -629,14 +629,14 @@ pub async fn alter_table_drop_columns(configuration: &configuration::Configurati
 /// Alter a transaction with a list of actions such as setting status or properties. The server should either succeed and apply all actions, or fail and apply no action. 
 pub async fn alter_transaction(configuration: &configuration::Configuration, id: &str, alter_transaction_request: models::AlterTransactionRequest, delimiter: Option<&str>) -> Result<models::AlterTransactionResponse, Error<AlterTransactionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_alter_transaction_request = alter_transaction_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_alter_transaction_request = alter_transaction_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/transaction/{id}/alter", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/transaction/{id}/alter", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -656,7 +656,7 @@ pub async fn alter_transaction(configuration: &configuration::Configuration, id:
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_alter_transaction_request);
+    req_builder = req_builder.json(&p_body_alter_transaction_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -686,13 +686,13 @@ pub async fn alter_transaction(configuration: &configuration::Configuration, id:
 /// Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `DeclareTable`: Declare (reserve) a new table - `CreateTableVersion`: Create a new version entry for a table - `DeleteTableVersions`: Delete version ranges from a table - `DeregisterTable`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. 
 pub async fn batch_commit_tables(configuration: &configuration::Configuration, batch_commit_tables_request: models::BatchCommitTablesRequest, delimiter: Option<&str>) -> Result<models::BatchCommitTablesResponse, Error<BatchCommitTablesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_batch_commit_tables_request = batch_commit_tables_request;
-    let p_delimiter = delimiter;
+    let p_body_batch_commit_tables_request = batch_commit_tables_request;
+    let p_query_delimiter = delimiter;
 
     let uri_str = format!("{}/v1/table/batch-commit", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -712,7 +712,7 @@ pub async fn batch_commit_tables(configuration: &configuration::Configuration, b
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_batch_commit_tables_request);
+    req_builder = req_builder.json(&p_body_batch_commit_tables_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -742,13 +742,13 @@ pub async fn batch_commit_tables(configuration: &configuration::Configuration, b
 /// Atomically create new version entries for multiple tables.  This operation is atomic: either all table versions are created successfully, or none are created. If any version creation fails (e.g., due to conflict), the entire batch operation fails.  Each entry in the request specifies the table identifier and version details. This supports `put_if_not_exists` semantics for each version entry. 
 pub async fn batch_create_table_versions(configuration: &configuration::Configuration, batch_create_table_versions_request: models::BatchCreateTableVersionsRequest, delimiter: Option<&str>) -> Result<models::BatchCreateTableVersionsResponse, Error<BatchCreateTableVersionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_batch_create_table_versions_request = batch_create_table_versions_request;
-    let p_delimiter = delimiter;
+    let p_body_batch_create_table_versions_request = batch_create_table_versions_request;
+    let p_query_delimiter = delimiter;
 
     let uri_str = format!("{}/v1/table/version/batch-create", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -768,7 +768,7 @@ pub async fn batch_create_table_versions(configuration: &configuration::Configur
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_batch_create_table_versions_request);
+    req_builder = req_builder.json(&p_body_batch_create_table_versions_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -798,14 +798,14 @@ pub async fn batch_create_table_versions(configuration: &configuration::Configur
 /// Delete version metadata records for table `id`.  This operation deletes version tracking records, NOT the actual table data. It supports deleting ranges of versions for efficient bulk cleanup.  Special range values: - `start_version: 0` with `end_version: -1` means delete ALL version records 
 pub async fn batch_delete_table_versions(configuration: &configuration::Configuration, id: &str, batch_delete_table_versions_request: models::BatchDeleteTableVersionsRequest, delimiter: Option<&str>) -> Result<models::BatchDeleteTableVersionsResponse, Error<BatchDeleteTableVersionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_batch_delete_table_versions_request = batch_delete_table_versions_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_batch_delete_table_versions_request = batch_delete_table_versions_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/version/delete", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/version/delete", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -825,7 +825,7 @@ pub async fn batch_delete_table_versions(configuration: &configuration::Configur
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_batch_delete_table_versions_request);
+    req_builder = req_builder.json(&p_body_batch_delete_table_versions_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -853,16 +853,17 @@ pub async fn batch_delete_table_versions(configuration: &configuration::Configur
 }
 
 /// Create an empty table with the given name without touching storage. This is a metadata-only operation that records the table existence and sets up aspects like access control.  For DirectoryNamespace implementation, this creates a `.lance-reserved` file in the table directory to mark the table's existence without creating actual Lance data files.  **Deprecated**: Use `DeclareTable` instead. 
+#[deprecated]
 pub async fn create_empty_table(configuration: &configuration::Configuration, id: &str, create_empty_table_request: models::CreateEmptyTableRequest, delimiter: Option<&str>) -> Result<models::CreateEmptyTableResponse, Error<CreateEmptyTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_create_empty_table_request = create_empty_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_create_empty_table_request = create_empty_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/create-empty", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/create-empty", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -882,7 +883,7 @@ pub async fn create_empty_table(configuration: &configuration::Configuration, id
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_create_empty_table_request);
+    req_builder = req_builder.json(&p_body_create_empty_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -912,14 +913,14 @@ pub async fn create_empty_table(configuration: &configuration::Configuration, id
 /// Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`, such as adding additional properties like `created_at` to user-provided properties, omitting any specific property, or performing actions based on any property value. 
 pub async fn create_namespace(configuration: &configuration::Configuration, id: &str, create_namespace_request: models::CreateNamespaceRequest, delimiter: Option<&str>) -> Result<models::CreateNamespaceResponse, Error<CreateNamespaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_create_namespace_request = create_namespace_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_create_namespace_request = create_namespace_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/create", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/create", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -939,7 +940,7 @@ pub async fn create_namespace(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_create_namespace_request);
+    req_builder = req_builder.json(&p_body_create_namespace_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -969,14 +970,14 @@ pub async fn create_namespace(configuration: &configuration::Configuration, id: 
 /// Create an index on a table column for faster search operations. Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE, BITMAP, FTS, etc.). Index creation is handled asynchronously. Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress. 
 pub async fn create_table_index(configuration: &configuration::Configuration, id: &str, create_table_index_request: models::CreateTableIndexRequest, delimiter: Option<&str>) -> Result<models::CreateTableIndexResponse, Error<CreateTableIndexError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_create_table_index_request = create_table_index_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_create_table_index_request = create_table_index_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/create_index", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/create_index", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -996,7 +997,7 @@ pub async fn create_table_index(configuration: &configuration::Configuration, id
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_create_table_index_request);
+    req_builder = req_builder.json(&p_body_create_table_index_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1026,14 +1027,14 @@ pub async fn create_table_index(configuration: &configuration::Configuration, id
 /// Create a scalar index on a table column for faster filtering operations. Supports scalar indexes (BTREE, BITMAP, LABEL_LIST, FTS, etc.). This is an alias for CreateTableIndex specifically for scalar indexes. Index creation is handled asynchronously. Use the `ListTableIndices` and `DescribeTableIndexStats` operations to monitor index creation progress. 
 pub async fn create_table_scalar_index(configuration: &configuration::Configuration, id: &str, create_table_index_request: models::CreateTableIndexRequest, delimiter: Option<&str>) -> Result<models::CreateTableScalarIndexResponse, Error<CreateTableScalarIndexError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_create_table_index_request = create_table_index_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_create_table_index_request = create_table_index_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/create_scalar_index", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/create_scalar_index", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1053,7 +1054,7 @@ pub async fn create_table_scalar_index(configuration: &configuration::Configurat
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_create_table_index_request);
+    req_builder = req_builder.json(&p_body_create_table_index_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1083,14 +1084,14 @@ pub async fn create_table_scalar_index(configuration: &configuration::Configurat
 /// Create a new tag for table `id` that points to a specific version. 
 pub async fn create_table_tag(configuration: &configuration::Configuration, id: &str, create_table_tag_request: models::CreateTableTagRequest, delimiter: Option<&str>) -> Result<models::CreateTableTagResponse, Error<CreateTableTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_create_table_tag_request = create_table_tag_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_create_table_tag_request = create_table_tag_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/create", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/create", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1110,7 +1111,7 @@ pub async fn create_table_tag(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_create_table_tag_request);
+    req_builder = req_builder.json(&p_body_create_table_tag_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1140,14 +1141,14 @@ pub async fn create_table_tag(configuration: &configuration::Configuration, id: 
 /// Create a new version entry for table `id`.  This operation supports `put_if_not_exists` semantics. The operation will fail with 409 Conflict if the version already exists. 
 pub async fn create_table_version(configuration: &configuration::Configuration, id: &str, create_table_version_request: models::CreateTableVersionRequest, delimiter: Option<&str>) -> Result<models::CreateTableVersionResponse, Error<CreateTableVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_create_table_version_request = create_table_version_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_create_table_version_request = create_table_version_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/version/create", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/version/create", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1167,7 +1168,7 @@ pub async fn create_table_version(configuration: &configuration::Configuration, 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_create_table_version_request);
+    req_builder = req_builder.json(&p_body_create_table_version_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1197,14 +1198,14 @@ pub async fn create_table_version(configuration: &configuration::Configuration, 
 /// Declare a table with the given name without touching storage. This is a metadata-only operation that records the table existence and sets up aspects like access control.  For DirectoryNamespace implementation, this creates a `.lance-reserved` file in the table directory to mark the table's existence without creating actual Lance data files. 
 pub async fn declare_table(configuration: &configuration::Configuration, id: &str, declare_table_request: models::DeclareTableRequest, delimiter: Option<&str>) -> Result<models::DeclareTableResponse, Error<DeclareTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_declare_table_request = declare_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_declare_table_request = declare_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/declare", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/declare", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1224,7 +1225,7 @@ pub async fn declare_table(configuration: &configuration::Configuration, id: &st
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_declare_table_request);
+    req_builder = req_builder.json(&p_body_declare_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1254,14 +1255,14 @@ pub async fn declare_table(configuration: &configuration::Configuration, id: &st
 /// Delete an existing tag from table `id`. 
 pub async fn delete_table_tag(configuration: &configuration::Configuration, id: &str, delete_table_tag_request: models::DeleteTableTagRequest, delimiter: Option<&str>) -> Result<models::DeleteTableTagResponse, Error<DeleteTableTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delete_table_tag_request = delete_table_tag_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_delete_table_tag_request = delete_table_tag_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/delete", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/delete", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1281,7 +1282,7 @@ pub async fn delete_table_tag(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_delete_table_tag_request);
+    req_builder = req_builder.json(&p_body_delete_table_tag_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1311,14 +1312,14 @@ pub async fn delete_table_tag(configuration: &configuration::Configuration, id: 
 /// Deregister table `id` from its namespace. 
 pub async fn deregister_table(configuration: &configuration::Configuration, id: &str, deregister_table_request: models::DeregisterTableRequest, delimiter: Option<&str>) -> Result<models::DeregisterTableResponse, Error<DeregisterTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_deregister_table_request = deregister_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_deregister_table_request = deregister_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/deregister", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/deregister", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1338,7 +1339,7 @@ pub async fn deregister_table(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_deregister_table_request);
+    req_builder = req_builder.json(&p_body_deregister_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1368,14 +1369,14 @@ pub async fn deregister_table(configuration: &configuration::Configuration, id: 
 /// Describe the detailed information for namespace `id`. 
 pub async fn describe_namespace(configuration: &configuration::Configuration, id: &str, describe_namespace_request: models::DescribeNamespaceRequest, delimiter: Option<&str>) -> Result<models::DescribeNamespaceResponse, Error<DescribeNamespaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_describe_namespace_request = describe_namespace_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_describe_namespace_request = describe_namespace_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1395,7 +1396,7 @@ pub async fn describe_namespace(configuration: &configuration::Configuration, id
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_describe_namespace_request);
+    req_builder = req_builder.json(&p_body_describe_namespace_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1425,22 +1426,22 @@ pub async fn describe_namespace(configuration: &configuration::Configuration, id
 /// Describe the detailed information for table `id`.  REST NAMESPACE ONLY REST namespace passes `with_table_uri` and `load_detailed_metadata` as query parameters instead of in the request body. 
 pub async fn describe_table(configuration: &configuration::Configuration, id: &str, describe_table_request: models::DescribeTableRequest, delimiter: Option<&str>, with_table_uri: Option<bool>, load_detailed_metadata: Option<bool>) -> Result<models::DescribeTableResponse, Error<DescribeTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_describe_table_request = describe_table_request;
-    let p_delimiter = delimiter;
-    let p_with_table_uri = with_table_uri;
-    let p_load_detailed_metadata = load_detailed_metadata;
+    let p_path_id = id;
+    let p_body_describe_table_request = describe_table_request;
+    let p_query_delimiter = delimiter;
+    let p_query_with_table_uri = with_table_uri;
+    let p_query_load_detailed_metadata = load_detailed_metadata;
 
-    let uri_str = format!("{}/v1/table/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_with_table_uri {
+    if let Some(ref param_value) = p_query_with_table_uri {
         req_builder = req_builder.query(&[("with_table_uri", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_load_detailed_metadata {
+    if let Some(ref param_value) = p_query_load_detailed_metadata {
         req_builder = req_builder.query(&[("load_detailed_metadata", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1460,7 +1461,7 @@ pub async fn describe_table(configuration: &configuration::Configuration, id: &s
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_describe_table_request);
+    req_builder = req_builder.json(&p_body_describe_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1490,15 +1491,15 @@ pub async fn describe_table(configuration: &configuration::Configuration, id: &s
 /// Get statistics for a specific index on a table. Returns information about the index type, distance type (for vector indices), and row counts. 
 pub async fn describe_table_index_stats(configuration: &configuration::Configuration, id: &str, index_name: &str, describe_table_index_stats_request: models::DescribeTableIndexStatsRequest, delimiter: Option<&str>) -> Result<models::DescribeTableIndexStatsResponse, Error<DescribeTableIndexStatsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_index_name = index_name;
-    let p_describe_table_index_stats_request = describe_table_index_stats_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_path_index_name = index_name;
+    let p_body_describe_table_index_stats_request = describe_table_index_stats_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/index/{index_name}/stats", configuration.base_path, id=crate::apis::urlencode(p_id), index_name=crate::apis::urlencode(p_index_name));
+    let uri_str = format!("{}/v1/table/{id}/index/{index_name}/stats", configuration.base_path, id=crate::apis::urlencode(p_path_id), index_name=crate::apis::urlencode(p_path_index_name));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1518,7 +1519,7 @@ pub async fn describe_table_index_stats(configuration: &configuration::Configura
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_describe_table_index_stats_request);
+    req_builder = req_builder.json(&p_body_describe_table_index_stats_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1548,14 +1549,14 @@ pub async fn describe_table_index_stats(configuration: &configuration::Configura
 /// Describe the detailed information for a specific version of table `id`.  Returns the manifest path and metadata for the specified version. 
 pub async fn describe_table_version(configuration: &configuration::Configuration, id: &str, describe_table_version_request: models::DescribeTableVersionRequest, delimiter: Option<&str>) -> Result<models::DescribeTableVersionResponse, Error<DescribeTableVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_describe_table_version_request = describe_table_version_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_describe_table_version_request = describe_table_version_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/version/describe", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/version/describe", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1575,7 +1576,7 @@ pub async fn describe_table_version(configuration: &configuration::Configuration
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_describe_table_version_request);
+    req_builder = req_builder.json(&p_body_describe_table_version_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1605,14 +1606,14 @@ pub async fn describe_table_version(configuration: &configuration::Configuration
 /// Return a detailed information for a given transaction 
 pub async fn describe_transaction(configuration: &configuration::Configuration, id: &str, describe_transaction_request: models::DescribeTransactionRequest, delimiter: Option<&str>) -> Result<models::DescribeTransactionResponse, Error<DescribeTransactionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_describe_transaction_request = describe_transaction_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_describe_transaction_request = describe_transaction_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/transaction/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/transaction/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1632,7 +1633,7 @@ pub async fn describe_transaction(configuration: &configuration::Configuration, 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_describe_transaction_request);
+    req_builder = req_builder.json(&p_body_describe_transaction_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1662,14 +1663,14 @@ pub async fn describe_transaction(configuration: &configuration::Configuration, 
 /// Drop namespace `id` from its parent namespace. 
 pub async fn drop_namespace(configuration: &configuration::Configuration, id: &str, drop_namespace_request: models::DropNamespaceRequest, delimiter: Option<&str>) -> Result<models::DropNamespaceResponse, Error<DropNamespaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_drop_namespace_request = drop_namespace_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_drop_namespace_request = drop_namespace_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/drop", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/drop", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1689,7 +1690,7 @@ pub async fn drop_namespace(configuration: &configuration::Configuration, id: &s
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_drop_namespace_request);
+    req_builder = req_builder.json(&p_body_drop_namespace_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1719,13 +1720,13 @@ pub async fn drop_namespace(configuration: &configuration::Configuration, id: &s
 /// Drop table `id` and delete its data.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `DropTableRequest` information is passed in the following way: - `id`: pass through path parameter of the same name 
 pub async fn drop_table(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>) -> Result<models::DropTableResponse, Error<DropTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/drop", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/drop", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1774,14 +1775,14 @@ pub async fn drop_table(configuration: &configuration::Configuration, id: &str, 
 /// Drop the specified index from table `id`.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `DropTableIndexRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `index_name`: pass through path parameter of the same name 
 pub async fn drop_table_index(configuration: &configuration::Configuration, id: &str, index_name: &str, delimiter: Option<&str>) -> Result<models::DropTableIndexResponse, Error<DropTableIndexError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_index_name = index_name;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_path_index_name = index_name;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/index/{index_name}/drop", configuration.base_path, id=crate::apis::urlencode(p_id), index_name=crate::apis::urlencode(p_index_name));
+    let uri_str = format!("{}/v1/table/{id}/index/{index_name}/drop", configuration.base_path, id=crate::apis::urlencode(p_path_id), index_name=crate::apis::urlencode(p_path_index_name));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1830,14 +1831,14 @@ pub async fn drop_table_index(configuration: &configuration::Configuration, id: 
 /// Get statistics for table `id`, including row counts, data sizes, and column statistics. 
 pub async fn get_table_stats(configuration: &configuration::Configuration, id: &str, get_table_stats_request: models::GetTableStatsRequest, delimiter: Option<&str>) -> Result<models::GetTableStatsResponse, Error<GetTableStatsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_get_table_stats_request = get_table_stats_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_get_table_stats_request = get_table_stats_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/stats", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/stats", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1857,7 +1858,7 @@ pub async fn get_table_stats(configuration: &configuration::Configuration, id: &
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_get_table_stats_request);
+    req_builder = req_builder.json(&p_body_get_table_stats_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1887,14 +1888,14 @@ pub async fn get_table_stats(configuration: &configuration::Configuration, id: &
 /// Get the version number that a specific tag points to for table `id`. 
 pub async fn get_table_tag_version(configuration: &configuration::Configuration, id: &str, get_table_tag_version_request: models::GetTableTagVersionRequest, delimiter: Option<&str>) -> Result<models::GetTableTagVersionResponse, Error<GetTableTagVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_get_table_tag_version_request = get_table_tag_version_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_get_table_tag_version_request = get_table_tag_version_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/version", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/version", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -1914,7 +1915,7 @@ pub async fn get_table_tag_version(configuration: &configuration::Configuration,
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_get_table_tag_version_request);
+    req_builder = req_builder.json(&p_body_get_table_tag_version_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1944,21 +1945,21 @@ pub async fn get_table_tag_version(configuration: &configuration::Configuration,
 /// List all child namespace names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListNamespacesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
 pub async fn list_namespaces(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>, page_token: Option<&str>, limit: Option<i32>) -> Result<models::ListNamespacesResponse, Error<ListNamespacesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delimiter = delimiter;
-    let p_page_token = page_token;
-    let p_limit = limit;
+    let p_path_id = id;
+    let p_query_delimiter = delimiter;
+    let p_query_page_token = page_token;
+    let p_query_limit = limit;
 
-    let uri_str = format!("{}/v1/namespace/{id}/list", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_token {
+    if let Some(ref param_value) = p_query_page_token {
         req_builder = req_builder.query(&[("page_token", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_limit {
+    if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2007,14 +2008,14 @@ pub async fn list_namespaces(configuration: &configuration::Configuration, id: &
 /// List all indices created on a table. Returns information about each index including name, columns, status, and UUID. 
 pub async fn list_table_indices(configuration: &configuration::Configuration, id: &str, list_table_indices_request: models::ListTableIndicesRequest, delimiter: Option<&str>) -> Result<models::ListTableIndicesResponse, Error<ListTableIndicesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_list_table_indices_request = list_table_indices_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_list_table_indices_request = list_table_indices_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/index/list", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/index/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2034,7 +2035,7 @@ pub async fn list_table_indices(configuration: &configuration::Configuration, id
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_list_table_indices_request);
+    req_builder = req_builder.json(&p_body_list_table_indices_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2064,21 +2065,21 @@ pub async fn list_table_indices(configuration: &configuration::Configuration, id
 /// List all tags that have been created for table `id`. Returns a map of tag names to their corresponding version numbers and metadata.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `ListTableTagsRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
 pub async fn list_table_tags(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>, page_token: Option<&str>, limit: Option<i32>) -> Result<models::ListTableTagsResponse, Error<ListTableTagsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delimiter = delimiter;
-    let p_page_token = page_token;
-    let p_limit = limit;
+    let p_path_id = id;
+    let p_query_delimiter = delimiter;
+    let p_query_page_token = page_token;
+    let p_query_limit = limit;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/list", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_token {
+    if let Some(ref param_value) = p_query_page_token {
         req_builder = req_builder.query(&[("page_token", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_limit {
+    if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2127,25 +2128,25 @@ pub async fn list_table_tags(configuration: &configuration::Configuration, id: &
 /// List all versions (commits) of table `id` with their metadata.  Use `descending=true` to guarantee versions are returned in descending order (latest to oldest). Otherwise, the ordering is implementation-defined.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `ListTableVersionsRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `descending`: pass through query parameter of the same name 
 pub async fn list_table_versions(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>, page_token: Option<&str>, limit: Option<i32>, descending: Option<bool>) -> Result<models::ListTableVersionsResponse, Error<ListTableVersionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delimiter = delimiter;
-    let p_page_token = page_token;
-    let p_limit = limit;
-    let p_descending = descending;
+    let p_path_id = id;
+    let p_query_delimiter = delimiter;
+    let p_query_page_token = page_token;
+    let p_query_limit = limit;
+    let p_query_descending = descending;
 
-    let uri_str = format!("{}/v1/table/{id}/version/list", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/version/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_token {
+    if let Some(ref param_value) = p_query_page_token {
         req_builder = req_builder.query(&[("page_token", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_limit {
+    if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_descending {
+    if let Some(ref param_value) = p_query_descending {
         req_builder = req_builder.query(&[("descending", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2194,21 +2195,21 @@ pub async fn list_table_versions(configuration: &configuration::Configuration, i
 /// List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
 pub async fn list_tables(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>, page_token: Option<&str>, limit: Option<i32>) -> Result<models::ListTablesResponse, Error<ListTablesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delimiter = delimiter;
-    let p_page_token = page_token;
-    let p_limit = limit;
+    let p_path_id = id;
+    let p_query_delimiter = delimiter;
+    let p_query_page_token = page_token;
+    let p_query_limit = limit;
 
-    let uri_str = format!("{}/v1/namespace/{id}/table/list", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/table/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_token {
+    if let Some(ref param_value) = p_query_page_token {
         req_builder = req_builder.query(&[("page_token", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_limit {
+    if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2257,14 +2258,14 @@ pub async fn list_tables(configuration: &configuration::Configuration, id: &str,
 /// Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API, except it does not contain a response body. 
 pub async fn namespace_exists(configuration: &configuration::Configuration, id: &str, namespace_exists_request: models::NamespaceExistsRequest, delimiter: Option<&str>) -> Result<(), Error<NamespaceExistsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_namespace_exists_request = namespace_exists_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_namespace_exists_request = namespace_exists_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/exists", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/exists", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2284,7 +2285,7 @@ pub async fn namespace_exists(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_namespace_exists_request);
+    req_builder = req_builder.json(&p_body_namespace_exists_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2303,14 +2304,14 @@ pub async fn namespace_exists(configuration: &configuration::Configuration, id: 
 /// Register an existing table at a given storage location as `id`. 
 pub async fn register_table(configuration: &configuration::Configuration, id: &str, register_table_request: models::RegisterTableRequest, delimiter: Option<&str>) -> Result<models::RegisterTableResponse, Error<RegisterTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_register_table_request = register_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_register_table_request = register_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/register", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/register", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2330,7 +2331,7 @@ pub async fn register_table(configuration: &configuration::Configuration, id: &s
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_register_table_request);
+    req_builder = req_builder.json(&p_body_register_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2360,14 +2361,14 @@ pub async fn register_table(configuration: &configuration::Configuration, id: &s
 /// Rename table `id` to a new name. 
 pub async fn rename_table(configuration: &configuration::Configuration, id: &str, rename_table_request: models::RenameTableRequest, delimiter: Option<&str>) -> Result<models::RenameTableResponse, Error<RenameTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_rename_table_request = rename_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_rename_table_request = rename_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/rename", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/rename", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2387,7 +2388,7 @@ pub async fn rename_table(configuration: &configuration::Configuration, id: &str
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_rename_table_request);
+    req_builder = req_builder.json(&p_body_rename_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2417,14 +2418,14 @@ pub async fn rename_table(configuration: &configuration::Configuration, id: &str
 /// Restore table `id` to a specific version. 
 pub async fn restore_table(configuration: &configuration::Configuration, id: &str, restore_table_request: models::RestoreTableRequest, delimiter: Option<&str>) -> Result<models::RestoreTableResponse, Error<RestoreTableError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_restore_table_request = restore_table_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_restore_table_request = restore_table_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/restore", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/restore", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2444,7 +2445,7 @@ pub async fn restore_table(configuration: &configuration::Configuration, id: &st
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_restore_table_request);
+    req_builder = req_builder.json(&p_body_restore_table_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2474,14 +2475,14 @@ pub async fn restore_table(configuration: &configuration::Configuration, id: &st
 /// Check if table `id` exists.  This operation should behave exactly like DescribeTable, except it does not contain a response body.  For DirectoryNamespace implementation, a table exists if either: - The table has Lance data versions (regular table created with CreateTable) - A `.lance-reserved` file exists in the table directory (declared table created with DeclareTable) 
 pub async fn table_exists(configuration: &configuration::Configuration, id: &str, table_exists_request: models::TableExistsRequest, delimiter: Option<&str>) -> Result<(), Error<TableExistsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_table_exists_request = table_exists_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_table_exists_request = table_exists_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/exists", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/exists", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2501,7 +2502,7 @@ pub async fn table_exists(configuration: &configuration::Configuration, id: &str
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_table_exists_request);
+    req_builder = req_builder.json(&p_body_table_exists_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2520,14 +2521,14 @@ pub async fn table_exists(configuration: &configuration::Configuration, id: &str
 /// Replace the schema metadata for table `id` with the provided key-value pairs.  REST NAMESPACE ONLY REST namespace uses a direct object (map of string to string) as both request and response body instead of the wrapped `UpdateTableSchemaMetadataRequest` and `UpdateTableSchemaMetadataResponse`. 
 pub async fn update_table_schema_metadata(configuration: &configuration::Configuration, id: &str, request_body: std::collections::HashMap<String, String>, delimiter: Option<&str>) -> Result<std::collections::HashMap<String, String>, Error<UpdateTableSchemaMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_request_body = request_body;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_request_body = request_body;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/schema_metadata/update", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/schema_metadata/update", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2547,7 +2548,7 @@ pub async fn update_table_schema_metadata(configuration: &configuration::Configu
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_request_body);
+    req_builder = req_builder.json(&p_body_request_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -2577,14 +2578,14 @@ pub async fn update_table_schema_metadata(configuration: &configuration::Configu
 /// Update an existing tag for table `id` to point to a different version. 
 pub async fn update_table_tag(configuration: &configuration::Configuration, id: &str, update_table_tag_request: models::UpdateTableTagRequest, delimiter: Option<&str>) -> Result<models::UpdateTableTagResponse, Error<UpdateTableTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_update_table_tag_request = update_table_tag_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_update_table_tag_request = update_table_tag_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/update", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/update", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -2604,7 +2605,7 @@ pub async fn update_table_tag(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_update_table_tag_request);
+    req_builder = req_builder.json(&p_body_update_table_tag_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

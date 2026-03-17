@@ -24,7 +24,7 @@ import java.util.Objects;
 /** AlterTableAlterColumnsResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class AlterTableAlterColumnsResponse {
 
   private String transactionId;
@@ -74,7 +74,7 @@ public class AlterTableAlterColumnsResponse {
    * @return version
    */
   @NotNull
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "version",
       description = "Version of the table after altering columns",

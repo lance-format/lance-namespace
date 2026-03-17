@@ -27,7 +27,7 @@ import java.util.Objects;
 /** UpdateTableResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class UpdateTableResponse {
 
   private String transactionId;
@@ -82,7 +82,7 @@ public class UpdateTableResponse {
    * @return updatedRows
    */
   @NotNull
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "updated_rows",
       description = "Number of rows updated",
@@ -107,7 +107,7 @@ public class UpdateTableResponse {
    * @return version
    */
   @NotNull
-  @Min(0L)
+  @Min(value = 0L)
   @Schema(
       name = "version",
       description = "The commit version associated with the operation",

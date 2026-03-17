@@ -39,7 +39,7 @@ import java.util.StringJoiner;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class TagApi extends BaseApi {
 
   public TagApi() {
@@ -65,7 +65,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableTagResponse createTableTag(
-      String id, CreateTableTagRequest createTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.createTableTag(id, createTableTagRequest, delimiter, Collections.emptyMap());
   }
@@ -86,9 +88,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableTagResponse createTableTag(
-      String id,
-      CreateTableTagRequest createTableTagRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createTableTagRequest;
@@ -165,7 +167,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeleteTableTagResponse deleteTableTag(
-      String id, DeleteTableTagRequest deleteTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.deleteTableTag(id, deleteTableTagRequest, delimiter, Collections.emptyMap());
   }
@@ -186,9 +190,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeleteTableTagResponse deleteTableTag(
-      String id,
-      DeleteTableTagRequest deleteTableTagRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = deleteTableTagRequest;
@@ -266,7 +270,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public GetTableTagVersionResponse getTableTagVersion(
-      String id, GetTableTagVersionRequest getTableTagVersionRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.getTableTagVersion(
         id, getTableTagVersionRequest, delimiter, Collections.emptyMap());
@@ -289,9 +295,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public GetTableTagVersionResponse getTableTagVersion(
-      String id,
-      GetTableTagVersionRequest getTableTagVersionRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = getTableTagVersionRequest;
@@ -374,7 +380,11 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableTagsResponse listTableTags(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String pageToken,
+      @javax.annotation.Nullable Integer limit)
+      throws ApiException {
     return this.listTableTags(id, delimiter, pageToken, limit, Collections.emptyMap());
   }
 
@@ -400,10 +410,10 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableTagsResponse listTableTags(
-      String id,
-      String delimiter,
-      String pageToken,
-      Integer limit,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nullable String delimiter,
+      @javax.annotation.Nullable String pageToken,
+      @javax.annotation.Nullable Integer limit,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
@@ -476,7 +486,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public UpdateTableTagResponse updateTableTag(
-      String id, UpdateTableTagRequest updateTableTagRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.updateTableTag(id, updateTableTagRequest, delimiter, Collections.emptyMap());
   }
@@ -498,9 +510,9 @@ public class TagApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public UpdateTableTagResponse updateTableTag(
-      String id,
-      UpdateTableTagRequest updateTableTagRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = updateTableTagRequest;

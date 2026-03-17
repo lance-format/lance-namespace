@@ -28,7 +28,7 @@ import java.util.Objects;
     description = "Response containing the table version information")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DescribeTableVersionResponse {
 
   private TableVersion version;

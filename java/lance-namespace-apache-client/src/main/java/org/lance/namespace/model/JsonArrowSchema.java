@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({JsonArrowSchema.JSON_PROPERTY_FIELDS, JsonArrowSchema.JSON_PROPERTY_METADATA})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class JsonArrowSchema {
   public static final String JSON_PROPERTY_FIELDS = "fields";
   @javax.annotation.Nonnull private List<JsonArrowField> fields = new ArrayList<>();
@@ -60,13 +60,13 @@ public class JsonArrowSchema {
    * @return fields
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIELDS)
+  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<JsonArrowField> getFields() {
     return fields;
   }
 
-  @JsonProperty(JSON_PROPERTY_FIELDS)
+  @JsonProperty(value = JSON_PROPERTY_FIELDS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setFields(@javax.annotation.Nonnull List<JsonArrowField> fields) {
     this.fields = fields;
@@ -92,13 +92,13 @@ public class JsonArrowSchema {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -183,12 +183,18 @@ public class JsonArrowSchema {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%sfields%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }
@@ -199,12 +205,14 @@ public class JsonArrowSchema {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%smetadata%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                   getMetadata().get(_key),
                   URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));

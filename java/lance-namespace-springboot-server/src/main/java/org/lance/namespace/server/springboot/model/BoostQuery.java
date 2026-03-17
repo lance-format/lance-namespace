@@ -29,7 +29,7 @@ import java.util.Objects;
         "Boost query that scores documents matching positive query higher and negative query lower")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class BoostQuery {
 
   private FtsQuery positive;

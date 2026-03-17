@@ -34,7 +34,7 @@ import java.util.Objects;
         "Response for batch creating table versions. Contains the created versions for each table in the same order as the request. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class BatchCreateTableVersionsResponse {
 
   private String transactionId;

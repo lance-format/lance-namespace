@@ -43,74 +43,20 @@ class TestBatchCommitTablesRequest(unittest.TestCase):
                     },
                 operations = [
                     lance_namespace_urllib3_client.models.commit_table_operation.CommitTableOperation(
-                        declare_table = lance_namespace_urllib3_client.models.declare_table_request.DeclareTableRequest(
-                            identity = lance_namespace_urllib3_client.models.identity.Identity(
-                                api_key = '', 
-                                auth_token = '', ), 
-                            context = {
-                                'key' : ''
-                                }, 
-                            id = [
-                                ''
-                                ], 
-                            location = '', 
-                            vend_credentials = True, 
-                            properties = {
-                                'key' : ''
-                                }, ), 
-                        create_table_version = lance_namespace_urllib3_client.models.create_table_version_request.CreateTableVersionRequest(
-                            version = 0, 
-                            manifest_path = '', 
-                            manifest_size = 0, 
-                            e_tag = '', 
-                            metadata = {
-                                'key' : ''
-                                }, 
-                            naming_scheme = 'V2', ), 
-                        delete_table_versions = lance_namespace_urllib3_client.models.batch_delete_table_versions_request.BatchDeleteTableVersionsRequest(
-                            ranges = [
-                                lance_namespace_urllib3_client.models.version_range.VersionRange(
-                                    start_version = 56, 
-                                    end_version = 56, )
-                                ], ), 
-                        deregister_table = lance_namespace_urllib3_client.models.deregister_table_request.DeregisterTableRequest(), )
+                        declare_table = null, 
+                        create_table_version = null, 
+                        delete_table_versions = null, 
+                        deregister_table = null, )
                     ]
             )
         else:
             return BatchCommitTablesRequest(
                 operations = [
                     lance_namespace_urllib3_client.models.commit_table_operation.CommitTableOperation(
-                        declare_table = lance_namespace_urllib3_client.models.declare_table_request.DeclareTableRequest(
-                            identity = lance_namespace_urllib3_client.models.identity.Identity(
-                                api_key = '', 
-                                auth_token = '', ), 
-                            context = {
-                                'key' : ''
-                                }, 
-                            id = [
-                                ''
-                                ], 
-                            location = '', 
-                            vend_credentials = True, 
-                            properties = {
-                                'key' : ''
-                                }, ), 
-                        create_table_version = lance_namespace_urllib3_client.models.create_table_version_request.CreateTableVersionRequest(
-                            version = 0, 
-                            manifest_path = '', 
-                            manifest_size = 0, 
-                            e_tag = '', 
-                            metadata = {
-                                'key' : ''
-                                }, 
-                            naming_scheme = 'V2', ), 
-                        delete_table_versions = lance_namespace_urllib3_client.models.batch_delete_table_versions_request.BatchDeleteTableVersionsRequest(
-                            ranges = [
-                                lance_namespace_urllib3_client.models.version_range.VersionRange(
-                                    start_version = 56, 
-                                    end_version = 56, )
-                                ], ), 
-                        deregister_table = lance_namespace_urllib3_client.models.deregister_table_request.DeregisterTableRequest(), )
+                        declare_table = null, 
+                        create_table_version = null, 
+                        delete_table_versions = null, 
+                        deregister_table = null, )
                     ],
         )
         """

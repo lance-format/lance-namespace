@@ -24,9 +24,8 @@ import java.time.format.DateTimeParseException;
  */
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class JavaTimeFormatter {
-
   private DateTimeFormatter offsetDateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
   /**
@@ -60,6 +59,7 @@ public class JavaTimeFormatter {
       throw new RuntimeException(e);
     }
   }
+
   /**
    * Format the given {@code OffsetDateTime} object into string.
    *

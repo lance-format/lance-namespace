@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({Identity.JSON_PROPERTY_API_KEY, Identity.JSON_PROPERTY_AUTH_TOKEN})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class Identity {
   public static final String JSON_PROPERTY_API_KEY = "api_key";
   @javax.annotation.Nullable private String apiKey;
@@ -49,13 +49,13 @@ public class Identity {
    * @return apiKey
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_API_KEY)
+  @JsonProperty(value = JSON_PROPERTY_API_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getApiKey() {
     return apiKey;
   }
 
-  @JsonProperty(JSON_PROPERTY_API_KEY)
+  @JsonProperty(value = JSON_PROPERTY_API_KEY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setApiKey(@javax.annotation.Nullable String apiKey) {
     this.apiKey = apiKey;
@@ -75,13 +75,13 @@ public class Identity {
    * @return authToken
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AUTH_TOKEN)
+  @JsonProperty(value = JSON_PROPERTY_AUTH_TOKEN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getAuthToken() {
     return authToken;
   }
 
-  @JsonProperty(JSON_PROPERTY_AUTH_TOKEN)
+  @JsonProperty(value = JSON_PROPERTY_AUTH_TOKEN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAuthToken(@javax.annotation.Nullable String authToken) {
     this.authToken = authToken;
@@ -162,6 +162,7 @@ public class Identity {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sapi_key%s=%s",
                 prefix,
                 suffix,
@@ -177,6 +178,7 @@ public class Identity {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sauth_token%s=%s",
                 prefix,
                 suffix,

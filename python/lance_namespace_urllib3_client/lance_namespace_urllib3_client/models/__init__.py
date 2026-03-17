@@ -12,7 +12,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 # import models into model package
 from lance_namespace_urllib3_client.models.add_virtual_column_entry import AddVirtualColumnEntry
 from lance_namespace_urllib3_client.models.alter_columns_entry import AlterColumnsEntry
@@ -140,3 +139,4 @@ from lance_namespace_urllib3_client.models.update_table_schema_metadata_response
 from lance_namespace_urllib3_client.models.update_table_tag_request import UpdateTableTagRequest
 from lance_namespace_urllib3_client.models.update_table_tag_response import UpdateTableTagResponse
 from lance_namespace_urllib3_client.models.version_range import VersionRange
+

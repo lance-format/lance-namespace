@@ -39,7 +39,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CreateEmptyTableResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -67,13 +67,13 @@ public class CreateEmptyTableResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
+  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -91,13 +91,13 @@ public class CreateEmptyTableResponse {
    * @return location
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getLocation() {
     return location;
   }
 
-  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(@javax.annotation.Nullable String location) {
     this.location = location;
@@ -125,13 +125,13 @@ public class CreateEmptyTableResponse {
    * @return storageOptions
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getStorageOptions() {
     return storageOptions;
   }
 
-  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageOptions(@javax.annotation.Nullable Map<String, String> storageOptions) {
     this.storageOptions = storageOptions;
@@ -159,13 +159,13 @@ public class CreateEmptyTableResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(JSON_PROPERTY_PROPERTIES)
+  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -250,6 +250,7 @@ public class CreateEmptyTableResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,
@@ -266,6 +267,7 @@ public class CreateEmptyTableResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%slocation%s=%s",
                 prefix,
                 suffix,
@@ -283,12 +285,14 @@ public class CreateEmptyTableResponse {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%sstorage_options%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                   getStorageOptions().get(_key),
                   URLEncoder.encode(String.valueOf(getStorageOptions().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -305,12 +309,14 @@ public class CreateEmptyTableResponse {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%sproperties%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                   getProperties().get(_key),
                   URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));

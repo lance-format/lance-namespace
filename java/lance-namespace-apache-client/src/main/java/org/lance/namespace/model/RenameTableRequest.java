@@ -36,7 +36,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class RenameTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -67,13 +67,13 @@ public class RenameTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -103,13 +103,13 @@ public class RenameTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(JSON_PROPERTY_CONTEXT)
+  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -135,13 +135,13 @@ public class RenameTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -159,13 +159,13 @@ public class RenameTableRequest {
    * @return newTableName
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NEW_TABLE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NEW_TABLE_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getNewTableName() {
     return newTableName;
   }
 
-  @JsonProperty(JSON_PROPERTY_NEW_TABLE_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NEW_TABLE_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNewTableName(@javax.annotation.Nonnull String newTableName) {
     this.newTableName = newTableName;
@@ -192,13 +192,13 @@ public class RenameTableRequest {
    * @return newNamespaceId
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NEW_NAMESPACE_ID)
+  @JsonProperty(value = JSON_PROPERTY_NEW_NAMESPACE_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getNewNamespaceId() {
     return newNamespaceId;
   }
 
-  @JsonProperty(JSON_PROPERTY_NEW_NAMESPACE_ID)
+  @JsonProperty(value = JSON_PROPERTY_NEW_NAMESPACE_ID, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNewNamespaceId(@javax.annotation.Nullable List<String> newNamespaceId) {
     this.newNamespaceId = newNamespaceId;
@@ -291,12 +291,14 @@ public class RenameTableRequest {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -313,12 +315,14 @@ public class RenameTableRequest {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -333,6 +337,7 @@ public class RenameTableRequest {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%snew_table_name%s=%s",
                 prefix,
                 suffix,
@@ -350,12 +355,14 @@ public class RenameTableRequest {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%snew_namespace_id%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getNewNamespaceId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {

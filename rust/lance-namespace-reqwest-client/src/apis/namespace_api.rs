@@ -102,14 +102,14 @@ pub enum NamespaceExistsError {
 /// Create new namespace `id`.  During the creation process, the implementation may modify user-provided `properties`, such as adding additional properties like `created_at` to user-provided properties, omitting any specific property, or performing actions based on any property value. 
 pub async fn create_namespace(configuration: &configuration::Configuration, id: &str, create_namespace_request: models::CreateNamespaceRequest, delimiter: Option<&str>) -> Result<models::CreateNamespaceResponse, Error<CreateNamespaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_create_namespace_request = create_namespace_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_create_namespace_request = create_namespace_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/create", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/create", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -129,7 +129,7 @@ pub async fn create_namespace(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_create_namespace_request);
+    req_builder = req_builder.json(&p_body_create_namespace_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -159,14 +159,14 @@ pub async fn create_namespace(configuration: &configuration::Configuration, id: 
 /// Describe the detailed information for namespace `id`. 
 pub async fn describe_namespace(configuration: &configuration::Configuration, id: &str, describe_namespace_request: models::DescribeNamespaceRequest, delimiter: Option<&str>) -> Result<models::DescribeNamespaceResponse, Error<DescribeNamespaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_describe_namespace_request = describe_namespace_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_describe_namespace_request = describe_namespace_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -186,7 +186,7 @@ pub async fn describe_namespace(configuration: &configuration::Configuration, id
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_describe_namespace_request);
+    req_builder = req_builder.json(&p_body_describe_namespace_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -216,14 +216,14 @@ pub async fn describe_namespace(configuration: &configuration::Configuration, id
 /// Drop namespace `id` from its parent namespace. 
 pub async fn drop_namespace(configuration: &configuration::Configuration, id: &str, drop_namespace_request: models::DropNamespaceRequest, delimiter: Option<&str>) -> Result<models::DropNamespaceResponse, Error<DropNamespaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_drop_namespace_request = drop_namespace_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_drop_namespace_request = drop_namespace_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/drop", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/drop", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -243,7 +243,7 @@ pub async fn drop_namespace(configuration: &configuration::Configuration, id: &s
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_drop_namespace_request);
+    req_builder = req_builder.json(&p_body_drop_namespace_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -273,21 +273,21 @@ pub async fn drop_namespace(configuration: &configuration::Configuration, id: &s
 /// List all child namespace names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListNamespacesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
 pub async fn list_namespaces(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>, page_token: Option<&str>, limit: Option<i32>) -> Result<models::ListNamespacesResponse, Error<ListNamespacesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delimiter = delimiter;
-    let p_page_token = page_token;
-    let p_limit = limit;
+    let p_path_id = id;
+    let p_query_delimiter = delimiter;
+    let p_query_page_token = page_token;
+    let p_query_limit = limit;
 
-    let uri_str = format!("{}/v1/namespace/{id}/list", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_token {
+    if let Some(ref param_value) = p_query_page_token {
         req_builder = req_builder.query(&[("page_token", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_limit {
+    if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -336,21 +336,21 @@ pub async fn list_namespaces(configuration: &configuration::Configuration, id: &
 /// List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
 pub async fn list_tables(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>, page_token: Option<&str>, limit: Option<i32>) -> Result<models::ListTablesResponse, Error<ListTablesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_delimiter = delimiter;
-    let p_page_token = page_token;
-    let p_limit = limit;
+    let p_path_id = id;
+    let p_query_delimiter = delimiter;
+    let p_query_page_token = page_token;
+    let p_query_limit = limit;
 
-    let uri_str = format!("{}/v1/namespace/{id}/table/list", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/table/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_page_token {
+    if let Some(ref param_value) = p_query_page_token {
         req_builder = req_builder.query(&[("page_token", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_limit {
+    if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -399,14 +399,14 @@ pub async fn list_tables(configuration: &configuration::Configuration, id: &str,
 /// Check if namespace `id` exists.  This operation must behave exactly like the DescribeNamespace API, except it does not contain a response body. 
 pub async fn namespace_exists(configuration: &configuration::Configuration, id: &str, namespace_exists_request: models::NamespaceExistsRequest, delimiter: Option<&str>) -> Result<(), Error<NamespaceExistsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_id = id;
-    let p_namespace_exists_request = namespace_exists_request;
-    let p_delimiter = delimiter;
+    let p_path_id = id;
+    let p_body_namespace_exists_request = namespace_exists_request;
+    let p_query_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/namespace/{id}/exists", configuration.base_path, id=crate::apis::urlencode(p_id));
+    let uri_str = format!("{}/v1/namespace/{id}/exists", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_delimiter {
+    if let Some(ref param_value) = p_query_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -426,7 +426,7 @@ pub async fn namespace_exists(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_namespace_exists_request);
+    req_builder = req_builder.json(&p_body_namespace_exists_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

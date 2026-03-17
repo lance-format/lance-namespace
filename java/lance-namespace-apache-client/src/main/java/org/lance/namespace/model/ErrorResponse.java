@@ -31,7 +31,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class ErrorResponse {
   public static final String JSON_PROPERTY_ERROR = "error";
   @javax.annotation.Nullable private String error;
@@ -59,13 +59,13 @@ public class ErrorResponse {
    * @return error
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ERROR)
+  @JsonProperty(value = JSON_PROPERTY_ERROR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getError() {
     return error;
   }
 
-  @JsonProperty(JSON_PROPERTY_ERROR)
+  @JsonProperty(value = JSON_PROPERTY_ERROR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setError(@javax.annotation.Nullable String error) {
     this.error = error;
@@ -98,13 +98,13 @@ public class ErrorResponse {
    * @return code
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CODE)
+  @JsonProperty(value = JSON_PROPERTY_CODE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Integer getCode() {
     return code;
   }
 
-  @JsonProperty(JSON_PROPERTY_CODE)
+  @JsonProperty(value = JSON_PROPERTY_CODE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setCode(@javax.annotation.Nonnull Integer code) {
     this.code = code;
@@ -123,13 +123,13 @@ public class ErrorResponse {
    * @return detail
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getDetail() {
     return detail;
   }
 
-  @JsonProperty(JSON_PROPERTY_DETAIL)
+  @JsonProperty(value = JSON_PROPERTY_DETAIL, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDetail(@javax.annotation.Nullable String detail) {
     this.detail = detail;
@@ -149,13 +149,13 @@ public class ErrorResponse {
    * @return instance
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INSTANCE)
+  @JsonProperty(value = JSON_PROPERTY_INSTANCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getInstance() {
     return instance;
   }
 
-  @JsonProperty(JSON_PROPERTY_INSTANCE)
+  @JsonProperty(value = JSON_PROPERTY_INSTANCE, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInstance(@javax.annotation.Nullable String instance) {
     this.instance = instance;
@@ -240,6 +240,7 @@ public class ErrorResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%serror%s=%s",
                 prefix,
                 suffix,
@@ -255,6 +256,7 @@ public class ErrorResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%scode%s=%s",
                 prefix,
                 suffix,
@@ -270,6 +272,7 @@ public class ErrorResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sdetail%s=%s",
                 prefix,
                 suffix,
@@ -285,6 +288,7 @@ public class ErrorResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sinstance%s=%s",
                 prefix,
                 suffix,

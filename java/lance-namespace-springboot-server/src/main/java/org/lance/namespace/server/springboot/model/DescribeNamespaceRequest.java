@@ -29,7 +29,7 @@ import java.util.Objects;
 /** DescribeNamespaceRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class DescribeNamespaceRequest {
 
   private Identity identity;

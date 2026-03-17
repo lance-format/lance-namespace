@@ -38,7 +38,7 @@ import java.util.StringJoiner;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class IndexApi extends BaseApi {
 
   public IndexApi() {
@@ -68,7 +68,9 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableIndexResponse createTableIndex(
-      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.createTableIndex(id, createTableIndexRequest, delimiter, Collections.emptyMap());
   }
@@ -93,9 +95,9 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableIndexResponse createTableIndex(
-      String id,
-      CreateTableIndexRequest createTableIndexRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createTableIndexRequest;
@@ -176,7 +178,9 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableScalarIndexResponse createTableScalarIndex(
-      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.createTableScalarIndex(
         id, createTableIndexRequest, delimiter, Collections.emptyMap());
@@ -202,9 +206,9 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableScalarIndexResponse createTableScalarIndex(
-      String id,
-      CreateTableIndexRequest createTableIndexRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createTableIndexRequest;
@@ -283,10 +287,10 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableIndexStatsResponse describeTableIndexStats(
-      String id,
-      String indexName,
-      DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-      String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull String indexName,
+      @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.describeTableIndexStats(
         id, indexName, describeTableIndexStatsRequest, delimiter, Collections.emptyMap());
@@ -310,10 +314,10 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableIndexStatsResponse describeTableIndexStats(
-      String id,
-      String indexName,
-      DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull String indexName,
+      @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeTableIndexStatsRequest;
@@ -402,7 +406,10 @@ public class IndexApi extends BaseApi {
    * @return DropTableIndexResponse
    * @throws ApiException if fails to make API call
    */
-  public DropTableIndexResponse dropTableIndex(String id, String indexName, String delimiter)
+  public DropTableIndexResponse dropTableIndex(
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull String indexName,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.dropTableIndex(id, indexName, delimiter, Collections.emptyMap());
   }
@@ -427,7 +434,10 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DropTableIndexResponse dropTableIndex(
-      String id, String indexName, String delimiter, Map<String, String> additionalHeaders)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull String indexName,
+      @javax.annotation.Nullable String delimiter,
+      Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
 
@@ -507,7 +517,9 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableIndicesResponse listTableIndices(
-      String id, ListTableIndicesRequest listTableIndicesRequest, String delimiter)
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
+      @javax.annotation.Nullable String delimiter)
       throws ApiException {
     return this.listTableIndices(id, listTableIndicesRequest, delimiter, Collections.emptyMap());
   }
@@ -529,9 +541,9 @@ public class IndexApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableIndicesResponse listTableIndices(
-      String id,
-      ListTableIndicesRequest listTableIndicesRequest,
-      String delimiter,
+      @javax.annotation.Nonnull String id,
+      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
+      @javax.annotation.Nullable String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = listTableIndicesRequest;

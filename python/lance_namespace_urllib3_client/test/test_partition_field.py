@@ -42,13 +42,39 @@ class TestPartitionField(unittest.TestCase):
                     num_buckets = 56, 
                     width = 56, ),
                 expression = 'date_part('year', col0)',
-                result_type = {type=int32}
+                result_type = lance_namespace_urllib3_client.models.json_arrow_data_type.JsonArrowDataType(
+                    fields = [
+                        lance_namespace_urllib3_client.models.json_arrow_field.JsonArrowField(
+                            metadata = {
+                                'key' : ''
+                                }, 
+                            name = '', 
+                            nullable = True, 
+                            type = lance_namespace_urllib3_client.models.json_arrow_data_type.JsonArrowDataType(
+                                length = 0, 
+                                type = '', ), )
+                        ], 
+                    length = 0, 
+                    type = '', )
             )
         else:
             return PartitionField(
                 field_id = 'event_year',
                 source_ids = [1],
-                result_type = {type=int32},
+                result_type = lance_namespace_urllib3_client.models.json_arrow_data_type.JsonArrowDataType(
+                    fields = [
+                        lance_namespace_urllib3_client.models.json_arrow_field.JsonArrowField(
+                            metadata = {
+                                'key' : ''
+                                }, 
+                            name = '', 
+                            nullable = True, 
+                            type = lance_namespace_urllib3_client.models.json_arrow_data_type.JsonArrowDataType(
+                                length = 0, 
+                                type = '', ), )
+                        ], 
+                    length = 0, 
+                    type = '', ),
         )
         """
 

@@ -24,7 +24,7 @@ import java.util.Objects;
 /** TableBasicStats */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class TableBasicStats {
 
   private Integer numDeletedRows;
@@ -52,7 +52,7 @@ public class TableBasicStats {
    * @return numDeletedRows
    */
   @NotNull
-  @Min(0)
+  @Min(value = 0)
   @Schema(
       name = "num_deleted_rows",
       description = "Number of deleted rows in the table",
@@ -77,7 +77,7 @@ public class TableBasicStats {
    * @return numFragments
    */
   @NotNull
-  @Min(0)
+  @Min(value = 0)
   @Schema(
       name = "num_fragments",
       description = "Number of fragments in the table",

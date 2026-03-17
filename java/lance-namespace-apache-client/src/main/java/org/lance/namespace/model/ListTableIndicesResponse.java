@@ -31,7 +31,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class ListTableIndicesResponse {
   public static final String JSON_PROPERTY_INDEXES = "indexes";
   @javax.annotation.Nonnull private List<IndexContent> indexes = new ArrayList<>();
@@ -61,13 +61,13 @@ public class ListTableIndicesResponse {
    * @return indexes
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_INDEXES)
+  @JsonProperty(value = JSON_PROPERTY_INDEXES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<IndexContent> getIndexes() {
     return indexes;
   }
 
-  @JsonProperty(JSON_PROPERTY_INDEXES)
+  @JsonProperty(value = JSON_PROPERTY_INDEXES, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIndexes(@javax.annotation.Nonnull List<IndexContent> indexes) {
     this.indexes = indexes;
@@ -92,13 +92,13 @@ public class ListTableIndicesResponse {
    * @return pageToken
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
+  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPageToken() {
     return pageToken;
   }
 
-  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
+  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageToken(@javax.annotation.Nullable String pageToken) {
     this.pageToken = pageToken;
@@ -183,12 +183,18 @@ public class ListTableIndicesResponse {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
+                          java.util.Locale.ROOT,
                           "%sindexes%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+                              : String.format(
+                                  java.util.Locale.ROOT,
+                                  "%s%d%s",
+                                  containerPrefix,
+                                  i,
+                                  containerSuffix))));
         }
       }
     }
@@ -198,6 +204,7 @@ public class ListTableIndicesResponse {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%spage_token%s=%s",
                 prefix,
                 suffix,

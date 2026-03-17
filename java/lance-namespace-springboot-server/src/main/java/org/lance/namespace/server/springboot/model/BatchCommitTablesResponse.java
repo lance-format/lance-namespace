@@ -34,7 +34,7 @@ import java.util.Objects;
         "Response for a batch commit of table operations. Contains the results of each operation in the same order as the request. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class BatchCommitTablesResponse {
 
   private String transactionId;

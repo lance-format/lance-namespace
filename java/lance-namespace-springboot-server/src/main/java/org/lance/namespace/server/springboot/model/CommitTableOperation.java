@@ -32,7 +32,7 @@ import java.util.Objects;
         "A single operation within a batch commit. Provide exactly one of the operation fields to specify the operation kind. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CommitTableOperation {
 
   private DeclareTableRequest declareTable;

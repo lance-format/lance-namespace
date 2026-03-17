@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class JsonArrowField {
   public static final String JSON_PROPERTY_METADATA = "metadata";
   @javax.annotation.Nullable private Map<String, String> metadata = new HashMap<>();
@@ -69,13 +69,13 @@ public class JsonArrowField {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -93,13 +93,13 @@ public class JsonArrowField {
    * @return name
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getName() {
     return name;
   }
 
-  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonProperty(value = JSON_PROPERTY_NAME, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(@javax.annotation.Nonnull String name) {
     this.name = name;
@@ -117,13 +117,13 @@ public class JsonArrowField {
    * @return nullable
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NULLABLE)
+  @JsonProperty(value = JSON_PROPERTY_NULLABLE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Boolean getNullable() {
     return nullable;
   }
 
-  @JsonProperty(JSON_PROPERTY_NULLABLE)
+  @JsonProperty(value = JSON_PROPERTY_NULLABLE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNullable(@javax.annotation.Nonnull Boolean nullable) {
     this.nullable = nullable;
@@ -141,13 +141,13 @@ public class JsonArrowField {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public JsonArrowDataType getType() {
     return type;
   }
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull JsonArrowDataType type) {
     this.type = type;
@@ -233,12 +233,14 @@ public class JsonArrowField {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%smetadata%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
                   getMetadata().get(_key),
                   URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -254,6 +256,7 @@ public class JsonArrowField {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%sname%s=%s",
                 prefix,
                 suffix,
@@ -269,6 +272,7 @@ public class JsonArrowField {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%snullable%s=%s",
                 prefix,
                 suffix,

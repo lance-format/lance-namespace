@@ -16,150 +16,297 @@
 
 __version__ = "0.6.0"
 
+# Define package exports
+__all__ = [
+    "DataApi",
+    "IndexApi",
+    "MetadataApi",
+    "NamespaceApi",
+    "TableApi",
+    "TagApi",
+    "TransactionApi",
+    "ApiResponse",
+    "ApiClient",
+    "Configuration",
+    "OpenApiException",
+    "ApiTypeError",
+    "ApiValueError",
+    "ApiKeyError",
+    "ApiAttributeError",
+    "ApiException",
+    "AddVirtualColumnEntry",
+    "AlterColumnsEntry",
+    "AlterTableAddColumnsRequest",
+    "AlterTableAddColumnsResponse",
+    "AlterTableAlterColumnsRequest",
+    "AlterTableAlterColumnsResponse",
+    "AlterTableDropColumnsRequest",
+    "AlterTableDropColumnsResponse",
+    "AlterTransactionAction",
+    "AlterTransactionRequest",
+    "AlterTransactionResponse",
+    "AlterTransactionSetProperty",
+    "AlterTransactionSetStatus",
+    "AlterTransactionUnsetProperty",
+    "AlterVirtualColumnEntry",
+    "AnalyzeTableQueryPlanRequest",
+    "AnalyzeTableQueryPlanResponse",
+    "BatchCommitTablesRequest",
+    "BatchCommitTablesResponse",
+    "BatchCreateTableVersionsRequest",
+    "BatchCreateTableVersionsResponse",
+    "BatchDeleteTableVersionsRequest",
+    "BatchDeleteTableVersionsResponse",
+    "BooleanQuery",
+    "BoostQuery",
+    "CommitTableOperation",
+    "CommitTableResult",
+    "CountTableRowsRequest",
+    "CreateEmptyTableRequest",
+    "CreateEmptyTableResponse",
+    "CreateNamespaceRequest",
+    "CreateNamespaceResponse",
+    "CreateTableIndexRequest",
+    "CreateTableIndexResponse",
+    "CreateTableRequest",
+    "CreateTableResponse",
+    "CreateTableScalarIndexResponse",
+    "CreateTableTagRequest",
+    "CreateTableTagResponse",
+    "CreateTableVersionEntry",
+    "CreateTableVersionRequest",
+    "CreateTableVersionResponse",
+    "DeclareTableRequest",
+    "DeclareTableResponse",
+    "DeleteFromTableRequest",
+    "DeleteFromTableResponse",
+    "DeleteTableTagRequest",
+    "DeleteTableTagResponse",
+    "DeregisterTableRequest",
+    "DeregisterTableResponse",
+    "DescribeNamespaceRequest",
+    "DescribeNamespaceResponse",
+    "DescribeTableIndexStatsRequest",
+    "DescribeTableIndexStatsResponse",
+    "DescribeTableRequest",
+    "DescribeTableResponse",
+    "DescribeTableVersionRequest",
+    "DescribeTableVersionResponse",
+    "DescribeTransactionRequest",
+    "DescribeTransactionResponse",
+    "DropNamespaceRequest",
+    "DropNamespaceResponse",
+    "DropTableIndexRequest",
+    "DropTableIndexResponse",
+    "DropTableRequest",
+    "DropTableResponse",
+    "ErrorResponse",
+    "ExplainTableQueryPlanRequest",
+    "ExplainTableQueryPlanResponse",
+    "FragmentStats",
+    "FragmentSummary",
+    "FtsQuery",
+    "GetTableStatsRequest",
+    "GetTableStatsResponse",
+    "GetTableTagVersionRequest",
+    "GetTableTagVersionResponse",
+    "Identity",
+    "IndexContent",
+    "InsertIntoTableRequest",
+    "InsertIntoTableResponse",
+    "JsonArrowDataType",
+    "JsonArrowField",
+    "JsonArrowSchema",
+    "ListNamespacesRequest",
+    "ListNamespacesResponse",
+    "ListTableIndicesRequest",
+    "ListTableIndicesResponse",
+    "ListTableTagsRequest",
+    "ListTableTagsResponse",
+    "ListTableVersionsRequest",
+    "ListTableVersionsResponse",
+    "ListTablesRequest",
+    "ListTablesResponse",
+    "MatchQuery",
+    "MergeInsertIntoTableRequest",
+    "MergeInsertIntoTableResponse",
+    "MultiMatchQuery",
+    "NamespaceExistsRequest",
+    "NewColumnTransform",
+    "PartitionField",
+    "PartitionSpec",
+    "PartitionTransform",
+    "PhraseQuery",
+    "QueryTableRequest",
+    "QueryTableRequestColumns",
+    "QueryTableRequestFullTextQuery",
+    "QueryTableRequestVector",
+    "RegisterTableRequest",
+    "RegisterTableResponse",
+    "RenameTableRequest",
+    "RenameTableResponse",
+    "RestoreTableRequest",
+    "RestoreTableResponse",
+    "StringFtsQuery",
+    "StructuredFtsQuery",
+    "TableBasicStats",
+    "TableExistsRequest",
+    "TableVersion",
+    "TagContents",
+    "UpdateTableRequest",
+    "UpdateTableResponse",
+    "UpdateTableSchemaMetadataRequest",
+    "UpdateTableSchemaMetadataResponse",
+    "UpdateTableTagRequest",
+    "UpdateTableTagResponse",
+    "VersionRange",
+]
+
 # import apis into sdk package
-from lance_namespace_urllib3_client.api.data_api import DataApi
-from lance_namespace_urllib3_client.api.index_api import IndexApi
-from lance_namespace_urllib3_client.api.metadata_api import MetadataApi
-from lance_namespace_urllib3_client.api.namespace_api import NamespaceApi
-from lance_namespace_urllib3_client.api.table_api import TableApi
-from lance_namespace_urllib3_client.api.tag_api import TagApi
-from lance_namespace_urllib3_client.api.transaction_api import TransactionApi
+from lance_namespace_urllib3_client.api.data_api import DataApi as DataApi
+from lance_namespace_urllib3_client.api.index_api import IndexApi as IndexApi
+from lance_namespace_urllib3_client.api.metadata_api import MetadataApi as MetadataApi
+from lance_namespace_urllib3_client.api.namespace_api import NamespaceApi as NamespaceApi
+from lance_namespace_urllib3_client.api.table_api import TableApi as TableApi
+from lance_namespace_urllib3_client.api.tag_api import TagApi as TagApi
+from lance_namespace_urllib3_client.api.transaction_api import TransactionApi as TransactionApi
 
 # import ApiClient
-from lance_namespace_urllib3_client.api_response import ApiResponse
-from lance_namespace_urllib3_client.api_client import ApiClient
-from lance_namespace_urllib3_client.configuration import Configuration
-from lance_namespace_urllib3_client.exceptions import OpenApiException
-from lance_namespace_urllib3_client.exceptions import ApiTypeError
-from lance_namespace_urllib3_client.exceptions import ApiValueError
-from lance_namespace_urllib3_client.exceptions import ApiKeyError
-from lance_namespace_urllib3_client.exceptions import ApiAttributeError
-from lance_namespace_urllib3_client.exceptions import ApiException
+from lance_namespace_urllib3_client.api_response import ApiResponse as ApiResponse
+from lance_namespace_urllib3_client.api_client import ApiClient as ApiClient
+from lance_namespace_urllib3_client.configuration import Configuration as Configuration
+from lance_namespace_urllib3_client.exceptions import OpenApiException as OpenApiException
+from lance_namespace_urllib3_client.exceptions import ApiTypeError as ApiTypeError
+from lance_namespace_urllib3_client.exceptions import ApiValueError as ApiValueError
+from lance_namespace_urllib3_client.exceptions import ApiKeyError as ApiKeyError
+from lance_namespace_urllib3_client.exceptions import ApiAttributeError as ApiAttributeError
+from lance_namespace_urllib3_client.exceptions import ApiException as ApiException
 
 # import models into sdk package
-from lance_namespace_urllib3_client.models.add_virtual_column_entry import AddVirtualColumnEntry
-from lance_namespace_urllib3_client.models.alter_columns_entry import AlterColumnsEntry
-from lance_namespace_urllib3_client.models.alter_table_add_columns_request import AlterTableAddColumnsRequest
-from lance_namespace_urllib3_client.models.alter_table_add_columns_response import AlterTableAddColumnsResponse
-from lance_namespace_urllib3_client.models.alter_table_alter_columns_request import AlterTableAlterColumnsRequest
-from lance_namespace_urllib3_client.models.alter_table_alter_columns_response import AlterTableAlterColumnsResponse
-from lance_namespace_urllib3_client.models.alter_table_drop_columns_request import AlterTableDropColumnsRequest
-from lance_namespace_urllib3_client.models.alter_table_drop_columns_response import AlterTableDropColumnsResponse
-from lance_namespace_urllib3_client.models.alter_transaction_action import AlterTransactionAction
-from lance_namespace_urllib3_client.models.alter_transaction_request import AlterTransactionRequest
-from lance_namespace_urllib3_client.models.alter_transaction_response import AlterTransactionResponse
-from lance_namespace_urllib3_client.models.alter_transaction_set_property import AlterTransactionSetProperty
-from lance_namespace_urllib3_client.models.alter_transaction_set_status import AlterTransactionSetStatus
-from lance_namespace_urllib3_client.models.alter_transaction_unset_property import AlterTransactionUnsetProperty
-from lance_namespace_urllib3_client.models.alter_virtual_column_entry import AlterVirtualColumnEntry
-from lance_namespace_urllib3_client.models.analyze_table_query_plan_request import AnalyzeTableQueryPlanRequest
-from lance_namespace_urllib3_client.models.analyze_table_query_plan_response import AnalyzeTableQueryPlanResponse
-from lance_namespace_urllib3_client.models.batch_commit_tables_request import BatchCommitTablesRequest
-from lance_namespace_urllib3_client.models.batch_commit_tables_response import BatchCommitTablesResponse
-from lance_namespace_urllib3_client.models.batch_create_table_versions_request import BatchCreateTableVersionsRequest
-from lance_namespace_urllib3_client.models.batch_create_table_versions_response import BatchCreateTableVersionsResponse
-from lance_namespace_urllib3_client.models.batch_delete_table_versions_request import BatchDeleteTableVersionsRequest
-from lance_namespace_urllib3_client.models.batch_delete_table_versions_response import BatchDeleteTableVersionsResponse
-from lance_namespace_urllib3_client.models.boolean_query import BooleanQuery
-from lance_namespace_urllib3_client.models.boost_query import BoostQuery
-from lance_namespace_urllib3_client.models.commit_table_operation import CommitTableOperation
-from lance_namespace_urllib3_client.models.commit_table_result import CommitTableResult
-from lance_namespace_urllib3_client.models.count_table_rows_request import CountTableRowsRequest
-from lance_namespace_urllib3_client.models.create_empty_table_request import CreateEmptyTableRequest
-from lance_namespace_urllib3_client.models.create_empty_table_response import CreateEmptyTableResponse
-from lance_namespace_urllib3_client.models.create_namespace_request import CreateNamespaceRequest
-from lance_namespace_urllib3_client.models.create_namespace_response import CreateNamespaceResponse
-from lance_namespace_urllib3_client.models.create_table_index_request import CreateTableIndexRequest
-from lance_namespace_urllib3_client.models.create_table_index_response import CreateTableIndexResponse
-from lance_namespace_urllib3_client.models.create_table_request import CreateTableRequest
-from lance_namespace_urllib3_client.models.create_table_response import CreateTableResponse
-from lance_namespace_urllib3_client.models.create_table_scalar_index_response import CreateTableScalarIndexResponse
-from lance_namespace_urllib3_client.models.create_table_tag_request import CreateTableTagRequest
-from lance_namespace_urllib3_client.models.create_table_tag_response import CreateTableTagResponse
-from lance_namespace_urllib3_client.models.create_table_version_entry import CreateTableVersionEntry
-from lance_namespace_urllib3_client.models.create_table_version_request import CreateTableVersionRequest
-from lance_namespace_urllib3_client.models.create_table_version_response import CreateTableVersionResponse
-from lance_namespace_urllib3_client.models.declare_table_request import DeclareTableRequest
-from lance_namespace_urllib3_client.models.declare_table_response import DeclareTableResponse
-from lance_namespace_urllib3_client.models.delete_from_table_request import DeleteFromTableRequest
-from lance_namespace_urllib3_client.models.delete_from_table_response import DeleteFromTableResponse
-from lance_namespace_urllib3_client.models.delete_table_tag_request import DeleteTableTagRequest
-from lance_namespace_urllib3_client.models.delete_table_tag_response import DeleteTableTagResponse
-from lance_namespace_urllib3_client.models.deregister_table_request import DeregisterTableRequest
-from lance_namespace_urllib3_client.models.deregister_table_response import DeregisterTableResponse
-from lance_namespace_urllib3_client.models.describe_namespace_request import DescribeNamespaceRequest
-from lance_namespace_urllib3_client.models.describe_namespace_response import DescribeNamespaceResponse
-from lance_namespace_urllib3_client.models.describe_table_index_stats_request import DescribeTableIndexStatsRequest
-from lance_namespace_urllib3_client.models.describe_table_index_stats_response import DescribeTableIndexStatsResponse
-from lance_namespace_urllib3_client.models.describe_table_request import DescribeTableRequest
-from lance_namespace_urllib3_client.models.describe_table_response import DescribeTableResponse
-from lance_namespace_urllib3_client.models.describe_table_version_request import DescribeTableVersionRequest
-from lance_namespace_urllib3_client.models.describe_table_version_response import DescribeTableVersionResponse
-from lance_namespace_urllib3_client.models.describe_transaction_request import DescribeTransactionRequest
-from lance_namespace_urllib3_client.models.describe_transaction_response import DescribeTransactionResponse
-from lance_namespace_urllib3_client.models.drop_namespace_request import DropNamespaceRequest
-from lance_namespace_urllib3_client.models.drop_namespace_response import DropNamespaceResponse
-from lance_namespace_urllib3_client.models.drop_table_index_request import DropTableIndexRequest
-from lance_namespace_urllib3_client.models.drop_table_index_response import DropTableIndexResponse
-from lance_namespace_urllib3_client.models.drop_table_request import DropTableRequest
-from lance_namespace_urllib3_client.models.drop_table_response import DropTableResponse
-from lance_namespace_urllib3_client.models.error_response import ErrorResponse
-from lance_namespace_urllib3_client.models.explain_table_query_plan_request import ExplainTableQueryPlanRequest
-from lance_namespace_urllib3_client.models.explain_table_query_plan_response import ExplainTableQueryPlanResponse
-from lance_namespace_urllib3_client.models.fragment_stats import FragmentStats
-from lance_namespace_urllib3_client.models.fragment_summary import FragmentSummary
-from lance_namespace_urllib3_client.models.fts_query import FtsQuery
-from lance_namespace_urllib3_client.models.get_table_stats_request import GetTableStatsRequest
-from lance_namespace_urllib3_client.models.get_table_stats_response import GetTableStatsResponse
-from lance_namespace_urllib3_client.models.get_table_tag_version_request import GetTableTagVersionRequest
-from lance_namespace_urllib3_client.models.get_table_tag_version_response import GetTableTagVersionResponse
-from lance_namespace_urllib3_client.models.identity import Identity
-from lance_namespace_urllib3_client.models.index_content import IndexContent
-from lance_namespace_urllib3_client.models.insert_into_table_request import InsertIntoTableRequest
-from lance_namespace_urllib3_client.models.insert_into_table_response import InsertIntoTableResponse
-from lance_namespace_urllib3_client.models.json_arrow_data_type import JsonArrowDataType
-from lance_namespace_urllib3_client.models.json_arrow_field import JsonArrowField
-from lance_namespace_urllib3_client.models.json_arrow_schema import JsonArrowSchema
-from lance_namespace_urllib3_client.models.list_namespaces_request import ListNamespacesRequest
-from lance_namespace_urllib3_client.models.list_namespaces_response import ListNamespacesResponse
-from lance_namespace_urllib3_client.models.list_table_indices_request import ListTableIndicesRequest
-from lance_namespace_urllib3_client.models.list_table_indices_response import ListTableIndicesResponse
-from lance_namespace_urllib3_client.models.list_table_tags_request import ListTableTagsRequest
-from lance_namespace_urllib3_client.models.list_table_tags_response import ListTableTagsResponse
-from lance_namespace_urllib3_client.models.list_table_versions_request import ListTableVersionsRequest
-from lance_namespace_urllib3_client.models.list_table_versions_response import ListTableVersionsResponse
-from lance_namespace_urllib3_client.models.list_tables_request import ListTablesRequest
-from lance_namespace_urllib3_client.models.list_tables_response import ListTablesResponse
-from lance_namespace_urllib3_client.models.match_query import MatchQuery
-from lance_namespace_urllib3_client.models.merge_insert_into_table_request import MergeInsertIntoTableRequest
-from lance_namespace_urllib3_client.models.merge_insert_into_table_response import MergeInsertIntoTableResponse
-from lance_namespace_urllib3_client.models.multi_match_query import MultiMatchQuery
-from lance_namespace_urllib3_client.models.namespace_exists_request import NamespaceExistsRequest
-from lance_namespace_urllib3_client.models.new_column_transform import NewColumnTransform
-from lance_namespace_urllib3_client.models.partition_field import PartitionField
-from lance_namespace_urllib3_client.models.partition_spec import PartitionSpec
-from lance_namespace_urllib3_client.models.partition_transform import PartitionTransform
-from lance_namespace_urllib3_client.models.phrase_query import PhraseQuery
-from lance_namespace_urllib3_client.models.query_table_request import QueryTableRequest
-from lance_namespace_urllib3_client.models.query_table_request_columns import QueryTableRequestColumns
-from lance_namespace_urllib3_client.models.query_table_request_full_text_query import QueryTableRequestFullTextQuery
-from lance_namespace_urllib3_client.models.query_table_request_vector import QueryTableRequestVector
-from lance_namespace_urllib3_client.models.register_table_request import RegisterTableRequest
-from lance_namespace_urllib3_client.models.register_table_response import RegisterTableResponse
-from lance_namespace_urllib3_client.models.rename_table_request import RenameTableRequest
-from lance_namespace_urllib3_client.models.rename_table_response import RenameTableResponse
-from lance_namespace_urllib3_client.models.restore_table_request import RestoreTableRequest
-from lance_namespace_urllib3_client.models.restore_table_response import RestoreTableResponse
-from lance_namespace_urllib3_client.models.string_fts_query import StringFtsQuery
-from lance_namespace_urllib3_client.models.structured_fts_query import StructuredFtsQuery
-from lance_namespace_urllib3_client.models.table_basic_stats import TableBasicStats
-from lance_namespace_urllib3_client.models.table_exists_request import TableExistsRequest
-from lance_namespace_urllib3_client.models.table_version import TableVersion
-from lance_namespace_urllib3_client.models.tag_contents import TagContents
-from lance_namespace_urllib3_client.models.update_table_request import UpdateTableRequest
-from lance_namespace_urllib3_client.models.update_table_response import UpdateTableResponse
-from lance_namespace_urllib3_client.models.update_table_schema_metadata_request import UpdateTableSchemaMetadataRequest
-from lance_namespace_urllib3_client.models.update_table_schema_metadata_response import UpdateTableSchemaMetadataResponse
-from lance_namespace_urllib3_client.models.update_table_tag_request import UpdateTableTagRequest
-from lance_namespace_urllib3_client.models.update_table_tag_response import UpdateTableTagResponse
-from lance_namespace_urllib3_client.models.version_range import VersionRange
+from lance_namespace_urllib3_client.models.add_virtual_column_entry import AddVirtualColumnEntry as AddVirtualColumnEntry
+from lance_namespace_urllib3_client.models.alter_columns_entry import AlterColumnsEntry as AlterColumnsEntry
+from lance_namespace_urllib3_client.models.alter_table_add_columns_request import AlterTableAddColumnsRequest as AlterTableAddColumnsRequest
+from lance_namespace_urllib3_client.models.alter_table_add_columns_response import AlterTableAddColumnsResponse as AlterTableAddColumnsResponse
+from lance_namespace_urllib3_client.models.alter_table_alter_columns_request import AlterTableAlterColumnsRequest as AlterTableAlterColumnsRequest
+from lance_namespace_urllib3_client.models.alter_table_alter_columns_response import AlterTableAlterColumnsResponse as AlterTableAlterColumnsResponse
+from lance_namespace_urllib3_client.models.alter_table_drop_columns_request import AlterTableDropColumnsRequest as AlterTableDropColumnsRequest
+from lance_namespace_urllib3_client.models.alter_table_drop_columns_response import AlterTableDropColumnsResponse as AlterTableDropColumnsResponse
+from lance_namespace_urllib3_client.models.alter_transaction_action import AlterTransactionAction as AlterTransactionAction
+from lance_namespace_urllib3_client.models.alter_transaction_request import AlterTransactionRequest as AlterTransactionRequest
+from lance_namespace_urllib3_client.models.alter_transaction_response import AlterTransactionResponse as AlterTransactionResponse
+from lance_namespace_urllib3_client.models.alter_transaction_set_property import AlterTransactionSetProperty as AlterTransactionSetProperty
+from lance_namespace_urllib3_client.models.alter_transaction_set_status import AlterTransactionSetStatus as AlterTransactionSetStatus
+from lance_namespace_urllib3_client.models.alter_transaction_unset_property import AlterTransactionUnsetProperty as AlterTransactionUnsetProperty
+from lance_namespace_urllib3_client.models.alter_virtual_column_entry import AlterVirtualColumnEntry as AlterVirtualColumnEntry
+from lance_namespace_urllib3_client.models.analyze_table_query_plan_request import AnalyzeTableQueryPlanRequest as AnalyzeTableQueryPlanRequest
+from lance_namespace_urllib3_client.models.analyze_table_query_plan_response import AnalyzeTableQueryPlanResponse as AnalyzeTableQueryPlanResponse
+from lance_namespace_urllib3_client.models.batch_commit_tables_request import BatchCommitTablesRequest as BatchCommitTablesRequest
+from lance_namespace_urllib3_client.models.batch_commit_tables_response import BatchCommitTablesResponse as BatchCommitTablesResponse
+from lance_namespace_urllib3_client.models.batch_create_table_versions_request import BatchCreateTableVersionsRequest as BatchCreateTableVersionsRequest
+from lance_namespace_urllib3_client.models.batch_create_table_versions_response import BatchCreateTableVersionsResponse as BatchCreateTableVersionsResponse
+from lance_namespace_urllib3_client.models.batch_delete_table_versions_request import BatchDeleteTableVersionsRequest as BatchDeleteTableVersionsRequest
+from lance_namespace_urllib3_client.models.batch_delete_table_versions_response import BatchDeleteTableVersionsResponse as BatchDeleteTableVersionsResponse
+from lance_namespace_urllib3_client.models.boolean_query import BooleanQuery as BooleanQuery
+from lance_namespace_urllib3_client.models.boost_query import BoostQuery as BoostQuery
+from lance_namespace_urllib3_client.models.commit_table_operation import CommitTableOperation as CommitTableOperation
+from lance_namespace_urllib3_client.models.commit_table_result import CommitTableResult as CommitTableResult
+from lance_namespace_urllib3_client.models.count_table_rows_request import CountTableRowsRequest as CountTableRowsRequest
+from lance_namespace_urllib3_client.models.create_empty_table_request import CreateEmptyTableRequest as CreateEmptyTableRequest
+from lance_namespace_urllib3_client.models.create_empty_table_response import CreateEmptyTableResponse as CreateEmptyTableResponse
+from lance_namespace_urllib3_client.models.create_namespace_request import CreateNamespaceRequest as CreateNamespaceRequest
+from lance_namespace_urllib3_client.models.create_namespace_response import CreateNamespaceResponse as CreateNamespaceResponse
+from lance_namespace_urllib3_client.models.create_table_index_request import CreateTableIndexRequest as CreateTableIndexRequest
+from lance_namespace_urllib3_client.models.create_table_index_response import CreateTableIndexResponse as CreateTableIndexResponse
+from lance_namespace_urllib3_client.models.create_table_request import CreateTableRequest as CreateTableRequest
+from lance_namespace_urllib3_client.models.create_table_response import CreateTableResponse as CreateTableResponse
+from lance_namespace_urllib3_client.models.create_table_scalar_index_response import CreateTableScalarIndexResponse as CreateTableScalarIndexResponse
+from lance_namespace_urllib3_client.models.create_table_tag_request import CreateTableTagRequest as CreateTableTagRequest
+from lance_namespace_urllib3_client.models.create_table_tag_response import CreateTableTagResponse as CreateTableTagResponse
+from lance_namespace_urllib3_client.models.create_table_version_entry import CreateTableVersionEntry as CreateTableVersionEntry
+from lance_namespace_urllib3_client.models.create_table_version_request import CreateTableVersionRequest as CreateTableVersionRequest
+from lance_namespace_urllib3_client.models.create_table_version_response import CreateTableVersionResponse as CreateTableVersionResponse
+from lance_namespace_urllib3_client.models.declare_table_request import DeclareTableRequest as DeclareTableRequest
+from lance_namespace_urllib3_client.models.declare_table_response import DeclareTableResponse as DeclareTableResponse
+from lance_namespace_urllib3_client.models.delete_from_table_request import DeleteFromTableRequest as DeleteFromTableRequest
+from lance_namespace_urllib3_client.models.delete_from_table_response import DeleteFromTableResponse as DeleteFromTableResponse
+from lance_namespace_urllib3_client.models.delete_table_tag_request import DeleteTableTagRequest as DeleteTableTagRequest
+from lance_namespace_urllib3_client.models.delete_table_tag_response import DeleteTableTagResponse as DeleteTableTagResponse
+from lance_namespace_urllib3_client.models.deregister_table_request import DeregisterTableRequest as DeregisterTableRequest
+from lance_namespace_urllib3_client.models.deregister_table_response import DeregisterTableResponse as DeregisterTableResponse
+from lance_namespace_urllib3_client.models.describe_namespace_request import DescribeNamespaceRequest as DescribeNamespaceRequest
+from lance_namespace_urllib3_client.models.describe_namespace_response import DescribeNamespaceResponse as DescribeNamespaceResponse
+from lance_namespace_urllib3_client.models.describe_table_index_stats_request import DescribeTableIndexStatsRequest as DescribeTableIndexStatsRequest
+from lance_namespace_urllib3_client.models.describe_table_index_stats_response import DescribeTableIndexStatsResponse as DescribeTableIndexStatsResponse
+from lance_namespace_urllib3_client.models.describe_table_request import DescribeTableRequest as DescribeTableRequest
+from lance_namespace_urllib3_client.models.describe_table_response import DescribeTableResponse as DescribeTableResponse
+from lance_namespace_urllib3_client.models.describe_table_version_request import DescribeTableVersionRequest as DescribeTableVersionRequest
+from lance_namespace_urllib3_client.models.describe_table_version_response import DescribeTableVersionResponse as DescribeTableVersionResponse
+from lance_namespace_urllib3_client.models.describe_transaction_request import DescribeTransactionRequest as DescribeTransactionRequest
+from lance_namespace_urllib3_client.models.describe_transaction_response import DescribeTransactionResponse as DescribeTransactionResponse
+from lance_namespace_urllib3_client.models.drop_namespace_request import DropNamespaceRequest as DropNamespaceRequest
+from lance_namespace_urllib3_client.models.drop_namespace_response import DropNamespaceResponse as DropNamespaceResponse
+from lance_namespace_urllib3_client.models.drop_table_index_request import DropTableIndexRequest as DropTableIndexRequest
+from lance_namespace_urllib3_client.models.drop_table_index_response import DropTableIndexResponse as DropTableIndexResponse
+from lance_namespace_urllib3_client.models.drop_table_request import DropTableRequest as DropTableRequest
+from lance_namespace_urllib3_client.models.drop_table_response import DropTableResponse as DropTableResponse
+from lance_namespace_urllib3_client.models.error_response import ErrorResponse as ErrorResponse
+from lance_namespace_urllib3_client.models.explain_table_query_plan_request import ExplainTableQueryPlanRequest as ExplainTableQueryPlanRequest
+from lance_namespace_urllib3_client.models.explain_table_query_plan_response import ExplainTableQueryPlanResponse as ExplainTableQueryPlanResponse
+from lance_namespace_urllib3_client.models.fragment_stats import FragmentStats as FragmentStats
+from lance_namespace_urllib3_client.models.fragment_summary import FragmentSummary as FragmentSummary
+from lance_namespace_urllib3_client.models.fts_query import FtsQuery as FtsQuery
+from lance_namespace_urllib3_client.models.get_table_stats_request import GetTableStatsRequest as GetTableStatsRequest
+from lance_namespace_urllib3_client.models.get_table_stats_response import GetTableStatsResponse as GetTableStatsResponse
+from lance_namespace_urllib3_client.models.get_table_tag_version_request import GetTableTagVersionRequest as GetTableTagVersionRequest
+from lance_namespace_urllib3_client.models.get_table_tag_version_response import GetTableTagVersionResponse as GetTableTagVersionResponse
+from lance_namespace_urllib3_client.models.identity import Identity as Identity
+from lance_namespace_urllib3_client.models.index_content import IndexContent as IndexContent
+from lance_namespace_urllib3_client.models.insert_into_table_request import InsertIntoTableRequest as InsertIntoTableRequest
+from lance_namespace_urllib3_client.models.insert_into_table_response import InsertIntoTableResponse as InsertIntoTableResponse
+from lance_namespace_urllib3_client.models.json_arrow_data_type import JsonArrowDataType as JsonArrowDataType
+from lance_namespace_urllib3_client.models.json_arrow_field import JsonArrowField as JsonArrowField
+from lance_namespace_urllib3_client.models.json_arrow_schema import JsonArrowSchema as JsonArrowSchema
+from lance_namespace_urllib3_client.models.list_namespaces_request import ListNamespacesRequest as ListNamespacesRequest
+from lance_namespace_urllib3_client.models.list_namespaces_response import ListNamespacesResponse as ListNamespacesResponse
+from lance_namespace_urllib3_client.models.list_table_indices_request import ListTableIndicesRequest as ListTableIndicesRequest
+from lance_namespace_urllib3_client.models.list_table_indices_response import ListTableIndicesResponse as ListTableIndicesResponse
+from lance_namespace_urllib3_client.models.list_table_tags_request import ListTableTagsRequest as ListTableTagsRequest
+from lance_namespace_urllib3_client.models.list_table_tags_response import ListTableTagsResponse as ListTableTagsResponse
+from lance_namespace_urllib3_client.models.list_table_versions_request import ListTableVersionsRequest as ListTableVersionsRequest
+from lance_namespace_urllib3_client.models.list_table_versions_response import ListTableVersionsResponse as ListTableVersionsResponse
+from lance_namespace_urllib3_client.models.list_tables_request import ListTablesRequest as ListTablesRequest
+from lance_namespace_urllib3_client.models.list_tables_response import ListTablesResponse as ListTablesResponse
+from lance_namespace_urllib3_client.models.match_query import MatchQuery as MatchQuery
+from lance_namespace_urllib3_client.models.merge_insert_into_table_request import MergeInsertIntoTableRequest as MergeInsertIntoTableRequest
+from lance_namespace_urllib3_client.models.merge_insert_into_table_response import MergeInsertIntoTableResponse as MergeInsertIntoTableResponse
+from lance_namespace_urllib3_client.models.multi_match_query import MultiMatchQuery as MultiMatchQuery
+from lance_namespace_urllib3_client.models.namespace_exists_request import NamespaceExistsRequest as NamespaceExistsRequest
+from lance_namespace_urllib3_client.models.new_column_transform import NewColumnTransform as NewColumnTransform
+from lance_namespace_urllib3_client.models.partition_field import PartitionField as PartitionField
+from lance_namespace_urllib3_client.models.partition_spec import PartitionSpec as PartitionSpec
+from lance_namespace_urllib3_client.models.partition_transform import PartitionTransform as PartitionTransform
+from lance_namespace_urllib3_client.models.phrase_query import PhraseQuery as PhraseQuery
+from lance_namespace_urllib3_client.models.query_table_request import QueryTableRequest as QueryTableRequest
+from lance_namespace_urllib3_client.models.query_table_request_columns import QueryTableRequestColumns as QueryTableRequestColumns
+from lance_namespace_urllib3_client.models.query_table_request_full_text_query import QueryTableRequestFullTextQuery as QueryTableRequestFullTextQuery
+from lance_namespace_urllib3_client.models.query_table_request_vector import QueryTableRequestVector as QueryTableRequestVector
+from lance_namespace_urllib3_client.models.register_table_request import RegisterTableRequest as RegisterTableRequest
+from lance_namespace_urllib3_client.models.register_table_response import RegisterTableResponse as RegisterTableResponse
+from lance_namespace_urllib3_client.models.rename_table_request import RenameTableRequest as RenameTableRequest
+from lance_namespace_urllib3_client.models.rename_table_response import RenameTableResponse as RenameTableResponse
+from lance_namespace_urllib3_client.models.restore_table_request import RestoreTableRequest as RestoreTableRequest
+from lance_namespace_urllib3_client.models.restore_table_response import RestoreTableResponse as RestoreTableResponse
+from lance_namespace_urllib3_client.models.string_fts_query import StringFtsQuery as StringFtsQuery
+from lance_namespace_urllib3_client.models.structured_fts_query import StructuredFtsQuery as StructuredFtsQuery
+from lance_namespace_urllib3_client.models.table_basic_stats import TableBasicStats as TableBasicStats
+from lance_namespace_urllib3_client.models.table_exists_request import TableExistsRequest as TableExistsRequest
+from lance_namespace_urllib3_client.models.table_version import TableVersion as TableVersion
+from lance_namespace_urllib3_client.models.tag_contents import TagContents as TagContents
+from lance_namespace_urllib3_client.models.update_table_request import UpdateTableRequest as UpdateTableRequest
+from lance_namespace_urllib3_client.models.update_table_response import UpdateTableResponse as UpdateTableResponse
+from lance_namespace_urllib3_client.models.update_table_schema_metadata_request import UpdateTableSchemaMetadataRequest as UpdateTableSchemaMetadataRequest
+from lance_namespace_urllib3_client.models.update_table_schema_metadata_response import UpdateTableSchemaMetadataResponse as UpdateTableSchemaMetadataResponse
+from lance_namespace_urllib3_client.models.update_table_tag_request import UpdateTableTagRequest as UpdateTableTagRequest
+from lance_namespace_urllib3_client.models.update_table_tag_response import UpdateTableTagResponse as UpdateTableTagResponse
+from lance_namespace_urllib3_client.models.version_range import VersionRange as VersionRange
+

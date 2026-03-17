@@ -30,7 +30,7 @@ import java.util.Objects;
     description = "Boolean query with must, should, and must_not clauses")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class BooleanQuery {
 
   @Valid private List<@Valid FtsQuery> must = new ArrayList<>();

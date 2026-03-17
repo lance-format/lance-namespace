@@ -25,7 +25,7 @@ import java.util.Objects;
 @Schema(name = "CreateTableTagResponse", description = "Response for create tag operation")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class CreateTableTagResponse {
 
   private String transactionId;

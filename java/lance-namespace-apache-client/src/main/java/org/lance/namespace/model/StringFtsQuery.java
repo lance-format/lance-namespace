@@ -28,7 +28,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({StringFtsQuery.JSON_PROPERTY_COLUMNS, StringFtsQuery.JSON_PROPERTY_QUERY})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class StringFtsQuery {
   public static final String JSON_PROPERTY_COLUMNS = "columns";
   @javax.annotation.Nullable private List<String> columns = new ArrayList<>();
@@ -58,13 +58,13 @@ public class StringFtsQuery {
    * @return columns
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COLUMNS)
+  @JsonProperty(value = JSON_PROPERTY_COLUMNS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getColumns() {
     return columns;
   }
 
-  @JsonProperty(JSON_PROPERTY_COLUMNS)
+  @JsonProperty(value = JSON_PROPERTY_COLUMNS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setColumns(@javax.annotation.Nullable List<String> columns) {
     this.columns = columns;
@@ -82,13 +82,13 @@ public class StringFtsQuery {
    * @return query
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_QUERY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getQuery() {
     return query;
   }
 
-  @JsonProperty(JSON_PROPERTY_QUERY)
+  @JsonProperty(value = JSON_PROPERTY_QUERY, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setQuery(@javax.annotation.Nonnull String query) {
     this.query = query;
@@ -170,12 +170,14 @@ public class StringFtsQuery {
         try {
           joiner.add(
               String.format(
+                  java.util.Locale.ROOT,
                   "%scolumns%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format(
+                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getColumns().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -190,6 +192,7 @@ public class StringFtsQuery {
       try {
         joiner.add(
             String.format(
+                java.util.Locale.ROOT,
                 "%squery%s=%s",
                 prefix,
                 suffix,

@@ -27,7 +27,7 @@ import java.util.Objects;
     description = "Response from inserting records into a table")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.12.0")
+    comments = "Generator version: 7.20.0")
 public class InsertIntoTableResponse {
 
   private String transactionId;
