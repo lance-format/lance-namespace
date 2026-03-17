@@ -29,7 +29,7 @@ import java.util.Objects;
 /** QueryTableRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class QueryTableRequest {
 
   private Identity identity;
@@ -245,7 +245,7 @@ public class QueryTableRequest {
    *
    * @return ef
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "ef",
       description = "Search effort parameter for HNSW index",
@@ -337,7 +337,7 @@ public class QueryTableRequest {
    * @return k
    */
   @NotNull
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "k",
       description = "Number of results to return",
@@ -384,7 +384,7 @@ public class QueryTableRequest {
    *
    * @return nprobes
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "nprobes",
       description = "Number of probes for IVF index",
@@ -408,7 +408,7 @@ public class QueryTableRequest {
    *
    * @return offset
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "offset",
       description = "Number of results to skip",
@@ -455,7 +455,7 @@ public class QueryTableRequest {
    *
    * @return refineFactor
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "refine_factor",
       description = "Refine factor for search",
@@ -547,7 +547,7 @@ public class QueryTableRequest {
    *
    * @return version
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description = "Table version to query",

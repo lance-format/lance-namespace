@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class FragmentStats {
   public static final String JSON_PROPERTY_NUM_FRAGMENTS = "num_fragments";
   @javax.annotation.Nonnull private Long numFragments;
@@ -55,13 +55,13 @@ public class FragmentStats {
    * @return numFragments
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NUM_FRAGMENTS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_FRAGMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getNumFragments() {
     return numFragments;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_FRAGMENTS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_FRAGMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNumFragments(@javax.annotation.Nonnull Long numFragments) {
     this.numFragments = numFragments;
@@ -79,13 +79,13 @@ public class FragmentStats {
    * @return numSmallFragments
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NUM_SMALL_FRAGMENTS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_SMALL_FRAGMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getNumSmallFragments() {
     return numSmallFragments;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_SMALL_FRAGMENTS, required = true)
+  @JsonProperty(JSON_PROPERTY_NUM_SMALL_FRAGMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNumSmallFragments(@javax.annotation.Nonnull Long numSmallFragments) {
     this.numSmallFragments = numSmallFragments;
@@ -103,13 +103,13 @@ public class FragmentStats {
    * @return lengths
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_LENGTHS, required = true)
+  @JsonProperty(JSON_PROPERTY_LENGTHS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public FragmentSummary getLengths() {
     return lengths;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LENGTHS, required = true)
+  @JsonProperty(JSON_PROPERTY_LENGTHS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLengths(@javax.annotation.Nonnull FragmentSummary lengths) {
     this.lengths = lengths;
@@ -192,7 +192,6 @@ public class FragmentStats {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snum_fragments%s=%s",
                 prefix,
                 suffix,
@@ -209,7 +208,6 @@ public class FragmentStats {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snum_small_fragments%s=%s",
                 prefix,
                 suffix,

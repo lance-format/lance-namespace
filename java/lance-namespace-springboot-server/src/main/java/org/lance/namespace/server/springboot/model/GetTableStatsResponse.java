@@ -25,7 +25,7 @@ import java.util.Objects;
 /** GetTableStatsResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class GetTableStatsResponse {
 
   private Long totalBytes;
@@ -60,7 +60,7 @@ public class GetTableStatsResponse {
    * @return totalBytes
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "total_bytes",
       description = "The total number of bytes in the table",
@@ -85,7 +85,7 @@ public class GetTableStatsResponse {
    * @return numRows
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "num_rows",
       description = "The number of rows in the table",
@@ -110,7 +110,7 @@ public class GetTableStatsResponse {
    * @return numIndices
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "num_indices",
       description = "The number of indices in the table",

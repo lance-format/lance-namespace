@@ -29,7 +29,7 @@ import java.util.Objects;
 /** DescribeTableResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableResponse {
 
   private String table;
@@ -120,7 +120,7 @@ public class DescribeTableResponse {
    *
    * @return version
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description = "Table version number. Only populated when `load_detailed_metadata` is true. ",

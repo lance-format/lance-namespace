@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class BatchCreateTableVersionsResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -57,13 +57,13 @@ public class BatchCreateTableVersionsResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -90,13 +90,13 @@ public class BatchCreateTableVersionsResponse {
    * @return versions
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_VERSIONS, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<TableVersion> getVersions() {
     return versions;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSIONS, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersions(@javax.annotation.Nonnull List<TableVersion> versions) {
     this.versions = versions;
@@ -178,7 +178,6 @@ public class BatchCreateTableVersionsResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,
@@ -199,18 +198,12 @@ public class BatchCreateTableVersionsResponse {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
-                          java.util.Locale.ROOT,
                           "%sversions%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format(
-                                  java.util.Locale.ROOT,
-                                  "%s%d%s",
-                                  containerPrefix,
-                                  i,
-                                  containerSuffix))));
+                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

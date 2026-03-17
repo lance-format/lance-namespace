@@ -29,7 +29,7 @@ import java.util.Objects;
 /** AlterTableAlterColumnsRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class AlterTableAlterColumnsRequest {
 
   private Identity identity;

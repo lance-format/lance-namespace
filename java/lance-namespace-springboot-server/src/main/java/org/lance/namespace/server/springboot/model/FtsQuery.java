@@ -33,7 +33,7 @@ import java.util.Objects;
         "Full-text search query. Exactly one query type field must be provided. This structure follows the same pattern as AlterTransactionAction to minimize differences and compatibility issues across codegen in different languages. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class FtsQuery {
 
   private MatchQuery match;

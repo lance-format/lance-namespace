@@ -85,14 +85,14 @@ pub enum UpdateTableTagError {
 /// Create a new tag for table `id` that points to a specific version. 
 pub async fn create_table_tag(configuration: &configuration::Configuration, id: &str, create_table_tag_request: models::CreateTableTagRequest, delimiter: Option<&str>) -> Result<models::CreateTableTagResponse, Error<CreateTableTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_create_table_tag_request = create_table_tag_request;
-    let p_query_delimiter = delimiter;
+    let p_id = id;
+    let p_create_table_tag_request = create_table_tag_request;
+    let p_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/create", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/create", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -112,7 +112,7 @@ pub async fn create_table_tag(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_create_table_tag_request);
+    req_builder = req_builder.json(&p_create_table_tag_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -142,14 +142,14 @@ pub async fn create_table_tag(configuration: &configuration::Configuration, id: 
 /// Delete an existing tag from table `id`. 
 pub async fn delete_table_tag(configuration: &configuration::Configuration, id: &str, delete_table_tag_request: models::DeleteTableTagRequest, delimiter: Option<&str>) -> Result<models::DeleteTableTagResponse, Error<DeleteTableTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_delete_table_tag_request = delete_table_tag_request;
-    let p_query_delimiter = delimiter;
+    let p_id = id;
+    let p_delete_table_tag_request = delete_table_tag_request;
+    let p_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/delete", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/delete", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -169,7 +169,7 @@ pub async fn delete_table_tag(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_delete_table_tag_request);
+    req_builder = req_builder.json(&p_delete_table_tag_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -199,14 +199,14 @@ pub async fn delete_table_tag(configuration: &configuration::Configuration, id: 
 /// Get the version number that a specific tag points to for table `id`. 
 pub async fn get_table_tag_version(configuration: &configuration::Configuration, id: &str, get_table_tag_version_request: models::GetTableTagVersionRequest, delimiter: Option<&str>) -> Result<models::GetTableTagVersionResponse, Error<GetTableTagVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_get_table_tag_version_request = get_table_tag_version_request;
-    let p_query_delimiter = delimiter;
+    let p_id = id;
+    let p_get_table_tag_version_request = get_table_tag_version_request;
+    let p_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/version", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/version", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -226,7 +226,7 @@ pub async fn get_table_tag_version(configuration: &configuration::Configuration,
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_get_table_tag_version_request);
+    req_builder = req_builder.json(&p_get_table_tag_version_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -256,21 +256,21 @@ pub async fn get_table_tag_version(configuration: &configuration::Configuration,
 /// List all tags that have been created for table `id`. Returns a map of tag names to their corresponding version numbers and metadata.  REST NAMESPACE ONLY REST namespace does not use a request body for this operation. The `ListTableTagsRequest` information is passed in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
 pub async fn list_table_tags(configuration: &configuration::Configuration, id: &str, delimiter: Option<&str>, page_token: Option<&str>, limit: Option<i32>) -> Result<models::ListTableTagsResponse, Error<ListTableTagsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_query_delimiter = delimiter;
-    let p_query_page_token = page_token;
-    let p_query_limit = limit;
+    let p_id = id;
+    let p_delimiter = delimiter;
+    let p_page_token = page_token;
+    let p_limit = limit;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/list", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/list", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_page_token {
+    if let Some(ref param_value) = p_page_token {
         req_builder = req_builder.query(&[("page_token", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_limit {
+    if let Some(ref param_value) = p_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -319,14 +319,14 @@ pub async fn list_table_tags(configuration: &configuration::Configuration, id: &
 /// Update an existing tag for table `id` to point to a different version. 
 pub async fn update_table_tag(configuration: &configuration::Configuration, id: &str, update_table_tag_request: models::UpdateTableTagRequest, delimiter: Option<&str>) -> Result<models::UpdateTableTagResponse, Error<UpdateTableTagError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_update_table_tag_request = update_table_tag_request;
-    let p_query_delimiter = delimiter;
+    let p_id = id;
+    let p_update_table_tag_request = update_table_tag_request;
+    let p_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/table/{id}/tags/update", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/v1/table/{id}/tags/update", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -346,7 +346,7 @@ pub async fn update_table_tag(configuration: &configuration::Configuration, id: 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_update_table_tag_request);
+    req_builder = req_builder.json(&p_update_table_tag_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

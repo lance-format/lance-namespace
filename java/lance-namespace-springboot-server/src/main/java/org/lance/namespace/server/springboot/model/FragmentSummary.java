@@ -24,7 +24,7 @@ import java.util.Objects;
 /** FragmentSummary */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class FragmentSummary {
 
   private Long min;
@@ -67,7 +67,7 @@ public class FragmentSummary {
    * @return min
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "min", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("min")
   public Long getMin() {
@@ -89,7 +89,7 @@ public class FragmentSummary {
    * @return max
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "max", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("max")
   public Long getMax() {
@@ -111,7 +111,7 @@ public class FragmentSummary {
    * @return mean
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "mean", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("mean")
   public Long getMean() {
@@ -133,7 +133,7 @@ public class FragmentSummary {
    * @return p25
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "p25", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("p25")
   public Long getP25() {
@@ -155,7 +155,7 @@ public class FragmentSummary {
    * @return p50
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "p50", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("p50")
   public Long getP50() {
@@ -177,7 +177,7 @@ public class FragmentSummary {
    * @return p75
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "p75", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("p75")
   public Long getP75() {
@@ -199,7 +199,7 @@ public class FragmentSummary {
    * @return p99
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "p99", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("p99")
   public Long getP99() {

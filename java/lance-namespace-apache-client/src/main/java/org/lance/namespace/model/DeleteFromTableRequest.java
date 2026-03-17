@@ -37,7 +37,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DeleteFromTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -65,13 +65,13 @@ public class DeleteFromTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -101,13 +101,13 @@ public class DeleteFromTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -133,13 +133,13 @@ public class DeleteFromTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -157,13 +157,13 @@ public class DeleteFromTableRequest {
    * @return predicate
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = true)
+  @JsonProperty(JSON_PROPERTY_PREDICATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getPredicate() {
     return predicate;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = true)
+  @JsonProperty(JSON_PROPERTY_PREDICATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPredicate(@javax.annotation.Nonnull String predicate) {
     this.predicate = predicate;
@@ -254,14 +254,12 @@ public class DeleteFromTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -278,14 +276,12 @@ public class DeleteFromTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -300,7 +296,6 @@ public class DeleteFromTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%spredicate%s=%s",
                 prefix,
                 suffix,

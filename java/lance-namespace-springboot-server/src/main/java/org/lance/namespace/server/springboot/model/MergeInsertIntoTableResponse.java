@@ -25,7 +25,7 @@ import java.util.Objects;
 @Schema(name = "MergeInsertIntoTableResponse", description = "Response from merge insert operation")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class MergeInsertIntoTableResponse {
 
   private String transactionId;
@@ -71,7 +71,7 @@ public class MergeInsertIntoTableResponse {
    *
    * @return numUpdatedRows
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "num_updated_rows",
       description = "Number of rows updated",
@@ -95,7 +95,7 @@ public class MergeInsertIntoTableResponse {
    *
    * @return numInsertedRows
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "num_inserted_rows",
       description = "Number of rows inserted",
@@ -119,7 +119,7 @@ public class MergeInsertIntoTableResponse {
    *
    * @return numDeletedRows
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "num_deleted_rows",
       description = "Number of rows deleted (typically 0 for merge insert)",
@@ -143,7 +143,7 @@ public class MergeInsertIntoTableResponse {
    *
    * @return version
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description = "The commit version associated with the operation",

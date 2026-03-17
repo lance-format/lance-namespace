@@ -29,7 +29,7 @@ import java.util.Objects;
 /** DropTableIndexRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DropTableIndexRequest {
 
   private Identity identity;

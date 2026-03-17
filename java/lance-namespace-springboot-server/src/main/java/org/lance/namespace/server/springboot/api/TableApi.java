@@ -102,7 +102,7 @@ import java.util.Optional;
 
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Table", description = "Operations that are related to a table ")
 public interface TableApi {
@@ -111,7 +111,6 @@ public interface TableApi {
     return Optional.empty();
   }
 
-  String PATH_ALTER_TABLE_ADD_COLUMNS = "/v1/table/{id}/add_columns";
   /**
    * POST /v1/table/{id}/add_columns : Add new columns to table schema Add new columns to table
    * &#x60;id&#x60; using SQL expressions or default values.
@@ -211,12 +210,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_ALTER_TABLE_ADD_COLUMNS,
+      value = "/v1/table/{id}/add_columns",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<AlterTableAddColumnsResponse> alterTableAddColumns(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -287,7 +285,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_ALTER_TABLE_ALTER_COLUMNS = "/v1/table/{id}/alter_columns";
   /**
    * POST /v1/table/{id}/alter_columns : Modify existing columns Modify existing columns in table
    * &#x60;id&#x60;, such as renaming or changing data types.
@@ -388,12 +385,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_ALTER_TABLE_ALTER_COLUMNS,
+      value = "/v1/table/{id}/alter_columns",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<AlterTableAlterColumnsResponse> alterTableAlterColumns(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -464,7 +460,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_ALTER_TABLE_DROP_COLUMNS = "/v1/table/{id}/drop_columns";
   /**
    * POST /v1/table/{id}/drop_columns : Remove columns from table Remove specified columns from
    * table &#x60;id&#x60;.
@@ -564,12 +559,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_ALTER_TABLE_DROP_COLUMNS,
+      value = "/v1/table/{id}/drop_columns",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<AlterTableDropColumnsResponse> alterTableDropColumns(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -640,7 +634,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_ANALYZE_TABLE_QUERY_PLAN = "/v1/table/{id}/analyze_plan";
   /**
    * POST /v1/table/{id}/analyze_plan : Analyze query execution plan Analyze the query execution
    * plan for a query against table &#x60;id&#x60;. Returns detailed statistics and analysis of the
@@ -743,12 +736,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_ANALYZE_TABLE_QUERY_PLAN,
+      value = "/v1/table/{id}/analyze_plan",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<String> analyzeTableQueryPlan(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -813,7 +805,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_BATCH_COMMIT_TABLES = "/v1/table/batch-commit";
   /**
    * POST /v1/table/batch-commit : Atomically commit a batch of mixed table operations Atomically
    * commit a batch of table operations. This is a generalized version of
@@ -926,7 +917,7 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_BATCH_COMMIT_TABLES,
+      value = "/v1/table/batch-commit",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<BatchCommitTablesResponse> batchCommitTables(
@@ -948,7 +939,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"results\" : [ { \"deregister_table\" : \"\", \"create_table_version\" : \"\", \"delete_table_versions\" : \"\", \"declare_table\" : \"\" }, { \"deregister_table\" : \"\", \"create_table_version\" : \"\", \"delete_table_versions\" : \"\", \"declare_table\" : \"\" } ] }";
+                      "{ \"transaction_id\" : \"transaction_id\", \"results\" : [ { \"deregister_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }, \"create_table_version\" : { \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }, \"delete_table_versions\" : { \"transaction_id\" : \"transaction_id\", \"deleted_count\" : 0 }, \"declare_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } } }, { \"deregister_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"id\" : [ \"id\", \"id\" ], \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" } }, \"create_table_version\" : { \"transaction_id\" : \"transaction_id\", \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }, \"delete_table_versions\" : { \"transaction_id\" : \"transaction_id\", \"deleted_count\" : 0 }, \"declare_table\" : { \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } } } ] }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -999,7 +990,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_BATCH_CREATE_TABLE_VERSIONS = "/v1/table/version/batch-create";
   /**
    * POST /v1/table/version/batch-create : Atomically create versions for multiple tables Atomically
    * create new version entries for multiple tables. This operation is atomic: either all table
@@ -1109,7 +1099,7 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_BATCH_CREATE_TABLE_VERSIONS,
+      value = "/v1/table/version/batch-create",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<BatchCreateTableVersionsResponse> batchCreateTableVersions(
@@ -1182,7 +1172,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_BATCH_DELETE_TABLE_VERSIONS = "/v1/table/{id}/version/delete";
   /**
    * POST /v1/table/{id}/version/delete : Delete table version records Delete version metadata
    * records for table &#x60;id&#x60;. This operation deletes version tracking records, NOT the
@@ -1286,12 +1275,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_BATCH_DELETE_TABLE_VERSIONS,
+      value = "/v1/table/{id}/version/delete",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<BatchDeleteTableVersionsResponse> batchDeleteTableVersions(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -1362,7 +1350,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_COUNT_TABLE_ROWS = "/v1/table/{id}/count_rows";
   /**
    * POST /v1/table/{id}/count_rows : Count rows in a table Count the number of rows in table
    * &#x60;id&#x60; REST NAMESPACE ONLY REST namespace returns the response as a plain integer
@@ -1464,12 +1451,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_COUNT_TABLE_ROWS,
+      value = "/v1/table/{id}/count_rows",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<Long> countTableRows(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -1534,7 +1520,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_CREATE_EMPTY_TABLE = "/v1/table/{id}/create-empty";
   /**
    * POST /v1/table/{id}/create-empty : Create an empty table Create an empty table with the given
    * name without touching storage. This is a metadata-only operation that records the table
@@ -1651,12 +1636,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_CREATE_EMPTY_TABLE,
+      value = "/v1/table/{id}/create-empty",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<CreateEmptyTableResponse> createEmptyTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -1733,7 +1717,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_CREATE_TABLE = "/v1/table/{id}/create";
   /**
    * POST /v1/table/{id}/create : Create a table with the given name Create table &#x60;id&#x60; in
    * the namespace with the given data in Arrow IPC stream. The schema of the Arrow IPC stream is
@@ -1840,12 +1823,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_CREATE_TABLE,
+      value = "/v1/table/{id}/create",
       produces = {"application/json"},
       consumes = {"application/vnd.apache.arrow.stream"})
   default ResponseEntity<CreateTableResponse> createTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -1918,7 +1900,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_CREATE_TABLE_INDEX = "/v1/table/{id}/create_index";
   /**
    * POST /v1/table/{id}/create_index : Create an index on a table Create an index on a table column
    * for faster search operations. Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and
@@ -2022,12 +2003,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_CREATE_TABLE_INDEX,
+      value = "/v1/table/{id}/create_index",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<CreateTableIndexResponse> createTableIndex(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -2100,7 +2080,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_CREATE_TABLE_SCALAR_INDEX = "/v1/table/{id}/create_scalar_index";
   /**
    * POST /v1/table/{id}/create_scalar_index : Create a scalar index on a table Create a scalar
    * index on a table column for faster filtering operations. Supports scalar indexes (BTREE,
@@ -2204,12 +2183,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_CREATE_TABLE_SCALAR_INDEX,
+      value = "/v1/table/{id}/create_scalar_index",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<CreateTableScalarIndexResponse> createTableScalarIndex(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -2282,7 +2260,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_CREATE_TABLE_TAG = "/v1/table/{id}/tags/create";
   /**
    * POST /v1/table/{id}/tags/create : Create a new tag Create a new tag for table &#x60;id&#x60;
    * that points to a specific version.
@@ -2391,12 +2368,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_CREATE_TABLE_TAG,
+      value = "/v1/table/{id}/tags/create",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<CreateTableTagResponse> createTableTag(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -2472,7 +2448,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_CREATE_TABLE_VERSION = "/v1/table/{id}/version/create";
   /**
    * POST /v1/table/{id}/version/create : Create a new table version Create a new version entry for
    * table &#x60;id&#x60;. This operation supports &#x60;put_if_not_exists&#x60; semantics. The
@@ -2583,12 +2558,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_CREATE_TABLE_VERSION,
+      value = "/v1/table/{id}/version/create",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<CreateTableVersionResponse> createTableVersion(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -2665,7 +2639,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DECLARE_TABLE = "/v1/table/{id}/declare";
   /**
    * POST /v1/table/{id}/declare : Declare a table Declare a table with the given name without
    * touching storage. This is a metadata-only operation that records the table existence and sets
@@ -2778,12 +2751,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DECLARE_TABLE,
+      value = "/v1/table/{id}/declare",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DeclareTableResponse> declareTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -2860,7 +2832,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DELETE_FROM_TABLE = "/v1/table/{id}/delete";
   /**
    * POST /v1/table/{id}/delete : Delete rows from a table Delete rows from table &#x60;id&#x60;.
    *
@@ -2959,12 +2930,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DELETE_FROM_TABLE,
+      value = "/v1/table/{id}/delete",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DeleteFromTableResponse> deleteFromTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -3035,7 +3005,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DELETE_TABLE_TAG = "/v1/table/{id}/tags/delete";
   /**
    * POST /v1/table/{id}/tags/delete : Delete a tag Delete an existing tag from table
    * &#x60;id&#x60;.
@@ -3135,12 +3104,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DELETE_TABLE_TAG,
+      value = "/v1/table/{id}/tags/delete",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DeleteTableTagResponse> deleteTableTag(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -3210,7 +3178,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DEREGISTER_TABLE = "/v1/table/{id}/deregister";
   /**
    * POST /v1/table/{id}/deregister : Deregister a table Deregister table &#x60;id&#x60; from its
    * namespace.
@@ -3310,12 +3277,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DEREGISTER_TABLE,
+      value = "/v1/table/{id}/deregister",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DeregisterTableResponse> deregisterTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -3386,7 +3352,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DESCRIBE_TABLE = "/v1/table/{id}/describe";
   /**
    * POST /v1/table/{id}/describe : Describe information of a table Describe the detailed
    * information for table &#x60;id&#x60;. REST NAMESPACE ONLY REST namespace passes
@@ -3495,12 +3460,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DESCRIBE_TABLE,
+      value = "/v1/table/{id}/describe",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DescribeTableResponse> describeTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -3541,7 +3505,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"schema\" : \"\", \"metadata\" : { \"key\" : \"metadata\" }, \"table_uri\" : \"table_uri\", \"stats\" : \"\", \"namespace\" : [ \"namespace\", \"namespace\" ], \"location\" : \"location\", \"version\" : 0, \"table\" : \"table\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                      "{ \"schema\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"fields\" : [ { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } }, { \"metadata\" : { \"key\" : \"metadata\" }, \"nullable\" : true, \"name\" : \"name\", \"type\" : { \"length\" : 0, \"fields\" : [ null, null ], \"type\" : \"type\" } } ] }, \"metadata\" : { \"key\" : \"metadata\" }, \"table_uri\" : \"table_uri\", \"stats\" : { \"num_deleted_rows\" : 0, \"num_fragments\" : 0 }, \"namespace\" : [ \"namespace\", \"namespace\" ], \"location\" : \"location\", \"version\" : 0, \"table\" : \"table\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"managed_versioning\" : true, \"storage_options\" : { \"key\" : \"storage_options\" } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -3586,7 +3550,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DESCRIBE_TABLE_INDEX_STATS = "/v1/table/{id}/index/{index_name}/stats";
   /**
    * POST /v1/table/{id}/index/{index_name}/stats : Get table index statistics Get statistics for a
    * specific index on a table. Returns information about the index type, distance type (for vector
@@ -3689,12 +3652,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DESCRIBE_TABLE_INDEX_STATS,
+      value = "/v1/table/{id}/index/{index_name}/stats",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DescribeTableIndexStatsResponse> describeTableIndexStats(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -3702,8 +3664,7 @@ public interface TableApi {
               in = ParameterIn.PATH)
           @PathVariable("id")
           String id,
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "index_name",
               description = "Name of the index to get stats for",
               required = true,
@@ -3776,7 +3737,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DESCRIBE_TABLE_VERSION = "/v1/table/{id}/version/describe";
   /**
    * POST /v1/table/{id}/version/describe : Describe a specific table version Describe the detailed
    * information for a specific version of table &#x60;id&#x60;. Returns the manifest path and
@@ -3878,12 +3838,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DESCRIBE_TABLE_VERSION,
+      value = "/v1/table/{id}/version/describe",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DescribeTableVersionResponse> describeTableVersion(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -3908,7 +3867,8 @@ public interface TableApi {
             request -> {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString = "{ \"version\" : \"\" }";
+                  String exampleString =
+                      "{ \"version\" : { \"metadata\" : { \"key\" : \"metadata\" }, \"manifest_path\" : \"manifest_path\", \"timestamp_millis\" : 1, \"manifest_size\" : 0, \"e_tag\" : \"e_tag\", \"version\" : 0 } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -3953,7 +3913,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DROP_TABLE = "/v1/table/{id}/drop";
   /**
    * POST /v1/table/{id}/drop : Drop a table Drop table &#x60;id&#x60; and delete its data. REST
    * NAMESPACE ONLY REST namespace does not use a request body for this operation. The
@@ -4055,11 +4014,10 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DROP_TABLE,
+      value = "/v1/table/{id}/drop",
       produces = {"application/json"})
   default ResponseEntity<DropTableResponse> dropTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -4126,7 +4084,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DROP_TABLE_INDEX = "/v1/table/{id}/index/{index_name}/drop";
   /**
    * POST /v1/table/{id}/index/{index_name}/drop : Drop a specific index Drop the specified index
    * from table &#x60;id&#x60;. REST NAMESPACE ONLY REST namespace does not use a request body for
@@ -4230,11 +4187,10 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_DROP_TABLE_INDEX,
+      value = "/v1/table/{id}/index/{index_name}/drop",
       produces = {"application/json"})
   default ResponseEntity<DropTableIndexResponse> dropTableIndex(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -4242,8 +4198,7 @@ public interface TableApi {
               in = ParameterIn.PATH)
           @PathVariable("id")
           String id,
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "index_name",
               description = "Name of the index to drop",
               required = true,
@@ -4308,7 +4263,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_EXPLAIN_TABLE_QUERY_PLAN = "/v1/table/{id}/explain_plan";
   /**
    * POST /v1/table/{id}/explain_plan : Get query execution plan explanation Get the query execution
    * plan for a query against table &#x60;id&#x60;. Returns a human-readable explanation of how the
@@ -4411,12 +4365,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_EXPLAIN_TABLE_QUERY_PLAN,
+      value = "/v1/table/{id}/explain_plan",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<String> explainTableQueryPlan(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -4481,7 +4434,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_GET_TABLE_STATS = "/v1/table/{id}/stats";
   /**
    * POST /v1/table/{id}/stats : Get table statistics Get statistics for table &#x60;id&#x60;,
    * including row counts, data sizes, and column statistics.
@@ -4582,12 +4534,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_GET_TABLE_STATS,
+      value = "/v1/table/{id}/stats",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<GetTableStatsResponse> getTableStats(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -4613,7 +4564,7 @@ public interface TableApi {
               for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
-                      "{ \"num_indices\" : 0, \"total_bytes\" : 0, \"num_rows\" : 0, \"fragment_stats\" : \"\" }";
+                      "{ \"num_indices\" : 0, \"total_bytes\" : 0, \"num_rows\" : 0, \"fragment_stats\" : { \"num_small_fragments\" : 0, \"lengths\" : { \"p99\" : 0, \"p25\" : 0, \"min\" : 0, \"max\" : 0, \"mean\" : 0, \"p50\" : 0, \"p75\" : 0 }, \"num_fragments\" : 0 } }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }
@@ -4658,7 +4609,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_GET_TABLE_TAG_VERSION = "/v1/table/{id}/tags/version";
   /**
    * POST /v1/table/{id}/tags/version : Get version for a specific tag Get the version number that a
    * specific tag points to for table &#x60;id&#x60;.
@@ -4758,12 +4708,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_GET_TABLE_TAG_VERSION,
+      value = "/v1/table/{id}/tags/version",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<GetTableTagVersionResponse> getTableTagVersion(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -4833,7 +4782,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_INSERT_INTO_TABLE = "/v1/table/{id}/insert";
   /**
    * POST /v1/table/{id}/insert : Insert records into a table Insert new records into table
    * &#x60;id&#x60;. REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body.
@@ -4941,12 +4889,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_INSERT_INTO_TABLE,
+      value = "/v1/table/{id}/insert",
       produces = {"application/json"},
       consumes = {"application/vnd.apache.arrow.stream"})
   default ResponseEntity<InsertIntoTableResponse> insertIntoTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -5027,7 +4974,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_LIST_ALL_TABLES = "/v1/table";
   /**
    * GET /v1/table : List all tables List all tables across all namespaces. REST NAMESPACE ONLY REST
    * namespace uses GET to perform this operation without a request body. It passes in the
@@ -5119,7 +5065,7 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.GET,
-      value = TableApi.PATH_LIST_ALL_TABLES,
+      value = "/v1/table",
       produces = {"application/json"})
   default ResponseEntity<ListTablesResponse> listAllTables(
       @Parameter(
@@ -5189,7 +5135,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_LIST_TABLE_INDICES = "/v1/table/{id}/index/list";
   /**
    * POST /v1/table/{id}/index/list : List indexes on a table List all indices created on a table.
    * Returns information about each index including name, columns, status, and UUID.
@@ -5290,12 +5235,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_LIST_TABLE_INDICES,
+      value = "/v1/table/{id}/index/list",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<ListTableIndicesResponse> listTableIndices(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -5369,7 +5313,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_LIST_TABLE_TAGS = "/v1/table/{id}/tags/list";
   /**
    * POST /v1/table/{id}/tags/list : List all tags for a table List all tags that have been created
    * for table &#x60;id&#x60;. Returns a map of tag names to their corresponding version numbers and
@@ -5476,11 +5419,10 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_LIST_TABLE_TAGS,
+      value = "/v1/table/{id}/tags/list",
       produces = {"application/json"})
   default ResponseEntity<ListTableTagsResponse> listTableTags(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -5561,7 +5503,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_LIST_TABLE_VERSIONS = "/v1/table/{id}/version/list";
   /**
    * POST /v1/table/{id}/version/list : List all versions of a table List all versions (commits) of
    * table &#x60;id&#x60; with their metadata. Use &#x60;descending&#x3D;true&#x60; to guarantee
@@ -5671,11 +5612,10 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_LIST_TABLE_VERSIONS,
+      value = "/v1/table/{id}/version/list",
       produces = {"application/json"})
   default ResponseEntity<ListTableVersionsResponse> listTableVersions(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -5764,7 +5704,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_MERGE_INSERT_INTO_TABLE = "/v1/table/{id}/merge_insert";
   /**
    * POST /v1/table/{id}/merge_insert : Merge insert (upsert) records into a table Performs a merge
    * insert (upsert) operation on table &#x60;id&#x60;. This operation updates existing rows based
@@ -5887,12 +5826,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_MERGE_INSERT_INTO_TABLE,
+      value = "/v1/table/{id}/merge_insert",
       produces = {"application/json"},
       consumes = {"application/vnd.apache.arrow.stream"})
   default ResponseEntity<MergeInsertIntoTableResponse> mergeInsertIntoTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -6033,7 +5971,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_QUERY_TABLE = "/v1/table/{id}/query";
   /**
    * POST /v1/table/{id}/query : Query a table Query table &#x60;id&#x60; with vector search, full
    * text search and optional SQL filtering. Returns results in Arrow IPC file or stream format.
@@ -6157,12 +6094,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_QUERY_TABLE,
+      value = "/v1/table/{id}/query",
       produces = {"application/vnd.apache.arrow.file", "application/json"},
       consumes = {"application/json"})
   default ResponseEntity<org.springframework.core.io.Resource> queryTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -6227,7 +6163,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_REGISTER_TABLE = "/v1/table/{id}/register";
   /**
    * POST /v1/table/{id}/register : Register a table to a namespace Register an existing table at a
    * given storage location as &#x60;id&#x60;.
@@ -6346,12 +6281,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_REGISTER_TABLE,
+      value = "/v1/table/{id}/register",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<RegisterTableResponse> registerTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -6434,7 +6368,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_RENAME_TABLE = "/v1/table/{id}/rename";
   /**
    * POST /v1/table/{id}/rename : Rename a table Rename table &#x60;id&#x60; to a new name.
    *
@@ -6542,12 +6475,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_RENAME_TABLE,
+      value = "/v1/table/{id}/rename",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<RenameTableResponse> renameTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -6621,7 +6553,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_RESTORE_TABLE = "/v1/table/{id}/restore";
   /**
    * POST /v1/table/{id}/restore : Restore table to a specific version Restore table &#x60;id&#x60;
    * to a specific version.
@@ -6721,12 +6652,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_RESTORE_TABLE,
+      value = "/v1/table/{id}/restore",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<RestoreTableResponse> restoreTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -6796,7 +6726,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_TABLE_EXISTS = "/v1/table/{id}/exists";
   /**
    * POST /v1/table/{id}/exists : Check if a table exists Check if table &#x60;id&#x60; exists. This
    * operation should behave exactly like DescribeTable, except it does not contain a response body.
@@ -6893,12 +6822,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_TABLE_EXISTS,
+      value = "/v1/table/{id}/exists",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<Void> tableExists(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -6961,7 +6889,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_UPDATE_TABLE = "/v1/table/{id}/update";
   /**
    * POST /v1/table/{id}/update : Update rows in a table Update existing rows in table
    * &#x60;id&#x60;.
@@ -7061,12 +6988,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_UPDATE_TABLE,
+      value = "/v1/table/{id}/update",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<UpdateTableResponse> updateTable(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -7137,7 +7063,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_UPDATE_TABLE_SCHEMA_METADATA = "/v1/table/{id}/schema_metadata/update";
   /**
    * POST /v1/table/{id}/schema_metadata/update : Update table schema metadata Replace the schema
    * metadata for table &#x60;id&#x60; with the provided key-value pairs. REST NAMESPACE ONLY REST
@@ -7239,12 +7164,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_UPDATE_TABLE_SCHEMA_METADATA,
+      value = "/v1/table/{id}/schema_metadata/update",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<Map<String, String>> updateTableSchemaMetadata(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -7307,7 +7231,6 @@ public interface TableApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_UPDATE_TABLE_TAG = "/v1/table/{id}/tags/update";
   /**
    * POST /v1/table/{id}/tags/update : Update a tag to point to a different version Update an
    * existing tag for table &#x60;id&#x60; to point to a different version.
@@ -7407,12 +7330,11 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TableApi.PATH_UPDATE_TABLE_TAG,
+      value = "/v1/table/{id}/tags/update",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<UpdateTableTagResponse> updateTableTag(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",

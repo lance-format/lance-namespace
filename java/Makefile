@@ -18,7 +18,7 @@ clean-async-client:
 
 .PHONY: gen-async-client
 gen-async-client: clean-async-client
-	uv run openapi-generator-cli generate \
+	uvx openapi-generator-cli==7.20.0 generate \
 	  -i ../docs/src/rest.yaml \
 	  -g java \
 	  -o lance-namespace-async-client \

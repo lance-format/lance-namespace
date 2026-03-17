@@ -30,7 +30,7 @@ import java.util.Objects;
 @Schema(name = "JsonArrowSchema", description = "JSON representation of a Apache Arrow schema. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class JsonArrowSchema {
 
   @Valid private List<@Valid JsonArrowField> fields = new ArrayList<>();

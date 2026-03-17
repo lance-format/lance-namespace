@@ -36,7 +36,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableIndexStatsRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -67,13 +67,13 @@ public class DescribeTableIndexStatsRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -104,13 +104,13 @@ public class DescribeTableIndexStatsRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -136,13 +136,13 @@ public class DescribeTableIndexStatsRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -160,13 +160,13 @@ public class DescribeTableIndexStatsRequest {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -184,13 +184,13 @@ public class DescribeTableIndexStatsRequest {
    * @return indexName
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INDEX_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_INDEX_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getIndexName() {
     return indexName;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_INDEX_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_INDEX_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIndexName(@javax.annotation.Nullable String indexName) {
     this.indexName = indexName;
@@ -284,14 +284,12 @@ public class DescribeTableIndexStatsRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -308,14 +306,12 @@ public class DescribeTableIndexStatsRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -330,7 +326,6 @@ public class DescribeTableIndexStatsRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,
@@ -346,7 +341,6 @@ public class DescribeTableIndexStatsRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sindex_name%s=%s",
                 prefix,
                 suffix,

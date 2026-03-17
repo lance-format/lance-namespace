@@ -38,20 +38,70 @@ class TestBatchCommitTablesResponse(unittest.TestCase):
                 transaction_id = '',
                 results = [
                     lance_namespace_urllib3_client.models.commit_table_result.CommitTableResult(
-                        declare_table = null, 
-                        create_table_version = null, 
-                        delete_table_versions = null, 
-                        deregister_table = null, )
+                        declare_table = lance_namespace_urllib3_client.models.declare_table_response.DeclareTableResponse(
+                            transaction_id = '', 
+                            location = '', 
+                            storage_options = {
+                                'key' : ''
+                                }, 
+                            properties = {owner=Ralph, created_at=1452120468}, 
+                            managed_versioning = True, ), 
+                        create_table_version = lance_namespace_urllib3_client.models.create_table_version_response.CreateTableVersionResponse(
+                            transaction_id = '', 
+                            version = lance_namespace_urllib3_client.models.table_version.TableVersion(
+                                version = 0, 
+                                manifest_path = '', 
+                                manifest_size = 0, 
+                                e_tag = '', 
+                                timestamp_millis = 56, 
+                                metadata = {
+                                    'key' : ''
+                                    }, ), ), 
+                        delete_table_versions = lance_namespace_urllib3_client.models.batch_delete_table_versions_response.BatchDeleteTableVersionsResponse(
+                            deleted_count = 0, 
+                            transaction_id = '', ), 
+                        deregister_table = lance_namespace_urllib3_client.models.deregister_table_response.DeregisterTableResponse(
+                            transaction_id = '', 
+                            id = [
+                                ''
+                                ], 
+                            location = '', 
+                            properties = {owner=Ralph, created_at=1452120468}, ), )
                     ]
             )
         else:
             return BatchCommitTablesResponse(
                 results = [
                     lance_namespace_urllib3_client.models.commit_table_result.CommitTableResult(
-                        declare_table = null, 
-                        create_table_version = null, 
-                        delete_table_versions = null, 
-                        deregister_table = null, )
+                        declare_table = lance_namespace_urllib3_client.models.declare_table_response.DeclareTableResponse(
+                            transaction_id = '', 
+                            location = '', 
+                            storage_options = {
+                                'key' : ''
+                                }, 
+                            properties = {owner=Ralph, created_at=1452120468}, 
+                            managed_versioning = True, ), 
+                        create_table_version = lance_namespace_urllib3_client.models.create_table_version_response.CreateTableVersionResponse(
+                            transaction_id = '', 
+                            version = lance_namespace_urllib3_client.models.table_version.TableVersion(
+                                version = 0, 
+                                manifest_path = '', 
+                                manifest_size = 0, 
+                                e_tag = '', 
+                                timestamp_millis = 56, 
+                                metadata = {
+                                    'key' : ''
+                                    }, ), ), 
+                        delete_table_versions = lance_namespace_urllib3_client.models.batch_delete_table_versions_response.BatchDeleteTableVersionsResponse(
+                            deleted_count = 0, 
+                            transaction_id = '', ), 
+                        deregister_table = lance_namespace_urllib3_client.models.deregister_table_response.DeregisterTableResponse(
+                            transaction_id = '', 
+                            id = [
+                                ''
+                                ], 
+                            location = '', 
+                            properties = {owner=Ralph, created_at=1452120468}, ), )
                     ],
         )
         """

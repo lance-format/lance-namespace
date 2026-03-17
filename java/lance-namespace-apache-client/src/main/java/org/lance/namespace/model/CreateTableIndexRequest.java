@@ -46,7 +46,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CreateTableIndexRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -107,13 +107,13 @@ public class CreateTableIndexRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -143,13 +143,13 @@ public class CreateTableIndexRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -175,13 +175,13 @@ public class CreateTableIndexRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -199,13 +199,13 @@ public class CreateTableIndexRequest {
    * @return column
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_COLUMN, required = true)
+  @JsonProperty(JSON_PROPERTY_COLUMN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getColumn() {
     return column;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_COLUMN, required = true)
+  @JsonProperty(JSON_PROPERTY_COLUMN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setColumn(@javax.annotation.Nonnull String column) {
     this.column = column;
@@ -223,13 +223,13 @@ public class CreateTableIndexRequest {
    * @return indexType
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_INDEX_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_INDEX_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getIndexType() {
     return indexType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_INDEX_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_INDEX_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setIndexType(@javax.annotation.Nonnull String indexType) {
     this.indexType = indexType;
@@ -247,13 +247,13 @@ public class CreateTableIndexRequest {
    * @return name
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getName() {
     return name;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NAME, required = false)
+  @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(@javax.annotation.Nullable String name) {
     this.name = name;
@@ -271,13 +271,13 @@ public class CreateTableIndexRequest {
    * @return distanceType
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISTANCE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_DISTANCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getDistanceType() {
     return distanceType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_DISTANCE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_DISTANCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDistanceType(@javax.annotation.Nullable String distanceType) {
     this.distanceType = distanceType;
@@ -295,13 +295,13 @@ public class CreateTableIndexRequest {
    * @return withPosition
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WITH_POSITION, required = false)
+  @JsonProperty(JSON_PROPERTY_WITH_POSITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getWithPosition() {
     return withPosition;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_WITH_POSITION, required = false)
+  @JsonProperty(JSON_PROPERTY_WITH_POSITION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWithPosition(@javax.annotation.Nullable Boolean withPosition) {
     this.withPosition = withPosition;
@@ -319,13 +319,13 @@ public class CreateTableIndexRequest {
    * @return baseTokenizer
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_BASE_TOKENIZER, required = false)
+  @JsonProperty(JSON_PROPERTY_BASE_TOKENIZER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getBaseTokenizer() {
     return baseTokenizer;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_BASE_TOKENIZER, required = false)
+  @JsonProperty(JSON_PROPERTY_BASE_TOKENIZER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBaseTokenizer(@javax.annotation.Nullable String baseTokenizer) {
     this.baseTokenizer = baseTokenizer;
@@ -343,13 +343,13 @@ public class CreateTableIndexRequest {
    * @return language
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LANGUAGE, required = false)
+  @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getLanguage() {
     return language;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LANGUAGE, required = false)
+  @JsonProperty(JSON_PROPERTY_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLanguage(@javax.annotation.Nullable String language) {
     this.language = language;
@@ -367,13 +367,13 @@ public class CreateTableIndexRequest {
    * @return maxTokenLength
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MAX_TOKEN_LENGTH, required = false)
+  @JsonProperty(JSON_PROPERTY_MAX_TOKEN_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getMaxTokenLength() {
     return maxTokenLength;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MAX_TOKEN_LENGTH, required = false)
+  @JsonProperty(JSON_PROPERTY_MAX_TOKEN_LENGTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxTokenLength(@javax.annotation.Nullable Integer maxTokenLength) {
     this.maxTokenLength = maxTokenLength;
@@ -391,13 +391,13 @@ public class CreateTableIndexRequest {
    * @return lowerCase
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LOWER_CASE, required = false)
+  @JsonProperty(JSON_PROPERTY_LOWER_CASE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getLowerCase() {
     return lowerCase;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LOWER_CASE, required = false)
+  @JsonProperty(JSON_PROPERTY_LOWER_CASE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLowerCase(@javax.annotation.Nullable Boolean lowerCase) {
     this.lowerCase = lowerCase;
@@ -415,13 +415,13 @@ public class CreateTableIndexRequest {
    * @return stem
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STEM, required = false)
+  @JsonProperty(JSON_PROPERTY_STEM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getStem() {
     return stem;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_STEM, required = false)
+  @JsonProperty(JSON_PROPERTY_STEM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStem(@javax.annotation.Nullable Boolean stem) {
     this.stem = stem;
@@ -440,13 +440,13 @@ public class CreateTableIndexRequest {
    * @return removeStopWords
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REMOVE_STOP_WORDS, required = false)
+  @JsonProperty(JSON_PROPERTY_REMOVE_STOP_WORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getRemoveStopWords() {
     return removeStopWords;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_REMOVE_STOP_WORDS, required = false)
+  @JsonProperty(JSON_PROPERTY_REMOVE_STOP_WORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRemoveStopWords(@javax.annotation.Nullable Boolean removeStopWords) {
     this.removeStopWords = removeStopWords;
@@ -464,13 +464,13 @@ public class CreateTableIndexRequest {
    * @return asciiFolding
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ASCII_FOLDING, required = false)
+  @JsonProperty(JSON_PROPERTY_ASCII_FOLDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getAsciiFolding() {
     return asciiFolding;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ASCII_FOLDING, required = false)
+  @JsonProperty(JSON_PROPERTY_ASCII_FOLDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAsciiFolding(@javax.annotation.Nullable Boolean asciiFolding) {
     this.asciiFolding = asciiFolding;
@@ -598,14 +598,12 @@ public class CreateTableIndexRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -622,14 +620,12 @@ public class CreateTableIndexRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -644,7 +640,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%scolumn%s=%s",
                 prefix,
                 suffix,
@@ -660,7 +655,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sindex_type%s=%s",
                 prefix,
                 suffix,
@@ -677,7 +671,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sname%s=%s",
                 prefix,
                 suffix,
@@ -693,7 +686,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sdistance_type%s=%s",
                 prefix,
                 suffix,
@@ -710,7 +702,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%swith_position%s=%s",
                 prefix,
                 suffix,
@@ -727,7 +718,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sbase_tokenizer%s=%s",
                 prefix,
                 suffix,
@@ -744,7 +734,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%slanguage%s=%s",
                 prefix,
                 suffix,
@@ -761,7 +750,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smax_token_length%s=%s",
                 prefix,
                 suffix,
@@ -778,7 +766,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%slower_case%s=%s",
                 prefix,
                 suffix,
@@ -795,7 +782,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sstem%s=%s",
                 prefix,
                 suffix,
@@ -811,7 +797,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sremove_stop_words%s=%s",
                 prefix,
                 suffix,
@@ -828,7 +813,6 @@ public class CreateTableIndexRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sascii_folding%s=%s",
                 prefix,
                 suffix,

@@ -28,7 +28,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -47,7 +46,7 @@ import java.util.Optional;
 
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Namespace", description = "Operations that are related to a namespace ")
 public interface NamespaceApi {
@@ -56,7 +55,6 @@ public interface NamespaceApi {
     return Optional.empty();
   }
 
-  String PATH_CREATE_NAMESPACE = "/v1/namespace/{id}/create";
   /**
    * POST /v1/namespace/{id}/create : Create a new namespace Create new namespace &#x60;id&#x60;.
    * During the creation process, the implementation may modify user-provided
@@ -179,12 +177,11 @@ public interface NamespaceApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = NamespaceApi.PATH_CREATE_NAMESPACE,
+      value = "/v1/namespace/{id}/create",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<CreateNamespaceResponse> createNamespace(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -267,7 +264,6 @@ public interface NamespaceApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DESCRIBE_NAMESPACE = "/v1/namespace/{id}/describe";
   /**
    * POST /v1/namespace/{id}/describe : Describe a namespace Describe the detailed information for
    * namespace &#x60;id&#x60;.
@@ -369,12 +365,11 @@ public interface NamespaceApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = NamespaceApi.PATH_DESCRIBE_NAMESPACE,
+      value = "/v1/namespace/{id}/describe",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DescribeNamespaceResponse> describeNamespace(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -445,7 +440,6 @@ public interface NamespaceApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DROP_NAMESPACE = "/v1/namespace/{id}/drop";
   /**
    * POST /v1/namespace/{id}/drop : Drop a namespace Drop namespace &#x60;id&#x60; from its parent
    * namespace.
@@ -554,12 +548,11 @@ public interface NamespaceApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = NamespaceApi.PATH_DROP_NAMESPACE,
+      value = "/v1/namespace/{id}/drop",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DropNamespaceResponse> dropNamespace(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -636,7 +629,6 @@ public interface NamespaceApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_LIST_NAMESPACES = "/v1/namespace/{id}/list";
   /**
    * GET /v1/namespace/{id}/list : List namespaces List all child namespace names of the parent
    * namespace &#x60;id&#x60;. REST NAMESPACE ONLY REST namespace uses GET to perform this operation
@@ -681,15 +673,7 @@ public interface NamespaceApi {
             content = {
               @Content(
                   mediaType = "application/json",
-                  schema = @Schema(implementation = ListNamespacesResponse.class),
-                  examples = {
-                    @ExampleObject(
-                        name = "ListNamespacesNonEmptyExample",
-                        value = "{\"namespaces\":[\"accounting\",\"credits\"]}"),
-                    @ExampleObject(
-                        name = "ListNamespacesEmptyExample",
-                        value = "{\"namespaces\":[]}")
-                  })
+                  schema = @Schema(implementation = ListNamespacesResponse.class))
             }),
         @ApiResponse(
             responseCode = "400",
@@ -760,11 +744,10 @@ public interface NamespaceApi {
       })
   @RequestMapping(
       method = RequestMethod.GET,
-      value = NamespaceApi.PATH_LIST_NAMESPACES,
+      value = "/v1/namespace/{id}/list",
       produces = {"application/json"})
   default ResponseEntity<ListNamespacesResponse> listNamespaces(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -851,7 +834,6 @@ public interface NamespaceApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_LIST_TABLES = "/v1/namespace/{id}/table/list";
   /**
    * GET /v1/namespace/{id}/table/list : List tables in a namespace List all child table names of
    * the parent namespace &#x60;id&#x60;. REST NAMESPACE ONLY REST namespace uses GET to perform
@@ -967,11 +949,10 @@ public interface NamespaceApi {
       })
   @RequestMapping(
       method = RequestMethod.GET,
-      value = NamespaceApi.PATH_LIST_TABLES,
+      value = "/v1/namespace/{id}/table/list",
       produces = {"application/json"})
   default ResponseEntity<ListTablesResponse> listTables(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -1058,7 +1039,6 @@ public interface NamespaceApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_NAMESPACE_EXISTS = "/v1/namespace/{id}/exists";
   /**
    * POST /v1/namespace/{id}/exists : Check if a namespace exists Check if namespace &#x60;id&#x60;
    * exists. This operation must behave exactly like the DescribeNamespace API, except it does not
@@ -1153,12 +1133,11 @@ public interface NamespaceApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = NamespaceApi.PATH_NAMESPACE_EXISTS,
+      value = "/v1/namespace/{id}/exists",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<Void> namespaceExists(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",

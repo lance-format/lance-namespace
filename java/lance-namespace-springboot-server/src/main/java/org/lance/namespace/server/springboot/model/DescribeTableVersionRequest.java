@@ -32,7 +32,7 @@ import java.util.Objects;
     description = "Request to describe a specific table version")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableVersionRequest {
 
   private Identity identity;
@@ -140,7 +140,7 @@ public class DescribeTableVersionRequest {
    *
    * @return version
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description = "Version number to describe",

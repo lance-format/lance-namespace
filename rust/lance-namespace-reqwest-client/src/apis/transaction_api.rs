@@ -60,14 +60,14 @@ pub enum DescribeTransactionError {
 /// Alter a transaction with a list of actions such as setting status or properties. The server should either succeed and apply all actions, or fail and apply no action. 
 pub async fn alter_transaction(configuration: &configuration::Configuration, id: &str, alter_transaction_request: models::AlterTransactionRequest, delimiter: Option<&str>) -> Result<models::AlterTransactionResponse, Error<AlterTransactionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_alter_transaction_request = alter_transaction_request;
-    let p_query_delimiter = delimiter;
+    let p_id = id;
+    let p_alter_transaction_request = alter_transaction_request;
+    let p_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/transaction/{id}/alter", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/v1/transaction/{id}/alter", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -87,7 +87,7 @@ pub async fn alter_transaction(configuration: &configuration::Configuration, id:
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_alter_transaction_request);
+    req_builder = req_builder.json(&p_alter_transaction_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -117,13 +117,13 @@ pub async fn alter_transaction(configuration: &configuration::Configuration, id:
 /// Atomically commit a batch of table operations. This is a generalized version of `BatchCreateTableVersions` that supports mixed operation types within a single atomic transaction at the metadata layer.  Supported operation types: - `DeclareTable`: Declare (reserve) a new table - `CreateTableVersion`: Create a new version entry for a table - `DeleteTableVersions`: Delete version ranges from a table - `DeregisterTable`: Deregister (soft-delete) a table  All operations are committed atomically: either all succeed or none are applied. 
 pub async fn batch_commit_tables(configuration: &configuration::Configuration, batch_commit_tables_request: models::BatchCommitTablesRequest, delimiter: Option<&str>) -> Result<models::BatchCommitTablesResponse, Error<BatchCommitTablesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_batch_commit_tables_request = batch_commit_tables_request;
-    let p_query_delimiter = delimiter;
+    let p_batch_commit_tables_request = batch_commit_tables_request;
+    let p_delimiter = delimiter;
 
     let uri_str = format!("{}/v1/table/batch-commit", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -143,7 +143,7 @@ pub async fn batch_commit_tables(configuration: &configuration::Configuration, b
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_batch_commit_tables_request);
+    req_builder = req_builder.json(&p_batch_commit_tables_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -173,14 +173,14 @@ pub async fn batch_commit_tables(configuration: &configuration::Configuration, b
 /// Return a detailed information for a given transaction 
 pub async fn describe_transaction(configuration: &configuration::Configuration, id: &str, describe_transaction_request: models::DescribeTransactionRequest, delimiter: Option<&str>) -> Result<models::DescribeTransactionResponse, Error<DescribeTransactionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_describe_transaction_request = describe_transaction_request;
-    let p_query_delimiter = delimiter;
+    let p_id = id;
+    let p_describe_transaction_request = describe_transaction_request;
+    let p_delimiter = delimiter;
 
-    let uri_str = format!("{}/v1/transaction/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/v1/transaction/{id}/describe", configuration.base_path, id=crate::apis::urlencode(p_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_delimiter {
+    if let Some(ref param_value) = p_delimiter {
         req_builder = req_builder.query(&[("delimiter", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -200,7 +200,7 @@ pub async fn describe_transaction(configuration: &configuration::Configuration, 
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_describe_transaction_request);
+    req_builder = req_builder.json(&p_describe_transaction_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

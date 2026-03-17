@@ -24,7 +24,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({DescribeTableVersionResponse.JSON_PROPERTY_VERSION})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableVersionResponse {
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull private TableVersion version;
@@ -43,13 +43,13 @@ public class DescribeTableVersionResponse {
    * @return version
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public TableVersion getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersion(@javax.annotation.Nonnull TableVersion version) {
     this.version = version;

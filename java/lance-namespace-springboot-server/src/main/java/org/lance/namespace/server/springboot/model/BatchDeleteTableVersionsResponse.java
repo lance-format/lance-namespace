@@ -27,7 +27,7 @@ import java.util.Objects;
     description = "Response for deleting table version records")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class BatchDeleteTableVersionsResponse {
 
   private Long deletedCount;
@@ -44,7 +44,7 @@ public class BatchDeleteTableVersionsResponse {
    *
    * @return deletedCount
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "deleted_count",
       description = "Number of version records deleted",

@@ -32,7 +32,7 @@ import java.util.Objects;
         "Result of a single operation within a batch commit. Each result corresponds to one operation in the request, in the same order. Exactly one of the result fields will be set. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CommitTableResult {
 
   private DeclareTableResponse declareTable;

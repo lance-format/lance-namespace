@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class PhraseQuery {
   public static final String JSON_PROPERTY_COLUMN = "column";
   @javax.annotation.Nullable private String column;
@@ -55,13 +55,13 @@ public class PhraseQuery {
    * @return column
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_COLUMN, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getColumn() {
     return column;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_COLUMN, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setColumn(@javax.annotation.Nullable String column) {
     this.column = column;
@@ -79,13 +79,13 @@ public class PhraseQuery {
    * @return slop
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SLOP, required = false)
+  @JsonProperty(JSON_PROPERTY_SLOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getSlop() {
     return slop;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_SLOP, required = false)
+  @JsonProperty(JSON_PROPERTY_SLOP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSlop(@javax.annotation.Nullable Integer slop) {
     this.slop = slop;
@@ -103,13 +103,13 @@ public class PhraseQuery {
    * @return terms
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TERMS, required = true)
+  @JsonProperty(JSON_PROPERTY_TERMS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getTerms() {
     return terms;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TERMS, required = true)
+  @JsonProperty(JSON_PROPERTY_TERMS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTerms(@javax.annotation.Nonnull String terms) {
     this.terms = terms;
@@ -192,7 +192,6 @@ public class PhraseQuery {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%scolumn%s=%s",
                 prefix,
                 suffix,
@@ -208,7 +207,6 @@ public class PhraseQuery {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sslop%s=%s",
                 prefix,
                 suffix,
@@ -224,7 +222,6 @@ public class PhraseQuery {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sterms%s=%s",
                 prefix,
                 suffix,

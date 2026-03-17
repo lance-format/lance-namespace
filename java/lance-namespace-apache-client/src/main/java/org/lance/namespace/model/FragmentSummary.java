@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class FragmentSummary {
   public static final String JSON_PROPERTY_MIN = "min";
   @javax.annotation.Nonnull private Long min;
@@ -71,13 +71,13 @@ public class FragmentSummary {
    * @return min
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_MIN, required = true)
+  @JsonProperty(JSON_PROPERTY_MIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getMin() {
     return min;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MIN, required = true)
+  @JsonProperty(JSON_PROPERTY_MIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMin(@javax.annotation.Nonnull Long min) {
     this.min = min;
@@ -95,13 +95,13 @@ public class FragmentSummary {
    * @return max
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = true)
+  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getMax() {
     return max;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MAX, required = true)
+  @JsonProperty(JSON_PROPERTY_MAX)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMax(@javax.annotation.Nonnull Long max) {
     this.max = max;
@@ -119,13 +119,13 @@ public class FragmentSummary {
    * @return mean
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_MEAN, required = true)
+  @JsonProperty(JSON_PROPERTY_MEAN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getMean() {
     return mean;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MEAN, required = true)
+  @JsonProperty(JSON_PROPERTY_MEAN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMean(@javax.annotation.Nonnull Long mean) {
     this.mean = mean;
@@ -143,13 +143,13 @@ public class FragmentSummary {
    * @return p25
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_P25, required = true)
+  @JsonProperty(JSON_PROPERTY_P25)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getP25() {
     return p25;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_P25, required = true)
+  @JsonProperty(JSON_PROPERTY_P25)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setP25(@javax.annotation.Nonnull Long p25) {
     this.p25 = p25;
@@ -167,13 +167,13 @@ public class FragmentSummary {
    * @return p50
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_P50, required = true)
+  @JsonProperty(JSON_PROPERTY_P50)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getP50() {
     return p50;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_P50, required = true)
+  @JsonProperty(JSON_PROPERTY_P50)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setP50(@javax.annotation.Nonnull Long p50) {
     this.p50 = p50;
@@ -191,13 +191,13 @@ public class FragmentSummary {
    * @return p75
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_P75, required = true)
+  @JsonProperty(JSON_PROPERTY_P75)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getP75() {
     return p75;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_P75, required = true)
+  @JsonProperty(JSON_PROPERTY_P75)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setP75(@javax.annotation.Nonnull Long p75) {
     this.p75 = p75;
@@ -215,13 +215,13 @@ public class FragmentSummary {
    * @return p99
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_P99, required = true)
+  @JsonProperty(JSON_PROPERTY_P99)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getP99() {
     return p99;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_P99, required = true)
+  @JsonProperty(JSON_PROPERTY_P99)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setP99(@javax.annotation.Nonnull Long p99) {
     this.p99 = p99;
@@ -312,7 +312,6 @@ public class FragmentSummary {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smin%s=%s",
                 prefix,
                 suffix,
@@ -328,7 +327,6 @@ public class FragmentSummary {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smax%s=%s",
                 prefix,
                 suffix,
@@ -344,7 +342,6 @@ public class FragmentSummary {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smean%s=%s",
                 prefix,
                 suffix,
@@ -360,7 +357,6 @@ public class FragmentSummary {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sp25%s=%s",
                 prefix,
                 suffix,
@@ -376,7 +372,6 @@ public class FragmentSummary {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sp50%s=%s",
                 prefix,
                 suffix,
@@ -392,7 +387,6 @@ public class FragmentSummary {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sp75%s=%s",
                 prefix,
                 suffix,
@@ -408,7 +402,6 @@ public class FragmentSummary {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sp99%s=%s",
                 prefix,
                 suffix,

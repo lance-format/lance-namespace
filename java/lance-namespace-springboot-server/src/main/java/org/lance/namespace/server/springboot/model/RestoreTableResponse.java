@@ -25,7 +25,7 @@ import java.util.Objects;
 @Schema(name = "RestoreTableResponse", description = "Response for restore table operation")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class RestoreTableResponse {
 
   private String transactionId;

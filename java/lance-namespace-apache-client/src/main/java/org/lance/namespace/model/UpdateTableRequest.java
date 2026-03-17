@@ -40,7 +40,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class UpdateTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -74,13 +74,13 @@ public class UpdateTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -110,13 +110,13 @@ public class UpdateTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -142,13 +142,13 @@ public class UpdateTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -166,13 +166,13 @@ public class UpdateTableRequest {
    * @return predicate
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = false)
+  @JsonProperty(JSON_PROPERTY_PREDICATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPredicate() {
     return predicate;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PREDICATE, required = false)
+  @JsonProperty(JSON_PROPERTY_PREDICATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPredicate(@javax.annotation.Nullable String predicate) {
     this.predicate = predicate;
@@ -198,13 +198,13 @@ public class UpdateTableRequest {
    * @return updates
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_UPDATES, required = true)
+  @JsonProperty(JSON_PROPERTY_UPDATES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<List<String>> getUpdates() {
     return updates;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_UPDATES, required = true)
+  @JsonProperty(JSON_PROPERTY_UPDATES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUpdates(@javax.annotation.Nonnull List<List<String>> updates) {
     this.updates = updates;
@@ -230,13 +230,13 @@ public class UpdateTableRequest {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -331,14 +331,12 @@ public class UpdateTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -355,14 +353,12 @@ public class UpdateTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -377,7 +373,6 @@ public class UpdateTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%spredicate%s=%s",
                 prefix,
                 suffix,
@@ -395,14 +390,12 @@ public class UpdateTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%supdates%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getUpdates().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -418,14 +411,12 @@ public class UpdateTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sproperties%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getProperties().get(_key),
                   URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));

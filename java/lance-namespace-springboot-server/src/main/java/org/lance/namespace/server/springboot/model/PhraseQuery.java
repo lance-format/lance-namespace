@@ -24,7 +24,7 @@ import java.util.Objects;
 /** PhraseQuery */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class PhraseQuery {
 
   private String column;
@@ -72,7 +72,7 @@ public class PhraseQuery {
    *
    * @return slop
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(name = "slop", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("slop")
   public Integer getSlop() {

@@ -43,7 +43,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CreateTableVersionRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -86,13 +86,13 @@ public class CreateTableVersionRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -122,13 +122,13 @@ public class CreateTableVersionRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -154,13 +154,13 @@ public class CreateTableVersionRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -178,13 +178,13 @@ public class CreateTableVersionRequest {
    * @return version
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersion(@javax.annotation.Nonnull Long version) {
     this.version = version;
@@ -202,13 +202,13 @@ public class CreateTableVersionRequest {
    * @return manifestPath
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_MANIFEST_PATH, required = true)
+  @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getManifestPath() {
     return manifestPath;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MANIFEST_PATH, required = true)
+  @JsonProperty(JSON_PROPERTY_MANIFEST_PATH)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setManifestPath(@javax.annotation.Nonnull String manifestPath) {
     this.manifestPath = manifestPath;
@@ -226,13 +226,13 @@ public class CreateTableVersionRequest {
    * @return manifestSize
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MANIFEST_SIZE, required = false)
+  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getManifestSize() {
     return manifestSize;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MANIFEST_SIZE, required = false)
+  @JsonProperty(JSON_PROPERTY_MANIFEST_SIZE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setManifestSize(@javax.annotation.Nullable Long manifestSize) {
     this.manifestSize = manifestSize;
@@ -250,13 +250,13 @@ public class CreateTableVersionRequest {
    * @return eTag
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_E_TAG, required = false)
+  @JsonProperty(JSON_PROPERTY_E_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String geteTag() {
     return eTag;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_E_TAG, required = false)
+  @JsonProperty(JSON_PROPERTY_E_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void seteTag(@javax.annotation.Nullable String eTag) {
     this.eTag = eTag;
@@ -283,13 +283,13 @@ public class CreateTableVersionRequest {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -312,13 +312,13 @@ public class CreateTableVersionRequest {
    * @return namingScheme
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAMING_SCHEME, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMING_SCHEME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getNamingScheme() {
     return namingScheme;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NAMING_SCHEME, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMING_SCHEME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamingScheme(@javax.annotation.Nullable String namingScheme) {
     this.namingScheme = namingScheme;
@@ -420,14 +420,12 @@ public class CreateTableVersionRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -444,14 +442,12 @@ public class CreateTableVersionRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -466,7 +462,6 @@ public class CreateTableVersionRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,
@@ -482,7 +477,6 @@ public class CreateTableVersionRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smanifest_path%s=%s",
                 prefix,
                 suffix,
@@ -499,7 +493,6 @@ public class CreateTableVersionRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smanifest_size%s=%s",
                 prefix,
                 suffix,
@@ -516,7 +509,6 @@ public class CreateTableVersionRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%se_tag%s=%s",
                 prefix,
                 suffix,
@@ -533,14 +525,12 @@ public class CreateTableVersionRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%smetadata%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getMetadata().get(_key),
                   URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -556,7 +546,6 @@ public class CreateTableVersionRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snaming_scheme%s=%s",
                 prefix,
                 suffix,

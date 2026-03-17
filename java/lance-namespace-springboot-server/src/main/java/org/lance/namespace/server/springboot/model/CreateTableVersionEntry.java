@@ -36,7 +36,7 @@ import java.util.Objects;
         "An entry for creating a new table version in a batch operation. This supports `put_if_not_exists` semantics, where the operation fails if the version already exists. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CreateTableVersionEntry {
 
   @Valid private List<String> id = new ArrayList<>();
@@ -107,7 +107,7 @@ public class CreateTableVersionEntry {
    * @return version
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description = "Version number to create",
@@ -155,7 +155,7 @@ public class CreateTableVersionEntry {
    *
    * @return manifestSize
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "manifest_size",
       description = "Size of the manifest file in bytes",

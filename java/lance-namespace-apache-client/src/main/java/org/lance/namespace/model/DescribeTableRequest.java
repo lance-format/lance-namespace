@@ -38,7 +38,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -75,13 +75,13 @@ public class DescribeTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -111,13 +111,13 @@ public class DescribeTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -143,13 +143,13 @@ public class DescribeTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -168,13 +168,13 @@ public class DescribeTableRequest {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -192,13 +192,13 @@ public class DescribeTableRequest {
    * @return withTableUri
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WITH_TABLE_URI, required = false)
+  @JsonProperty(JSON_PROPERTY_WITH_TABLE_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getWithTableUri() {
     return withTableUri;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_WITH_TABLE_URI, required = false)
+  @JsonProperty(JSON_PROPERTY_WITH_TABLE_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWithTableUri(@javax.annotation.Nullable Boolean withTableUri) {
     this.withTableUri = withTableUri;
@@ -220,13 +220,13 @@ public class DescribeTableRequest {
    * @return loadDetailedMetadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LOAD_DETAILED_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_LOAD_DETAILED_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getLoadDetailedMetadata() {
     return loadDetailedMetadata;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LOAD_DETAILED_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_LOAD_DETAILED_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLoadDetailedMetadata(@javax.annotation.Nullable Boolean loadDetailedMetadata) {
     this.loadDetailedMetadata = loadDetailedMetadata;
@@ -246,13 +246,13 @@ public class DescribeTableRequest {
    * @return vendCredentials
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VEND_CREDENTIALS, required = false)
+  @JsonProperty(JSON_PROPERTY_VEND_CREDENTIALS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getVendCredentials() {
     return vendCredentials;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VEND_CREDENTIALS, required = false)
+  @JsonProperty(JSON_PROPERTY_VEND_CREDENTIALS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVendCredentials(@javax.annotation.Nullable Boolean vendCredentials) {
     this.vendCredentials = vendCredentials;
@@ -352,14 +352,12 @@ public class DescribeTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -376,14 +374,12 @@ public class DescribeTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -398,7 +394,6 @@ public class DescribeTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,
@@ -414,7 +409,6 @@ public class DescribeTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%swith_table_uri%s=%s",
                 prefix,
                 suffix,
@@ -431,7 +425,6 @@ public class DescribeTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sload_detailed_metadata%s=%s",
                 prefix,
                 suffix,
@@ -448,7 +441,6 @@ public class DescribeTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%svend_credentials%s=%s",
                 prefix,
                 suffix,

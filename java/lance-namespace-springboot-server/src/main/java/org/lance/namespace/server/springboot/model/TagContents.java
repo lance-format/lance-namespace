@@ -24,7 +24,7 @@ import java.util.Objects;
 /** TagContents */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class TagContents {
 
   private String branch;
@@ -77,7 +77,7 @@ public class TagContents {
    * @return version
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description = "Version number that the tag points to",
@@ -102,7 +102,7 @@ public class TagContents {
    * @return manifestSize
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "manifestSize",
       description = "Size of the manifest file in bytes",

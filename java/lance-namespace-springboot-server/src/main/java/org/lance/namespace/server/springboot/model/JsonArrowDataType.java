@@ -28,7 +28,7 @@ import java.util.Objects;
 @Schema(name = "JsonArrowDataType", description = "JSON representation of an Apache Arrow DataType")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class JsonArrowDataType {
 
   @Valid private List<@Valid JsonArrowField> fields = new ArrayList<>();
@@ -88,7 +88,7 @@ public class JsonArrowDataType {
    *
    * @return length
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "length",
       description = "Length for fixed-size types",

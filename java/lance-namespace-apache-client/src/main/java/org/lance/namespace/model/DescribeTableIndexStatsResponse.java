@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableIndexStatsResponse {
   public static final String JSON_PROPERTY_DISTANCE_TYPE = "distance_type";
   @javax.annotation.Nullable private String distanceType;
@@ -64,13 +64,13 @@ public class DescribeTableIndexStatsResponse {
    * @return distanceType
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISTANCE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_DISTANCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getDistanceType() {
     return distanceType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_DISTANCE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_DISTANCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDistanceType(@javax.annotation.Nullable String distanceType) {
     this.distanceType = distanceType;
@@ -88,13 +88,13 @@ public class DescribeTableIndexStatsResponse {
    * @return indexType
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_INDEX_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_INDEX_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getIndexType() {
     return indexType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_INDEX_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_INDEX_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIndexType(@javax.annotation.Nullable String indexType) {
     this.indexType = indexType;
@@ -113,13 +113,13 @@ public class DescribeTableIndexStatsResponse {
    * @return numIndexedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NUM_INDEXED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_INDEXED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumIndexedRows() {
     return numIndexedRows;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_INDEXED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_INDEXED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumIndexedRows(@javax.annotation.Nullable Long numIndexedRows) {
     this.numIndexedRows = numIndexedRows;
@@ -138,13 +138,13 @@ public class DescribeTableIndexStatsResponse {
    * @return numUnindexedRows
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NUM_UNINDEXED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_UNINDEXED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getNumUnindexedRows() {
     return numUnindexedRows;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_UNINDEXED_ROWS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_UNINDEXED_ROWS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumUnindexedRows(@javax.annotation.Nullable Long numUnindexedRows) {
     this.numUnindexedRows = numUnindexedRows;
@@ -162,13 +162,13 @@ public class DescribeTableIndexStatsResponse {
    * @return numIndices
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NUM_INDICES, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_INDICES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getNumIndices() {
     return numIndices;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_INDICES, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_INDICES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumIndices(@javax.annotation.Nullable Integer numIndices) {
     this.numIndices = numIndices;
@@ -256,7 +256,6 @@ public class DescribeTableIndexStatsResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sdistance_type%s=%s",
                 prefix,
                 suffix,
@@ -273,7 +272,6 @@ public class DescribeTableIndexStatsResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sindex_type%s=%s",
                 prefix,
                 suffix,
@@ -290,7 +288,6 @@ public class DescribeTableIndexStatsResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snum_indexed_rows%s=%s",
                 prefix,
                 suffix,
@@ -307,7 +304,6 @@ public class DescribeTableIndexStatsResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snum_unindexed_rows%s=%s",
                 prefix,
                 suffix,
@@ -324,7 +320,6 @@ public class DescribeTableIndexStatsResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snum_indices%s=%s",
                 prefix,
                 suffix,

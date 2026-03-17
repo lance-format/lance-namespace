@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class BoostQuery {
   public static final String JSON_PROPERTY_POSITIVE = "positive";
   @javax.annotation.Nonnull private FtsQuery positive;
@@ -55,13 +55,13 @@ public class BoostQuery {
    * @return positive
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_POSITIVE, required = true)
+  @JsonProperty(JSON_PROPERTY_POSITIVE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public FtsQuery getPositive() {
     return positive;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_POSITIVE, required = true)
+  @JsonProperty(JSON_PROPERTY_POSITIVE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPositive(@javax.annotation.Nonnull FtsQuery positive) {
     this.positive = positive;
@@ -79,13 +79,13 @@ public class BoostQuery {
    * @return negative
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_NEGATIVE, required = true)
+  @JsonProperty(JSON_PROPERTY_NEGATIVE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public FtsQuery getNegative() {
     return negative;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NEGATIVE, required = true)
+  @JsonProperty(JSON_PROPERTY_NEGATIVE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setNegative(@javax.annotation.Nonnull FtsQuery negative) {
     this.negative = negative;
@@ -103,13 +103,13 @@ public class BoostQuery {
    * @return negativeBoost
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NEGATIVE_BOOST, required = false)
+  @JsonProperty(JSON_PROPERTY_NEGATIVE_BOOST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Float getNegativeBoost() {
     return negativeBoost;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NEGATIVE_BOOST, required = false)
+  @JsonProperty(JSON_PROPERTY_NEGATIVE_BOOST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNegativeBoost(@javax.annotation.Nullable Float negativeBoost) {
     this.negativeBoost = negativeBoost;
@@ -202,7 +202,6 @@ public class BoostQuery {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snegative_boost%s=%s",
                 prefix,
                 suffix,

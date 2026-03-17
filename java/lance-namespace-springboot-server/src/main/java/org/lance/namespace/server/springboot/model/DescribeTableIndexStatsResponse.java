@@ -24,7 +24,7 @@ import java.util.Objects;
 /** DescribeTableIndexStatsResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableIndexStatsResponse {
 
   private String distanceType;
@@ -93,7 +93,7 @@ public class DescribeTableIndexStatsResponse {
    *
    * @return numIndexedRows
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "num_indexed_rows",
       description = "Number of indexed rows",
@@ -117,7 +117,7 @@ public class DescribeTableIndexStatsResponse {
    *
    * @return numUnindexedRows
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "num_unindexed_rows",
       description = "Number of unindexed rows",
@@ -141,7 +141,7 @@ public class DescribeTableIndexStatsResponse {
    *
    * @return numIndices
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "num_indices",
       description = "Number of indices",

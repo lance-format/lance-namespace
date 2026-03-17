@@ -27,7 +27,7 @@ import java.util.Objects;
 /** TableVersion */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class TableVersion {
 
   private Long version;
@@ -63,7 +63,7 @@ public class TableVersion {
    * @return version
    */
   @NotNull
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description = "Version number",
@@ -111,7 +111,7 @@ public class TableVersion {
    *
    * @return manifestSize
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "manifest_size",
       description = "Size of the manifest file in bytes",

@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class BatchCommitTablesResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -56,13 +56,13 @@ public class BatchCommitTablesResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -90,13 +90,13 @@ public class BatchCommitTablesResponse {
    * @return results
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
+  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<CommitTableResult> getResults() {
     return results;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
+  @JsonProperty(JSON_PROPERTY_RESULTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setResults(@javax.annotation.Nonnull List<CommitTableResult> results) {
     this.results = results;
@@ -177,7 +177,6 @@ public class BatchCommitTablesResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,
@@ -198,18 +197,12 @@ public class BatchCommitTablesResponse {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
-                          java.util.Locale.ROOT,
                           "%sresults%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format(
-                                  java.util.Locale.ROOT,
-                                  "%s%d%s",
-                                  containerPrefix,
-                                  i,
-                                  containerSuffix))));
+                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

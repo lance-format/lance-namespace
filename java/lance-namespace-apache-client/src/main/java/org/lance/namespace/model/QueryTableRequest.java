@@ -52,7 +52,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class QueryTableRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -131,13 +131,13 @@ public class QueryTableRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -167,13 +167,13 @@ public class QueryTableRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -199,13 +199,13 @@ public class QueryTableRequest {
    * @return id
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getId() {
     return id;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -223,13 +223,13 @@ public class QueryTableRequest {
    * @return bypassVectorIndex
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_BYPASS_VECTOR_INDEX, required = false)
+  @JsonProperty(JSON_PROPERTY_BYPASS_VECTOR_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getBypassVectorIndex() {
     return bypassVectorIndex;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_BYPASS_VECTOR_INDEX, required = false)
+  @JsonProperty(JSON_PROPERTY_BYPASS_VECTOR_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBypassVectorIndex(@javax.annotation.Nullable Boolean bypassVectorIndex) {
     this.bypassVectorIndex = bypassVectorIndex;
@@ -247,13 +247,13 @@ public class QueryTableRequest {
    * @return columns
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_COLUMNS, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMNS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public QueryTableRequestColumns getColumns() {
     return columns;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_COLUMNS, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMNS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setColumns(@javax.annotation.Nullable QueryTableRequestColumns columns) {
     this.columns = columns;
@@ -271,13 +271,13 @@ public class QueryTableRequest {
    * @return distanceType
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_DISTANCE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_DISTANCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getDistanceType() {
     return distanceType;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_DISTANCE_TYPE, required = false)
+  @JsonProperty(JSON_PROPERTY_DISTANCE_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDistanceType(@javax.annotation.Nullable String distanceType) {
     this.distanceType = distanceType;
@@ -295,13 +295,13 @@ public class QueryTableRequest {
    * @return ef
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_EF, required = false)
+  @JsonProperty(JSON_PROPERTY_EF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getEf() {
     return ef;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_EF, required = false)
+  @JsonProperty(JSON_PROPERTY_EF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEf(@javax.annotation.Nullable Integer ef) {
     this.ef = ef;
@@ -319,13 +319,13 @@ public class QueryTableRequest {
    * @return fastSearch
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FAST_SEARCH, required = false)
+  @JsonProperty(JSON_PROPERTY_FAST_SEARCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getFastSearch() {
     return fastSearch;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_FAST_SEARCH, required = false)
+  @JsonProperty(JSON_PROPERTY_FAST_SEARCH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFastSearch(@javax.annotation.Nullable Boolean fastSearch) {
     this.fastSearch = fastSearch;
@@ -343,13 +343,13 @@ public class QueryTableRequest {
    * @return filter
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FILTER, required = false)
+  @JsonProperty(JSON_PROPERTY_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getFilter() {
     return filter;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_FILTER, required = false)
+  @JsonProperty(JSON_PROPERTY_FILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFilter(@javax.annotation.Nullable String filter) {
     this.filter = filter;
@@ -368,13 +368,13 @@ public class QueryTableRequest {
    * @return fullTextQuery
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_FULL_TEXT_QUERY, required = false)
+  @JsonProperty(JSON_PROPERTY_FULL_TEXT_QUERY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public QueryTableRequestFullTextQuery getFullTextQuery() {
     return fullTextQuery;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_FULL_TEXT_QUERY, required = false)
+  @JsonProperty(JSON_PROPERTY_FULL_TEXT_QUERY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFullTextQuery(
       @javax.annotation.Nullable QueryTableRequestFullTextQuery fullTextQuery) {
@@ -393,13 +393,13 @@ public class QueryTableRequest {
    * @return k
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_K, required = true)
+  @JsonProperty(JSON_PROPERTY_K)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Integer getK() {
     return k;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_K, required = true)
+  @JsonProperty(JSON_PROPERTY_K)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setK(@javax.annotation.Nonnull Integer k) {
     this.k = k;
@@ -417,13 +417,13 @@ public class QueryTableRequest {
    * @return lowerBound
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LOWER_BOUND, required = false)
+  @JsonProperty(JSON_PROPERTY_LOWER_BOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Float getLowerBound() {
     return lowerBound;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LOWER_BOUND, required = false)
+  @JsonProperty(JSON_PROPERTY_LOWER_BOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLowerBound(@javax.annotation.Nullable Float lowerBound) {
     this.lowerBound = lowerBound;
@@ -441,13 +441,13 @@ public class QueryTableRequest {
    * @return nprobes
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NPROBES, required = false)
+  @JsonProperty(JSON_PROPERTY_NPROBES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getNprobes() {
     return nprobes;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NPROBES, required = false)
+  @JsonProperty(JSON_PROPERTY_NPROBES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNprobes(@javax.annotation.Nullable Integer nprobes) {
     this.nprobes = nprobes;
@@ -465,13 +465,13 @@ public class QueryTableRequest {
    * @return offset
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_OFFSET, required = false)
+  @JsonProperty(JSON_PROPERTY_OFFSET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getOffset() {
     return offset;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_OFFSET, required = false)
+  @JsonProperty(JSON_PROPERTY_OFFSET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOffset(@javax.annotation.Nullable Integer offset) {
     this.offset = offset;
@@ -489,13 +489,13 @@ public class QueryTableRequest {
    * @return prefilter
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PREFILTER, required = false)
+  @JsonProperty(JSON_PROPERTY_PREFILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getPrefilter() {
     return prefilter;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PREFILTER, required = false)
+  @JsonProperty(JSON_PROPERTY_PREFILTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrefilter(@javax.annotation.Nullable Boolean prefilter) {
     this.prefilter = prefilter;
@@ -513,13 +513,13 @@ public class QueryTableRequest {
    * @return refineFactor
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_REFINE_FACTOR, required = false)
+  @JsonProperty(JSON_PROPERTY_REFINE_FACTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getRefineFactor() {
     return refineFactor;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_REFINE_FACTOR, required = false)
+  @JsonProperty(JSON_PROPERTY_REFINE_FACTOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRefineFactor(@javax.annotation.Nullable Integer refineFactor) {
     this.refineFactor = refineFactor;
@@ -537,13 +537,13 @@ public class QueryTableRequest {
    * @return upperBound
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_UPPER_BOUND, required = false)
+  @JsonProperty(JSON_PROPERTY_UPPER_BOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Float getUpperBound() {
     return upperBound;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_UPPER_BOUND, required = false)
+  @JsonProperty(JSON_PROPERTY_UPPER_BOUND)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpperBound(@javax.annotation.Nullable Float upperBound) {
     this.upperBound = upperBound;
@@ -561,13 +561,13 @@ public class QueryTableRequest {
    * @return vector
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_VECTOR, required = true)
+  @JsonProperty(JSON_PROPERTY_VECTOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public QueryTableRequestVector getVector() {
     return vector;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VECTOR, required = true)
+  @JsonProperty(JSON_PROPERTY_VECTOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVector(@javax.annotation.Nonnull QueryTableRequestVector vector) {
     this.vector = vector;
@@ -585,13 +585,13 @@ public class QueryTableRequest {
    * @return vectorColumn
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VECTOR_COLUMN, required = false)
+  @JsonProperty(JSON_PROPERTY_VECTOR_COLUMN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getVectorColumn() {
     return vectorColumn;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VECTOR_COLUMN, required = false)
+  @JsonProperty(JSON_PROPERTY_VECTOR_COLUMN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVectorColumn(@javax.annotation.Nullable String vectorColumn) {
     this.vectorColumn = vectorColumn;
@@ -609,13 +609,13 @@ public class QueryTableRequest {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -633,13 +633,13 @@ public class QueryTableRequest {
    * @return withRowId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WITH_ROW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_WITH_ROW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getWithRowId() {
     return withRowId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_WITH_ROW_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_WITH_ROW_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWithRowId(@javax.annotation.Nullable Boolean withRowId) {
     this.withRowId = withRowId;
@@ -785,14 +785,12 @@ public class QueryTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -809,14 +807,12 @@ public class QueryTableRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sid%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -831,7 +827,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sbypass_vector_index%s=%s",
                 prefix,
                 suffix,
@@ -853,7 +848,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sdistance_type%s=%s",
                 prefix,
                 suffix,
@@ -870,7 +864,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sef%s=%s",
                 prefix,
                 suffix,
@@ -886,7 +879,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sfast_search%s=%s",
                 prefix,
                 suffix,
@@ -903,7 +895,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sfilter%s=%s",
                 prefix,
                 suffix,
@@ -924,7 +915,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sk%s=%s",
                 prefix,
                 suffix,
@@ -940,7 +930,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%slower_bound%s=%s",
                 prefix,
                 suffix,
@@ -957,7 +946,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snprobes%s=%s",
                 prefix,
                 suffix,
@@ -973,7 +961,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%soffset%s=%s",
                 prefix,
                 suffix,
@@ -989,7 +976,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sprefilter%s=%s",
                 prefix,
                 suffix,
@@ -1006,7 +992,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%srefine_factor%s=%s",
                 prefix,
                 suffix,
@@ -1023,7 +1008,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%supper_bound%s=%s",
                 prefix,
                 suffix,
@@ -1045,7 +1029,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%svector_column%s=%s",
                 prefix,
                 suffix,
@@ -1062,7 +1045,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,
@@ -1078,7 +1060,6 @@ public class QueryTableRequest {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%swith_row_id%s=%s",
                 prefix,
                 suffix,

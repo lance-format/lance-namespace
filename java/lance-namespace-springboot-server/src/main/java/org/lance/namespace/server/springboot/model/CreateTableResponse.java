@@ -27,7 +27,7 @@ import java.util.Objects;
 /** CreateTableResponse */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CreateTableResponse {
 
   private String transactionId;
@@ -93,7 +93,7 @@ public class CreateTableResponse {
    *
    * @return version
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(name = "version", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("version")
   public Long getVersion() {

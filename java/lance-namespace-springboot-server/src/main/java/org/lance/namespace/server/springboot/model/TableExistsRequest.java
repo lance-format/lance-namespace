@@ -29,7 +29,7 @@ import java.util.Objects;
 /** TableExistsRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class TableExistsRequest {
 
   private Identity identity;
@@ -135,7 +135,7 @@ public class TableExistsRequest {
    *
    * @return version
    */
-  @Min(value = 0L)
+  @Min(0L)
   @Schema(
       name = "version",
       description =

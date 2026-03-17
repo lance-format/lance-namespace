@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class ListTablesResponse {
   public static final String JSON_PROPERTY_TABLES = "tables";
   @javax.annotation.Nonnull private Set<String> tables = new LinkedHashSet<>();
@@ -64,14 +64,14 @@ public class ListTablesResponse {
    * @return tables
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TABLES, required = true)
+  @JsonProperty(JSON_PROPERTY_TABLES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Set<String> getTables() {
     return tables;
   }
 
   @JsonDeserialize(as = LinkedHashSet.class)
-  @JsonProperty(value = JSON_PROPERTY_TABLES, required = true)
+  @JsonProperty(JSON_PROPERTY_TABLES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setTables(@javax.annotation.Nonnull Set<String> tables) {
     this.tables = tables;
@@ -96,13 +96,13 @@ public class ListTablesResponse {
    * @return pageToken
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPageToken() {
     return pageToken;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageToken(@javax.annotation.Nullable String pageToken) {
     this.pageToken = pageToken;
@@ -185,14 +185,12 @@ public class ListTablesResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%stables%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(_item), "UTF-8").replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
           // Should never happen, UTF-8 is always supported
@@ -207,7 +205,6 @@ public class ListTablesResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%spage_token%s=%s",
                 prefix,
                 suffix,

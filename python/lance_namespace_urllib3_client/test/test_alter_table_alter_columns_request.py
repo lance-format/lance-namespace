@@ -50,7 +50,14 @@ class TestAlterTableAlterColumnsRequest(unittest.TestCase):
                         data_type = lance_namespace_urllib3_client.models.data_type.data_type(), 
                         rename = '', 
                         nullable = True, 
-                        virtual_column = null, )
+                        virtual_column = lance_namespace_urllib3_client.models.alter_virtual_column_entry.AlterVirtualColumnEntry(
+                            input_columns = [
+                                ''
+                                ], 
+                            image = '', 
+                            udf = '', 
+                            udf_name = '', 
+                            udf_version = '', ), )
                     ]
             )
         else:
@@ -61,7 +68,14 @@ class TestAlterTableAlterColumnsRequest(unittest.TestCase):
                         data_type = lance_namespace_urllib3_client.models.data_type.data_type(), 
                         rename = '', 
                         nullable = True, 
-                        virtual_column = null, )
+                        virtual_column = lance_namespace_urllib3_client.models.alter_virtual_column_entry.AlterVirtualColumnEntry(
+                            input_columns = [
+                                ''
+                                ], 
+                            image = '', 
+                            udf = '', 
+                            udf_name = '', 
+                            udf_version = '', ), )
                     ],
         )
         """

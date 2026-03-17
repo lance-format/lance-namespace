@@ -35,7 +35,7 @@ import java.util.StringJoiner;
 @JsonTypeName("QueryTableRequest_columns")
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class QueryTableRequestColumns {
   public static final String JSON_PROPERTY_COLUMN_NAMES = "column_names";
   @javax.annotation.Nullable private List<String> columnNames = new ArrayList<>();
@@ -65,13 +65,13 @@ public class QueryTableRequestColumns {
    * @return columnNames
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_COLUMN_NAMES, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMN_NAMES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getColumnNames() {
     return columnNames;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_COLUMN_NAMES, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMN_NAMES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setColumnNames(@javax.annotation.Nullable List<String> columnNames) {
     this.columnNames = columnNames;
@@ -98,13 +98,13 @@ public class QueryTableRequestColumns {
    * @return columnAliases
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_COLUMN_ALIASES, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMN_ALIASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getColumnAliases() {
     return columnAliases;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_COLUMN_ALIASES, required = false)
+  @JsonProperty(JSON_PROPERTY_COLUMN_ALIASES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setColumnAliases(@javax.annotation.Nullable Map<String, String> columnAliases) {
     this.columnAliases = columnAliases;
@@ -186,14 +186,12 @@ public class QueryTableRequestColumns {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scolumn_names%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getColumnNames().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -209,14 +207,12 @@ public class QueryTableRequestColumns {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scolumn_aliases%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getColumnAliases().get(_key),
                   URLEncoder.encode(String.valueOf(getColumnAliases().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));

@@ -27,7 +27,7 @@ import java.util.Objects;
 /** MultiMatchQuery */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class MultiMatchQuery {
 
   @Valid private List<@Valid MatchQuery> matchQueries = new ArrayList<>();

@@ -32,7 +32,7 @@ import java.util.Objects;
     description = "Request for inserting records into a table, excluding the Arrow IPC stream. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class InsertIntoTableRequest {
 
   private Identity identity;

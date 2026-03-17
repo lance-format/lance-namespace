@@ -28,7 +28,7 @@ import java.util.Objects;
 @Schema(name = "JsonArrowField", description = "JSON representation of an Apache Arrow field. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class JsonArrowField {
 
   @Valid private Map<String, String> metadata = new HashMap<>();

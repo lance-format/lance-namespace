@@ -93,7 +93,7 @@ import java.util.StringJoiner;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class MetadataApi extends BaseApi {
 
   public MetadataApi() {
@@ -120,9 +120,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTableAlterColumnsResponse alterTableAlterColumns(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTableAlterColumnsRequest alterTableAlterColumnsRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, AlterTableAlterColumnsRequest alterTableAlterColumnsRequest, String delimiter)
       throws ApiException {
     return this.alterTableAlterColumns(
         id, alterTableAlterColumnsRequest, delimiter, Collections.emptyMap());
@@ -145,9 +143,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTableAlterColumnsResponse alterTableAlterColumns(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTableAlterColumnsRequest alterTableAlterColumnsRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      AlterTableAlterColumnsRequest alterTableAlterColumnsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = alterTableAlterColumnsRequest;
@@ -224,9 +222,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTableDropColumnsResponse alterTableDropColumns(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTableDropColumnsRequest alterTableDropColumnsRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, AlterTableDropColumnsRequest alterTableDropColumnsRequest, String delimiter)
       throws ApiException {
     return this.alterTableDropColumns(
         id, alterTableDropColumnsRequest, delimiter, Collections.emptyMap());
@@ -248,9 +244,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTableDropColumnsResponse alterTableDropColumns(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTableDropColumnsRequest alterTableDropColumnsRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      AlterTableDropColumnsRequest alterTableDropColumnsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = alterTableDropColumnsRequest;
@@ -329,9 +325,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTransactionResponse alterTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTransactionRequest alterTransactionRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, AlterTransactionRequest alterTransactionRequest, String delimiter)
       throws ApiException {
     return this.alterTransaction(id, alterTransactionRequest, delimiter, Collections.emptyMap());
   }
@@ -354,9 +348,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTransactionResponse alterTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTransactionRequest alterTransactionRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      AlterTransactionRequest alterTransactionRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = alterTransactionRequest;
@@ -436,9 +430,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchCommitTablesResponse batchCommitTables(
-      @javax.annotation.Nonnull BatchCommitTablesRequest batchCommitTablesRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      BatchCommitTablesRequest batchCommitTablesRequest, String delimiter) throws ApiException {
     return this.batchCommitTables(batchCommitTablesRequest, delimiter, Collections.emptyMap());
   }
 
@@ -461,8 +453,8 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchCommitTablesResponse batchCommitTables(
-      @javax.annotation.Nonnull BatchCommitTablesRequest batchCommitTablesRequest,
-      @javax.annotation.Nullable String delimiter,
+      BatchCommitTablesRequest batchCommitTablesRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = batchCommitTablesRequest;
@@ -530,8 +522,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchCreateTableVersionsResponse batchCreateTableVersions(
-      @javax.annotation.Nonnull BatchCreateTableVersionsRequest batchCreateTableVersionsRequest,
-      @javax.annotation.Nullable String delimiter)
+      BatchCreateTableVersionsRequest batchCreateTableVersionsRequest, String delimiter)
       throws ApiException {
     return this.batchCreateTableVersions(
         batchCreateTableVersionsRequest, delimiter, Collections.emptyMap());
@@ -553,8 +544,8 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchCreateTableVersionsResponse batchCreateTableVersions(
-      @javax.annotation.Nonnull BatchCreateTableVersionsRequest batchCreateTableVersionsRequest,
-      @javax.annotation.Nullable String delimiter,
+      BatchCreateTableVersionsRequest batchCreateTableVersionsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = batchCreateTableVersionsRequest;
@@ -625,9 +616,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchDeleteTableVersionsResponse batchDeleteTableVersions(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest, String delimiter)
       throws ApiException {
     return this.batchDeleteTableVersions(
         id, batchDeleteTableVersionsRequest, delimiter, Collections.emptyMap());
@@ -652,9 +641,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchDeleteTableVersionsResponse batchDeleteTableVersions(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      BatchDeleteTableVersionsRequest batchDeleteTableVersionsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = batchDeleteTableVersionsRequest;
@@ -737,9 +726,7 @@ public class MetadataApi extends BaseApi {
    */
   @Deprecated
   public CreateEmptyTableResponse createEmptyTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateEmptyTableRequest createEmptyTableRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, CreateEmptyTableRequest createEmptyTableRequest, String delimiter)
       throws ApiException {
     return this.createEmptyTable(id, createEmptyTableRequest, delimiter, Collections.emptyMap());
   }
@@ -766,9 +753,9 @@ public class MetadataApi extends BaseApi {
    */
   @Deprecated
   public CreateEmptyTableResponse createEmptyTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateEmptyTableRequest createEmptyTableRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      CreateEmptyTableRequest createEmptyTableRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createEmptyTableRequest;
@@ -848,9 +835,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateNamespaceResponse createNamespace(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateNamespaceRequest createNamespaceRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, CreateNamespaceRequest createNamespaceRequest, String delimiter)
       throws ApiException {
     return this.createNamespace(id, createNamespaceRequest, delimiter, Collections.emptyMap());
   }
@@ -874,9 +859,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateNamespaceResponse createNamespace(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateNamespaceRequest createNamespaceRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      CreateNamespaceRequest createNamespaceRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createNamespaceRequest;
@@ -957,9 +942,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableIndexResponse createTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
       throws ApiException {
     return this.createTableIndex(id, createTableIndexRequest, delimiter, Collections.emptyMap());
   }
@@ -984,9 +967,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableIndexResponse createTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      CreateTableIndexRequest createTableIndexRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createTableIndexRequest;
@@ -1067,9 +1050,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableScalarIndexResponse createTableScalarIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
       throws ApiException {
     return this.createTableScalarIndex(
         id, createTableIndexRequest, delimiter, Collections.emptyMap());
@@ -1095,9 +1076,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableScalarIndexResponse createTableScalarIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      CreateTableIndexRequest createTableIndexRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createTableIndexRequest;
@@ -1174,9 +1155,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableTagResponse createTableTag(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, CreateTableTagRequest createTableTagRequest, String delimiter)
       throws ApiException {
     return this.createTableTag(id, createTableTagRequest, delimiter, Collections.emptyMap());
   }
@@ -1197,9 +1176,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableTagResponse createTableTag(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableTagRequest createTableTagRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      CreateTableTagRequest createTableTagRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createTableTagRequest;
@@ -1278,9 +1257,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableVersionResponse createTableVersion(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableVersionRequest createTableVersionRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, CreateTableVersionRequest createTableVersionRequest, String delimiter)
       throws ApiException {
     return this.createTableVersion(
         id, createTableVersionRequest, delimiter, Collections.emptyMap());
@@ -1304,9 +1281,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public CreateTableVersionResponse createTableVersion(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableVersionRequest createTableVersionRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      CreateTableVersionRequest createTableVersionRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = createTableVersionRequest;
@@ -1387,10 +1364,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeclareTableResponse declareTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeclareTableRequest declareTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      String id, DeclareTableRequest declareTableRequest, String delimiter) throws ApiException {
     return this.declareTable(id, declareTableRequest, delimiter, Collections.emptyMap());
   }
 
@@ -1414,9 +1388,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeclareTableResponse declareTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeclareTableRequest declareTableRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DeclareTableRequest declareTableRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = declareTableRequest;
@@ -1491,9 +1465,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeleteTableTagResponse deleteTableTag(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, DeleteTableTagRequest deleteTableTagRequest, String delimiter)
       throws ApiException {
     return this.deleteTableTag(id, deleteTableTagRequest, delimiter, Collections.emptyMap());
   }
@@ -1514,9 +1486,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeleteTableTagResponse deleteTableTag(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeleteTableTagRequest deleteTableTagRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DeleteTableTagRequest deleteTableTagRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = deleteTableTagRequest;
@@ -1593,9 +1565,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeregisterTableResponse deregisterTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeregisterTableRequest deregisterTableRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, DeregisterTableRequest deregisterTableRequest, String delimiter)
       throws ApiException {
     return this.deregisterTable(id, deregisterTableRequest, delimiter, Collections.emptyMap());
   }
@@ -1616,9 +1586,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DeregisterTableResponse deregisterTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeregisterTableRequest deregisterTableRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DeregisterTableRequest deregisterTableRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = deregisterTableRequest;
@@ -1695,9 +1665,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeNamespaceResponse describeNamespace(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeNamespaceRequest describeNamespaceRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, DescribeNamespaceRequest describeNamespaceRequest, String delimiter)
       throws ApiException {
     return this.describeNamespace(id, describeNamespaceRequest, delimiter, Collections.emptyMap());
   }
@@ -1718,9 +1686,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeNamespaceResponse describeNamespace(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeNamespaceRequest describeNamespaceRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DescribeNamespaceRequest describeNamespaceRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeNamespaceRequest;
@@ -1805,11 +1773,11 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableResponse describeTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTableRequest describeTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable Boolean withTableUri,
-      @javax.annotation.Nullable Boolean loadDetailedMetadata)
+      String id,
+      DescribeTableRequest describeTableRequest,
+      String delimiter,
+      Boolean withTableUri,
+      Boolean loadDetailedMetadata)
       throws ApiException {
     return this.describeTable(
         id,
@@ -1844,11 +1812,11 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableResponse describeTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTableRequest describeTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable Boolean withTableUri,
-      @javax.annotation.Nullable Boolean loadDetailedMetadata,
+      String id,
+      DescribeTableRequest describeTableRequest,
+      String delimiter,
+      Boolean withTableUri,
+      Boolean loadDetailedMetadata,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeTableRequest;
@@ -1928,10 +1896,10 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableIndexStatsResponse describeTableIndexStats(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id,
+      String indexName,
+      DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
+      String delimiter)
       throws ApiException {
     return this.describeTableIndexStats(
         id, indexName, describeTableIndexStatsRequest, delimiter, Collections.emptyMap());
@@ -1955,10 +1923,10 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableIndexStatsResponse describeTableIndexStats(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      String indexName,
+      DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeTableIndexStatsRequest;
@@ -2045,9 +2013,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableVersionResponse describeTableVersion(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTableVersionRequest describeTableVersionRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, DescribeTableVersionRequest describeTableVersionRequest, String delimiter)
       throws ApiException {
     return this.describeTableVersion(
         id, describeTableVersionRequest, delimiter, Collections.emptyMap());
@@ -2070,9 +2036,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTableVersionResponse describeTableVersion(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTableVersionRequest describeTableVersionRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DescribeTableVersionRequest describeTableVersionRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeTableVersionRequest;
@@ -2149,9 +2115,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTransactionResponse describeTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTransactionRequest describeTransactionRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, DescribeTransactionRequest describeTransactionRequest, String delimiter)
       throws ApiException {
     return this.describeTransaction(
         id, describeTransactionRequest, delimiter, Collections.emptyMap());
@@ -2173,9 +2137,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTransactionResponse describeTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTransactionRequest describeTransactionRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DescribeTransactionRequest describeTransactionRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeTransactionRequest;
@@ -2252,10 +2216,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DropNamespaceResponse dropNamespace(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DropNamespaceRequest dropNamespaceRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      String id, DropNamespaceRequest dropNamespaceRequest, String delimiter) throws ApiException {
     return this.dropNamespace(id, dropNamespaceRequest, delimiter, Collections.emptyMap());
   }
 
@@ -2275,9 +2236,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DropNamespaceResponse dropNamespace(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DropNamespaceRequest dropNamespaceRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DropNamespaceRequest dropNamespaceRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = dropNamespaceRequest;
@@ -2352,9 +2313,7 @@ public class MetadataApi extends BaseApi {
    * @return DropTableResponse
    * @throws ApiException if fails to make API call
    */
-  public DropTableResponse dropTable(
-      @javax.annotation.Nonnull String id, @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+  public DropTableResponse dropTable(String id, String delimiter) throws ApiException {
     return this.dropTable(id, delimiter, Collections.emptyMap());
   }
 
@@ -2375,10 +2334,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DropTableResponse dropTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> additionalHeaders)
-      throws ApiException {
+      String id, String delimiter, Map<String, String> additionalHeaders) throws ApiException {
     Object localVarPostBody = null;
 
     // verify the required parameter 'id' is set
@@ -2448,10 +2404,7 @@ public class MetadataApi extends BaseApi {
    * @return DropTableIndexResponse
    * @throws ApiException if fails to make API call
    */
-  public DropTableIndexResponse dropTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nullable String delimiter)
+  public DropTableIndexResponse dropTableIndex(String id, String indexName, String delimiter)
       throws ApiException {
     return this.dropTableIndex(id, indexName, delimiter, Collections.emptyMap());
   }
@@ -2476,10 +2429,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DropTableIndexResponse dropTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> additionalHeaders)
+      String id, String indexName, String delimiter, Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
 
@@ -2559,10 +2509,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public GetTableStatsResponse getTableStats(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull GetTableStatsRequest getTableStatsRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      String id, GetTableStatsRequest getTableStatsRequest, String delimiter) throws ApiException {
     return this.getTableStats(id, getTableStatsRequest, delimiter, Collections.emptyMap());
   }
 
@@ -2583,9 +2530,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public GetTableStatsResponse getTableStats(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull GetTableStatsRequest getTableStatsRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      GetTableStatsRequest getTableStatsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = getTableStatsRequest;
@@ -2661,9 +2608,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public GetTableTagVersionResponse getTableTagVersion(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, GetTableTagVersionRequest getTableTagVersionRequest, String delimiter)
       throws ApiException {
     return this.getTableTagVersion(
         id, getTableTagVersionRequest, delimiter, Collections.emptyMap());
@@ -2686,9 +2631,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public GetTableTagVersionResponse getTableTagVersion(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull GetTableTagVersionRequest getTableTagVersionRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      GetTableTagVersionRequest getTableTagVersionRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = getTableTagVersionRequest;
@@ -2771,11 +2716,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListNamespacesResponse listNamespaces(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit)
-      throws ApiException {
+      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
     return this.listNamespaces(id, delimiter, pageToken, limit, Collections.emptyMap());
   }
 
@@ -2801,10 +2742,10 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListNamespacesResponse listNamespaces(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit,
+      String id,
+      String delimiter,
+      String pageToken,
+      Integer limit,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
@@ -2878,9 +2819,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableIndicesResponse listTableIndices(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, ListTableIndicesRequest listTableIndicesRequest, String delimiter)
       throws ApiException {
     return this.listTableIndices(id, listTableIndicesRequest, delimiter, Collections.emptyMap());
   }
@@ -2902,9 +2841,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableIndicesResponse listTableIndices(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      ListTableIndicesRequest listTableIndicesRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = listTableIndicesRequest;
@@ -2987,11 +2926,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableTagsResponse listTableTags(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit)
-      throws ApiException {
+      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
     return this.listTableTags(id, delimiter, pageToken, limit, Collections.emptyMap());
   }
 
@@ -3017,10 +2952,10 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableTagsResponse listTableTags(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit,
+      String id,
+      String delimiter,
+      String pageToken,
+      Integer limit,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
@@ -3102,11 +3037,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableVersionsResponse listTableVersions(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit,
-      @javax.annotation.Nullable Boolean descending)
+      String id, String delimiter, String pageToken, Integer limit, Boolean descending)
       throws ApiException {
     return this.listTableVersions(
         id, delimiter, pageToken, limit, descending, Collections.emptyMap());
@@ -3138,11 +3069,11 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTableVersionsResponse listTableVersions(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit,
-      @javax.annotation.Nullable Boolean descending,
+      String id,
+      String delimiter,
+      String pageToken,
+      Integer limit,
+      Boolean descending,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
@@ -3221,11 +3152,7 @@ public class MetadataApi extends BaseApi {
    * @return ListTablesResponse
    * @throws ApiException if fails to make API call
    */
-  public ListTablesResponse listTables(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit)
+  public ListTablesResponse listTables(String id, String delimiter, String pageToken, Integer limit)
       throws ApiException {
     return this.listTables(id, delimiter, pageToken, limit, Collections.emptyMap());
   }
@@ -3252,10 +3179,10 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public ListTablesResponse listTables(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String pageToken,
-      @javax.annotation.Nullable Integer limit,
+      String id,
+      String delimiter,
+      String pageToken,
+      Integer limit,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
@@ -3327,9 +3254,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public void namespaceExists(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull NamespaceExistsRequest namespaceExistsRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, NamespaceExistsRequest namespaceExistsRequest, String delimiter)
       throws ApiException {
     this.namespaceExists(id, namespaceExistsRequest, delimiter, Collections.emptyMap());
   }
@@ -3350,9 +3275,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public void namespaceExists(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull NamespaceExistsRequest namespaceExistsRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      NamespaceExistsRequest namespaceExistsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = namespaceExistsRequest;
@@ -3428,10 +3353,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public RegisterTableResponse registerTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull RegisterTableRequest registerTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      String id, RegisterTableRequest registerTableRequest, String delimiter) throws ApiException {
     return this.registerTable(id, registerTableRequest, delimiter, Collections.emptyMap());
   }
 
@@ -3452,9 +3374,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public RegisterTableResponse registerTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull RegisterTableRequest registerTableRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      RegisterTableRequest registerTableRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = registerTableRequest;
@@ -3529,10 +3451,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public RenameTableResponse renameTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull RenameTableRequest renameTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      String id, RenameTableRequest renameTableRequest, String delimiter) throws ApiException {
     return this.renameTable(id, renameTableRequest, delimiter, Collections.emptyMap());
   }
 
@@ -3552,9 +3471,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public RenameTableResponse renameTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull RenameTableRequest renameTableRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      RenameTableRequest renameTableRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = renameTableRequest;
@@ -3629,10 +3548,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public RestoreTableResponse restoreTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull RestoreTableRequest restoreTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      String id, RestoreTableRequest restoreTableRequest, String delimiter) throws ApiException {
     return this.restoreTable(id, restoreTableRequest, delimiter, Collections.emptyMap());
   }
 
@@ -3652,9 +3568,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public RestoreTableResponse restoreTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull RestoreTableRequest restoreTableRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      RestoreTableRequest restoreTableRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = restoreTableRequest;
@@ -3731,10 +3647,7 @@ public class MetadataApi extends BaseApi {
    *     (optional)
    * @throws ApiException if fails to make API call
    */
-  public void tableExists(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull TableExistsRequest tableExistsRequest,
-      @javax.annotation.Nullable String delimiter)
+  public void tableExists(String id, TableExistsRequest tableExistsRequest, String delimiter)
       throws ApiException {
     this.tableExists(id, tableExistsRequest, delimiter, Collections.emptyMap());
   }
@@ -3758,9 +3671,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public void tableExists(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull TableExistsRequest tableExistsRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      TableExistsRequest tableExistsRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = tableExistsRequest;
@@ -3836,10 +3749,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Map<String, String> updateTableSchemaMetadata(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull Map<String, String> requestBody,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      String id, Map<String, String> requestBody, String delimiter) throws ApiException {
     return this.updateTableSchemaMetadata(id, requestBody, delimiter, Collections.emptyMap());
   }
 
@@ -3862,9 +3772,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public Map<String, String> updateTableSchemaMetadata(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull Map<String, String> requestBody,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      Map<String, String> requestBody,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = requestBody;
@@ -3942,9 +3852,7 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public UpdateTableTagResponse updateTableTag(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, UpdateTableTagRequest updateTableTagRequest, String delimiter)
       throws ApiException {
     return this.updateTableTag(id, updateTableTagRequest, delimiter, Collections.emptyMap());
   }
@@ -3966,9 +3874,9 @@ public class MetadataApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public UpdateTableTagResponse updateTableTag(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull UpdateTableTagRequest updateTableTagRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      UpdateTableTagRequest updateTableTagRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = updateTableTagRequest;

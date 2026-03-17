@@ -40,7 +40,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class BatchCommitTablesRequest {
   public static final String JSON_PROPERTY_IDENTITY = "identity";
   @javax.annotation.Nullable private Identity identity;
@@ -65,13 +65,13 @@ public class BatchCommitTablesRequest {
    * @return identity
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Identity getIdentity() {
     return identity;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_IDENTITY, required = false)
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentity(@javax.annotation.Nullable Identity identity) {
     this.identity = identity;
@@ -101,13 +101,13 @@ public class BatchCommitTablesRequest {
    * @return context
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getContext() {
     return context;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_CONTEXT, required = false)
+  @JsonProperty(JSON_PROPERTY_CONTEXT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setContext(@javax.annotation.Nullable Map<String, String> context) {
     this.context = context;
@@ -135,13 +135,13 @@ public class BatchCommitTablesRequest {
    * @return operations
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_OPERATIONS, required = true)
+  @JsonProperty(JSON_PROPERTY_OPERATIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<CommitTableOperation> getOperations() {
     return operations;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_OPERATIONS, required = true)
+  @JsonProperty(JSON_PROPERTY_OPERATIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setOperations(@javax.annotation.Nonnull List<CommitTableOperation> operations) {
     this.operations = operations;
@@ -230,14 +230,12 @@ public class BatchCommitTablesRequest {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%scontext%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getContext().get(_key),
                   URLEncoder.encode(String.valueOf(getContext().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -257,18 +255,12 @@ public class BatchCommitTablesRequest {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
-                          java.util.Locale.ROOT,
                           "%soperations%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format(
-                                  java.util.Locale.ROOT,
-                                  "%s%d%s",
-                                  containerPrefix,
-                                  i,
-                                  containerSuffix))));
+                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

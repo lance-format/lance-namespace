@@ -20,7 +20,7 @@ import java.util.Map;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class OAuth implements Authentication {
   private String accessToken;
 

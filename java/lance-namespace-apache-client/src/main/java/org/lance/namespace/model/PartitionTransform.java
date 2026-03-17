@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class PartitionTransform {
   public static final String JSON_PROPERTY_TYPE = "type";
   @javax.annotation.Nonnull private String type;
@@ -55,13 +55,13 @@ public class PartitionTransform {
    * @return type
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getType() {
     return type;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+  @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(@javax.annotation.Nonnull String type) {
     this.type = type;
@@ -79,13 +79,13 @@ public class PartitionTransform {
    * @return numBuckets
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NUM_BUCKETS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_BUCKETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getNumBuckets() {
     return numBuckets;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NUM_BUCKETS, required = false)
+  @JsonProperty(JSON_PROPERTY_NUM_BUCKETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumBuckets(@javax.annotation.Nullable Integer numBuckets) {
     this.numBuckets = numBuckets;
@@ -103,13 +103,13 @@ public class PartitionTransform {
    * @return width
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_WIDTH, required = false)
+  @JsonProperty(JSON_PROPERTY_WIDTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Integer getWidth() {
     return width;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_WIDTH, required = false)
+  @JsonProperty(JSON_PROPERTY_WIDTH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setWidth(@javax.annotation.Nullable Integer width) {
     this.width = width;
@@ -192,7 +192,6 @@ public class PartitionTransform {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stype%s=%s",
                 prefix,
                 suffix,
@@ -208,7 +207,6 @@ public class PartitionTransform {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%snum_buckets%s=%s",
                 prefix,
                 suffix,
@@ -225,7 +223,6 @@ public class PartitionTransform {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%swidth%s=%s",
                 prefix,
                 suffix,

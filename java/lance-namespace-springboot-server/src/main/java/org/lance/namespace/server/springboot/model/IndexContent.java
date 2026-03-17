@@ -27,7 +27,7 @@ import java.util.Objects;
 /** IndexContent */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class IndexContent {
 
   private String indexName;

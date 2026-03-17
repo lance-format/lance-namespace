@@ -28,7 +28,7 @@ import java.util.Objects;
 @Schema(name = "ListTableTagsResponse", description = "Response containing table tags")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class ListTableTagsResponse {
 
   @Valid private Map<String, TagContents> tags = new HashMap<>();

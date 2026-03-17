@@ -26,7 +26,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({CreateTableScalarIndexResponse.JSON_PROPERTY_TRANSACTION_ID})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CreateTableScalarIndexResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -46,13 +46,13 @@ public class CreateTableScalarIndexResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -132,7 +132,6 @@ public class CreateTableScalarIndexResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,

@@ -28,7 +28,7 @@ import java.util.Objects;
 @Schema(name = "DeclareTableResponse", description = "Response for declaring a table. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DeclareTableResponse {
 
   private String transactionId;

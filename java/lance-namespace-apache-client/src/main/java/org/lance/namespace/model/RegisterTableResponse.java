@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class RegisterTableResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -57,13 +57,13 @@ public class RegisterTableResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -81,13 +81,13 @@ public class RegisterTableResponse {
    * @return location
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
+  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getLocation() {
     return location;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
+  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(@javax.annotation.Nullable String location) {
     this.location = location;
@@ -115,13 +115,13 @@ public class RegisterTableResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -204,7 +204,6 @@ public class RegisterTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,
@@ -221,7 +220,6 @@ public class RegisterTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%slocation%s=%s",
                 prefix,
                 suffix,
@@ -239,14 +237,12 @@ public class RegisterTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sproperties%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getProperties().get(_key),
                   URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));

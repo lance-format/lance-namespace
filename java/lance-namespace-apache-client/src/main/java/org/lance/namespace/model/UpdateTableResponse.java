@@ -33,7 +33,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class UpdateTableResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -61,13 +61,13 @@ public class UpdateTableResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -85,13 +85,13 @@ public class UpdateTableResponse {
    * @return updatedRows
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_UPDATED_ROWS, required = true)
+  @JsonProperty(JSON_PROPERTY_UPDATED_ROWS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getUpdatedRows() {
     return updatedRows;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_UPDATED_ROWS, required = true)
+  @JsonProperty(JSON_PROPERTY_UPDATED_ROWS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUpdatedRows(@javax.annotation.Nonnull Long updatedRows) {
     this.updatedRows = updatedRows;
@@ -109,13 +109,13 @@ public class UpdateTableResponse {
    * @return version
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersion(@javax.annotation.Nonnull Long version) {
     this.version = version;
@@ -142,13 +142,13 @@ public class UpdateTableResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -233,7 +233,6 @@ public class UpdateTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,
@@ -250,7 +249,6 @@ public class UpdateTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%supdated_rows%s=%s",
                 prefix,
                 suffix,
@@ -267,7 +265,6 @@ public class UpdateTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,
@@ -284,14 +281,12 @@ public class UpdateTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sproperties%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getProperties().get(_key),
                   URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));

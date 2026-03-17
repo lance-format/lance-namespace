@@ -41,7 +41,7 @@ import java.util.Optional;
 
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 @Validated
 @Tag(name = "Transaction", description = "Operations that are related to a transaction ")
 public interface TransactionApi {
@@ -50,7 +50,6 @@ public interface TransactionApi {
     return Optional.empty();
   }
 
-  String PATH_ALTER_TRANSACTION = "/v1/transaction/{id}/alter";
   /**
    * POST /v1/transaction/{id}/alter : Alter information of a transaction. Alter a transaction with
    * a list of actions such as setting status or properties. The server should either succeed and
@@ -161,12 +160,11 @@ public interface TransactionApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TransactionApi.PATH_ALTER_TRANSACTION,
+      value = "/v1/transaction/{id}/alter",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<AlterTransactionResponse> alterTransaction(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
@@ -243,7 +241,6 @@ public interface TransactionApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-  String PATH_DESCRIBE_TRANSACTION = "/v1/transaction/{id}/describe";
   /**
    * POST /v1/transaction/{id}/describe : Describe information about a transaction Return a detailed
    * information for a given transaction
@@ -343,12 +340,11 @@ public interface TransactionApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = TransactionApi.PATH_DESCRIBE_TRANSACTION,
+      value = "/v1/transaction/{id}/describe",
       produces = {"application/json"},
       consumes = {"application/json"})
   default ResponseEntity<DescribeTransactionResponse> describeTransaction(
-      @NotNull
-          @Parameter(
+      @Parameter(
               name = "id",
               description =
                   "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",

@@ -25,7 +25,7 @@ import java.util.Objects;
 @Schema(name = "PartitionTransform", description = "Well-known partition transform")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class PartitionTransform {
 
   private String type;

@@ -31,7 +31,7 @@ import java.util.Objects;
         "A range of versions to delete (start inclusive, end exclusive). Special values: - `start_version: 0` with `end_version: -1` means ALL versions ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class VersionRange {
 
   private Long startVersion;

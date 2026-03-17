@@ -34,7 +34,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DeclareTableResponse {
   public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
   @javax.annotation.Nullable private String transactionId;
@@ -65,13 +65,13 @@ public class DeclareTableResponse {
    * @return transactionId
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTransactionId() {
     return transactionId;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ID, required = false)
+  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTransactionId(@javax.annotation.Nullable String transactionId) {
     this.transactionId = transactionId;
@@ -89,13 +89,13 @@ public class DeclareTableResponse {
    * @return location
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
+  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getLocation() {
     return location;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
+  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(@javax.annotation.Nullable String location) {
     this.location = location;
@@ -123,13 +123,13 @@ public class DeclareTableResponse {
    * @return storageOptions
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getStorageOptions() {
     return storageOptions;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageOptions(@javax.annotation.Nullable Map<String, String> storageOptions) {
     this.storageOptions = storageOptions;
@@ -157,13 +157,13 @@ public class DeclareTableResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -184,13 +184,13 @@ public class DeclareTableResponse {
    * @return managedVersioning
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MANAGED_VERSIONING, required = false)
+  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getManagedVersioning() {
     return managedVersioning;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MANAGED_VERSIONING, required = false)
+  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setManagedVersioning(@javax.annotation.Nullable Boolean managedVersioning) {
     this.managedVersioning = managedVersioning;
@@ -277,7 +277,6 @@ public class DeclareTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stransaction_id%s=%s",
                 prefix,
                 suffix,
@@ -294,7 +293,6 @@ public class DeclareTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%slocation%s=%s",
                 prefix,
                 suffix,
@@ -312,14 +310,12 @@ public class DeclareTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sstorage_options%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getStorageOptions().get(_key),
                   URLEncoder.encode(String.valueOf(getStorageOptions().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -336,14 +332,12 @@ public class DeclareTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sproperties%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getProperties().get(_key),
                   URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -359,7 +353,6 @@ public class DeclareTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smanaged_versioning%s=%s",
                 prefix,
                 suffix,

@@ -27,7 +27,7 @@ import java.util.Objects;
     description = "Response for create scalar index operation")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CreateTableScalarIndexResponse {
 
   private String transactionId;

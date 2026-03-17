@@ -32,7 +32,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class VersionRange {
   public static final String JSON_PROPERTY_START_VERSION = "start_version";
   @javax.annotation.Nonnull private Long startVersion;
@@ -54,13 +54,13 @@ public class VersionRange {
    * @return startVersion
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_START_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_START_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getStartVersion() {
     return startVersion;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_START_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_START_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setStartVersion(@javax.annotation.Nonnull Long startVersion) {
     this.startVersion = startVersion;
@@ -79,13 +79,13 @@ public class VersionRange {
    * @return endVersion
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_END_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_END_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Long getEndVersion() {
     return endVersion;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_END_VERSION, required = true)
+  @JsonProperty(JSON_PROPERTY_END_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEndVersion(@javax.annotation.Nonnull Long endVersion) {
     this.endVersion = endVersion;
@@ -166,7 +166,6 @@ public class VersionRange {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sstart_version%s=%s",
                 prefix,
                 suffix,
@@ -183,7 +182,6 @@ public class VersionRange {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%send_version%s=%s",
                 prefix,
                 suffix,

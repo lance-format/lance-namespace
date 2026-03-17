@@ -41,7 +41,14 @@ class TestGetTableStatsResponse(unittest.TestCase):
                 fragment_stats = lance_namespace_urllib3_client.models.fragment_stats.FragmentStats(
                     num_fragments = 0, 
                     num_small_fragments = 0, 
-                    lengths = null, )
+                    lengths = lance_namespace_urllib3_client.models.fragment_summary.FragmentSummary(
+                        min = 0, 
+                        max = 0, 
+                        mean = 0, 
+                        p25 = 0, 
+                        p50 = 0, 
+                        p75 = 0, 
+                        p99 = 0, ), )
             )
         else:
             return GetTableStatsResponse(
@@ -51,7 +58,14 @@ class TestGetTableStatsResponse(unittest.TestCase):
                 fragment_stats = lance_namespace_urllib3_client.models.fragment_stats.FragmentStats(
                     num_fragments = 0, 
                     num_small_fragments = 0, 
-                    lengths = null, ),
+                    lengths = lance_namespace_urllib3_client.models.fragment_summary.FragmentSummary(
+                        min = 0, 
+                        max = 0, 
+                        mean = 0, 
+                        p25 = 0, 
+                        p50 = 0, 
+                        p75 = 0, 
+                        p99 = 0, ), ),
         )
         """
 

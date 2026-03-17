@@ -24,7 +24,7 @@ import java.util.Objects;
 /** MatchQuery */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class MatchQuery {
 
   private Float boost;
@@ -100,7 +100,7 @@ public class MatchQuery {
    *
    * @return fuzziness
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(name = "fuzziness", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("fuzziness")
   public Integer getFuzziness() {
@@ -121,7 +121,7 @@ public class MatchQuery {
    *
    * @return maxExpansions
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "max_expansions",
       description = "The maximum number of terms to expand for fuzzy matching. Default to 50.",
@@ -141,15 +141,15 @@ public class MatchQuery {
   }
 
   /**
-   * The operator to use for combining terms. This can be either `And` or `Or`, it's 'Or' by
-   * default. - `And`: All terms must match. - `Or`: At least one term must match.
+   * The operator to use for combining terms. Case insensitive, supports both PascalCase and
+   * snake_case. Valid values are: - And: All terms must match. - Or: At least one term must match.
    *
    * @return operator
    */
   @Schema(
       name = "operator",
       description =
-          "The operator to use for combining terms. This can be either `And` or `Or`, it's 'Or' by default. - `And`: All terms must match. - `Or`: At least one term must match.",
+          "The operator to use for combining terms. Case insensitive, supports both PascalCase and snake_case. Valid values are: - And: All terms must match. - Or: At least one term must match. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("operator")
   public String getOperator() {
@@ -170,7 +170,7 @@ public class MatchQuery {
    *
    * @return prefixLength
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "prefix_length",
       description =

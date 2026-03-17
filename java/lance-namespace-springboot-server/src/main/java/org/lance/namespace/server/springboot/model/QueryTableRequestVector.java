@@ -35,7 +35,7 @@ import java.util.Objects;
 @JsonTypeName("QueryTableRequest_vector")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class QueryTableRequestVector {
 
   @Valid private List<Float> singleVector = new ArrayList<>();

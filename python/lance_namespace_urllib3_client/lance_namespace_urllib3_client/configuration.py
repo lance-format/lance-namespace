@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     Lance Namespace Specification
 
@@ -160,11 +162,9 @@ class Configuration:
       values before.
     :param ssl_ca_cert: str - the path to a file of concatenated CA certificates
       in PEM format.
-    :param retries: int | urllib3.util.retry.Retry - Retry configuration.
+    :param retries: Number of retries for API requests.
     :param ca_cert_data: verify the peer using concatenated CA certificate data
       in PEM (str) or DER (bytes) format.
-    :param cert_file: the path to a client certificate file, for mTLS.
-    :param key_file: the path to a client key file, for mTLS.
 
     :Example:
 
@@ -204,10 +204,8 @@ conf = lance_namespace_urllib3_client.Configuration(
         server_operation_variables: Optional[Dict[int, ServerVariablesT]]=None,
         ignore_operation_servers: bool=False,
         ssl_ca_cert: Optional[str]=None,
-        retries: Optional[Union[int, Any]] = None,
+        retries: Optional[int] = None,
         ca_cert_data: Optional[Union[str, bytes]] = None,
-        cert_file: Optional[str]=None,
-        key_file: Optional[str]=None,
         *,
         debug: Optional[bool] = None,
     ) -> None:
@@ -289,10 +287,10 @@ conf = lance_namespace_urllib3_client.Configuration(
         """Set this to verify the peer using PEM (str) or DER (bytes)
            certificate data.
         """
-        self.cert_file = cert_file
+        self.cert_file = None
         """client certificate file
         """
-        self.key_file = key_file
+        self.key_file = None
         """client key file
         """
         self.assert_hostname = None
@@ -321,7 +319,7 @@ conf = lance_namespace_urllib3_client.Configuration(
         """Safe chars for path_param
         """
         self.retries = retries
-        """Retry configuration
+        """Adding retries to override urllib3 default value 3
         """
         # Enable client side validation
         self.client_side_validation = True
@@ -505,7 +503,6 @@ conf = lance_namespace_urllib3_client.Configuration(
         password = ""
         if self.password is not None:
             password = self.password
-
         return urllib3.util.make_headers(
             basic_auth=username + ':' + password
         ).get('authorization')
@@ -634,7 +631,6 @@ conf = lance_namespace_urllib3_client.Configuration(
                 variable_name, variable['default_value'])
 
             if 'enum_values' in variable \
-                    and variable['enum_values'] \
                     and used_value not in variable['enum_values']:
                 raise ValueError(
                     "The variable `{0}` in the host URL has invalid value "

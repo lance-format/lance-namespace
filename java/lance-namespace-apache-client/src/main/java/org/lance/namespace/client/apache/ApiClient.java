@@ -71,17 +71,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class ApiClient extends JavaTimeFormatter {
-  protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
-  protected Map<String, String> defaultCookieMap = new HashMap<String, String>();
-  protected String basePath = "http://localhost:2333";
+  private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
+  private Map<String, String> defaultCookieMap = new HashMap<String, String>();
+  private String basePath = "http://localhost:2333";
   protected List<ServerConfiguration> servers =
       new ArrayList<ServerConfiguration>(
           Arrays.asList(
@@ -127,22 +128,23 @@ public class ApiClient extends JavaTimeFormatter {
                   })));
   protected Integer serverIndex = 0;
   protected Map<String, String> serverVariables = null;
-  protected boolean debugging = false;
-  protected int connectionTimeout = 0;
+  private boolean debugging = false;
+  private int connectionTimeout = 0;
 
-  protected CloseableHttpClient httpClient;
-  protected ObjectMapper objectMapper;
+  private CloseableHttpClient httpClient;
+  private ObjectMapper objectMapper;
   protected String tempFolderPath = null;
 
-  protected Map<String, Authentication> authentications;
+  private Map<String, Authentication> authentications;
 
-  protected ThreadLocal<Integer> lastStatusCode = new ThreadLocal<>();
-  protected ThreadLocal<Map<String, List<String>>> lastResponseHeaders = new ThreadLocal<>();
+  private Map<Long, Integer> lastStatusCodeByThread = new ConcurrentHashMap<>();
+  private Map<Long, Map<String, List<String>>> lastResponseHeadersByThread =
+      new ConcurrentHashMap<>();
 
-  protected DateFormat dateFormat;
+  private DateFormat dateFormat;
 
   // Methods that can have a request body
-  protected static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
+  private static List<String> bodyMethods = Arrays.asList("POST", "PUT", "DELETE", "PATCH");
 
   public ApiClient(CloseableHttpClient httpClient) {
     objectMapper = new ObjectMapper();
@@ -154,7 +156,6 @@ public class ApiClient extends JavaTimeFormatter {
     objectMapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
     objectMapper.registerModule(new JavaTimeModule());
     objectMapper.registerModule(new JsonNullableModule());
-    objectMapper.registerModule(new RFC3339JavaTimeModule());
     objectMapper.setDateFormat(ApiClient.buildDefaultDateFormat());
 
     dateFormat = ApiClient.buildDefaultDateFormat();
@@ -287,7 +288,7 @@ public class ApiClient extends JavaTimeFormatter {
    */
   @Deprecated
   public int getStatusCode() {
-    return lastStatusCode.get();
+    return lastStatusCodeByThread.get(Thread.currentThread().getId());
   }
 
   /**
@@ -297,7 +298,7 @@ public class ApiClient extends JavaTimeFormatter {
    */
   @Deprecated
   public Map<String, List<String>> getResponseHeaders() {
-    return lastResponseHeaders.get();
+    return lastResponseHeadersByThread.get(Thread.currentThread().getId());
   }
 
   /**
@@ -437,7 +438,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @param value The header's value
    * @return API client
    */
-  public final ApiClient addDefaultHeader(String key, String value) {
+  public ApiClient addDefaultHeader(String key, String value) {
     defaultHeaderMap.put(key, value);
     return this;
   }
@@ -728,7 +729,7 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /** Parse content type object from header value */
-  protected ContentType getContentType(String headerValue) throws ApiException {
+  private ContentType getContentType(String headerValue) throws ApiException {
     try {
       return ContentType.parse(headerValue);
     } catch (UnsupportedCharsetException e) {
@@ -737,7 +738,7 @@ public class ApiClient extends JavaTimeFormatter {
   }
 
   /** Get content type of a response or null if one was not provided */
-  protected String getResponseMimeType(HttpResponse response) throws ApiException {
+  private String getResponseMimeType(HttpResponse response) throws ApiException {
     Header contentTypeHeader = response.getFirstHeader("Content-Type");
     if (contentTypeHeader != null) {
       return getContentType(contentTypeHeader.getValue()).getMimeType();
@@ -856,7 +857,7 @@ public class ApiClient extends JavaTimeFormatter {
     }
   }
 
-  protected File downloadFileFromResponse(CloseableHttpResponse response) throws IOException {
+  private File downloadFileFromResponse(CloseableHttpResponse response) throws IOException {
     Header contentDispositionHeader = response.getFirstHeader("Content-Disposition");
     String contentDisposition =
         contentDispositionHeader == null ? null : contentDispositionHeader.getValue();
@@ -907,10 +908,8 @@ public class ApiClient extends JavaTimeFormatter {
       if (serverIndex < 0 || serverIndex >= servers.size()) {
         throw new ArrayIndexOutOfBoundsException(
             String.format(
-                java.util.Locale.ROOT,
                 "Invalid index %d when selecting the host settings. Must be less than %d",
-                serverIndex,
-                servers.size()));
+                serverIndex, servers.size()));
       }
       baseURL = servers.get(serverIndex).URL(serverVariables);
     } else {
@@ -928,7 +927,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @param urlQueryDeepObject URL query string of the deep object parameters
    * @return The full URL
    */
-  protected String buildUrl(
+  private String buildUrl(
       String path,
       List<Pair> queryParams,
       List<Pair> collectionQueryParams,
@@ -999,13 +998,13 @@ public class ApiClient extends JavaTimeFormatter {
   protected <T> T processResponse(CloseableHttpResponse response, TypeReference<T> returnType)
       throws ApiException, IOException, ParseException {
     int statusCode = response.getCode();
-    lastStatusCode.set(statusCode);
+    lastStatusCodeByThread.put(Thread.currentThread().getId(), statusCode);
     if (statusCode == HttpStatus.SC_NO_CONTENT) {
       return null;
     }
 
     Map<String, List<String>> responseHeaders = transformResponseHeaders(response.getHeaders());
-    lastResponseHeaders.set(responseHeaders);
+    lastResponseHeadersByThread.put(Thread.currentThread().getId(), responseHeaders);
 
     if (isSuccessfulStatus(statusCode)) {
       return this.deserialize(response, returnType);
@@ -1113,7 +1112,7 @@ public class ApiClient extends JavaTimeFormatter {
    * @param headerParams Header parameters
    * @param cookieParams Cookie parameters
    */
-  protected void updateParamsForAuth(
+  private void updateParamsForAuth(
       String[] authNames,
       List<Pair> queryParams,
       Map<String, String> headerParams,

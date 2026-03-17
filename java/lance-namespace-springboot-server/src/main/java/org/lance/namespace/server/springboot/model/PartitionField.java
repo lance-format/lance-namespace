@@ -28,7 +28,7 @@ import java.util.Objects;
 @Schema(name = "PartitionField", description = "Partition field definition")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class PartitionField {
 
   private String fieldId;
@@ -175,6 +175,7 @@ public class PartitionField {
   @Valid
   @Schema(
       name = "result_type",
+      example = "{type=int32}",
       description = "The output type of the partition value (JsonArrowDataType format)",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("result_type")

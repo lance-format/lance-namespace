@@ -36,7 +36,7 @@ import java.util.StringJoiner;
 
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class TransactionApi extends BaseApi {
 
   public TransactionApi() {
@@ -64,9 +64,7 @@ public class TransactionApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTransactionResponse alterTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTransactionRequest alterTransactionRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, AlterTransactionRequest alterTransactionRequest, String delimiter)
       throws ApiException {
     return this.alterTransaction(id, alterTransactionRequest, delimiter, Collections.emptyMap());
   }
@@ -89,9 +87,9 @@ public class TransactionApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public AlterTransactionResponse alterTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTransactionRequest alterTransactionRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      AlterTransactionRequest alterTransactionRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = alterTransactionRequest;
@@ -171,9 +169,7 @@ public class TransactionApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchCommitTablesResponse batchCommitTables(
-      @javax.annotation.Nonnull BatchCommitTablesRequest batchCommitTablesRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
+      BatchCommitTablesRequest batchCommitTablesRequest, String delimiter) throws ApiException {
     return this.batchCommitTables(batchCommitTablesRequest, delimiter, Collections.emptyMap());
   }
 
@@ -196,8 +192,8 @@ public class TransactionApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public BatchCommitTablesResponse batchCommitTables(
-      @javax.annotation.Nonnull BatchCommitTablesRequest batchCommitTablesRequest,
-      @javax.annotation.Nullable String delimiter,
+      BatchCommitTablesRequest batchCommitTablesRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = batchCommitTablesRequest;
@@ -265,9 +261,7 @@ public class TransactionApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTransactionResponse describeTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTransactionRequest describeTransactionRequest,
-      @javax.annotation.Nullable String delimiter)
+      String id, DescribeTransactionRequest describeTransactionRequest, String delimiter)
       throws ApiException {
     return this.describeTransaction(
         id, describeTransactionRequest, delimiter, Collections.emptyMap());
@@ -289,9 +283,9 @@ public class TransactionApi extends BaseApi {
    * @throws ApiException if fails to make API call
    */
   public DescribeTransactionResponse describeTransaction(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DescribeTransactionRequest describeTransactionRequest,
-      @javax.annotation.Nullable String delimiter,
+      String id,
+      DescribeTransactionRequest describeTransactionRequest,
+      String delimiter,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeTransactionRequest;

@@ -29,7 +29,7 @@ import java.util.Objects;
 /** CreateTableIndexRequest */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class CreateTableIndexRequest {
 
   private Identity identity;
@@ -330,7 +330,7 @@ public class CreateTableIndexRequest {
    *
    * @return maxTokenLength
    */
-  @Min(value = 0)
+  @Min(0)
   @Schema(
       name = "max_token_length",
       description = "Optional FTS parameter for maximum token length",

@@ -31,7 +31,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class ListTableVersionsResponse {
   public static final String JSON_PROPERTY_VERSIONS = "versions";
   @javax.annotation.Nonnull private List<TableVersion> versions = new ArrayList<>();
@@ -62,13 +62,13 @@ public class ListTableVersionsResponse {
    * @return versions
    */
   @javax.annotation.Nonnull
-  @JsonProperty(value = JSON_PROPERTY_VERSIONS, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<TableVersion> getVersions() {
     return versions;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSIONS, required = true)
+  @JsonProperty(JSON_PROPERTY_VERSIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVersions(@javax.annotation.Nonnull List<TableVersion> versions) {
     this.versions = versions;
@@ -93,13 +93,13 @@ public class ListTableVersionsResponse {
    * @return pageToken
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getPageToken() {
     return pageToken;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PAGE_TOKEN, required = false)
+  @JsonProperty(JSON_PROPERTY_PAGE_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPageToken(@javax.annotation.Nullable String pageToken) {
     this.pageToken = pageToken;
@@ -184,18 +184,12 @@ public class ListTableVersionsResponse {
                   .get(i)
                   .toUrlQueryString(
                       String.format(
-                          java.util.Locale.ROOT,
                           "%sversions%s%s",
                           prefix,
                           suffix,
                           "".equals(suffix)
                               ? ""
-                              : String.format(
-                                  java.util.Locale.ROOT,
-                                  "%s%d%s",
-                                  containerPrefix,
-                                  i,
-                                  containerSuffix))));
+                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }
@@ -205,7 +199,6 @@ public class ListTableVersionsResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%spage_token%s=%s",
                 prefix,
                 suffix,

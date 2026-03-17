@@ -42,7 +42,7 @@ import java.util.StringJoiner;
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
-    comments = "Generator version: 7.20.0")
+    comments = "Generator version: 7.12.0")
 public class DescribeTableResponse {
   public static final String JSON_PROPERTY_TABLE = "table";
   @javax.annotation.Nullable private String table;
@@ -91,13 +91,13 @@ public class DescribeTableResponse {
    * @return table
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TABLE, required = false)
+  @JsonProperty(JSON_PROPERTY_TABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTable() {
     return table;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TABLE, required = false)
+  @JsonProperty(JSON_PROPERTY_TABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTable(@javax.annotation.Nullable String table) {
     this.table = table;
@@ -124,13 +124,13 @@ public class DescribeTableResponse {
    * @return namespace
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<String> getNamespace() {
     return namespace;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_NAMESPACE, required = false)
+  @JsonProperty(JSON_PROPERTY_NAMESPACE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNamespace(@javax.annotation.Nullable List<String> namespace) {
     this.namespace = namespace;
@@ -149,13 +149,13 @@ public class DescribeTableResponse {
    * @return version
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Long getVersion() {
     return version;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_VERSION, required = false)
+  @JsonProperty(JSON_PROPERTY_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
@@ -173,13 +173,13 @@ public class DescribeTableResponse {
    * @return location
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
+  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getLocation() {
     return location;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_LOCATION, required = false)
+  @JsonProperty(JSON_PROPERTY_LOCATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(@javax.annotation.Nullable String location) {
     this.location = location;
@@ -198,13 +198,13 @@ public class DescribeTableResponse {
    * @return tableUri
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_TABLE_URI, required = false)
+  @JsonProperty(JSON_PROPERTY_TABLE_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getTableUri() {
     return tableUri;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_TABLE_URI, required = false)
+  @JsonProperty(JSON_PROPERTY_TABLE_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTableUri(@javax.annotation.Nullable String tableUri) {
     this.tableUri = tableUri;
@@ -223,13 +223,13 @@ public class DescribeTableResponse {
    * @return schema
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_SCHEMA, required = false)
+  @JsonProperty(JSON_PROPERTY_SCHEMA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public JsonArrowSchema getSchema() {
     return schema;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_SCHEMA, required = false)
+  @JsonProperty(JSON_PROPERTY_SCHEMA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSchema(@javax.annotation.Nullable JsonArrowSchema schema) {
     this.schema = schema;
@@ -260,13 +260,13 @@ public class DescribeTableResponse {
    * @return storageOptions
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getStorageOptions() {
     return storageOptions;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_STORAGE_OPTIONS, required = false)
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStorageOptions(@javax.annotation.Nullable Map<String, String> storageOptions) {
     this.storageOptions = storageOptions;
@@ -284,13 +284,13 @@ public class DescribeTableResponse {
    * @return stats
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_STATS, required = false)
+  @JsonProperty(JSON_PROPERTY_STATS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public TableBasicStats getStats() {
     return stats;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_STATS, required = false)
+  @JsonProperty(JSON_PROPERTY_STATS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStats(@javax.annotation.Nullable TableBasicStats stats) {
     this.stats = stats;
@@ -318,13 +318,13 @@ public class DescribeTableResponse {
    * @return metadata
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getMetadata() {
     return metadata;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_METADATA, required = false)
+  @JsonProperty(JSON_PROPERTY_METADATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(@javax.annotation.Nullable Map<String, String> metadata) {
     this.metadata = metadata;
@@ -354,13 +354,13 @@ public class DescribeTableResponse {
    * @return properties
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, String> getProperties() {
     return properties;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_PROPERTIES, required = false)
+  @JsonProperty(JSON_PROPERTY_PROPERTIES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperties(@javax.annotation.Nullable Map<String, String> properties) {
     this.properties = properties;
@@ -381,13 +381,13 @@ public class DescribeTableResponse {
    * @return managedVersioning
    */
   @javax.annotation.Nullable
-  @JsonProperty(value = JSON_PROPERTY_MANAGED_VERSIONING, required = false)
+  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getManagedVersioning() {
     return managedVersioning;
   }
 
-  @JsonProperty(value = JSON_PROPERTY_MANAGED_VERSIONING, required = false)
+  @JsonProperty(JSON_PROPERTY_MANAGED_VERSIONING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setManagedVersioning(@javax.annotation.Nullable Boolean managedVersioning) {
     this.managedVersioning = managedVersioning;
@@ -497,7 +497,6 @@ public class DescribeTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stable%s=%s",
                 prefix,
                 suffix,
@@ -514,14 +513,12 @@ public class DescribeTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%snamespace%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
                   URLEncoder.encode(String.valueOf(getNamespace().get(i)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
@@ -536,7 +533,6 @@ public class DescribeTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%sversion%s=%s",
                 prefix,
                 suffix,
@@ -552,7 +548,6 @@ public class DescribeTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%slocation%s=%s",
                 prefix,
                 suffix,
@@ -569,7 +564,6 @@ public class DescribeTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%stable_uri%s=%s",
                 prefix,
                 suffix,
@@ -592,14 +586,12 @@ public class DescribeTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sstorage_options%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getStorageOptions().get(_key),
                   URLEncoder.encode(String.valueOf(getStorageOptions().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -621,14 +613,12 @@ public class DescribeTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%smetadata%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getMetadata().get(_key),
                   URLEncoder.encode(String.valueOf(getMetadata().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -645,14 +635,12 @@ public class DescribeTableResponse {
         try {
           joiner.add(
               String.format(
-                  java.util.Locale.ROOT,
                   "%sproperties%s%s=%s",
                   prefix,
                   suffix,
                   "".equals(suffix)
                       ? ""
-                      : String.format(
-                          java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getProperties().get(_key),
                   URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
@@ -668,7 +656,6 @@ public class DescribeTableResponse {
       try {
         joiner.add(
             String.format(
-                java.util.Locale.ROOT,
                 "%smanaged_versioning%s=%s",
                 prefix,
                 suffix,
