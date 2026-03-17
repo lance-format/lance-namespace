@@ -35,8 +35,6 @@ import org.lance.namespace.model.UpdateTableResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -46,7 +44,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -55,27 +52,6 @@ import java.util.function.Consumer;
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class DataApi {
-  /** Utility class for extending HttpRequest.Builder functionality. */
-  private static class HttpRequestBuilderExtensions {
-    /**
-     * Adds additional headers to the provided HttpRequest.Builder. Useful for adding
-     * method/endpoint specific headers.
-     *
-     * @param builder the HttpRequest.Builder to which headers will be added
-     * @param headers a map of header names and values to add; may be null
-     * @return the same HttpRequest.Builder instance with the additional headers set
-     */
-    static HttpRequest.Builder withAdditionalHeaders(
-        HttpRequest.Builder builder, Map<String, String> headers) {
-      if (headers != null) {
-        for (Map.Entry<String, String> entry : headers.entrySet()) {
-          builder.header(entry.getKey(), entry.getValue());
-        }
-      }
-      return builder;
-    }
-  }
-
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
   private final String memberVarBaseUri;
@@ -98,19 +74,9 @@ public class DataApi {
     memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
   }
 
-  private ApiException getApiException(
-      String operationId, HttpResponse<?> response, InputStream responseBody) {
-    try {
-      String body = null;
-      if (responseBody != null) {
-        body = new String(responseBody.readAllBytes());
-        responseBody.close();
-      }
-      String message = formatExceptionMessage(operationId, response.statusCode(), body);
-      return new ApiException(response.statusCode(), message, response.headers(), body);
-    } catch (IOException e) {
-      return new ApiException(e);
-    }
+  private ApiException getApiException(String operationId, HttpResponse<String> response) {
+    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
+    return new ApiException(response.statusCode(), message, response.headers(), response.body());
   }
 
   private String formatExceptionMessage(String operationId, int statusCode, String body) {
@@ -120,105 +86,6 @@ public class DataApi {
     return operationId + " call failed with: " + statusCode + " - " + body;
   }
 
-  private HttpResponse<String> toStringResponse(
-      HttpResponse<InputStream> response, String responseBody) {
-    return new HttpResponse<String>() {
-      @Override
-      public int statusCode() {
-        return response.statusCode();
-      }
-
-      @Override
-      public HttpRequest request() {
-        return response.request();
-      }
-
-      @Override
-      public java.util.Optional<HttpResponse<String>> previousResponse() {
-        return java.util.Optional.empty();
-      }
-
-      @Override
-      public java.net.http.HttpHeaders headers() {
-        return response.headers();
-      }
-
-      @Override
-      public String body() {
-        return responseBody;
-      }
-
-      @Override
-      public java.util.Optional<javax.net.ssl.SSLSession> sslSession() {
-        return response.sslSession();
-      }
-
-      @Override
-      public URI uri() {
-        return response.uri();
-      }
-
-      @Override
-      public HttpClient.Version version() {
-        return response.version();
-      }
-    };
-  }
-
-  /**
-   * Download file from the given response.
-   *
-   * @param response Response
-   * @return File
-   * @throws ApiException If fail to read file content from response and write to disk
-   */
-  public File downloadFileFromResponse(HttpResponse<InputStream> response, InputStream responseBody)
-      throws ApiException {
-    if (responseBody == null) {
-      throw new ApiException(new IOException("Response body is empty"));
-    }
-    try {
-      File file = prepareDownloadFile(response);
-      java.nio.file.Files.copy(
-          responseBody, file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-      return file;
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-  }
-
-  /**
-   * Prepare the file for download from the response.
-   *
-   * @param response a {@link java.net.http.HttpResponse} object.
-   * @return a {@link java.io.File} object.
-   * @throws java.io.IOException if any.
-   */
-  private File prepareDownloadFile(HttpResponse<InputStream> response) throws IOException {
-    String filename = null;
-    java.util.Optional<String> contentDisposition =
-        response.headers().firstValue("Content-Disposition");
-    if (contentDisposition.isPresent() && !"".equals(contentDisposition.get())) {
-      // Get filename from the Content-Disposition header.
-      java.util.regex.Pattern pattern =
-          java.util.regex.Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
-      java.util.regex.Matcher matcher = pattern.matcher(contentDisposition.get());
-      if (matcher.find()) filename = matcher.group(1);
-    }
-    File file = null;
-    if (filename != null) {
-      java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("swagger-gen-native");
-      java.nio.file.Path filePath = java.nio.file.Files.createFile(tempDir.resolve(filename));
-      file = filePath.toFile();
-      tempDir.toFile().deleteOnExit(); // best effort cleanup
-      file.deleteOnExit(); // best effort cleanup
-    } else {
-      file = java.nio.file.Files.createTempFile("download-", "").toFile();
-      file.deleteOnExit(); // best effort cleanup
-    }
-    return file;
-  }
-
   /**
    * Add new columns to table schema Add new columns to table &#x60;id&#x60; using SQL expressions
    * or default values.
@@ -235,38 +102,30 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<AlterTableAddColumnsResponse> alterTableAddColumns(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTableAddColumnsRequest alterTableAddColumnsRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return alterTableAddColumns(id, alterTableAddColumnsRequest, delimiter, null);
-  }
-
-  /**
-   * Add new columns to table schema Add new columns to table &#x60;id&#x60; using SQL expressions
-   * or default values.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param alterTableAddColumnsRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;AlterTableAddColumnsResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<AlterTableAddColumnsResponse> alterTableAddColumns(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTableAddColumnsRequest alterTableAddColumnsRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, AlterTableAddColumnsRequest alterTableAddColumnsRequest, String delimiter)
       throws ApiException {
     try {
-      return alterTableAddColumnsWithHttpInfo(id, alterTableAddColumnsRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          alterTableAddColumnsRequestBuilder(id, alterTableAddColumnsRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("alterTableAddColumns", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<AlterTableAddColumnsResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -289,87 +148,33 @@ public class DataApi {
    */
   public CompletableFuture<ApiResponse<AlterTableAddColumnsResponse>>
       alterTableAddColumnsWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull AlterTableAddColumnsRequest alterTableAddColumnsRequest,
-          @javax.annotation.Nullable String delimiter)
-          throws ApiException {
-    return alterTableAddColumnsWithHttpInfo(id, alterTableAddColumnsRequest, delimiter, null);
-  }
-
-  /**
-   * Add new columns to table schema Add new columns to table &#x60;id&#x60; using SQL expressions
-   * or default values.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param alterTableAddColumnsRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;AlterTableAddColumnsResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<AlterTableAddColumnsResponse>>
-      alterTableAddColumnsWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull AlterTableAddColumnsRequest alterTableAddColumnsRequest,
-          @javax.annotation.Nullable String delimiter,
-          Map<String, String> headers)
+          String id, AlterTableAddColumnsRequest alterTableAddColumnsRequest, String delimiter)
           throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          alterTableAddColumnsRequestBuilder(id, alterTableAddColumnsRequest, delimiter, headers);
+          alterTableAddColumnsRequestBuilder(id, alterTableAddColumnsRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("alterTableAddColumns", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "alterTableAddColumns", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<AlterTableAddColumnsResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    AlterTableAddColumnsResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<AlterTableAddColumnsResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<AlterTableAddColumnsResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<AlterTableAddColumnsResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody,
+                                  new TypeReference<AlterTableAddColumnsResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -380,10 +185,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder alterTableAddColumnsRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AlterTableAddColumnsRequest alterTableAddColumnsRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, AlterTableAddColumnsRequest alterTableAddColumnsRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -434,9 +236,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -461,40 +260,30 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<String> analyzeTableQueryPlan(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return analyzeTableQueryPlan(id, analyzeTableQueryPlanRequest, delimiter, null);
-  }
-
-  /**
-   * Analyze query execution plan Analyze the query execution plan for a query against table
-   * &#x60;id&#x60;. Returns detailed statistics and analysis of the query execution plan. REST
-   * NAMESPACE ONLY REST namespace returns the response as a plain string instead of the
-   * &#x60;AnalyzeTableQueryPlanResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param analyzeTableQueryPlanRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<String> analyzeTableQueryPlan(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest, String delimiter)
       throws ApiException {
     try {
-      return analyzeTableQueryPlanWithHttpInfo(id, analyzeTableQueryPlanRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          analyzeTableQueryPlanRequestBuilder(id, analyzeTableQueryPlanRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("analyzeTableQueryPlan", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<String>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -518,88 +307,32 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<String>> analyzeTableQueryPlanWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return analyzeTableQueryPlanWithHttpInfo(id, analyzeTableQueryPlanRequest, delimiter, null);
-  }
-
-  /**
-   * Analyze query execution plan Analyze the query execution plan for a query against table
-   * &#x60;id&#x60;. Returns detailed statistics and analysis of the query execution plan. REST
-   * NAMESPACE ONLY REST namespace returns the response as a plain string instead of the
-   * &#x60;AnalyzeTableQueryPlanResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param analyzeTableQueryPlanRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;String&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<String>> analyzeTableQueryPlanWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest, String delimiter)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          analyzeTableQueryPlanRequestBuilder(id, analyzeTableQueryPlanRequest, delimiter, headers);
+          analyzeTableQueryPlanRequestBuilder(id, analyzeTableQueryPlanRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("analyzeTableQueryPlan", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "analyzeTableQueryPlan", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<String>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    String responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<String>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<String>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<String>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<String>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -610,10 +343,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder analyzeTableQueryPlanRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, AnalyzeTableQueryPlanRequest analyzeTableQueryPlanRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -664,9 +394,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -690,39 +417,30 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<Long> countTableRows(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CountTableRowsRequest countTableRowsRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return countTableRows(id, countTableRowsRequest, delimiter, null);
-  }
-
-  /**
-   * Count rows in a table Count the number of rows in table &#x60;id&#x60; REST NAMESPACE ONLY REST
-   * namespace returns the response as a plain integer instead of the
-   * &#x60;CountTableRowsResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param countTableRowsRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;Long&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Long> countTableRows(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CountTableRowsRequest countTableRowsRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CountTableRowsRequest countTableRowsRequest, String delimiter)
       throws ApiException {
     try {
-      return countTableRowsWithHttpInfo(id, countTableRowsRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          countTableRowsRequestBuilder(id, countTableRowsRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("countTableRows", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<Long>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -745,86 +463,32 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<Long>> countTableRowsWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CountTableRowsRequest countTableRowsRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return countTableRowsWithHttpInfo(id, countTableRowsRequest, delimiter, null);
-  }
-
-  /**
-   * Count rows in a table Count the number of rows in table &#x60;id&#x60; REST NAMESPACE ONLY REST
-   * namespace returns the response as a plain integer instead of the
-   * &#x60;CountTableRowsResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param countTableRowsRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;Long&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Long>> countTableRowsWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CountTableRowsRequest countTableRowsRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CountTableRowsRequest countTableRowsRequest, String delimiter)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          countTableRowsRequestBuilder(id, countTableRowsRequest, delimiter, headers);
+          countTableRowsRequestBuilder(id, countTableRowsRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("countTableRows", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException("countTableRows", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<Long>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    Long responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<Long>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<Long>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<Long>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<Long>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -835,10 +499,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder countTableRowsRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CountTableRowsRequest countTableRowsRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CountTableRowsRequest countTableRowsRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -888,9 +549,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -918,45 +576,29 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<CreateTableResponse> createTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode)
-      throws ApiException {
-    return createTable(id, body, delimiter, mode, null);
-  }
-
-  /**
-   * Create a table with the given name Create table &#x60;id&#x60; in the namespace with the given
-   * data in Arrow IPC stream. The schema of the Arrow IPC stream is used as the table schema. If
-   * the stream is empty, the API creates a new empty table. REST NAMESPACE ONLY REST namespace uses
-   * Arrow IPC stream as the request body. It passes in the &#x60;CreateTableRequest&#x60;
-   * information in the following way: - &#x60;id&#x60;: pass through path parameter of the same
-   * name - &#x60;mode&#x60;: pass through query parameter of the same name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param body Arrow IPC data (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param mode (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;CreateTableResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<CreateTableResponse> createTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, byte[] body, String delimiter, String mode) throws ApiException {
     try {
-      return createTableWithHttpInfo(id, body, delimiter, mode, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          createTableRequestBuilder(id, body, delimiter, mode);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("createTable", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<CreateTableResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -983,92 +625,31 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<CreateTableResponse>> createTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode)
-      throws ApiException {
-    return createTableWithHttpInfo(id, body, delimiter, mode, null);
-  }
-
-  /**
-   * Create a table with the given name Create table &#x60;id&#x60; in the namespace with the given
-   * data in Arrow IPC stream. The schema of the Arrow IPC stream is used as the table schema. If
-   * the stream is empty, the API creates a new empty table. REST NAMESPACE ONLY REST namespace uses
-   * Arrow IPC stream as the request body. It passes in the &#x60;CreateTableRequest&#x60;
-   * information in the following way: - &#x60;id&#x60;: pass through path parameter of the same
-   * name - &#x60;mode&#x60;: pass through query parameter of the same name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param body Arrow IPC data (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param mode (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;CreateTableResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<CreateTableResponse>> createTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, byte[] body, String delimiter, String mode) throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          createTableRequestBuilder(id, body, delimiter, mode, headers);
+          createTableRequestBuilder(id, body, delimiter, mode);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("createTable", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException("createTable", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<CreateTableResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    CreateTableResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<CreateTableResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<CreateTableResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<CreateTableResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<CreateTableResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -1079,12 +660,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder createTableRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, byte[] body, String delimiter, String mode) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling createTable");
@@ -1132,9 +708,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -1156,37 +729,30 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<DeleteFromTableResponse> deleteFromTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeleteFromTableRequest deleteFromTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return deleteFromTable(id, deleteFromTableRequest, delimiter, null);
-  }
-
-  /**
-   * Delete rows from a table Delete rows from table &#x60;id&#x60;.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param deleteFromTableRequest Delete request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;DeleteFromTableResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<DeleteFromTableResponse> deleteFromTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeleteFromTableRequest deleteFromTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, DeleteFromTableRequest deleteFromTableRequest, String delimiter)
       throws ApiException {
     try {
-      return deleteFromTableWithHttpInfo(id, deleteFromTableRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          deleteFromTableRequestBuilder(id, deleteFromTableRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("deleteFromTable", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<DeleteFromTableResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -1207,84 +773,32 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<DeleteFromTableResponse>> deleteFromTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeleteFromTableRequest deleteFromTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return deleteFromTableWithHttpInfo(id, deleteFromTableRequest, delimiter, null);
-  }
-
-  /**
-   * Delete rows from a table Delete rows from table &#x60;id&#x60;.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param deleteFromTableRequest Delete request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;DeleteFromTableResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<DeleteFromTableResponse>> deleteFromTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeleteFromTableRequest deleteFromTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, DeleteFromTableRequest deleteFromTableRequest, String delimiter)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          deleteFromTableRequestBuilder(id, deleteFromTableRequest, delimiter, headers);
+          deleteFromTableRequestBuilder(id, deleteFromTableRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("deleteFromTable", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException("deleteFromTable", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<DeleteFromTableResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    DeleteFromTableResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<DeleteFromTableResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<DeleteFromTableResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<DeleteFromTableResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<DeleteFromTableResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -1295,10 +809,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder deleteFromTableRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull DeleteFromTableRequest deleteFromTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, DeleteFromTableRequest deleteFromTableRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -1348,9 +859,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -1375,40 +883,30 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<String> explainTableQueryPlan(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return explainTableQueryPlan(id, explainTableQueryPlanRequest, delimiter, null);
-  }
-
-  /**
-   * Get query execution plan explanation Get the query execution plan for a query against table
-   * &#x60;id&#x60;. Returns a human-readable explanation of how the query will be executed. REST
-   * NAMESPACE ONLY REST namespace returns the response as a plain string instead of the
-   * &#x60;ExplainTableQueryPlanResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param explainTableQueryPlanRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;String&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<String> explainTableQueryPlan(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, ExplainTableQueryPlanRequest explainTableQueryPlanRequest, String delimiter)
       throws ApiException {
     try {
-      return explainTableQueryPlanWithHttpInfo(id, explainTableQueryPlanRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          explainTableQueryPlanRequestBuilder(id, explainTableQueryPlanRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("explainTableQueryPlan", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<String>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -1432,88 +930,32 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<String>> explainTableQueryPlanWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return explainTableQueryPlanWithHttpInfo(id, explainTableQueryPlanRequest, delimiter, null);
-  }
-
-  /**
-   * Get query execution plan explanation Get the query execution plan for a query against table
-   * &#x60;id&#x60;. Returns a human-readable explanation of how the query will be executed. REST
-   * NAMESPACE ONLY REST namespace returns the response as a plain string instead of the
-   * &#x60;ExplainTableQueryPlanResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param explainTableQueryPlanRequest (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;String&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<String>> explainTableQueryPlanWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, ExplainTableQueryPlanRequest explainTableQueryPlanRequest, String delimiter)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          explainTableQueryPlanRequestBuilder(id, explainTableQueryPlanRequest, delimiter, headers);
+          explainTableQueryPlanRequestBuilder(id, explainTableQueryPlanRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("explainTableQueryPlan", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "explainTableQueryPlan", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<String>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    String responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<String>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<String>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<String>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<String>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -1524,10 +966,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder explainTableQueryPlanRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ExplainTableQueryPlanRequest explainTableQueryPlanRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, ExplainTableQueryPlanRequest explainTableQueryPlanRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -1578,9 +1017,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -1610,47 +1046,29 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<InsertIntoTableResponse> insertIntoTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode)
-      throws ApiException {
-    return insertIntoTable(id, body, delimiter, mode, null);
-  }
-
-  /**
-   * Insert records into a table Insert new records into table &#x60;id&#x60;. REST NAMESPACE ONLY
-   * REST namespace uses Arrow IPC stream as the request body. It passes in the
-   * &#x60;InsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;: pass
-   * through path parameter of the same name - &#x60;mode&#x60;: pass through query parameter of the
-   * same name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param body Arrow IPC stream containing the records to insert (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param mode How the insert should behave. Case insensitive, supports both PascalCase and
-   *     snake_case. Valid values are: - Append (default): insert data to the existing table -
-   *     Overwrite: remove all data in the table and then insert data to it (optional, default to
-   *     append)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;InsertIntoTableResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<InsertIntoTableResponse> insertIntoTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, byte[] body, String delimiter, String mode) throws ApiException {
     try {
-      return insertIntoTableWithHttpInfo(id, body, delimiter, mode, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          insertIntoTableRequestBuilder(id, body, delimiter, mode);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("insertIntoTable", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<InsertIntoTableResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -1679,94 +1097,31 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<InsertIntoTableResponse>> insertIntoTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode)
-      throws ApiException {
-    return insertIntoTableWithHttpInfo(id, body, delimiter, mode, null);
-  }
-
-  /**
-   * Insert records into a table Insert new records into table &#x60;id&#x60;. REST NAMESPACE ONLY
-   * REST namespace uses Arrow IPC stream as the request body. It passes in the
-   * &#x60;InsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;: pass
-   * through path parameter of the same name - &#x60;mode&#x60;: pass through query parameter of the
-   * same name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param body Arrow IPC stream containing the records to insert (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param mode How the insert should behave. Case insensitive, supports both PascalCase and
-   *     snake_case. Valid values are: - Append (default): insert data to the existing table -
-   *     Overwrite: remove all data in the table and then insert data to it (optional, default to
-   *     append)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;InsertIntoTableResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<InsertIntoTableResponse>> insertIntoTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, byte[] body, String delimiter, String mode) throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          insertIntoTableRequestBuilder(id, body, delimiter, mode, headers);
+          insertIntoTableRequestBuilder(id, body, delimiter, mode);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("insertIntoTable", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException("insertIntoTable", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<InsertIntoTableResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    InsertIntoTableResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<InsertIntoTableResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<InsertIntoTableResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<InsertIntoTableResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<InsertIntoTableResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -1777,12 +1132,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder insertIntoTableRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable String mode,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, byte[] body, String delimiter, String mode) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(
@@ -1832,9 +1182,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -1879,87 +1226,21 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<MergeInsertIntoTableResponse> mergeInsertIntoTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String on,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable Boolean whenMatchedUpdateAll,
-      @javax.annotation.Nullable String whenMatchedUpdateAllFilt,
-      @javax.annotation.Nullable Boolean whenNotMatchedInsertAll,
-      @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete,
-      @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt,
-      @javax.annotation.Nullable String timeout,
-      @javax.annotation.Nullable Boolean useIndex)
-      throws ApiException {
-    return mergeInsertIntoTable(
-        id,
-        on,
-        body,
-        delimiter,
-        whenMatchedUpdateAll,
-        whenMatchedUpdateAllFilt,
-        whenNotMatchedInsertAll,
-        whenNotMatchedBySourceDelete,
-        whenNotMatchedBySourceDeleteFilt,
-        timeout,
-        useIndex,
-        null);
-  }
-
-  /**
-   * Merge insert (upsert) records into a table Performs a merge insert (upsert) operation on table
-   * &#x60;id&#x60;. This operation updates existing rows based on a matching column and inserts new
-   * rows that don&#39;t match. It returns the number of rows inserted and updated. REST NAMESPACE
-   * ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
-   * &#x60;MergeInsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;:
-   * pass through path parameter of the same name - &#x60;on&#x60;: pass through query parameter of
-   * the same name - &#x60;when_matched_update_all&#x60;: pass through query parameter of the same
-   * name - &#x60;when_matched_update_all_filt&#x60;: pass through query parameter of the same name
-   * - &#x60;when_not_matched_insert_all&#x60;: pass through query parameter of the same name -
-   * &#x60;when_not_matched_by_source_delete&#x60;: pass through query parameter of the same name -
-   * &#x60;when_not_matched_by_source_delete_filt&#x60;: pass through query parameter of the same
-   * name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param on Column name to use for matching rows (required) (required)
-   * @param body Arrow IPC stream containing the records to merge (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param whenMatchedUpdateAll Update all columns when rows match (optional, default to false)
-   * @param whenMatchedUpdateAllFilt The row is updated (similar to UpdateAll) only for rows where
-   *     the SQL expression evaluates to true (optional)
-   * @param whenNotMatchedInsertAll Insert all columns when rows don&#39;t match (optional, default
-   *     to false)
-   * @param whenNotMatchedBySourceDelete Delete all rows from target table that don&#39;t match a
-   *     row in the source table (optional, default to false)
-   * @param whenNotMatchedBySourceDeleteFilt Delete rows from the target table if there is no match
-   *     AND the SQL expression evaluates to true (optional)
-   * @param timeout Timeout for the operation (e.g., \&quot;30s\&quot;, \&quot;5m\&quot;) (optional)
-   * @param useIndex Whether to use index for matching rows (optional, default to false)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;MergeInsertIntoTableResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<MergeInsertIntoTableResponse> mergeInsertIntoTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String on,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable Boolean whenMatchedUpdateAll,
-      @javax.annotation.Nullable String whenMatchedUpdateAllFilt,
-      @javax.annotation.Nullable Boolean whenNotMatchedInsertAll,
-      @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete,
-      @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt,
-      @javax.annotation.Nullable String timeout,
-      @javax.annotation.Nullable Boolean useIndex,
-      Map<String, String> headers)
+      String id,
+      String on,
+      byte[] body,
+      String delimiter,
+      Boolean whenMatchedUpdateAll,
+      String whenMatchedUpdateAllFilt,
+      Boolean whenNotMatchedInsertAll,
+      Boolean whenNotMatchedBySourceDelete,
+      String whenNotMatchedBySourceDeleteFilt,
+      String timeout,
+      Boolean useIndex)
       throws ApiException {
     try {
-      return mergeInsertIntoTableWithHttpInfo(
+      HttpRequest.Builder localVarRequestBuilder =
+          mergeInsertIntoTableRequestBuilder(
               id,
               on,
               body,
@@ -1970,9 +1251,26 @@ public class DataApi {
               whenNotMatchedBySourceDelete,
               whenNotMatchedBySourceDeleteFilt,
               timeout,
-              useIndex,
-              headers)
-          .thenApply(ApiResponse::getData);
+              useIndex);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("mergeInsertIntoTable", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<MergeInsertIntoTableResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -2017,85 +1315,17 @@ public class DataApi {
    */
   public CompletableFuture<ApiResponse<MergeInsertIntoTableResponse>>
       mergeInsertIntoTableWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull String on,
-          @javax.annotation.Nonnull byte[] body,
-          @javax.annotation.Nullable String delimiter,
-          @javax.annotation.Nullable Boolean whenMatchedUpdateAll,
-          @javax.annotation.Nullable String whenMatchedUpdateAllFilt,
-          @javax.annotation.Nullable Boolean whenNotMatchedInsertAll,
-          @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete,
-          @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt,
-          @javax.annotation.Nullable String timeout,
-          @javax.annotation.Nullable Boolean useIndex)
-          throws ApiException {
-    return mergeInsertIntoTableWithHttpInfo(
-        id,
-        on,
-        body,
-        delimiter,
-        whenMatchedUpdateAll,
-        whenMatchedUpdateAllFilt,
-        whenNotMatchedInsertAll,
-        whenNotMatchedBySourceDelete,
-        whenNotMatchedBySourceDeleteFilt,
-        timeout,
-        useIndex,
-        null);
-  }
-
-  /**
-   * Merge insert (upsert) records into a table Performs a merge insert (upsert) operation on table
-   * &#x60;id&#x60;. This operation updates existing rows based on a matching column and inserts new
-   * rows that don&#39;t match. It returns the number of rows inserted and updated. REST NAMESPACE
-   * ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
-   * &#x60;MergeInsertIntoTableRequest&#x60; information in the following way: - &#x60;id&#x60;:
-   * pass through path parameter of the same name - &#x60;on&#x60;: pass through query parameter of
-   * the same name - &#x60;when_matched_update_all&#x60;: pass through query parameter of the same
-   * name - &#x60;when_matched_update_all_filt&#x60;: pass through query parameter of the same name
-   * - &#x60;when_not_matched_insert_all&#x60;: pass through query parameter of the same name -
-   * &#x60;when_not_matched_by_source_delete&#x60;: pass through query parameter of the same name -
-   * &#x60;when_not_matched_by_source_delete_filt&#x60;: pass through query parameter of the same
-   * name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param on Column name to use for matching rows (required) (required)
-   * @param body Arrow IPC stream containing the records to merge (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param whenMatchedUpdateAll Update all columns when rows match (optional, default to false)
-   * @param whenMatchedUpdateAllFilt The row is updated (similar to UpdateAll) only for rows where
-   *     the SQL expression evaluates to true (optional)
-   * @param whenNotMatchedInsertAll Insert all columns when rows don&#39;t match (optional, default
-   *     to false)
-   * @param whenNotMatchedBySourceDelete Delete all rows from target table that don&#39;t match a
-   *     row in the source table (optional, default to false)
-   * @param whenNotMatchedBySourceDeleteFilt Delete rows from the target table if there is no match
-   *     AND the SQL expression evaluates to true (optional)
-   * @param timeout Timeout for the operation (e.g., \&quot;30s\&quot;, \&quot;5m\&quot;) (optional)
-   * @param useIndex Whether to use index for matching rows (optional, default to false)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;MergeInsertIntoTableResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<MergeInsertIntoTableResponse>>
-      mergeInsertIntoTableWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull String on,
-          @javax.annotation.Nonnull byte[] body,
-          @javax.annotation.Nullable String delimiter,
-          @javax.annotation.Nullable Boolean whenMatchedUpdateAll,
-          @javax.annotation.Nullable String whenMatchedUpdateAllFilt,
-          @javax.annotation.Nullable Boolean whenNotMatchedInsertAll,
-          @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete,
-          @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt,
-          @javax.annotation.Nullable String timeout,
-          @javax.annotation.Nullable Boolean useIndex,
-          Map<String, String> headers)
+          String id,
+          String on,
+          byte[] body,
+          String delimiter,
+          Boolean whenMatchedUpdateAll,
+          String whenMatchedUpdateAllFilt,
+          Boolean whenNotMatchedInsertAll,
+          Boolean whenNotMatchedBySourceDelete,
+          String whenNotMatchedBySourceDeleteFilt,
+          String timeout,
+          Boolean useIndex)
           throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
@@ -2110,56 +1340,29 @@ public class DataApi {
               whenNotMatchedBySourceDelete,
               whenNotMatchedBySourceDeleteFilt,
               timeout,
-              useIndex,
-              headers);
+              useIndex);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("mergeInsertIntoTable", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "mergeInsertIntoTable", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<MergeInsertIntoTableResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    MergeInsertIntoTableResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<MergeInsertIntoTableResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<MergeInsertIntoTableResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<MergeInsertIntoTableResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody,
+                                  new TypeReference<MergeInsertIntoTableResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -2170,18 +1373,17 @@ public class DataApi {
   }
 
   private HttpRequest.Builder mergeInsertIntoTableRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String on,
-      @javax.annotation.Nonnull byte[] body,
-      @javax.annotation.Nullable String delimiter,
-      @javax.annotation.Nullable Boolean whenMatchedUpdateAll,
-      @javax.annotation.Nullable String whenMatchedUpdateAllFilt,
-      @javax.annotation.Nullable Boolean whenNotMatchedInsertAll,
-      @javax.annotation.Nullable Boolean whenNotMatchedBySourceDelete,
-      @javax.annotation.Nullable String whenNotMatchedBySourceDeleteFilt,
-      @javax.annotation.Nullable String timeout,
-      @javax.annotation.Nullable Boolean useIndex,
-      Map<String, String> headers)
+      String id,
+      String on,
+      byte[] body,
+      String delimiter,
+      Boolean whenMatchedUpdateAll,
+      String whenMatchedUpdateAllFilt,
+      Boolean whenNotMatchedInsertAll,
+      Boolean whenNotMatchedBySourceDelete,
+      String whenNotMatchedBySourceDeleteFilt,
+      String timeout,
+      Boolean useIndex)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -2258,9 +1460,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -2285,138 +1484,48 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<byte[]> queryTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull QueryTableRequest queryTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return queryTable(id, queryTableRequest, delimiter, null);
-  }
-
-  /**
-   * Query a table Query table &#x60;id&#x60; with vector search, full text search and optional SQL
-   * filtering. Returns results in Arrow IPC file or stream format. REST NAMESPACE ONLY REST
-   * namespace returns the response as Arrow IPC file binary data instead of the
-   * &#x60;QueryTableResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param queryTableRequest Query request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;byte[]&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<byte[]> queryTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull QueryTableRequest queryTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
-    try {
-      return queryTableWithHttpInfo(id, queryTableRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
-    } catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Query a table Query table &#x60;id&#x60; with vector search, full text search and optional SQL
-   * filtering. Returns results in Arrow IPC file or stream format. REST NAMESPACE ONLY REST
-   * namespace returns the response as Arrow IPC file binary data instead of the
-   * &#x60;QueryTableResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param queryTableRequest Query request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;byte[]&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<byte[]>> queryTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull QueryTableRequest queryTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return queryTableWithHttpInfo(id, queryTableRequest, delimiter, null);
-  }
-
-  /**
-   * Query a table Query table &#x60;id&#x60; with vector search, full text search and optional SQL
-   * filtering. Returns results in Arrow IPC file or stream format. REST NAMESPACE ONLY REST
-   * namespace returns the response as Arrow IPC file binary data instead of the
-   * &#x60;QueryTableResponse&#x60; JSON object.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param queryTableRequest Query request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;byte[]&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<byte[]>> queryTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull QueryTableRequest queryTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, QueryTableRequest queryTableRequest, String delimiter) throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          queryTableRequestBuilder(id, queryTableRequest, delimiter, headers);
+          queryTableRequestBuilder(id, queryTableRequest, delimiter);
       return memberVarHttpClient
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
-                try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  try {
+                    InputStream responseBody = localVarResponse.body();
+                    String responseText = null;
+                    try {
+                      responseText =
+                          responseBody == null ? null : new String(responseBody.readAllBytes());
+                    } finally {
+                      if (responseBody != null) {
+                        responseBody.close();
+                      }
                     }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
+                    String message =
+                        formatExceptionMessage(
+                            "queryTable", localVarResponse.statusCode(), responseText);
                     return CompletableFuture.failedFuture(
-                        getApiException("queryTable", localVarResponse, localVarResponseBody));
+                        new ApiException(
+                            localVarResponse.statusCode(),
+                            message,
+                            localVarResponse.headers(),
+                            responseText));
+                  } catch (IOException e) {
+                    return CompletableFuture.failedFuture(new ApiException(e));
+                  }
+                }
+                try {
+                  InputStream responseBody = localVarResponse.body();
+                  if (responseBody == null) {
+                    return CompletableFuture.completedFuture(null);
                   }
                   try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<byte[]>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    byte[] responseValue = localVarResponseBody.readAllBytes();
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<byte[]>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
+                    return CompletableFuture.completedFuture(responseBody.readAllBytes());
                   } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
+                    responseBody.close();
                   }
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
@@ -2427,12 +1536,83 @@ public class DataApi {
     }
   }
 
+  /**
+   * Query a table Query table &#x60;id&#x60; with vector search, full text search and optional SQL
+   * filtering. Returns results in Arrow IPC file or stream format. REST NAMESPACE ONLY REST
+   * namespace returns the response as Arrow IPC file binary data instead of the
+   * &#x60;QueryTableResponse&#x60; JSON object.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param queryTableRequest Query request (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;byte[]&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<byte[]>> queryTableWithHttpInfo(
+      String id, QueryTableRequest queryTableRequest, String delimiter) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder =
+          queryTableRequestBuilder(id, queryTableRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  try {
+                    InputStream responseBody = localVarResponse.body();
+                    String responseText = null;
+                    try {
+                      responseText =
+                          responseBody == null ? null : new String(responseBody.readAllBytes());
+                    } finally {
+                      if (responseBody != null) {
+                        responseBody.close();
+                      }
+                    }
+                    String message =
+                        formatExceptionMessage(
+                            "queryTable", localVarResponse.statusCode(), responseText);
+                    return CompletableFuture.failedFuture(
+                        new ApiException(
+                            localVarResponse.statusCode(),
+                            message,
+                            localVarResponse.headers(),
+                            responseText));
+                  } catch (IOException e) {
+                    return CompletableFuture.failedFuture(new ApiException(e));
+                  }
+                }
+                try {
+                  InputStream responseBody = localVarResponse.body();
+                  byte[] responseBytes = null;
+                  try {
+                    responseBytes = responseBody == null ? null : responseBody.readAllBytes();
+                  } finally {
+                    if (responseBody != null) {
+                      responseBody.close();
+                    }
+                  }
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<byte[]>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBytes));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
+    } catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
   private HttpRequest.Builder queryTableRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull QueryTableRequest queryTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, QueryTableRequest queryTableRequest, String delimiter) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling queryTable");
@@ -2479,9 +1659,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -2503,37 +1680,29 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<UpdateTableResponse> updateTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull UpdateTableRequest updateTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return updateTable(id, updateTableRequest, delimiter, null);
-  }
-
-  /**
-   * Update rows in a table Update existing rows in table &#x60;id&#x60;.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param updateTableRequest Update request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;UpdateTableResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<UpdateTableResponse> updateTable(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull UpdateTableRequest updateTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, UpdateTableRequest updateTableRequest, String delimiter) throws ApiException {
     try {
-      return updateTableWithHttpInfo(id, updateTableRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          updateTableRequestBuilder(id, updateTableRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("updateTable", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<UpdateTableResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -2554,84 +1723,31 @@ public class DataApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<UpdateTableResponse>> updateTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull UpdateTableRequest updateTableRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return updateTableWithHttpInfo(id, updateTableRequest, delimiter, null);
-  }
-
-  /**
-   * Update rows in a table Update existing rows in table &#x60;id&#x60;.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param updateTableRequest Update request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;UpdateTableResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<UpdateTableResponse>> updateTableWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull UpdateTableRequest updateTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, UpdateTableRequest updateTableRequest, String delimiter) throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          updateTableRequestBuilder(id, updateTableRequest, delimiter, headers);
+          updateTableRequestBuilder(id, updateTableRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("updateTable", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException("updateTable", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<UpdateTableResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    UpdateTableResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<UpdateTableResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<UpdateTableResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<UpdateTableResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<UpdateTableResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -2642,11 +1758,7 @@ public class DataApi {
   }
 
   private HttpRequest.Builder updateTableRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull UpdateTableRequest updateTableRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, UpdateTableRequest updateTableRequest, String delimiter) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling updateTable");
@@ -2693,9 +1805,6 @@ public class DataApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }

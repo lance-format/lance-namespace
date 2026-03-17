@@ -30,8 +30,6 @@ import org.lance.namespace.model.ListTableIndicesResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -41,7 +39,6 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -50,27 +47,6 @@ import java.util.function.Consumer;
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class IndexApi {
-  /** Utility class for extending HttpRequest.Builder functionality. */
-  private static class HttpRequestBuilderExtensions {
-    /**
-     * Adds additional headers to the provided HttpRequest.Builder. Useful for adding
-     * method/endpoint specific headers.
-     *
-     * @param builder the HttpRequest.Builder to which headers will be added
-     * @param headers a map of header names and values to add; may be null
-     * @return the same HttpRequest.Builder instance with the additional headers set
-     */
-    static HttpRequest.Builder withAdditionalHeaders(
-        HttpRequest.Builder builder, Map<String, String> headers) {
-      if (headers != null) {
-        for (Map.Entry<String, String> entry : headers.entrySet()) {
-          builder.header(entry.getKey(), entry.getValue());
-        }
-      }
-      return builder;
-    }
-  }
-
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
   private final String memberVarBaseUri;
@@ -93,19 +69,9 @@ public class IndexApi {
     memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
   }
 
-  private ApiException getApiException(
-      String operationId, HttpResponse<?> response, InputStream responseBody) {
-    try {
-      String body = null;
-      if (responseBody != null) {
-        body = new String(responseBody.readAllBytes());
-        responseBody.close();
-      }
-      String message = formatExceptionMessage(operationId, response.statusCode(), body);
-      return new ApiException(response.statusCode(), message, response.headers(), body);
-    } catch (IOException e) {
-      return new ApiException(e);
-    }
+  private ApiException getApiException(String operationId, HttpResponse<String> response) {
+    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
+    return new ApiException(response.statusCode(), message, response.headers(), response.body());
   }
 
   private String formatExceptionMessage(String operationId, int statusCode, String body) {
@@ -115,105 +81,6 @@ public class IndexApi {
     return operationId + " call failed with: " + statusCode + " - " + body;
   }
 
-  private HttpResponse<String> toStringResponse(
-      HttpResponse<InputStream> response, String responseBody) {
-    return new HttpResponse<String>() {
-      @Override
-      public int statusCode() {
-        return response.statusCode();
-      }
-
-      @Override
-      public HttpRequest request() {
-        return response.request();
-      }
-
-      @Override
-      public java.util.Optional<HttpResponse<String>> previousResponse() {
-        return java.util.Optional.empty();
-      }
-
-      @Override
-      public java.net.http.HttpHeaders headers() {
-        return response.headers();
-      }
-
-      @Override
-      public String body() {
-        return responseBody;
-      }
-
-      @Override
-      public java.util.Optional<javax.net.ssl.SSLSession> sslSession() {
-        return response.sslSession();
-      }
-
-      @Override
-      public URI uri() {
-        return response.uri();
-      }
-
-      @Override
-      public HttpClient.Version version() {
-        return response.version();
-      }
-    };
-  }
-
-  /**
-   * Download file from the given response.
-   *
-   * @param response Response
-   * @return File
-   * @throws ApiException If fail to read file content from response and write to disk
-   */
-  public File downloadFileFromResponse(HttpResponse<InputStream> response, InputStream responseBody)
-      throws ApiException {
-    if (responseBody == null) {
-      throw new ApiException(new IOException("Response body is empty"));
-    }
-    try {
-      File file = prepareDownloadFile(response);
-      java.nio.file.Files.copy(
-          responseBody, file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-      return file;
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-  }
-
-  /**
-   * Prepare the file for download from the response.
-   *
-   * @param response a {@link java.net.http.HttpResponse} object.
-   * @return a {@link java.io.File} object.
-   * @throws java.io.IOException if any.
-   */
-  private File prepareDownloadFile(HttpResponse<InputStream> response) throws IOException {
-    String filename = null;
-    java.util.Optional<String> contentDisposition =
-        response.headers().firstValue("Content-Disposition");
-    if (contentDisposition.isPresent() && !"".equals(contentDisposition.get())) {
-      // Get filename from the Content-Disposition header.
-      java.util.regex.Pattern pattern =
-          java.util.regex.Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
-      java.util.regex.Matcher matcher = pattern.matcher(contentDisposition.get());
-      if (matcher.find()) filename = matcher.group(1);
-    }
-    File file = null;
-    if (filename != null) {
-      java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("swagger-gen-native");
-      java.nio.file.Path filePath = java.nio.file.Files.createFile(tempDir.resolve(filename));
-      file = filePath.toFile();
-      tempDir.toFile().deleteOnExit(); // best effort cleanup
-      file.deleteOnExit(); // best effort cleanup
-    } else {
-      file = java.nio.file.Files.createTempFile("download-", "").toFile();
-      file.deleteOnExit(); // best effort cleanup
-    }
-    return file;
-  }
-
   /**
    * Create an index on a table Create an index on a table column for faster search operations.
    * Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE,
@@ -233,41 +100,30 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<CreateTableIndexResponse> createTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return createTableIndex(id, createTableIndexRequest, delimiter, null);
-  }
-
-  /**
-   * Create an index on a table Create an index on a table column for faster search operations.
-   * Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE,
-   * BITMAP, FTS, etc.). Index creation is handled asynchronously. Use the
-   * &#x60;ListTableIndices&#x60; and &#x60;DescribeTableIndexStats&#x60; operations to monitor
-   * index creation progress.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param createTableIndexRequest Index creation request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;CreateTableIndexResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<CreateTableIndexResponse> createTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
       throws ApiException {
     try {
-      return createTableIndexWithHttpInfo(id, createTableIndexRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          createTableIndexRequestBuilder(id, createTableIndexRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("createTableIndex", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<CreateTableIndexResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -292,89 +148,32 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<CreateTableIndexResponse>> createTableIndexWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return createTableIndexWithHttpInfo(id, createTableIndexRequest, delimiter, null);
-  }
-
-  /**
-   * Create an index on a table Create an index on a table column for faster search operations.
-   * Supports vector indexes (IVF_FLAT, IVF_HNSW_SQ, IVF_PQ, etc.) and scalar indexes (BTREE,
-   * BITMAP, FTS, etc.). Index creation is handled asynchronously. Use the
-   * &#x60;ListTableIndices&#x60; and &#x60;DescribeTableIndexStats&#x60; operations to monitor
-   * index creation progress.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param createTableIndexRequest Index creation request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;CreateTableIndexResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<CreateTableIndexResponse>> createTableIndexWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          createTableIndexRequestBuilder(id, createTableIndexRequest, delimiter, headers);
+          createTableIndexRequestBuilder(id, createTableIndexRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("createTableIndex", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "createTableIndex", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<CreateTableIndexResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    CreateTableIndexResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<CreateTableIndexResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<CreateTableIndexResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<CreateTableIndexResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<CreateTableIndexResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -385,10 +184,7 @@ public class IndexApi {
   }
 
   private HttpRequest.Builder createTableIndexRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -438,9 +234,6 @@ public class IndexApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -466,41 +259,31 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<CreateTableScalarIndexResponse> createTableScalarIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return createTableScalarIndex(id, createTableIndexRequest, delimiter, null);
-  }
-
-  /**
-   * Create a scalar index on a table Create a scalar index on a table column for faster filtering
-   * operations. Supports scalar indexes (BTREE, BITMAP, LABEL_LIST, FTS, etc.). This is an alias
-   * for CreateTableIndex specifically for scalar indexes. Index creation is handled asynchronously.
-   * Use the &#x60;ListTableIndices&#x60; and &#x60;DescribeTableIndexStats&#x60; operations to
-   * monitor index creation progress.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param createTableIndexRequest Scalar index creation request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;CreateTableScalarIndexResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<CreateTableScalarIndexResponse> createTableScalarIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
       throws ApiException {
     try {
-      return createTableScalarIndexWithHttpInfo(id, createTableIndexRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          createTableScalarIndexRequestBuilder(id, createTableIndexRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("createTableScalarIndex", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody,
+                              new TypeReference<CreateTableScalarIndexResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -526,91 +309,33 @@ public class IndexApi {
    */
   public CompletableFuture<ApiResponse<CreateTableScalarIndexResponse>>
       createTableScalarIndexWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-          @javax.annotation.Nullable String delimiter)
-          throws ApiException {
-    return createTableScalarIndexWithHttpInfo(id, createTableIndexRequest, delimiter, null);
-  }
-
-  /**
-   * Create a scalar index on a table Create a scalar index on a table column for faster filtering
-   * operations. Supports scalar indexes (BTREE, BITMAP, LABEL_LIST, FTS, etc.). This is an alias
-   * for CreateTableIndex specifically for scalar indexes. Index creation is handled asynchronously.
-   * Use the &#x60;ListTableIndices&#x60; and &#x60;DescribeTableIndexStats&#x60; operations to
-   * monitor index creation progress.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param createTableIndexRequest Scalar index creation request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;CreateTableScalarIndexResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<CreateTableScalarIndexResponse>>
-      createTableScalarIndexWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-          @javax.annotation.Nullable String delimiter,
-          Map<String, String> headers)
+          String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
           throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          createTableScalarIndexRequestBuilder(id, createTableIndexRequest, delimiter, headers);
+          createTableScalarIndexRequestBuilder(id, createTableIndexRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("createTableScalarIndex", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "createTableScalarIndex", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<CreateTableScalarIndexResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    CreateTableScalarIndexResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody,
-                                new TypeReference<CreateTableScalarIndexResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<CreateTableScalarIndexResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<CreateTableScalarIndexResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody,
+                                  new TypeReference<CreateTableScalarIndexResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -621,10 +346,7 @@ public class IndexApi {
   }
 
   private HttpRequest.Builder createTableScalarIndexRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull CreateTableIndexRequest createTableIndexRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, CreateTableIndexRequest createTableIndexRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -674,9 +396,6 @@ public class IndexApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -700,42 +419,35 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<DescribeTableIndexStatsResponse> describeTableIndexStats(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return describeTableIndexStats(id, indexName, describeTableIndexStatsRequest, delimiter, null);
-  }
-
-  /**
-   * Get table index statistics Get statistics for a specific index on a table. Returns information
-   * about the index type, distance type (for vector indices), and row counts.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param indexName Name of the index to get stats for (required)
-   * @param describeTableIndexStatsRequest Index stats request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;DescribeTableIndexStatsResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<DescribeTableIndexStatsResponse> describeTableIndexStats(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id,
+      String indexName,
+      DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
+      String delimiter)
       throws ApiException {
     try {
-      return describeTableIndexStatsWithHttpInfo(
-              id, indexName, describeTableIndexStatsRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          describeTableIndexStatsRequestBuilder(
+              id, indexName, describeTableIndexStatsRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("describeTableIndexStats", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody,
+                              new TypeReference<DescribeTableIndexStatsResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -759,93 +471,37 @@ public class IndexApi {
    */
   public CompletableFuture<ApiResponse<DescribeTableIndexStatsResponse>>
       describeTableIndexStatsWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull String indexName,
-          @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-          @javax.annotation.Nullable String delimiter)
-          throws ApiException {
-    return describeTableIndexStatsWithHttpInfo(
-        id, indexName, describeTableIndexStatsRequest, delimiter, null);
-  }
-
-  /**
-   * Get table index statistics Get statistics for a specific index on a table. Returns information
-   * about the index type, distance type (for vector indices), and row counts.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param indexName Name of the index to get stats for (required)
-   * @param describeTableIndexStatsRequest Index stats request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;DescribeTableIndexStatsResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<DescribeTableIndexStatsResponse>>
-      describeTableIndexStatsWithHttpInfo(
-          @javax.annotation.Nonnull String id,
-          @javax.annotation.Nonnull String indexName,
-          @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-          @javax.annotation.Nullable String delimiter,
-          Map<String, String> headers)
+          String id,
+          String indexName,
+          DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
+          String delimiter)
           throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
           describeTableIndexStatsRequestBuilder(
-              id, indexName, describeTableIndexStatsRequest, delimiter, headers);
+              id, indexName, describeTableIndexStatsRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("describeTableIndexStats", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "describeTableIndexStats", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<DescribeTableIndexStatsResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    DescribeTableIndexStatsResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody,
-                                new TypeReference<DescribeTableIndexStatsResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<DescribeTableIndexStatsResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<DescribeTableIndexStatsResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody,
+                                  new TypeReference<DescribeTableIndexStatsResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -856,11 +512,10 @@ public class IndexApi {
   }
 
   private HttpRequest.Builder describeTableIndexStatsRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nonnull DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id,
+      String indexName,
+      DescribeTableIndexStatsRequest describeTableIndexStatsRequest,
+      String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -918,9 +573,6 @@ public class IndexApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -946,41 +598,29 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<DropTableIndexResponse> dropTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return dropTableIndex(id, indexName, delimiter, null);
-  }
-
-  /**
-   * Drop a specific index Drop the specified index from table &#x60;id&#x60;. REST NAMESPACE ONLY
-   * REST namespace does not use a request body for this operation. The
-   * &#x60;DropTableIndexRequest&#x60; information is passed in the following way: - &#x60;id&#x60;:
-   * pass through path parameter of the same name - &#x60;index_name&#x60;: pass through path
-   * parameter of the same name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param indexName Name of the index to drop (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;DropTableIndexResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<DropTableIndexResponse> dropTableIndex(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, String indexName, String delimiter) throws ApiException {
     try {
-      return dropTableIndexWithHttpInfo(id, indexName, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          dropTableIndexRequestBuilder(id, indexName, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("dropTableIndex", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<DropTableIndexResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -1005,88 +645,31 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<DropTableIndexResponse>> dropTableIndexWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return dropTableIndexWithHttpInfo(id, indexName, delimiter, null);
-  }
-
-  /**
-   * Drop a specific index Drop the specified index from table &#x60;id&#x60;. REST NAMESPACE ONLY
-   * REST namespace does not use a request body for this operation. The
-   * &#x60;DropTableIndexRequest&#x60; information is passed in the following way: - &#x60;id&#x60;:
-   * pass through path parameter of the same name - &#x60;index_name&#x60;: pass through path
-   * parameter of the same name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param indexName Name of the index to drop (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;DropTableIndexResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<DropTableIndexResponse>> dropTableIndexWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, String indexName, String delimiter) throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          dropTableIndexRequestBuilder(id, indexName, delimiter, headers);
+          dropTableIndexRequestBuilder(id, indexName, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("dropTableIndex", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException("dropTableIndex", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<DropTableIndexResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    DropTableIndexResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<DropTableIndexResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<DropTableIndexResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<DropTableIndexResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<DropTableIndexResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -1097,11 +680,7 @@ public class IndexApi {
   }
 
   private HttpRequest.Builder dropTableIndexRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull String indexName,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
-      throws ApiException {
+      String id, String indexName, String delimiter) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(
@@ -1144,9 +723,6 @@ public class IndexApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -1169,38 +745,30 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ListTableIndicesResponse> listTableIndices(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return listTableIndices(id, listTableIndicesRequest, delimiter, null);
-  }
-
-  /**
-   * List indexes on a table List all indices created on a table. Returns information about each
-   * index including name, columns, status, and UUID.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param listTableIndicesRequest Index list request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ListTableIndicesResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ListTableIndicesResponse> listTableIndices(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, ListTableIndicesRequest listTableIndicesRequest, String delimiter)
       throws ApiException {
     try {
-      return listTableIndicesWithHttpInfo(id, listTableIndicesRequest, delimiter, headers)
-          .thenApply(ApiResponse::getData);
+      HttpRequest.Builder localVarRequestBuilder =
+          listTableIndicesRequestBuilder(id, listTableIndicesRequest, delimiter);
+      return memberVarHttpClient
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .thenComposeAsync(
+              localVarResponse -> {
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("listTableIndices", localVarResponse));
+                }
+                try {
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      responseBody == null || responseBody.isBlank()
+                          ? null
+                          : memberVarObjectMapper.readValue(
+                              responseBody, new TypeReference<ListTableIndicesResponse>() {}));
+                } catch (IOException e) {
+                  return CompletableFuture.failedFuture(new ApiException(e));
+                }
+              });
     } catch (ApiException e) {
       return CompletableFuture.failedFuture(e);
     }
@@ -1222,86 +790,32 @@ public class IndexApi {
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<ListTableIndicesResponse>> listTableIndicesWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
-      @javax.annotation.Nullable String delimiter)
-      throws ApiException {
-    return listTableIndicesWithHttpInfo(id, listTableIndicesRequest, delimiter, null);
-  }
-
-  /**
-   * List indexes on a table List all indices created on a table. Returns information about each
-   * index including name, columns, status, and UUID.
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param listTableIndicesRequest Index list request (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param headers Optional headers to include in the request
-   * @return CompletableFuture&lt;ApiResponse&lt;ListTableIndicesResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<ListTableIndicesResponse>> listTableIndicesWithHttpInfo(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, ListTableIndicesRequest listTableIndicesRequest, String delimiter)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          listTableIndicesRequestBuilder(id, listTableIndicesRequest, delimiter, headers);
+          listTableIndicesRequestBuilder(id, listTableIndicesRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
               localVarResponse -> {
+                if (memberVarAsyncResponseInterceptor != null) {
+                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                }
+                if (localVarResponse.statusCode() / 100 != 2) {
+                  return CompletableFuture.failedFuture(
+                      getApiException("listTableIndices", localVarResponse));
+                }
                 try {
-                  InputStream localVarResponseBody = localVarResponse.body();
-                  if (memberVarAsyncResponseInterceptor != null) {
-                    String localVarResponseBodyText = null;
-                    if (localVarResponseBody != null) {
-                      byte[] localVarResponseBodyBytes = localVarResponseBody.readAllBytes();
-                      localVarResponseBody.close();
-                      localVarResponseBodyText = new String(localVarResponseBodyBytes);
-                      localVarResponseBody = new ByteArrayInputStream(localVarResponseBodyBytes);
-                    }
-                    memberVarAsyncResponseInterceptor.accept(
-                        toStringResponse(localVarResponse, localVarResponseBodyText));
-                  }
-                  if (localVarResponse.statusCode() / 100 != 2) {
-                    return CompletableFuture.failedFuture(
-                        getApiException(
-                            "listTableIndices", localVarResponse, localVarResponseBody));
-                  }
-                  try {
-                    if (localVarResponseBody == null) {
-                      return CompletableFuture.completedFuture(
-                          new ApiResponse<ListTableIndicesResponse>(
-                              localVarResponse.statusCode(),
-                              localVarResponse.headers().map(),
-                              null));
-                    }
-
-                    String responseBody = new String(localVarResponseBody.readAllBytes());
-                    ListTableIndicesResponse responseValue =
-                        responseBody.isBlank()
-                            ? null
-                            : memberVarObjectMapper.readValue(
-                                responseBody, new TypeReference<ListTableIndicesResponse>() {});
-
-                    return CompletableFuture.completedFuture(
-                        new ApiResponse<ListTableIndicesResponse>(
-                            localVarResponse.statusCode(),
-                            localVarResponse.headers().map(),
-                            responseValue));
-                  } finally {
-                    if (localVarResponseBody != null) {
-                      localVarResponseBody.close();
-                    }
-                  }
+                  String responseBody = localVarResponse.body();
+                  return CompletableFuture.completedFuture(
+                      new ApiResponse<ListTableIndicesResponse>(
+                          localVarResponse.statusCode(),
+                          localVarResponse.headers().map(),
+                          responseBody == null || responseBody.isBlank()
+                              ? null
+                              : memberVarObjectMapper.readValue(
+                                  responseBody, new TypeReference<ListTableIndicesResponse>() {})));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -1312,10 +826,7 @@ public class IndexApi {
   }
 
   private HttpRequest.Builder listTableIndicesRequestBuilder(
-      @javax.annotation.Nonnull String id,
-      @javax.annotation.Nonnull ListTableIndicesRequest listTableIndicesRequest,
-      @javax.annotation.Nullable String delimiter,
-      Map<String, String> headers)
+      String id, ListTableIndicesRequest listTableIndicesRequest, String delimiter)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -1365,9 +876,6 @@ public class IndexApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    // Add custom headers if provided
-    localVarRequestBuilder =
-        HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
