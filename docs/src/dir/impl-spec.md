@@ -71,7 +71,7 @@ The implementation creates a new namespace using a merge-insert operation on the
      - `metadata` containing the namespace properties as JSON
      - `created_at` set to the current timestamp
 
-   Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. If a namespace with the same identifier already exists, the operation fails.
+    Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. If a namespace with the same identifier already exists, the operation fails.
 
 **Error Handling:**
 
@@ -146,7 +146,7 @@ The implementation:
      - `object_type` set to `"table"`
      - `location` set to the table directory path
 
-   Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. If a table with the same identifier already exists, the operation fails.
+    Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. If a table with the same identifier already exists, the operation fails.
 
 **Error Handling:**
 
@@ -294,8 +294,9 @@ When **table version management is enabled** (V2 with `table_version_management=
     - `object_id` set to `<table_id>$<version>` (e.g., `users$1` or `ns1$users$1`)
     - `object_type` set to `"table_version"`
     - `metadata` containing the JSON-encoded version metadata including the staging manifest path
+    
+    Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. The commit is effectively complete after this step. If this fails, another writer has already committed that version.
 
-   Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. The commit is effectively complete after this step. If this fails, another writer has already committed that version.
 3. **Finalize in object storage**: Copy the staged manifest to the standard location (`{table_location}/_versions/{version}.manifest`). This makes it discoverable by readers that do not use the manifest table.
 4. **Update manifest table pointer**: Update the `metadata` in the manifest table row to point to the finalized manifest path, synchronizing both systems.
 
@@ -321,7 +322,8 @@ When **table version management is enabled**, the batch commit process follows t
     - `object_type` set to `"table_version"`
     - `metadata` containing the JSON-encoded version metadata including the staging manifest path
 
-   Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. The commit is effectively complete after this step. If any version already exists, the entire batch fails.
+    Primary-key deduplication on `object_id` ensures no duplicate rows are inserted. The commit is effectively complete after this step. If any version already exists, the entire batch fails.
+
 3. **Finalize in object storage**: For each entry, copy the staged manifest to the standard location.
 4. **Update manifest table pointers**: Update the `metadata` in each manifest table row to point to the finalized manifest paths.
 
