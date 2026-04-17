@@ -11,7 +11,16 @@ that frequently appear in other similar data systems to allow easy integration w
 
 Here is an example layout of a namespace:
 
-![Namespace Layout](../layout.png)
+```text
+Root namespace
+├── Namespace "cat2"
+│   └── Namespace "cat5"
+│       └── Table "t1"
+├── Namespace "cat3"
+└── Namespace "cat4"
+    ├── Table "t3"
+    └── Table "t4"
+```
 
 ## Parent & Child
 

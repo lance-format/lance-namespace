@@ -4,7 +4,7 @@ This document describes how the Lance REST Catalog implements the Lance Namespac
 
 ## Background
 
-The Lance REST Catalog provides access to Lance tables via a REST API. For details on the API design, endpoints, and data models, see the [REST Catalog API Specification](../catalog/rest/index.md).
+The Lance REST Catalog provides access to Lance tables via a REST API. For details on the API design, endpoints, and data models, see the [REST Catalog API Specification](../../catalog/rest/index.md).
 
 ## Implementation Configuration Properties
 

@@ -112,13 +112,13 @@ The `__manifest` table has the following schema:
 
 **Primary Key**: The `object_id` column is the [unenforced primary key](https://lance.org/format/table/#unenforced-primary-key) for the manifest table. Implementation of this spec must always enforce the primary key uniqueness using features like Lance merge insert with primary key deduplication.
 
-**Schema Extensibility**: The `__manifest` table schema may include additional columns beyond those listed above. Extensions like [partitioned namespaces](../partitioning-spec.md) add columns for efficient filtering. Implementations should preserve unrecognized columns during updates.
+**Schema Extensibility**: The `__manifest` table schema may include additional columns beyond those listed above. Implementations should preserve unrecognized columns during updates, since extensions may add columns for filtering or other metadata-driven behaviors.
 
 ### Root Namespace Properties
 
 In V2, the root namespace is implicit and does not have a row in the `__manifest` table. Instead, root namespace properties are stored in the `__manifest` Lance table's metadata map. Properties are stored as key-value pairs where the key is the property name and the value is a UTF-8 encoded byte array.
 
-For example, a partitioned namespace stores its `partition_spec_v1`, `partition_spec_v2`, and `schema` properties in the `__manifest` table's metadata.
+For example, implementations may store catalog-level properties in the `__manifest` table's metadata.
 
 ### Manifest Table Indexes
 

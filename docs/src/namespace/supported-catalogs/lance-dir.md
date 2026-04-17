@@ -4,7 +4,7 @@ This document describes how the Lance Directory Catalog implements the Lance Nam
 
 ## Background
 
-The Lance Directory Catalog is a storage-native catalog that stores tables in a directory structure on any local or remote storage system. For details on the catalog design including V1 (directory listing), V2 (manifest), and compatibility mode, see the [Directory Catalog Format Specification](../catalog/dir/index.md).
+The Lance Directory Catalog is a storage-native catalog that stores tables in a directory structure on any local or remote storage system. For details on the catalog design including V1 (directory listing), V2 (manifest), and compatibility mode, see the [Directory Catalog Format Specification](../../catalog/dir/index.md).
 
 ## Implementation Configuration Properties
 
@@ -16,7 +16,7 @@ The **manifest_enabled** property controls whether the manifest table is used fo
 
 The **dir_listing_enabled** property controls whether directory scanning is used for table discovery (V1). Defaults to `true`.
 
-By default, both properties are enabled, which means the implementation operates in [Compatibility Mode](../catalog/dir/index.md#compatibility-mode).
+By default, both properties are enabled, which means the implementation operates in [Compatibility Mode](../../catalog/dir/index.md#compatibility-mode).
 
 Properties with the **storage.** prefix are passed directly to the underlying Lance ObjectStore after removing the prefix. For example, `storage.region` becomes `region` when passed to the storage layer.
 
@@ -173,7 +173,7 @@ In **V2**:
 3. Further filter to rows where `object_id` has exactly one more level than the namespace
 4. Return the list of table names
 
-When **both V1 and V2 are enabled** (the default [Compatibility Mode](../catalog/dir/index.md#compatibility-mode)),
+When **both V1 and V2 are enabled** (the default [Compatibility Mode](../../catalog/dir/index.md#compatibility-mode)),
 the implementation performs both queries and merges results, with manifest entries taking precedence when duplicates exist.
 
 **Error Handling:**
@@ -189,7 +189,7 @@ The implementation:
 1. Locate the table:
      - In V1, check for the `<table_name>.lance` directory
      - In V2, query the manifest table for the table location
-     - When both V1 and V2 are enabled (the default [Compatibility Mode](../catalog/dir/index.md#compatibility-mode)),
+     - When both V1 and V2 are enabled (the default [Compatibility Mode](../../catalog/dir/index.md#compatibility-mode)),
        first check the manifest table, then fall back to checking the `.lance` directory
 2. Open the Lance table using the Lance SDK
 3. Read the table metadata and return:
@@ -231,7 +231,7 @@ In **V2**:
 3. Keep the table files at the storage location
 4. Return the table location and properties for reference
 
-When **both V1 and V2 are enabled** (the default [Compatibility Mode](../catalog/dir/index.md#compatibility-mode)),
+When **both V1 and V2 are enabled** (the default [Compatibility Mode](../../catalog/dir/index.md#compatibility-mode)),
 first check the manifest table, then fall back to checking the `.lance` directory.
 If found in manifest, follow V2 behavior; otherwise follow V1 behavior.
 
@@ -260,7 +260,7 @@ In **V2**:
 3. Delete the table directory and all its contents from storage
    (failure here does not affect the success of the drop since the table is no longer reachable)
 
-When **both V1 and V2 are enabled** (the default [Compatibility Mode](../catalog/dir/index.md#compatibility-mode)),
+When **both V1 and V2 are enabled** (the default [Compatibility Mode](../../catalog/dir/index.md#compatibility-mode)),
 first check the manifest table, then fall back to checking the `.lance` directory.
 If found in manifest, follow V2 behavior; otherwise follow V1 behavior.
 
