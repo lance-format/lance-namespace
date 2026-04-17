@@ -1,7 +1,7 @@
-# Lance Namespace Implementation Spec Template
+# Lance Catalog Implementation Spec Template
 
-This template defines the standard structure for Lance Namespace implementation specs. 
-Each implementation spec describes how a specific catalog system integrates with the Lance Namespace client spec.
+This template defines the standard structure for Lance Catalog implementation specs.
+Each implementation spec describes how a specific catalog system integrates with the Lance Namespace Client.
 
 ## Required Sections
 

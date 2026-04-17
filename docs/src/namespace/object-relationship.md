@@ -82,5 +82,5 @@ A table `[catalog1, database2, table3]` is at level 3, and its identifier `catal
 
 If every table in the root namespace are at the same level `N`, the namespace is called **leveled**,
 and we say this namespace is a `N`-level namespace.
-For example, a [directory namespace](../dir/catalog-spec.md) is a 1-level namespace,
+For example, a [Directory Catalog](../catalog/dir/index.md) is a 1-level namespace,
 and a Hive 2.x namespace is a 2-level namespace.
