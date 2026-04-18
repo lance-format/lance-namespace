@@ -2,6 +2,8 @@
 
 The **Lance Namespace Client Spec** defines a standardized interface for catalog interactions such as table discovery, resolving table locations, and coordinating commits. It abstracts both the [Directory Catalog](../catalog/dir/index.md) (operating as an in-process library) and the [REST Catalog](../catalog/rest/index.md) (designed for client-server deployments) behind a single interface called `LanceNamespace`.
 
+![Namespace Overview](../overview.png)
+
 ## Why "Namespace" Instead of "Catalog"?
 
 We use the term **Namespace** rather than **Catalog** because we want a generic term that fits into any hierarchical structure. Different systems use different names for their organizational units:
@@ -10,7 +12,7 @@ We use the term **Namespace** rather than **Catalog** because we want a generic 
 |-----------------------|---------------------------------------------|
 | Apache Hive           | Metastore → Database → Table                |
 | Unity Catalog         | Metastore → Catalog → Schema → Table        |
-| Apache Polaris        | Catalog → Namespace (arbitrary levels)      |
+| Apache Polaris        | Catalog → Namespace (arbitrary levels) → Table     |
 | Directory Storage     | Root directory → Tables                     |
 
 The Lance Namespace Client provides a **unified framework** across all of these systems. A "namespace" in Lance can represent a catalog, schema, metastore, database, metalake, or any other hierarchical container — the spec abstracts away these differences.
@@ -65,3 +67,5 @@ For each programming language, a Lance Namespace Client provides a unified inter
 - **Rust SDK** (`lance-namespace`): The core interface used by native implementations.
 
 Each catalog spec has corresponding implementations in supported languages that fulfill the Namespace Client interface/trait.
+
+![Namespace Java SDK Example](../java-sdk-example.png)
