@@ -654,22 +654,37 @@ Content-Type: application/json
 
 Creates a new table with initial data.
 
+For REST namespace, `CreateTableRequest` fields are passed as follows:
+
+- `id`: path parameter
+- `mode`: query parameter
+- `properties`: a single JSON-encoded query parameter such as
+  `properties={"user":"alice","team":"eng"}`; these are business logic properties managed
+  by the namespace implementation outside Lance context
+- `storage_options`: a single JSON-encoded query parameter such as
+  `storage_options={"aws_region":"us-east-1","timeout":"30s"}`; these configure write-time
+  overrides for data and metadata written during table creation
+
 **HTTP Request:**
 
 ```
 POST /v1/table/{id}/create
-Content-Type: application/json
+Content-Type: application/vnd.apache.arrow.stream
 ```
 
-### CreateEmptyTable
+**Response:**
 
-Creates an empty table with a specified schema.
-
-**HTTP Request:**
-
-```
-POST /v1/table/{id}/create-empty
-Content-Type: application/json
+```json
+{
+  "location": "s3://bucket/data/users.lance",
+  "version": 1,
+  "storage_options": {
+    "aws_region": "us-east-1"
+  },
+  "properties": {
+    "user": "alice"
+  }
+}
 ```
 
 ### GetTableStats

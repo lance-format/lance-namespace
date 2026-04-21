@@ -27,8 +27,6 @@ import org.lance.namespace.server.springboot.model.BatchCreateTableVersionsRespo
 import org.lance.namespace.server.springboot.model.BatchDeleteTableVersionsRequest;
 import org.lance.namespace.server.springboot.model.BatchDeleteTableVersionsResponse;
 import org.lance.namespace.server.springboot.model.CountTableRowsRequest;
-import org.lance.namespace.server.springboot.model.CreateEmptyTableRequest;
-import org.lance.namespace.server.springboot.model.CreateEmptyTableResponse;
 import org.lance.namespace.server.springboot.model.CreateTableIndexRequest;
 import org.lance.namespace.server.springboot.model.CreateTableIndexResponse;
 import org.lance.namespace.server.springboot.model.CreateTableResponse;
@@ -1521,52 +1519,66 @@ public interface TableApi {
   }
 
   /**
-   * POST /v1/table/{id}/create-empty : Create an empty table Create an empty table with the given
-   * name without touching storage. This is a metadata-only operation that records the table
-   * existence and sets up aspects like access control. For DirectoryNamespace implementation, this
-   * creates a &#x60;.lance-reserved&#x60; file in the table directory to mark the table&#39;s
-   * existence without creating actual Lance data files. **Deprecated**: Use
-   * &#x60;DeclareTable&#x60; instead.
+   * POST /v1/table/{id}/create : Create a table with the given name Create table &#x60;id&#x60; in
+   * the namespace with the given data in Arrow IPC stream. The schema of the Arrow IPC stream is
+   * used as the table schema. If the stream is empty, the API creates a new empty table. REST
+   * NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
+   * &#x60;CreateTableRequest&#x60; information in the following way: - &#x60;id&#x60;: pass through
+   * path parameter of the same name - &#x60;mode&#x60;: pass through query parameter of the same
+   * name - &#x60;properties&#x60;: serialize as a single JSON-encoded query parameter such as
+   * &#x60;properties&#x3D;{\&quot;user\&quot;:\&quot;alice\&quot;,\&quot;team\&quot;:\&quot;eng\&quot;}&#x60;;
+   * these are business logic properties managed by the namespace implementation outside Lance
+   * context - &#x60;storage_options&#x60;: serialize as a single JSON-encoded query parameter such
+   * as
+   * &#x60;storage_options&#x3D;{\&quot;aws_region\&quot;:\&quot;us-east-1\&quot;,\&quot;timeout\&quot;:\&quot;30s\&quot;}&#x60;;
+   * these configure write-time overrides for data and metadata written during table creation
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
    *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
    *     root namespace. (required)
-   * @param createEmptyTableRequest (required)
+   * @param body Arrow IPC data (required)
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
    *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
    *     (optional)
-   * @return Table properties result when creating an empty table (status code 200) or Indicates a
-   *     bad request error. It could be caused by an unexpected request body format or other forms
-   *     of request validation failure, such as invalid json. Usually serves application/json
-   *     content, although in some cases simple text/plain content might be returned by the
-   *     server&#39;s middleware. (status code 400) or Unauthorized. The request lacks valid
-   *     authentication credentials for the operation. (status code 401) or Forbidden. Authenticated
-   *     user does not have the necessary permissions. (status code 403) or A server-side problem
-   *     that means can not find the specified resource. (status code 404) or The request conflicts
-   *     with the current state of the target resource. (status code 409) or The service is not
-   *     ready to handle the request. The client should wait and retry. The service may additionally
-   *     send a Retry-After header to indicate when to retry. (status code 503) or A server-side
-   *     problem that might not be addressable from the client side. Used for server 5xx errors
-   *     without more specific documentation in individual routes. (status code 5XX)
-   * @deprecated
+   * @param mode (optional)
+   * @param properties Business logic properties managed by the namespace implementation outside
+   *     Lance context. The map is translated to a single JSON-encoded query parameter such as
+   *     &#x60;properties&#x3D;{\&quot;user\&quot;:\&quot;alice\&quot;,\&quot;team\&quot;:\&quot;eng\&quot;}&#x60;.
+   *     (optional)
+   * @param storageOptions Storage options that configure overrides for writing table data and
+   *     metadata during table creation. These are passed to Lance for the write path. The map is
+   *     translated to a single JSON-encoded query parameter such as
+   *     &#x60;storage_options&#x3D;{\&quot;aws_region\&quot;:\&quot;us-east-1\&quot;,\&quot;timeout\&quot;:\&quot;30s\&quot;}&#x60;.
+   *     (optional)
+   * @return Table properties result when creating a table (status code 200) or Indicates a bad
+   *     request error. It could be caused by an unexpected request body format or other forms of
+   *     request validation failure, such as invalid json. Usually serves application/json content,
+   *     although in some cases simple text/plain content might be returned by the server&#39;s
+   *     middleware. (status code 400) or Unauthorized. The request lacks valid authentication
+   *     credentials for the operation. (status code 401) or Forbidden. Authenticated user does not
+   *     have the necessary permissions. (status code 403) or A server-side problem that means can
+   *     not find the specified resource. (status code 404) or The request conflicts with the
+   *     current state of the target resource. (status code 409) or The service is not ready to
+   *     handle the request. The client should wait and retry. The service may additionally send a
+   *     Retry-After header to indicate when to retry. (status code 503) or A server-side problem
+   *     that might not be addressable from the client side. Used for server 5xx errors without more
+   *     specific documentation in individual routes. (status code 5XX)
    */
-  @Deprecated
   @Operation(
-      operationId = "createEmptyTable",
-      summary = "Create an empty table",
+      operationId = "createTable",
+      summary = "Create a table with the given name",
       description =
-          "Create an empty table with the given name without touching storage. This is a metadata-only operation that records the table existence and sets up aspects like access control.  For DirectoryNamespace implementation, this creates a `.lance-reserved` file in the table directory to mark the table's existence without creating actual Lance data files.  **Deprecated**: Use `DeclareTable` instead. ",
-      deprecated = true,
-      tags = {"Table", "Metadata"},
+          "Create table `id` in the namespace with the given data in Arrow IPC stream.  The schema of the Arrow IPC stream is used as the table schema. If the stream is empty, the API creates a new empty table.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `CreateTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `mode`: pass through query parameter of the same name - `properties`: serialize as a single JSON-encoded query parameter such as   `properties={\"user\":\"alice\",\"team\":\"eng\"}`; these are business logic properties   managed by the namespace implementation outside Lance context - `storage_options`: serialize as a single JSON-encoded query parameter such as   `storage_options={\"aws_region\":\"us-east-1\",\"timeout\":\"30s\"}`; these configure   write-time overrides for data and metadata written during table creation ",
+      tags = {"Table", "Data"},
       responses = {
         @ApiResponse(
             responseCode = "200",
-            description = "Table properties result when creating an empty table",
+            description = "Table properties result when creating a table",
             content = {
               @Content(
                   mediaType = "application/json",
-                  schema = @Schema(implementation = CreateEmptyTableResponse.class))
+                  schema = @Schema(implementation = CreateTableResponse.class))
             }),
         @ApiResponse(
             responseCode = "400",
@@ -1636,193 +1648,6 @@ public interface TableApi {
       })
   @RequestMapping(
       method = RequestMethod.POST,
-      value = "/v1/table/{id}/create-empty",
-      produces = {"application/json"},
-      consumes = {"application/json"})
-  default ResponseEntity<CreateEmptyTableResponse> createEmptyTable(
-      @Parameter(
-              name = "id",
-              description =
-                  "`string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. ",
-              required = true,
-              in = ParameterIn.PATH)
-          @PathVariable("id")
-          String id,
-      @Parameter(name = "CreateEmptyTableRequest", description = "", required = true)
-          @Valid
-          @RequestBody
-          CreateEmptyTableRequest createEmptyTableRequest,
-      @Parameter(
-              name = "delimiter",
-              description =
-                  "An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ",
-              in = ParameterIn.QUERY)
-          @Valid
-          @RequestParam(value = "delimiter", required = false)
-          Optional<String> delimiter) {
-    getRequest()
-        .ifPresent(
-            request -> {
-              for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"storage_options\" : { \"key\" : \"storage_options\" } }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                  String exampleString =
-                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
-                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                  break;
-                }
-              }
-            });
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-  /**
-   * POST /v1/table/{id}/create : Create a table with the given name Create table &#x60;id&#x60; in
-   * the namespace with the given data in Arrow IPC stream. The schema of the Arrow IPC stream is
-   * used as the table schema. If the stream is empty, the API creates a new empty table. REST
-   * NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the
-   * &#x60;CreateTableRequest&#x60; information in the following way: - &#x60;id&#x60;: pass through
-   * path parameter of the same name - &#x60;mode&#x60;: pass through query parameter of the same
-   * name
-   *
-   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
-   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
-   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
-   *     root namespace. (required)
-   * @param body Arrow IPC data (required)
-   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
-   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
-   *     (optional)
-   * @param mode (optional)
-   * @return Table properties result when creating a table (status code 200) or Indicates a bad
-   *     request error. It could be caused by an unexpected request body format or other forms of
-   *     request validation failure, such as invalid json. Usually serves application/json content,
-   *     although in some cases simple text/plain content might be returned by the server&#39;s
-   *     middleware. (status code 400) or Unauthorized. The request lacks valid authentication
-   *     credentials for the operation. (status code 401) or Forbidden. Authenticated user does not
-   *     have the necessary permissions. (status code 403) or A server-side problem that means can
-   *     not find the specified resource. (status code 404) or The service is not ready to handle
-   *     the request. The client should wait and retry. The service may additionally send a
-   *     Retry-After header to indicate when to retry. (status code 503) or A server-side problem
-   *     that might not be addressable from the client side. Used for server 5xx errors without more
-   *     specific documentation in individual routes. (status code 5XX)
-   */
-  @Operation(
-      operationId = "createTable",
-      summary = "Create a table with the given name",
-      description =
-          "Create table `id` in the namespace with the given data in Arrow IPC stream.  The schema of the Arrow IPC stream is used as the table schema. If the stream is empty, the API creates a new empty table.  REST NAMESPACE ONLY REST namespace uses Arrow IPC stream as the request body. It passes in the `CreateTableRequest` information in the following way: - `id`: pass through path parameter of the same name - `mode`: pass through query parameter of the same name ",
-      tags = {"Table", "Data"},
-      responses = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Table properties result when creating a table",
-            content = {
-              @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = CreateTableResponse.class))
-            }),
-        @ApiResponse(
-            responseCode = "400",
-            description =
-                "Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server's middleware.",
-            content = {
-              @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = ErrorResponse.class))
-            }),
-        @ApiResponse(
-            responseCode = "401",
-            description =
-                "Unauthorized. The request lacks valid authentication credentials for the operation.",
-            content = {
-              @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = ErrorResponse.class))
-            }),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Forbidden. Authenticated user does not have the necessary permissions.",
-            content = {
-              @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = ErrorResponse.class))
-            }),
-        @ApiResponse(
-            responseCode = "404",
-            description = "A server-side problem that means can not find the specified resource.",
-            content = {
-              @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = ErrorResponse.class))
-            }),
-        @ApiResponse(
-            responseCode = "503",
-            description =
-                "The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry.",
-            content = {
-              @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = ErrorResponse.class))
-            }),
-        @ApiResponse(
-            responseCode = "5XX",
-            description =
-                "A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes.",
-            content = {
-              @Content(
-                  mediaType = "application/json",
-                  schema = @Schema(implementation = ErrorResponse.class))
-            })
-      },
-      security = {
-        @SecurityRequirement(name = "OAuth2"),
-        @SecurityRequirement(name = "ApiKeyAuth"),
-        @SecurityRequirement(name = "BearerAuth")
-      })
-  @RequestMapping(
-      method = RequestMethod.POST,
       value = "/v1/table/{id}/create",
       produces = {"application/json"},
       consumes = {"application/vnd.apache.arrow.stream"})
@@ -1848,7 +1673,23 @@ public interface TableApi {
       @Parameter(name = "mode", description = "", in = ParameterIn.QUERY)
           @Valid
           @RequestParam(value = "mode", required = false)
-          Optional<String> mode) {
+          Optional<String> mode,
+      @Parameter(
+              name = "properties",
+              description =
+                  "Business logic properties managed by the namespace implementation outside Lance context. The map is translated to a single JSON-encoded query parameter such as `properties={\"user\":\"alice\",\"team\":\"eng\"}`. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "properties", required = false)
+          Optional<String> properties,
+      @Parameter(
+              name = "storage_options",
+              description =
+                  "Storage options that configure overrides for writing table data and metadata during table creation. These are passed to Lance for the write path. The map is translated to a single JSON-encoded query parameter such as `storage_options={\"aws_region\":\"us-east-1\",\"timeout\":\"30s\"}`. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "storage_options", required = false)
+          Optional<String> storageOptions) {
     getRequest()
         .ifPresent(
             request -> {
@@ -1856,6 +1697,12 @@ public interface TableApi {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                   String exampleString =
                       "{ \"transaction_id\" : \"transaction_id\", \"location\" : \"location\", \"version\" : 0, \"properties\" : { \"owner\" : \"Ralph\", \"created_at\" : \"1452120468\" }, \"storage_options\" : { \"key\" : \"storage_options\" } }";
+                  ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                  break;
+                }
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                  String exampleString =
+                      "{ \"code\" : 4, \"instance\" : \"/v1/table/production$users/describe\", \"detail\" : \"The table may have been dropped or renamed\", \"error\" : \"Table 'users' not found in namespace 'production'\" }";
                   ApiUtil.setExampleResponse(request, "application/json", exampleString);
                   break;
                 }

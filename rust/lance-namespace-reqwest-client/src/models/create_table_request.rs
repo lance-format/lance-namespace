@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateTableRequest : Request for creating a table, excluding the Arrow IPC stream. 
+/// CreateTableRequest : Request for creating a table, excluding the Arrow IPC stream. The table location and any credential vending behavior are determined by the implementation and returned in the response, rather than specified in this request. 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateTableRequest {
     #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
@@ -24,13 +24,16 @@ pub struct CreateTableRequest {
     /// There are three modes when trying to create a table, to differentiate the behavior when a table of the same name already exists. Case insensitive, supports both PascalCase and snake_case. Valid values are:   * Create: the operation fails with 409.   * ExistOk: the operation succeeds and the existing table is kept.   * Overwrite: the existing table is dropped and a new table with this name is created. 
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
-    /// Properties stored on the table, if supported by the implementation. 
+    /// Business logic properties stored and managed by the namespace implementation outside Lance context, if supported by the implementation. 
     #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
     pub properties: Option<std::collections::HashMap<String, String>>,
+    /// Storage options that configure overrides for writing table data and metadata during table creation. These are passed to Lance for the write path. 
+    #[serde(rename = "storage_options", skip_serializing_if = "Option::is_none")]
+    pub storage_options: Option<std::collections::HashMap<String, String>>,
 }
 
 impl CreateTableRequest {
-    /// Request for creating a table, excluding the Arrow IPC stream. 
+    /// Request for creating a table, excluding the Arrow IPC stream. The table location and any credential vending behavior are determined by the implementation and returned in the response, rather than specified in this request. 
     pub fn new() -> CreateTableRequest {
         CreateTableRequest {
             identity: None,
@@ -38,6 +41,7 @@ impl CreateTableRequest {
             id: None,
             mode: None,
             properties: None,
+            storage_options: None,
         }
     }
 }

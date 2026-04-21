@@ -1565,6 +1565,29 @@ paths:
       schema:
         type: string
       style: form
+    - description: |
+        Business logic properties managed by the namespace implementation outside Lance context.
+        The map is translated to a single JSON-encoded query parameter such as
+        `properties={"user":"alice","team":"eng"}`.
+      explode: true
+      in: query
+      name: properties
+      required: false
+      schema:
+        type: string
+      style: form
+    - description: |
+        Storage options that configure overrides for writing table data and metadata during
+        table creation. These are passed to Lance for the write path.
+        The map is translated to a single JSON-encoded query parameter such as
+        `storage_options={"aws_region":"us-east-1","timeout":"30s"}`.
+      explode: true
+      in: query
+      name: storage_options
+      required: false
+      schema:
+        type: string
+      style: form
     post:
       description: |
         Create table `id` in the namespace with the given data in Arrow IPC stream.
@@ -1577,6 +1600,12 @@ paths:
         It passes in the `CreateTableRequest` information in the following way:
         - `id`: pass through path parameter of the same name
         - `mode`: pass through query parameter of the same name
+        - `properties`: serialize as a single JSON-encoded query parameter such as
+          `properties={"user":"alice","team":"eng"}`; these are business logic properties
+          managed by the namespace implementation outside Lance context
+        - `storage_options`: serialize as a single JSON-encoded query parameter such as
+          `storage_options={"aws_region":"us-east-1","timeout":"30s"}`; these configure
+          write-time overrides for data and metadata written during table creation
       operationId: CreateTable
       parameters:
       - $ref: '#/components/parameters/id'
@@ -1584,6 +1613,29 @@ paths:
       - explode: true
         in: query
         name: mode
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: |
+          Business logic properties managed by the namespace implementation outside Lance context.
+          The map is translated to a single JSON-encoded query parameter such as
+          `properties={"user":"alice","team":"eng"}`.
+        explode: true
+        in: query
+        name: properties
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: |
+          Storage options that configure overrides for writing table data and metadata during
+          table creation. These are passed to Lance for the write path.
+          The map is translated to a single JSON-encoded query parameter such as
+          `storage_options={"aws_region":"us-east-1","timeout":"30s"}`.
+        explode: true
+        in: query
+        name: storage_options
         required: false
         schema:
           type: string
@@ -1607,6 +1659,8 @@ paths:
           $ref: '#/components/responses/ForbiddenErrorResponse'
         "404":
           $ref: '#/components/responses/NotFoundErrorResponse'
+        "409":
+          $ref: '#/components/responses/ConflictErrorResponse'
         "503":
           $ref: '#/components/responses/ServiceUnavailableErrorResponse'
         "5XX":
@@ -2113,54 +2167,6 @@ paths:
         "5XX":
           $ref: '#/components/responses/ServerErrorResponse'
       summary: Declare a table
-      tags:
-      - Table
-      - Metadata
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /v1/table/{id}/create-empty:
-    parameters:
-    - $ref: '#/components/parameters/id'
-    - $ref: '#/components/parameters/delimiter'
-    post:
-      deprecated: true
-      description: |
-        Create an empty table with the given name without touching storage.
-        This is a metadata-only operation that records the table existence and sets up aspects like access control.
-
-        For DirectoryNamespace implementation, this creates a `.lance-reserved` file in the table directory
-        to mark the table's existence without creating actual Lance data files.
-
-        **Deprecated**: Use `DeclareTable` instead.
-      operationId: CreateEmptyTable
-      parameters:
-      - $ref: '#/components/parameters/id'
-      - $ref: '#/components/parameters/delimiter'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateEmptyTableRequest'
-        required: true
-      responses:
-        "200":
-          $ref: '#/components/responses/CreateEmptyTableResponse'
-        "400":
-          $ref: '#/components/responses/BadRequestErrorResponse'
-        "401":
-          $ref: '#/components/responses/UnauthorizedErrorResponse'
-        "403":
-          $ref: '#/components/responses/ForbiddenErrorResponse'
-        "404":
-          $ref: '#/components/responses/NotFoundErrorResponse'
-        "409":
-          $ref: '#/components/responses/ConflictErrorResponse'
-        "503":
-          $ref: '#/components/responses/ServiceUnavailableErrorResponse'
-        "5XX":
-          $ref: '#/components/responses/ServerErrorResponse'
-      summary: Create an empty table
       tags:
       - Table
       - Metadata
@@ -2715,12 +2721,6 @@ components:
           schema:
             $ref: '#/components/schemas/DeclareTableResponse'
       description: Table properties result when declaring a table
-    CreateEmptyTableResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateEmptyTableResponse'
-      description: Table properties result when creating an empty table
     BadRequestErrorResponse:
       content:
         application/json:
@@ -4462,6 +4462,8 @@ components:
     CreateTableRequest:
       description: |
         Request for creating a table, excluding the Arrow IPC stream.
+        The table location and any credential vending behavior are determined by the implementation
+        and returned in the response, rather than specified in this request.
       properties:
         identity:
           $ref: '#/components/schemas/Identity'
@@ -4493,7 +4495,14 @@ components:
           additionalProperties:
             type: string
           description: |
-            Properties stored on the table, if supported by the implementation.
+            Business logic properties stored and managed by the namespace implementation outside
+            Lance context, if supported by the implementation.
+        storage_options:
+          additionalProperties:
+            type: string
+          description: |
+            Storage options that configure overrides for writing table data and metadata during
+            table creation. These are passed to Lance for the write path.
     CreateTableResponse:
       example:
         transaction_id: transaction_id
@@ -4526,97 +4535,9 @@ components:
             type: string
           default: {}
           description: |
-            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
-          example:
-            owner: Ralph
-            created_at: "1452120468"
-          nullable: true
-    CreateEmptyTableRequest:
-      deprecated: true
-      description: |
-        Request for creating an empty table.
-
-        **Deprecated**: Use `DeclareTableRequest` instead.
-      example:
-        identity:
-          api_key: api_key
-          auth_token: auth_token
-        context:
-          key: context
-        location: location
-        id:
-        - id
-        - id
-        properties:
-          key: properties
-        vend_credentials: true
-      properties:
-        identity:
-          $ref: '#/components/schemas/Identity'
-        context:
-          additionalProperties:
-            type: string
-          description: |
-            Arbitrary context for a request as key-value pairs.
-            How to use the context is custom to the specific implementation.
-
-            REST NAMESPACE ONLY
-            Context entries are passed via HTTP headers using the naming convention
-            `x-lance-ctx-<key>: <value>`. For example, a context entry
-            `{"trace_id": "abc123"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
-        id:
-          items:
-            type: string
-          type: array
-        location:
-          description: |
-            Optional storage location for the table.
-            If not provided, the namespace implementation should determine the table location.
-          type: string
-        vend_credentials:
-          description: |
-            Whether to include vended credentials in the response `storage_options`.
-            When true, the implementation should provide vended credentials for accessing storage.
-            When not set, the implementation can decide whether to return vended credentials.
-          type: boolean
-        properties:
-          additionalProperties:
-            type: string
-          description: |
-            Properties stored on the table, if supported by the server.
-    CreateEmptyTableResponse:
-      deprecated: true
-      description: |
-        Response for creating an empty table.
-
-        **Deprecated**: Use `DeclareTableResponse` instead.
-      example:
-        transaction_id: transaction_id
-        location: location
-        properties:
-          owner: Ralph
-          created_at: "1452120468"
-        storage_options:
-          key: storage_options
-      properties:
-        transaction_id:
-          description: Optional transaction identifier
-          type: string
-        location:
-          type: string
-        storage_options:
-          additionalProperties:
-            type: string
-          description: |
-            Configuration options to be used to access storage. The available
-            options depend on the type of storage in use. These will be
-            passed directly to Lance to initialize storage access.
-        properties:
-          additionalProperties:
-            type: string
-          default: {}
-          description: |
-            If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties.
+            Business logic properties stored and managed by the namespace implementation outside
+            Lance context. If the implementation does not support table properties, it should
+            return null for this field.
           example:
             owner: Ralph
             created_at: "1452120468"
@@ -4670,7 +4591,8 @@ components:
           additionalProperties:
             type: string
           description: |
-            Properties stored on the table, if supported by the server.
+            Business logic properties stored and managed by the namespace implementation outside
+            Lance context, if supported by the implementation.
     DeclareTableResponse:
       description: |
         Response for declaring a table.

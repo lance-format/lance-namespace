@@ -217,7 +217,8 @@ public class DeclareTableRequest {
   }
 
   /**
-   * Properties stored on the table, if supported by the server.
+   * Business logic properties stored and managed by the namespace implementation outside Lance
+   * context, if supported by the implementation.
    *
    * @return properties
    */

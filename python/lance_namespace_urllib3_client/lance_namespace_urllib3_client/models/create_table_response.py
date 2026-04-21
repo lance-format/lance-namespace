@@ -31,7 +31,7 @@ class CreateTableResponse(BaseModel):
     location: Optional[StrictStr] = None
     version: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     storage_options: Optional[Dict[str, StrictStr]] = Field(default=None, description="Configuration options to be used to access storage. The available options depend on the type of storage in use. These will be passed directly to Lance to initialize storage access. ")
-    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ")
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Business logic properties stored and managed by the namespace implementation outside Lance context. If the implementation does not support table properties, it should return null for this field. ")
     __properties: ClassVar[List[str]] = ["transaction_id", "location", "version", "storage_options", "properties"]
 
     model_config = ConfigDict(

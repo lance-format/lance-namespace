@@ -27,7 +27,7 @@ pub struct DeclareTableRequest {
     /// Whether to include vended credentials in the response `storage_options`. When true, the implementation should provide vended credentials for accessing storage. When not set, the implementation can decide whether to return vended credentials. 
     #[serde(rename = "vend_credentials", skip_serializing_if = "Option::is_none")]
     pub vend_credentials: Option<bool>,
-    /// Properties stored on the table, if supported by the server. 
+    /// Business logic properties stored and managed by the namespace implementation outside Lance context, if supported by the implementation. 
     #[serde(rename = "properties", skip_serializing_if = "Option::is_none")]
     pub properties: Option<std::collections::HashMap<String, String>>,
 }

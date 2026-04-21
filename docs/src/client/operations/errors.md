@@ -71,7 +71,6 @@ All operations may return the following errors:
 | TableExists               | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                         |
 | DropTable                 | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                         |
 | DeregisterTable           | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                         |
-| CreateEmptyTable          | 1 (NamespaceNotFound), 5 (TableAlreadyExists), 14 (ConcurrentModification)                                                       |
 | RestoreTable              | 1 (NamespaceNotFound), 4 (TableNotFound), 11 (TableVersionNotFound), 14 (ConcurrentModification)                                 |
 | RenameTable               | 1 (NamespaceNotFound), 4 (TableNotFound), 5 (TableAlreadyExists), 14 (ConcurrentModification)                                    |
 | GetTableStats             | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                         |

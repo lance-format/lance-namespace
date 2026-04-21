@@ -32,7 +32,7 @@ class DeclareTableRequest(BaseModel):
     id: Optional[List[StrictStr]] = None
     location: Optional[StrictStr] = Field(default=None, description="Optional storage location for the table. If not provided, the namespace implementation should determine the table location. ")
     vend_credentials: Optional[StrictBool] = Field(default=None, description="Whether to include vended credentials in the response `storage_options`. When true, the implementation should provide vended credentials for accessing storage. When not set, the implementation can decide whether to return vended credentials. ")
-    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Properties stored on the table, if supported by the server. ")
+    properties: Optional[Dict[str, StrictStr]] = Field(default=None, description="Business logic properties stored and managed by the namespace implementation outside Lance context, if supported by the implementation. ")
     __properties: ClassVar[List[str]] = ["identity", "context", "id", "location", "vend_credentials", "properties"]
 
     model_config = ConfigDict(

@@ -26,13 +26,18 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Request for creating a table, excluding the Arrow IPC stream. */
+/**
+ * Request for creating a table, excluding the Arrow IPC stream. The table location and any
+ * credential vending behavior are determined by the implementation and returned in the response,
+ * rather than specified in this request.
+ */
 @JsonPropertyOrder({
   CreateTableRequest.JSON_PROPERTY_IDENTITY,
   CreateTableRequest.JSON_PROPERTY_CONTEXT,
   CreateTableRequest.JSON_PROPERTY_ID,
   CreateTableRequest.JSON_PROPERTY_MODE,
-  CreateTableRequest.JSON_PROPERTY_PROPERTIES
+  CreateTableRequest.JSON_PROPERTY_PROPERTIES,
+  CreateTableRequest.JSON_PROPERTY_STORAGE_OPTIONS
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -52,6 +57,9 @@ public class CreateTableRequest {
 
   public static final String JSON_PROPERTY_PROPERTIES = "properties";
   @javax.annotation.Nullable private Map<String, String> properties = new HashMap<>();
+
+  public static final String JSON_PROPERTY_STORAGE_OPTIONS = "storage_options";
+  @javax.annotation.Nullable private Map<String, String> storageOptions = new HashMap<>();
 
   public CreateTableRequest() {}
 
@@ -190,7 +198,8 @@ public class CreateTableRequest {
   }
 
   /**
-   * Properties stored on the table, if supported by the implementation.
+   * Business logic properties stored and managed by the namespace implementation outside Lance
+   * context, if supported by the implementation.
    *
    * @return properties
    */
@@ -207,6 +216,40 @@ public class CreateTableRequest {
     this.properties = properties;
   }
 
+  public CreateTableRequest storageOptions(
+      @javax.annotation.Nullable Map<String, String> storageOptions) {
+
+    this.storageOptions = storageOptions;
+    return this;
+  }
+
+  public CreateTableRequest putStorageOptionsItem(String key, String storageOptionsItem) {
+    if (this.storageOptions == null) {
+      this.storageOptions = new HashMap<>();
+    }
+    this.storageOptions.put(key, storageOptionsItem);
+    return this;
+  }
+
+  /**
+   * Storage options that configure overrides for writing table data and metadata during table
+   * creation. These are passed to Lance for the write path.
+   *
+   * @return storageOptions
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getStorageOptions() {
+    return storageOptions;
+  }
+
+  @JsonProperty(JSON_PROPERTY_STORAGE_OPTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStorageOptions(@javax.annotation.Nullable Map<String, String> storageOptions) {
+    this.storageOptions = storageOptions;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -220,12 +263,13 @@ public class CreateTableRequest {
         && Objects.equals(this.context, createTableRequest.context)
         && Objects.equals(this.id, createTableRequest.id)
         && Objects.equals(this.mode, createTableRequest.mode)
-        && Objects.equals(this.properties, createTableRequest.properties);
+        && Objects.equals(this.properties, createTableRequest.properties)
+        && Objects.equals(this.storageOptions, createTableRequest.storageOptions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, mode, properties);
+    return Objects.hash(identity, context, id, mode, properties, storageOptions);
   }
 
   @Override
@@ -237,6 +281,7 @@ public class CreateTableRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -360,6 +405,28 @@ public class CreateTableRequest {
                       : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
                   getProperties().get(_key),
                   URLEncoder.encode(String.valueOf(getProperties().get(_key)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    // add `storage_options` to the URL query string
+    if (getStorageOptions() != null) {
+      for (String _key : getStorageOptions().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sstorage_options%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getStorageOptions().get(_key),
+                  URLEncoder.encode(String.valueOf(getStorageOptions().get(_key)), "UTF-8")
                       .replaceAll("\\+", "%20")));
         } catch (UnsupportedEncodingException e) {
           // Should never happen, UTF-8 is always supported

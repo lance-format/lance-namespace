@@ -26,10 +26,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/** Request for creating a table, excluding the Arrow IPC stream. */
+/**
+ * Request for creating a table, excluding the Arrow IPC stream. The table location and any
+ * credential vending behavior are determined by the implementation and returned in the response,
+ * rather than specified in this request.
+ */
 @Schema(
     name = "CreateTableRequest",
-    description = "Request for creating a table, excluding the Arrow IPC stream. ")
+    description =
+        "Request for creating a table, excluding the Arrow IPC stream. The table location and any credential vending behavior are determined by the implementation and returned in the response, rather than specified in this request. ")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
     comments = "Generator version: 7.12.0")
@@ -44,6 +49,8 @@ public class CreateTableRequest {
   private String mode;
 
   @Valid private Map<String, String> properties = new HashMap<>();
+
+  @Valid private Map<String, String> storageOptions = new HashMap<>();
 
   public CreateTableRequest identity(Identity identity) {
     this.identity = identity;
@@ -171,13 +178,15 @@ public class CreateTableRequest {
   }
 
   /**
-   * Properties stored on the table, if supported by the implementation.
+   * Business logic properties stored and managed by the namespace implementation outside Lance
+   * context, if supported by the implementation.
    *
    * @return properties
    */
   @Schema(
       name = "properties",
-      description = "Properties stored on the table, if supported by the implementation. ",
+      description =
+          "Business logic properties stored and managed by the namespace implementation outside Lance context, if supported by the implementation. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("properties")
   public Map<String, String> getProperties() {
@@ -186,6 +195,39 @@ public class CreateTableRequest {
 
   public void setProperties(Map<String, String> properties) {
     this.properties = properties;
+  }
+
+  public CreateTableRequest storageOptions(Map<String, String> storageOptions) {
+    this.storageOptions = storageOptions;
+    return this;
+  }
+
+  public CreateTableRequest putStorageOptionsItem(String key, String storageOptionsItem) {
+    if (this.storageOptions == null) {
+      this.storageOptions = new HashMap<>();
+    }
+    this.storageOptions.put(key, storageOptionsItem);
+    return this;
+  }
+
+  /**
+   * Storage options that configure overrides for writing table data and metadata during table
+   * creation. These are passed to Lance for the write path.
+   *
+   * @return storageOptions
+   */
+  @Schema(
+      name = "storage_options",
+      description =
+          "Storage options that configure overrides for writing table data and metadata during table creation. These are passed to Lance for the write path. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("storage_options")
+  public Map<String, String> getStorageOptions() {
+    return storageOptions;
+  }
+
+  public void setStorageOptions(Map<String, String> storageOptions) {
+    this.storageOptions = storageOptions;
   }
 
   @Override
@@ -201,12 +243,13 @@ public class CreateTableRequest {
         && Objects.equals(this.context, createTableRequest.context)
         && Objects.equals(this.id, createTableRequest.id)
         && Objects.equals(this.mode, createTableRequest.mode)
-        && Objects.equals(this.properties, createTableRequest.properties);
+        && Objects.equals(this.properties, createTableRequest.properties)
+        && Objects.equals(this.storageOptions, createTableRequest.storageOptions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, mode, properties);
+    return Objects.hash(identity, context, id, mode, properties, storageOptions);
   }
 
   @Override
@@ -218,6 +261,7 @@ public class CreateTableRequest {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
     sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+    sb.append("    storageOptions: ").append(toIndentedString(storageOptions)).append("\n");
     sb.append("}");
     return sb.toString();
   }
