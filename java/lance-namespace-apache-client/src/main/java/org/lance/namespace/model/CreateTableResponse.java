@@ -174,8 +174,9 @@ public class CreateTableResponse {
   }
 
   /**
-   * If the implementation does not support table properties, it should return null for this field.
-   * Otherwise it should return the properties.
+   * Business logic properties stored and managed by the namespace implementation outside Lance
+   * context. If the implementation does not support table properties, it should return null for
+   * this field.
    *
    * @return properties
    */

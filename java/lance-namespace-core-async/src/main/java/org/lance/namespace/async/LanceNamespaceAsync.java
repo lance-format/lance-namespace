@@ -356,20 +356,6 @@ public interface LanceNamespaceAsync {
   }
 
   /**
-   * Create an empty table (metadata only operation).
-   *
-   * @param request The create empty table request
-   * @return A CompletableFuture containing the create empty table response
-   * @deprecated Use {@link #declareTable(DeclareTableRequest)} instead.
-   */
-  @Deprecated
-  default CompletableFuture<CreateEmptyTableResponse> createEmptyTable(
-      CreateEmptyTableRequest request) {
-    return CompletableFuture.failedFuture(
-        new UnsupportedOperationException("Not supported: createEmptyTable"));
-  }
-
-  /**
    * Insert data into a table.
    *
    * @param request The insert into table request

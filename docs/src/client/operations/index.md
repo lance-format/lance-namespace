@@ -61,7 +61,6 @@ See [REST Routes](../../rest/catalog-spec.md#rest-routes) for more details.
 | CountTableRows            | 1               |           | ✓     |       |          | ✓    |             |
 | CreateTable               | 1               |           | ✓     |       |          | ✓    |             |
 | DeclareTable              | 1               |           | ✓     |       | ✓        |      |             |
-| CreateEmptyTable          | 1 (deprecated)  |           | ✓     |       | ✓        |      |             |
 | CreateTableIndex          | 1               |           | ✓     | ✓     | ✓        |      |             |
 | CreateTableScalarIndex    | 1               |           | ✓     | ✓     | ✓        |      |             |
 | ListTableIndices          | 1               |           | ✓     | ✓     | ✓        |      |             |

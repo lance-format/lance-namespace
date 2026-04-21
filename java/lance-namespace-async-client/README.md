@@ -161,8 +161,6 @@ Class | Method | HTTP request | Description
 *MetadataApi* | [**batchCreateTableVersionsWithHttpInfo**](docs/MetadataApi.md#batchCreateTableVersionsWithHttpInfo) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *MetadataApi* | [**batchDeleteTableVersions**](docs/MetadataApi.md#batchDeleteTableVersions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *MetadataApi* | [**batchDeleteTableVersionsWithHttpInfo**](docs/MetadataApi.md#batchDeleteTableVersionsWithHttpInfo) | **POST** /v1/table/{id}/version/delete | Delete table version records
-*MetadataApi* | [**createEmptyTable**](docs/MetadataApi.md#createEmptyTable) | **POST** /v1/table/{id}/create-empty | Create an empty table
-*MetadataApi* | [**createEmptyTableWithHttpInfo**](docs/MetadataApi.md#createEmptyTableWithHttpInfo) | **POST** /v1/table/{id}/create-empty | Create an empty table
 *MetadataApi* | [**createNamespace**](docs/MetadataApi.md#createNamespace) | **POST** /v1/namespace/{id}/create | Create a new namespace
 *MetadataApi* | [**createNamespaceWithHttpInfo**](docs/MetadataApi.md#createNamespaceWithHttpInfo) | **POST** /v1/namespace/{id}/create | Create a new namespace
 *MetadataApi* | [**createTableIndex**](docs/MetadataApi.md#createTableIndex) | **POST** /v1/table/{id}/create_index | Create an index on a table
@@ -251,8 +249,6 @@ Class | Method | HTTP request | Description
 *TableApi* | [**batchDeleteTableVersionsWithHttpInfo**](docs/TableApi.md#batchDeleteTableVersionsWithHttpInfo) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *TableApi* | [**countTableRows**](docs/TableApi.md#countTableRows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 *TableApi* | [**countTableRowsWithHttpInfo**](docs/TableApi.md#countTableRowsWithHttpInfo) | **POST** /v1/table/{id}/count_rows | Count rows in a table
-*TableApi* | [**createEmptyTable**](docs/TableApi.md#createEmptyTable) | **POST** /v1/table/{id}/create-empty | Create an empty table
-*TableApi* | [**createEmptyTableWithHttpInfo**](docs/TableApi.md#createEmptyTableWithHttpInfo) | **POST** /v1/table/{id}/create-empty | Create an empty table
 *TableApi* | [**createTable**](docs/TableApi.md#createTable) | **POST** /v1/table/{id}/create | Create a table with the given name
 *TableApi* | [**createTableWithHttpInfo**](docs/TableApi.md#createTableWithHttpInfo) | **POST** /v1/table/{id}/create | Create a table with the given name
 *TableApi* | [**createTableIndex**](docs/TableApi.md#createTableIndex) | **POST** /v1/table/{id}/create_index | Create an index on a table
@@ -365,8 +361,6 @@ Class | Method | HTTP request | Description
  - [CommitTableOperation](docs/CommitTableOperation.md)
  - [CommitTableResult](docs/CommitTableResult.md)
  - [CountTableRowsRequest](docs/CountTableRowsRequest.md)
- - [CreateEmptyTableRequest](docs/CreateEmptyTableRequest.md)
- - [CreateEmptyTableResponse](docs/CreateEmptyTableResponse.md)
  - [CreateNamespaceRequest](docs/CreateNamespaceRequest.md)
  - [CreateNamespaceResponse](docs/CreateNamespaceResponse.md)
  - [CreateTableIndexRequest](docs/CreateTableIndexRequest.md)

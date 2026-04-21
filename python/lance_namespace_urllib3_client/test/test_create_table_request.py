@@ -47,6 +47,9 @@ class TestCreateTableRequest(unittest.TestCase):
                 mode = '',
                 properties = {
                     'key' : ''
+                    },
+                storage_options = {
+                    'key' : ''
                     }
             )
         else:

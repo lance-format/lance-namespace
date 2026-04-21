@@ -338,18 +338,6 @@ public interface LanceNamespace {
   }
 
   /**
-   * Create an empty table (metadata only operation).
-   *
-   * @param request The create empty table request
-   * @return The create empty table response
-   * @deprecated Use {@link #declareTable(DeclareTableRequest)} instead.
-   */
-  @Deprecated
-  default CreateEmptyTableResponse createEmptyTable(CreateEmptyTableRequest request) {
-    throw new UnsupportedOperationException("Not supported: createEmptyTable");
-  }
-
-  /**
    * Insert data into a table.
    *
    * @param request The insert into table request

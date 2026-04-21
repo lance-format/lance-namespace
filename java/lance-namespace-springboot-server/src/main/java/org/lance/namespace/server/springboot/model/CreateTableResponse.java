@@ -151,8 +151,9 @@ public class CreateTableResponse {
   }
 
   /**
-   * If the implementation does not support table properties, it should return null for this field.
-   * Otherwise it should return the properties.
+   * Business logic properties stored and managed by the namespace implementation outside Lance
+   * context. If the implementation does not support table properties, it should return null for
+   * this field.
    *
    * @return properties
    */
@@ -160,7 +161,7 @@ public class CreateTableResponse {
       name = "properties",
       example = "{owner=Ralph, created_at=1452120468}",
       description =
-          "If the implementation does not support table properties, it should return null for this field. Otherwise it should return the properties. ",
+          "Business logic properties stored and managed by the namespace implementation outside Lance context. If the implementation does not support table properties, it should return null for this field. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("properties")
   public Map<String, String> getProperties() {

@@ -134,7 +134,6 @@ Class | Method | HTTP request | Description
 *MetadataApi* | [**batch_commit_tables**](docs/MetadataApi.md#batch_commit_tables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
 *MetadataApi* | [**batch_create_table_versions**](docs/MetadataApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *MetadataApi* | [**batch_delete_table_versions**](docs/MetadataApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
-*MetadataApi* | [**create_empty_table**](docs/MetadataApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 *MetadataApi* | [**create_namespace**](docs/MetadataApi.md#create_namespace) | **POST** /v1/namespace/{id}/create | Create a new namespace
 *MetadataApi* | [**create_table_index**](docs/MetadataApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 *MetadataApi* | [**create_table_scalar_index**](docs/MetadataApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
@@ -179,7 +178,6 @@ Class | Method | HTTP request | Description
 *TableApi* | [**batch_create_table_versions**](docs/TableApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 *TableApi* | [**batch_delete_table_versions**](docs/TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 *TableApi* | [**count_table_rows**](docs/TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
-*TableApi* | [**create_empty_table**](docs/TableApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 *TableApi* | [**create_table**](docs/TableApi.md#create_table) | **POST** /v1/table/{id}/create | Create a table with the given name
 *TableApi* | [**create_table_index**](docs/TableApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 *TableApi* | [**create_table_scalar_index**](docs/TableApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
@@ -252,8 +250,6 @@ Class | Method | HTTP request | Description
  - [CommitTableOperation](docs/CommitTableOperation.md)
  - [CommitTableResult](docs/CommitTableResult.md)
  - [CountTableRowsRequest](docs/CountTableRowsRequest.md)
- - [CreateEmptyTableRequest](docs/CreateEmptyTableRequest.md)
- - [CreateEmptyTableResponse](docs/CreateEmptyTableResponse.md)
  - [CreateNamespaceRequest](docs/CreateNamespaceRequest.md)
  - [CreateNamespaceResponse](docs/CreateNamespaceResponse.md)
  - [CreateTableIndexRequest](docs/CreateTableIndexRequest.md)

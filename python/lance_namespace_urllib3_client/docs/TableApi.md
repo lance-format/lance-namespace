@@ -12,7 +12,6 @@ Method | HTTP request | Description
 [**batch_create_table_versions**](TableApi.md#batch_create_table_versions) | **POST** /v1/table/version/batch-create | Atomically create versions for multiple tables
 [**batch_delete_table_versions**](TableApi.md#batch_delete_table_versions) | **POST** /v1/table/{id}/version/delete | Delete table version records
 [**count_table_rows**](TableApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
-[**create_empty_table**](TableApi.md#create_empty_table) | **POST** /v1/table/{id}/create-empty | Create an empty table
 [**create_table**](TableApi.md#create_table) | **POST** /v1/table/{id}/create | Create a table with the given name
 [**create_table_index**](TableApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 [**create_table_scalar_index**](TableApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
@@ -875,115 +874,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_empty_table**
-> CreateEmptyTableResponse create_empty_table(id, create_empty_table_request, delimiter=delimiter)
-
-Create an empty table
-
-Create an empty table with the given name without touching storage.
-This is a metadata-only operation that records the table existence and sets up aspects like access control.
-
-For DirectoryNamespace implementation, this creates a `.lance-reserved` file in the table directory
-to mark the table's existence without creating actual Lance data files.
-
-**Deprecated**: Use `DeclareTable` instead.
-
-
-### Example
-
-* OAuth Authentication (OAuth2):
-* Api Key Authentication (ApiKeyAuth):
-* Bearer Authentication (BearerAuth):
-
-```python
-import lance_namespace_urllib3_client
-from lance_namespace_urllib3_client.models.create_empty_table_request import CreateEmptyTableRequest
-from lance_namespace_urllib3_client.models.create_empty_table_response import CreateEmptyTableResponse
-from lance_namespace_urllib3_client.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to http://localhost:2333
-# See configuration.py for a list of all supported configuration parameters.
-configuration = lance_namespace_urllib3_client.Configuration(
-    host = "http://localhost:2333"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-# Configure API key authorization: ApiKeyAuth
-configuration.api_key['ApiKeyAuth'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKeyAuth'] = 'Bearer'
-
-# Configure Bearer authorization: BearerAuth
-configuration = lance_namespace_urllib3_client.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = lance_namespace_urllib3_client.TableApi(api_client)
-    id = 'id_example' # str | `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace. 
-    create_empty_table_request = lance_namespace_urllib3_client.CreateEmptyTableRequest() # CreateEmptyTableRequest | 
-    delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
-
-    try:
-        # Create an empty table
-        api_response = api_instance.create_empty_table(id, create_empty_table_request, delimiter=delimiter)
-        print("The response of TableApi->create_empty_table:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling TableApi->create_empty_table: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| &#x60;string identifier&#x60; of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the root namespace.  | 
- **create_empty_table_request** | [**CreateEmptyTableRequest**](CreateEmptyTableRequest.md)|  | 
- **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
-
-### Return type
-
-[**CreateEmptyTableResponse**](CreateEmptyTableResponse.md)
-
-### Authorization
-
-[OAuth2](../README.md#OAuth2), [ApiKeyAuth](../README.md#ApiKeyAuth), [BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Table properties result when creating an empty table |  -  |
-**400** | Indicates a bad request error. It could be caused by an unexpected request body format or other forms of request validation failure, such as invalid json. Usually serves application/json content, although in some cases simple text/plain content might be returned by the server&#39;s middleware. |  -  |
-**401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
-**403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
-**404** | A server-side problem that means can not find the specified resource. |  -  |
-**409** | The request conflicts with the current state of the target resource. |  -  |
-**503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
-**5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **create_table**
-> CreateTableResponse create_table(id, body, delimiter=delimiter, mode=mode)
+> CreateTableResponse create_table(id, body, delimiter=delimiter, mode=mode, properties=properties, storage_options=storage_options)
 
 Create a table with the given name
 
@@ -997,6 +889,12 @@ REST namespace uses Arrow IPC stream as the request body.
 It passes in the `CreateTableRequest` information in the following way:
 - `id`: pass through path parameter of the same name
 - `mode`: pass through query parameter of the same name
+- `properties`: serialize as a single JSON-encoded query parameter such as
+  `properties={"user":"alice","team":"eng"}`; these are business logic properties
+  managed by the namespace implementation outside Lance context
+- `storage_options`: serialize as a single JSON-encoded query parameter such as
+  `storage_options={"aws_region":"us-east-1","timeout":"30s"}`; these configure
+  write-time overrides for data and metadata written during table creation
 
 
 ### Example
@@ -1043,10 +941,12 @@ with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
     body = None # bytearray | Arrow IPC data
     delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
     mode = 'mode_example' # str |  (optional)
+    properties = 'properties_example' # str | Business logic properties managed by the namespace implementation outside Lance context. The map is translated to a single JSON-encoded query parameter such as `properties={\"user\":\"alice\",\"team\":\"eng\"}`.  (optional)
+    storage_options = 'storage_options_example' # str | Storage options that configure overrides for writing table data and metadata during table creation. These are passed to Lance for the write path. The map is translated to a single JSON-encoded query parameter such as `storage_options={\"aws_region\":\"us-east-1\",\"timeout\":\"30s\"}`.  (optional)
 
     try:
         # Create a table with the given name
-        api_response = api_instance.create_table(id, body, delimiter=delimiter, mode=mode)
+        api_response = api_instance.create_table(id, body, delimiter=delimiter, mode=mode, properties=properties, storage_options=storage_options)
         print("The response of TableApi->create_table:\n")
         pprint(api_response)
     except Exception as e:
@@ -1064,6 +964,8 @@ Name | Type | Description  | Notes
  **body** | **bytearray**| Arrow IPC data | 
  **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
  **mode** | **str**|  | [optional] 
+ **properties** | **str**| Business logic properties managed by the namespace implementation outside Lance context. The map is translated to a single JSON-encoded query parameter such as &#x60;properties&#x3D;{\&quot;user\&quot;:\&quot;alice\&quot;,\&quot;team\&quot;:\&quot;eng\&quot;}&#x60;.  | [optional] 
+ **storage_options** | **str**| Storage options that configure overrides for writing table data and metadata during table creation. These are passed to Lance for the write path. The map is translated to a single JSON-encoded query parameter such as &#x60;storage_options&#x3D;{\&quot;aws_region\&quot;:\&quot;us-east-1\&quot;,\&quot;timeout\&quot;:\&quot;30s\&quot;}&#x60;.  | [optional] 
 
 ### Return type
 
@@ -1087,6 +989,7 @@ Name | Type | Description  | Notes
 **401** | Unauthorized. The request lacks valid authentication credentials for the operation. |  -  |
 **403** | Forbidden. Authenticated user does not have the necessary permissions. |  -  |
 **404** | A server-side problem that means can not find the specified resource. |  -  |
+**409** | The request conflicts with the current state of the target resource. |  -  |
 **503** | The service is not ready to handle the request. The client should wait and retry. The service may additionally send a Retry-After header to indicate when to retry. |  -  |
 **5XX** | A server-side problem that might not be addressable from the client side. Used for server 5xx errors without more specific documentation in individual routes. |  -  |
 
