@@ -385,11 +385,11 @@ public class Example {
 
 ## listTables
 
-> ListTablesResponse listTables(id, delimiter, pageToken, limit)
+> ListTablesResponse listTables(id, delimiter, pageToken, limit, includeDeclared)
 
 List tables in a namespace
 
-List all child table names of the parent namespace &#x60;id&#x60;.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the &#x60;ListTablesRequest&#x60; information in the following way: - &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of the same name 
+List all child table names of the parent namespace &#x60;id&#x60;.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the &#x60;ListTablesRequest&#x60; information in the following way: - &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of the same name - &#x60;include_declared&#x60;: pass through query parameter of the same name 
 
 ### Example
 
@@ -426,8 +426,9 @@ public class Example {
         String delimiter = "delimiter_example"; // String | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
         String pageToken = "pageToken_example"; // String | Pagination token from a previous request
         Integer limit = 56; // Integer | Maximum number of items to return
+        Boolean includeDeclared = true; // Boolean | When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
         try {
-            ListTablesResponse result = apiInstance.listTables(id, delimiter, pageToken, limit);
+            ListTablesResponse result = apiInstance.listTables(id, delimiter, pageToken, limit, includeDeclared);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling NamespaceApi#listTables");
@@ -449,6 +450,7 @@ public class Example {
 | **delimiter** | **String**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] |
 | **pageToken** | **String**| Pagination token from a previous request | [optional] |
 | **limit** | **Integer**| Maximum number of items to return | [optional] |
+| **includeDeclared** | **Boolean**| When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned.  | [optional] [default to true] |
 
 ### Return type
 

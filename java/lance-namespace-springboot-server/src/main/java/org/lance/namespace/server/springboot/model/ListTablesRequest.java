@@ -42,7 +42,7 @@ public class ListTablesRequest {
 
   private Integer limit;
 
-  private Boolean includeDeclared;
+  private Boolean includeDeclared = true;
 
   public ListTablesRequest identity(Identity identity) {
     this.identity = identity;
@@ -189,8 +189,8 @@ public class ListTablesRequest {
   }
 
   /**
-   * When true, includes tables that have been declared in the namespace but not yet created on
-   * storage, in addition to tables that have been created. When false or not set, only tables with
+   * When true (default), includes tables that have been declared in the namespace but not yet
+   * created on storage, in addition to tables that have been created. When false, only tables with
    * storage components are returned.
    *
    * @return includeDeclared
@@ -198,7 +198,7 @@ public class ListTablesRequest {
   @Schema(
       name = "include_declared",
       description =
-          "When true, includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false or not set, only tables with storage components are returned. ",
+          "When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("include_declared")
   public Boolean getIncludeDeclared() {

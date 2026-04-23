@@ -840,7 +840,8 @@ public interface NamespaceApi {
    * this operation without a request body. It passes in the &#x60;ListTablesRequest&#x60;
    * information in the following way: - &#x60;id&#x60;: pass through path parameter of the same
    * name - &#x60;page_token&#x60;: pass through query parameter of the same name -
-   * &#x60;limit&#x60;: pass through query parameter of the same name
+   * &#x60;limit&#x60;: pass through query parameter of the same name -
+   * &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -851,6 +852,9 @@ public interface NamespaceApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @return A list of tables (status code 200) or Indicates a bad request error. It could be caused
    *     by an unexpected request body format or other forms of request validation failure, such as
    *     invalid json. Usually serves application/json content, although in some cases simple
@@ -869,7 +873,7 @@ public interface NamespaceApi {
       operationId = "listTables",
       summary = "List tables in a namespace",
       description =
-          "List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name ",
+          "List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name ",
       tags = {"Namespace", "Table", "Metadata"},
       responses = {
         @ApiResponse(
@@ -981,7 +985,15 @@ public interface NamespaceApi {
               in = ParameterIn.QUERY)
           @Valid
           @RequestParam(value = "limit", required = false)
-          Optional<Integer> limit) {
+          Optional<Integer> limit,
+      @Parameter(
+              name = "include_declared",
+              description =
+                  "When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "include_declared", required = false, defaultValue = "true")
+          Optional<Boolean> includeDeclared) {
     getRequest()
         .ifPresent(
             request -> {

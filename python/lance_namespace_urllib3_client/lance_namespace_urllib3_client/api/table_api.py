@@ -8662,6 +8662,7 @@ class TableApi:
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         page_token: Annotated[Optional[StrictStr], Field(description="Pagination token from a previous request")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="Maximum number of items to return")] = None,
+        include_declared: Annotated[Optional[StrictBool], Field(description="When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8677,7 +8678,7 @@ class TableApi:
     ) -> ListTablesResponse:
         """List all tables
 
-        List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name 
+        List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
         :param delimiter: An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
         :type delimiter: str
@@ -8685,6 +8686,8 @@ class TableApi:
         :type page_token: str
         :param limit: Maximum number of items to return
         :type limit: int
+        :param include_declared: When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
+        :type include_declared: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8711,6 +8714,7 @@ class TableApi:
             delimiter=delimiter,
             page_token=page_token,
             limit=limit,
+            include_declared=include_declared,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8742,6 +8746,7 @@ class TableApi:
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         page_token: Annotated[Optional[StrictStr], Field(description="Pagination token from a previous request")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="Maximum number of items to return")] = None,
+        include_declared: Annotated[Optional[StrictBool], Field(description="When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8757,7 +8762,7 @@ class TableApi:
     ) -> ApiResponse[ListTablesResponse]:
         """List all tables
 
-        List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name 
+        List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
         :param delimiter: An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
         :type delimiter: str
@@ -8765,6 +8770,8 @@ class TableApi:
         :type page_token: str
         :param limit: Maximum number of items to return
         :type limit: int
+        :param include_declared: When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
+        :type include_declared: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8791,6 +8798,7 @@ class TableApi:
             delimiter=delimiter,
             page_token=page_token,
             limit=limit,
+            include_declared=include_declared,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8822,6 +8830,7 @@ class TableApi:
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         page_token: Annotated[Optional[StrictStr], Field(description="Pagination token from a previous request")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="Maximum number of items to return")] = None,
+        include_declared: Annotated[Optional[StrictBool], Field(description="When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8837,7 +8846,7 @@ class TableApi:
     ) -> RESTResponseType:
         """List all tables
 
-        List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name 
+        List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
         :param delimiter: An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. 
         :type delimiter: str
@@ -8845,6 +8854,8 @@ class TableApi:
         :type page_token: str
         :param limit: Maximum number of items to return
         :type limit: int
+        :param include_declared: When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
+        :type include_declared: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8871,6 +8882,7 @@ class TableApi:
             delimiter=delimiter,
             page_token=page_token,
             limit=limit,
+            include_declared=include_declared,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8897,6 +8909,7 @@ class TableApi:
         delimiter,
         page_token,
         limit,
+        include_declared,
         _request_auth,
         _content_type,
         _headers,
@@ -8930,6 +8943,10 @@ class TableApi:
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if include_declared is not None:
+            
+            _query_params.append(('include_declared', include_declared))
             
         # process the header parameters
         # process the form parameters
@@ -9984,6 +10001,7 @@ class TableApi:
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         page_token: Annotated[Optional[StrictStr], Field(description="Pagination token from a previous request")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="Maximum number of items to return")] = None,
+        include_declared: Annotated[Optional[StrictBool], Field(description="When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9999,7 +10017,7 @@ class TableApi:
     ) -> ListTablesResponse:
         """List tables in a namespace
 
-        List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
+        List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
         :param id: `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  (required)
         :type id: str
@@ -10009,6 +10027,8 @@ class TableApi:
         :type page_token: str
         :param limit: Maximum number of items to return
         :type limit: int
+        :param include_declared: When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
+        :type include_declared: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10036,6 +10056,7 @@ class TableApi:
             delimiter=delimiter,
             page_token=page_token,
             limit=limit,
+            include_declared=include_declared,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10070,6 +10091,7 @@ class TableApi:
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         page_token: Annotated[Optional[StrictStr], Field(description="Pagination token from a previous request")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="Maximum number of items to return")] = None,
+        include_declared: Annotated[Optional[StrictBool], Field(description="When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10085,7 +10107,7 @@ class TableApi:
     ) -> ApiResponse[ListTablesResponse]:
         """List tables in a namespace
 
-        List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
+        List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
         :param id: `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  (required)
         :type id: str
@@ -10095,6 +10117,8 @@ class TableApi:
         :type page_token: str
         :param limit: Maximum number of items to return
         :type limit: int
+        :param include_declared: When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
+        :type include_declared: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10122,6 +10146,7 @@ class TableApi:
             delimiter=delimiter,
             page_token=page_token,
             limit=limit,
+            include_declared=include_declared,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10156,6 +10181,7 @@ class TableApi:
         delimiter: Annotated[Optional[StrictStr], Field(description="An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used. ")] = None,
         page_token: Annotated[Optional[StrictStr], Field(description="Pagination token from a previous request")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="Maximum number of items to return")] = None,
+        include_declared: Annotated[Optional[StrictBool], Field(description="When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10171,7 +10197,7 @@ class TableApi:
     ) -> RESTResponseType:
         """List tables in a namespace
 
-        List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
+        List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
         :param id: `string identifier` of an object in a namespace, following the Lance Namespace spec. When the value is equal to the delimiter, it represents the root namespace. For example, `v1/namespace/$/list` performs a `ListNamespace` on the root namespace.  (required)
         :type id: str
@@ -10181,6 +10207,8 @@ class TableApi:
         :type page_token: str
         :param limit: Maximum number of items to return
         :type limit: int
+        :param include_declared: When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
+        :type include_declared: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10208,6 +10236,7 @@ class TableApi:
             delimiter=delimiter,
             page_token=page_token,
             limit=limit,
+            include_declared=include_declared,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10237,6 +10266,7 @@ class TableApi:
         delimiter,
         page_token,
         limit,
+        include_declared,
         _request_auth,
         _content_type,
         _headers,
@@ -10272,6 +10302,10 @@ class TableApi:
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if include_declared is not None:
+            
+            _query_params.append(('include_declared', include_declared))
             
         # process the header parameters
         # process the form parameters

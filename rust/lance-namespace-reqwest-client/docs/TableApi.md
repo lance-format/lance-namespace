@@ -885,10 +885,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_all_tables
 
-> models::ListTablesResponse list_all_tables(delimiter, page_token, limit)
+> models::ListTablesResponse list_all_tables(delimiter, page_token, limit, include_declared)
 List all tables
 
-List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name 
+List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
 ### Parameters
 
@@ -898,6 +898,7 @@ Name | Type | Description  | Required | Notes
 **delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
 **page_token** | Option<**String**> | Pagination token from a previous request |  |
 **limit** | Option<**i32**> | Maximum number of items to return |  |
+**include_declared** | Option<**bool**> | When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned.  |  |[default to true]
 
 ### Return type
 
@@ -1016,10 +1017,10 @@ Name | Type | Description  | Required | Notes
 
 ## list_tables
 
-> models::ListTablesResponse list_tables(id, delimiter, page_token, limit)
+> models::ListTablesResponse list_tables(id, delimiter, page_token, limit, include_declared)
 List tables in a namespace
 
-List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name 
+List all child table names of the parent namespace `id`.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListTablesRequest` information in the following way: - `id`: pass through path parameter of the same name - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name 
 
 ### Parameters
 
@@ -1030,6 +1031,7 @@ Name | Type | Description  | Required | Notes
 **delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
 **page_token** | Option<**String**> | Pagination token from a previous request |  |
 **limit** | Option<**i32**> | Maximum number of items to return |  |
+**include_declared** | Option<**bool**> | When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned.  |  |[default to true]
 
 ### Return type
 

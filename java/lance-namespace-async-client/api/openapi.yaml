@@ -288,12 +288,14 @@ paths:
         - `id`: pass through path parameter of the same name
         - `page_token`: pass through query parameter of the same name
         - `limit`: pass through query parameter of the same name
+        - `include_declared`: pass through query parameter of the same name
       operationId: ListTables
       parameters:
       - $ref: '#/components/parameters/id'
       - $ref: '#/components/parameters/delimiter'
       - $ref: '#/components/parameters/page_token'
       - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/include_declared'
       responses:
         "200":
           $ref: '#/components/responses/ListTablesResponse'
@@ -323,6 +325,7 @@ paths:
     - $ref: '#/components/parameters/delimiter'
     - $ref: '#/components/parameters/page_token'
     - $ref: '#/components/parameters/limit'
+    - $ref: '#/components/parameters/include_declared'
   /v1/table:
     get:
       description: |
@@ -334,11 +337,13 @@ paths:
         - `page_token`: pass through query parameter of the same name
         - `limit`: pass through query parameter of the same name
         - `delimiter`: pass through query parameter of the same name
+        - `include_declared`: pass through query parameter of the same name
       operationId: ListAllTables
       parameters:
       - $ref: '#/components/parameters/delimiter'
       - $ref: '#/components/parameters/page_token'
       - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/include_declared'
       responses:
         "200":
           $ref: '#/components/responses/ListTablesResponse'
@@ -2440,6 +2445,20 @@ components:
         default: false
         type: boolean
       style: form
+    include_declared:
+      description: |
+        When true (default), includes tables that have been declared in the namespace
+        but not yet created on storage, in addition to tables that have
+        been created. When false, only tables with storage
+        components are returned.
+      explode: true
+      in: query
+      name: include_declared
+      required: false
+      schema:
+        default: true
+        type: boolean
+      style: form
     load_detailed_metadata:
       description: |
         Whether to load detailed metadata that requires opening the dataset.
@@ -3331,10 +3350,11 @@ components:
           type: integer
           nullable: true
         include_declared:
+          default: true
           description: |
-            When true, includes tables that have been declared in the namespace
+            When true (default), includes tables that have been declared in the namespace
             but not yet created on storage, in addition to tables that have
-            been created. When false or not set, only tables with storage
+            been created. When false, only tables with storage
             components are returned.
           type: boolean
     ListTablesResponse:

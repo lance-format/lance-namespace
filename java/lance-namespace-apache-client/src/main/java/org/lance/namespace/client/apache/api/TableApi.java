@@ -2864,19 +2864,24 @@ public class TableApi extends BaseApi {
    * GET to perform this operation without a request body. It passes in the
    * &#x60;ListAllTablesRequest&#x60; information in the following way: - &#x60;page_token&#x60;:
    * pass through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter
-   * of the same name - &#x60;delimiter&#x60;: pass through query parameter of the same name
+   * of the same name - &#x60;delimiter&#x60;: pass through query parameter of the same name -
+   * &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
    *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @return ListTablesResponse
    * @throws ApiException if fails to make API call
    */
-  public ListTablesResponse listAllTables(String delimiter, String pageToken, Integer limit)
+  public ListTablesResponse listAllTables(
+      String delimiter, String pageToken, Integer limit, Boolean includeDeclared)
       throws ApiException {
-    return this.listAllTables(delimiter, pageToken, limit, Collections.emptyMap());
+    return this.listAllTables(delimiter, pageToken, limit, includeDeclared, Collections.emptyMap());
   }
 
   /**
@@ -2884,19 +2889,27 @@ public class TableApi extends BaseApi {
    * GET to perform this operation without a request body. It passes in the
    * &#x60;ListAllTablesRequest&#x60; information in the following way: - &#x60;page_token&#x60;:
    * pass through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter
-   * of the same name - &#x60;delimiter&#x60;: pass through query parameter of the same name
+   * of the same name - &#x60;delimiter&#x60;: pass through query parameter of the same name -
+   * &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
    *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return ListTablesResponse
    * @throws ApiException if fails to make API call
    */
   public ListTablesResponse listAllTables(
-      String delimiter, String pageToken, Integer limit, Map<String, String> additionalHeaders)
+      String delimiter,
+      String pageToken,
+      Integer limit,
+      Boolean includeDeclared,
+      Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
 
@@ -2914,6 +2927,7 @@ public class TableApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
     localVarQueryParams.addAll(apiClient.parameterToPair("page_token", pageToken));
     localVarQueryParams.addAll(apiClient.parameterToPair("limit", limit));
+    localVarQueryParams.addAll(apiClient.parameterToPair("include_declared", includeDeclared));
 
     localVarHeaderParams.putAll(additionalHeaders);
 
@@ -3279,7 +3293,7 @@ public class TableApi extends BaseApi {
    * It passes in the &#x60;ListTablesRequest&#x60; information in the following way: -
    * &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass
    * through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of
-   * the same name
+   * the same name - &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -3290,12 +3304,17 @@ public class TableApi extends BaseApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @return ListTablesResponse
    * @throws ApiException if fails to make API call
    */
-  public ListTablesResponse listTables(String id, String delimiter, String pageToken, Integer limit)
+  public ListTablesResponse listTables(
+      String id, String delimiter, String pageToken, Integer limit, Boolean includeDeclared)
       throws ApiException {
-    return this.listTables(id, delimiter, pageToken, limit, Collections.emptyMap());
+    return this.listTables(
+        id, delimiter, pageToken, limit, includeDeclared, Collections.emptyMap());
   }
 
   /**
@@ -3304,7 +3323,7 @@ public class TableApi extends BaseApi {
    * It passes in the &#x60;ListTablesRequest&#x60; information in the following way: -
    * &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass
    * through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of
-   * the same name
+   * the same name - &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -3315,6 +3334,9 @@ public class TableApi extends BaseApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @param additionalHeaders additionalHeaders for this call
    * @return ListTablesResponse
    * @throws ApiException if fails to make API call
@@ -3324,6 +3346,7 @@ public class TableApi extends BaseApi {
       String delimiter,
       String pageToken,
       Integer limit,
+      Boolean includeDeclared,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = null;
@@ -3350,6 +3373,7 @@ public class TableApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
     localVarQueryParams.addAll(apiClient.parameterToPair("page_token", pageToken));
     localVarQueryParams.addAll(apiClient.parameterToPair("limit", limit));
+    localVarQueryParams.addAll(apiClient.parameterToPair("include_declared", includeDeclared));
 
     localVarHeaderParams.putAll(additionalHeaders);
 

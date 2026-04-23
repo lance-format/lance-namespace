@@ -32,7 +32,7 @@ class ListTablesRequest(BaseModel):
     id: Optional[List[StrictStr]] = None
     page_token: Optional[StrictStr] = Field(default=None, description="An opaque token that allows pagination for list operations (e.g. ListNamespaces).  For an initial request of a list operation, if the implementation cannot return all items in one response, or if there are more items than the page limit specified in the request, the implementation must return a page token in the response, indicating there are more results available.  After the initial request, the value of the page token from each response must be used as the page token value for the next request.  Caller must interpret either `null`, missing value or empty string value of the page token from the implementation's response as the end of the listing results. ")
     limit: Optional[StrictInt] = Field(default=None, description="An inclusive upper bound of the number of results that a caller will receive. ")
-    include_declared: Optional[StrictBool] = Field(default=None, description="When true, includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false or not set, only tables with storage components are returned. ")
+    include_declared: Optional[StrictBool] = Field(default=True, description="When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ")
     __properties: ClassVar[List[str]] = ["identity", "context", "id", "page_token", "limit", "include_declared"]
 
     model_config = ConfigDict(
@@ -94,7 +94,7 @@ class ListTablesRequest(BaseModel):
             "id": obj.get("id"),
             "page_token": obj.get("page_token"),
             "limit": obj.get("limit"),
-            "include_declared": obj.get("include_declared")
+            "include_declared": obj.get("include_declared") if obj.get("include_declared") is not None else True
         })
         return _obj
 
