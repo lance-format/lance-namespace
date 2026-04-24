@@ -4481,7 +4481,7 @@ public class MetadataApi {
    * It passes in the &#x60;ListTablesRequest&#x60; information in the following way: -
    * &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass
    * through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of
-   * the same name
+   * the same name - &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -4492,14 +4492,18 @@ public class MetadataApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @return CompletableFuture&lt;ListTablesResponse&gt;
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ListTablesResponse> listTables(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
+      String id, String delimiter, String pageToken, Integer limit, Boolean includeDeclared)
+      throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          listTablesRequestBuilder(id, delimiter, pageToken, limit);
+          listTablesRequestBuilder(id, delimiter, pageToken, limit, includeDeclared);
       return memberVarHttpClient
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
@@ -4530,7 +4534,7 @@ public class MetadataApi {
    * It passes in the &#x60;ListTablesRequest&#x60; information in the following way: -
    * &#x60;id&#x60;: pass through path parameter of the same name - &#x60;page_token&#x60;: pass
    * through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter of
-   * the same name
+   * the same name - &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -4541,14 +4545,18 @@ public class MetadataApi {
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @return CompletableFuture&lt;ApiResponse&lt;ListTablesResponse&gt;&gt;
    * @throws ApiException if fails to make API call
    */
   public CompletableFuture<ApiResponse<ListTablesResponse>> listTablesWithHttpInfo(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
+      String id, String delimiter, String pageToken, Integer limit, Boolean includeDeclared)
+      throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
-          listTablesRequestBuilder(id, delimiter, pageToken, limit);
+          listTablesRequestBuilder(id, delimiter, pageToken, limit, includeDeclared);
       return memberVarHttpClient
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
@@ -4580,7 +4588,8 @@ public class MetadataApi {
   }
 
   private HttpRequest.Builder listTablesRequestBuilder(
-      String id, String delimiter, String pageToken, Integer limit) throws ApiException {
+      String id, String delimiter, String pageToken, Integer limit, Boolean includeDeclared)
+      throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling listTables");
@@ -4600,6 +4609,8 @@ public class MetadataApi {
     localVarQueryParams.addAll(ApiClient.parameterToPairs("page_token", pageToken));
     localVarQueryParameterBaseName = "limit";
     localVarQueryParams.addAll(ApiClient.parameterToPairs("limit", limit));
+    localVarQueryParameterBaseName = "include_declared";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("include_declared", includeDeclared));
 
     if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
       StringJoiner queryJoiner = new StringJoiner("&");

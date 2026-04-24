@@ -26,7 +26,7 @@ pub struct ListTablesRequest {
     /// An inclusive upper bound of the number of results that a caller will receive. 
     #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
     pub limit: Option<i32>,
-    /// When true, includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false or not set, only tables with storage components are returned. 
+    /// When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. 
     #[serde(rename = "include_declared", skip_serializing_if = "Option::is_none")]
     pub include_declared: Option<bool>,
 }

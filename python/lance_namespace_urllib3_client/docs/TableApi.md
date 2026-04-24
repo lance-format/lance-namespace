@@ -2747,7 +2747,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_all_tables**
-> ListTablesResponse list_all_tables(delimiter=delimiter, page_token=page_token, limit=limit)
+> ListTablesResponse list_all_tables(delimiter=delimiter, page_token=page_token, limit=limit, include_declared=include_declared)
 
 List all tables
 
@@ -2759,6 +2759,7 @@ It passes in the `ListAllTablesRequest` information in the following way:
 - `page_token`: pass through query parameter of the same name
 - `limit`: pass through query parameter of the same name
 - `delimiter`: pass through query parameter of the same name
+- `include_declared`: pass through query parameter of the same name
 
 
 ### Example
@@ -2804,10 +2805,11 @@ with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
     delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
     page_token = 'page_token_example' # str | Pagination token from a previous request (optional)
     limit = 56 # int | Maximum number of items to return (optional)
+    include_declared = True # bool | When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned.  (optional) (default to True)
 
     try:
         # List all tables
-        api_response = api_instance.list_all_tables(delimiter=delimiter, page_token=page_token, limit=limit)
+        api_response = api_instance.list_all_tables(delimiter=delimiter, page_token=page_token, limit=limit, include_declared=include_declared)
         print("The response of TableApi->list_all_tables:\n")
         pprint(api_response)
     except Exception as e:
@@ -2824,6 +2826,7 @@ Name | Type | Description  | Notes
  **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
  **page_token** | **str**| Pagination token from a previous request | [optional] 
  **limit** | **int**| Maximum number of items to return | [optional] 
+ **include_declared** | **bool**| When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned.  | [optional] [default to True]
 
 ### Return type
 
@@ -3176,7 +3179,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_tables**
-> ListTablesResponse list_tables(id, delimiter=delimiter, page_token=page_token, limit=limit)
+> ListTablesResponse list_tables(id, delimiter=delimiter, page_token=page_token, limit=limit, include_declared=include_declared)
 
 List tables in a namespace
 
@@ -3188,6 +3191,7 @@ It passes in the `ListTablesRequest` information in the following way:
 - `id`: pass through path parameter of the same name
 - `page_token`: pass through query parameter of the same name
 - `limit`: pass through query parameter of the same name
+- `include_declared`: pass through query parameter of the same name
 
 
 ### Example
@@ -3234,10 +3238,11 @@ with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
     delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
     page_token = 'page_token_example' # str | Pagination token from a previous request (optional)
     limit = 56 # int | Maximum number of items to return (optional)
+    include_declared = True # bool | When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned.  (optional) (default to True)
 
     try:
         # List tables in a namespace
-        api_response = api_instance.list_tables(id, delimiter=delimiter, page_token=page_token, limit=limit)
+        api_response = api_instance.list_tables(id, delimiter=delimiter, page_token=page_token, limit=limit, include_declared=include_declared)
         print("The response of TableApi->list_tables:\n")
         pprint(api_response)
     except Exception as e:
@@ -3255,6 +3260,7 @@ Name | Type | Description  | Notes
  **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
  **page_token** | **str**| Pagination token from a previous request | [optional] 
  **limit** | **int**| Maximum number of items to return | [optional] 
+ **include_declared** | **bool**| When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned.  | [optional] [default to True]
 
 ### Return type
 

@@ -55,7 +55,7 @@ public class ListTablesRequest {
   @javax.annotation.Nullable private Integer limit;
 
   public static final String JSON_PROPERTY_INCLUDE_DECLARED = "include_declared";
-  @javax.annotation.Nullable private Boolean includeDeclared;
+  @javax.annotation.Nullable private Boolean includeDeclared = true;
 
   public ListTablesRequest() {}
 
@@ -207,8 +207,8 @@ public class ListTablesRequest {
   }
 
   /**
-   * When true, includes tables that have been declared in the namespace but not yet created on
-   * storage, in addition to tables that have been created. When false or not set, only tables with
+   * When true (default), includes tables that have been declared in the namespace but not yet
+   * created on storage, in addition to tables that have been created. When false, only tables with
    * storage components are returned.
    *
    * @return includeDeclared

@@ -275,6 +275,7 @@ paths:
       - $ref: "#/components/parameters/delimiter"
       - $ref: "#/components/parameters/page_token"
       - $ref: "#/components/parameters/limit"
+      - $ref: "#/components/parameters/include_declared"
     get:
       tags:
         - Namespace
@@ -291,6 +292,7 @@ paths:
         - `id`: pass through path parameter of the same name
         - `page_token`: pass through query parameter of the same name
         - `limit`: pass through query parameter of the same name
+        - `include_declared`: pass through query parameter of the same name
       responses:
         200:
           $ref: "#/components/responses/ListTablesResponse"
@@ -326,10 +328,12 @@ paths:
         - `page_token`: pass through query parameter of the same name
         - `limit`: pass through query parameter of the same name
         - `delimiter`: pass through query parameter of the same name
+        - `include_declared`: pass through query parameter of the same name
       parameters:
         - $ref: "#/components/parameters/delimiter"
         - $ref: "#/components/parameters/page_token"
         - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/include_declared"
       responses:
         200:
           $ref: "#/components/responses/ListTablesResponse"
@@ -2042,6 +2046,18 @@ components:
       schema:
         type: boolean
         default: false
+    include_declared:
+      name: include_declared
+      description: |
+        When true (default), includes tables that have been declared in the namespace
+        but not yet created on storage, in addition to tables that have
+        been created. When false, only tables with storage
+        components are returned.
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
     load_detailed_metadata:
       name: load_detailed_metadata
       description: |
@@ -2387,10 +2403,11 @@ components:
           $ref: "#/components/schemas/PageLimit"
         include_declared:
           type: boolean
+          default: true
           description: |
-            When true, includes tables that have been declared in the namespace
+            When true (default), includes tables that have been declared in the namespace
             but not yet created on storage, in addition to tables that have
-            been created. When false or not set, only tables with storage
+            been created. When false, only tables with storage
             components are returned.
 
     ListTablesResponse:

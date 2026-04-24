@@ -4828,13 +4828,17 @@ public interface TableApi {
    * namespace uses GET to perform this operation without a request body. It passes in the
    * &#x60;ListAllTablesRequest&#x60; information in the following way: - &#x60;page_token&#x60;:
    * pass through query parameter of the same name - &#x60;limit&#x60;: pass through query parameter
-   * of the same name - &#x60;delimiter&#x60;: pass through query parameter of the same name
+   * of the same name - &#x60;delimiter&#x60;: pass through query parameter of the same name -
+   * &#x60;include_declared&#x60;: pass through query parameter of the same name
    *
    * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
    *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
    *     (optional)
    * @param pageToken Pagination token from a previous request (optional)
    * @param limit Maximum number of items to return (optional)
+   * @param includeDeclared When true (default), includes tables that have been declared in the
+   *     namespace but not yet created on storage, in addition to tables that have been created.
+   *     When false, only tables with storage components are returned. (optional, default to true)
    * @return A list of tables (status code 200) or Indicates a bad request error. It could be caused
    *     by an unexpected request body format or other forms of request validation failure, such as
    *     invalid json. Usually serves application/json content, although in some cases simple
@@ -4851,7 +4855,7 @@ public interface TableApi {
       operationId = "listAllTables",
       summary = "List all tables",
       description =
-          "List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name ",
+          "List all tables across all namespaces.  REST NAMESPACE ONLY REST namespace uses GET to perform this operation without a request body. It passes in the `ListAllTablesRequest` information in the following way: - `page_token`: pass through query parameter of the same name - `limit`: pass through query parameter of the same name - `delimiter`: pass through query parameter of the same name - `include_declared`: pass through query parameter of the same name ",
       tags = {"Table"},
       responses = {
         @ApiResponse(
@@ -4938,7 +4942,15 @@ public interface TableApi {
               in = ParameterIn.QUERY)
           @Valid
           @RequestParam(value = "limit", required = false)
-          Optional<Integer> limit) {
+          Optional<Integer> limit,
+      @Parameter(
+              name = "include_declared",
+              description =
+                  "When true (default), includes tables that have been declared in the namespace but not yet created on storage, in addition to tables that have been created. When false, only tables with storage components are returned. ",
+              in = ParameterIn.QUERY)
+          @Valid
+          @RequestParam(value = "include_declared", required = false, defaultValue = "true")
+          Optional<Boolean> includeDeclared) {
     getRequest()
         .ifPresent(
             request -> {
