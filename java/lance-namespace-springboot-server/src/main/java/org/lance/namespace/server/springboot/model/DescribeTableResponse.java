@@ -372,15 +372,19 @@ public class DescribeTableResponse {
   /**
    * When true, indicates that the table has been declared in the namespace but not yet created on
    * storage. This means the table exists in the namespace but has no data files on the underlying
-   * storage. Operations like describe_table with load_detailed_metadata=true may fail for such
-   * tables. When false or not set, the table has storage components (data and metadata files).
+   * storage. When false, the table has storage components (data and metadata files). When null, the
+   * implementation did not check whether the table is only declared. Clients should treat an
+   * omitted value as null. Implementations should populate this field when `check_declared` is true
+   * or another option such as `load_detailed_metadata` requires checking declared-only table state.
+   * Operations like describe_table with load_detailed_metadata=true may fail for declared-only
+   * tables.
    *
    * @return isOnlyDeclared
    */
   @Schema(
       name = "is_only_declared",
       description =
-          "When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. Operations like describe_table with load_detailed_metadata=true may fail for such tables. When false or not set, the table has storage components (data and metadata files). ",
+          "When true, indicates that the table has been declared in the namespace but not yet created on storage. This means the table exists in the namespace but has no data files on the underlying storage. When false, the table has storage components (data and metadata files). When null, the implementation did not check whether the table is only declared. Clients should treat an omitted value as null. Implementations should populate this field when `check_declared` is true or another option such as `load_detailed_metadata` requires checking declared-only table state. Operations like describe_table with load_detailed_metadata=true may fail for declared-only tables. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("is_only_declared")
   public Boolean getIsOnlyDeclared() {

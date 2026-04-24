@@ -133,12 +133,14 @@ Uses GET without a request body. Pagination parameters are passed as query param
 
 **Route:** `POST /v1/table/{id}/describe`
 
-The `with_table_uri` field is passed as a query parameter instead of in the request body.
+The `with_table_uri`, `load_detailed_metadata`, and `check_declared` fields are passed as query parameters instead of in the request body.
 
-| Request Field    | REST Form        | Location        |
-|------------------|------------------|-----------------|
-| `id`             | `{id}`           | Path parameter  |
-| `with_table_uri` | `with_table_uri` | Query parameter |
+| Request Field            | REST Form                | Location        |
+|--------------------------|--------------------------|-----------------|
+| `id`                     | `{id}`                   | Path parameter  |
+| `with_table_uri`         | `with_table_uri`         | Query parameter |
+| `load_detailed_metadata` | `load_detailed_metadata` | Query parameter |
+| `check_declared`         | `check_declared`         | Query parameter |
 
 ### CreateTable
 

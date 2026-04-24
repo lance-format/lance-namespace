@@ -1813,14 +1813,14 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **describe_table**
-> DescribeTableResponse describe_table(id, describe_table_request, delimiter=delimiter, with_table_uri=with_table_uri, load_detailed_metadata=load_detailed_metadata)
+> DescribeTableResponse describe_table(id, describe_table_request, delimiter=delimiter, with_table_uri=with_table_uri, load_detailed_metadata=load_detailed_metadata, check_declared=check_declared)
 
 Describe information of a table
 
 Describe the detailed information for table `id`.
 
 REST NAMESPACE ONLY
-REST namespace passes `with_table_uri` and `load_detailed_metadata` as query parameters instead of in the request body.
+REST namespace passes `with_table_uri`, `load_detailed_metadata`, and `check_declared` as query parameters instead of in the request body.
 
 
 ### Example
@@ -1869,10 +1869,11 @@ with lance_namespace_urllib3_client.ApiClient(configuration) as api_client:
     delimiter = 'delimiter_example' # str | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  (optional)
     with_table_uri = False # bool | Whether to include the table URI in the response (optional) (default to False)
     load_detailed_metadata = False # bool | Whether to load detailed metadata that requires opening the dataset. When false (default), only `location` is required in the response. When true, the response includes additional metadata such as `version`, `schema`, and `stats`.  (optional) (default to False)
+    check_declared = False # bool | Whether to check if the table exists only as a namespace declaration without storage data. When false (default), the response should return null for `is_only_declared` unless another option such as `load_detailed_metadata` requires the check.  (optional) (default to False)
 
     try:
         # Describe information of a table
-        api_response = api_instance.describe_table(id, describe_table_request, delimiter=delimiter, with_table_uri=with_table_uri, load_detailed_metadata=load_detailed_metadata)
+        api_response = api_instance.describe_table(id, describe_table_request, delimiter=delimiter, with_table_uri=with_table_uri, load_detailed_metadata=load_detailed_metadata, check_declared=check_declared)
         print("The response of TableApi->describe_table:\n")
         pprint(api_response)
     except Exception as e:
@@ -1891,6 +1892,7 @@ Name | Type | Description  | Notes
  **delimiter** | **str**| An optional delimiter of the &#x60;string identifier&#x60;, following the Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.  | [optional] 
  **with_table_uri** | **bool**| Whether to include the table URI in the response | [optional] [default to False]
  **load_detailed_metadata** | **bool**| Whether to load detailed metadata that requires opening the dataset. When false (default), only &#x60;location&#x60; is required in the response. When true, the response includes additional metadata such as &#x60;version&#x60;, &#x60;schema&#x60;, and &#x60;stats&#x60;.  | [optional] [default to False]
+ **check_declared** | **bool**| Whether to check if the table exists only as a namespace declaration without storage data. When false (default), the response should return null for &#x60;is_only_declared&#x60; unless another option such as &#x60;load_detailed_metadata&#x60; requires the check.  | [optional] [default to False]
 
 ### Return type
 

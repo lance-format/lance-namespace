@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **version** | **int** | Version of the table to describe. If not specified, server should resolve it to the latest version.  | [optional] 
 **with_table_uri** | **bool** | Whether to include the table URI in the response. Default is false.  | [optional] [default to False]
 **load_detailed_metadata** | **bool** | Whether to load detailed metadata that requires opening the dataset. When true, the response must include all detailed metadata such as &#x60;version&#x60;, &#x60;schema&#x60;, and &#x60;stats&#x60; which require reading the dataset. When not set, the implementation can decide whether to return detailed metadata and which parts of detailed metadata to return.  | [optional] 
+**check_declared** | **bool** | Whether to check if the table exists only as a namespace declaration without storage data. Default is false. When true, the response should populate &#x60;is_only_declared&#x60;. When false, the implementation should return null for &#x60;is_only_declared&#x60; unless another option such as &#x60;load_detailed_metadata&#x60; requires checking declared-only table state.  | [optional] [default to False]
 **vend_credentials** | **bool** | Whether to include vended credentials in the response &#x60;storage_options&#x60;. When true, the implementation should provide vended credentials for accessing storage. When not set, the implementation can decide whether to return vended credentials.  | [optional] 
 
 ## Example

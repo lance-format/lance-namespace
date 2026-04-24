@@ -47,6 +47,7 @@ class TestDescribeTableRequest(unittest.TestCase):
                 version = 0,
                 with_table_uri = True,
                 load_detailed_metadata = True,
+                check_declared = True,
                 vend_credentials = True
             )
         else:

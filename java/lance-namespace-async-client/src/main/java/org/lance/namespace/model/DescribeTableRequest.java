@@ -34,6 +34,7 @@ import java.util.StringJoiner;
   DescribeTableRequest.JSON_PROPERTY_VERSION,
   DescribeTableRequest.JSON_PROPERTY_WITH_TABLE_URI,
   DescribeTableRequest.JSON_PROPERTY_LOAD_DETAILED_METADATA,
+  DescribeTableRequest.JSON_PROPERTY_CHECK_DECLARED,
   DescribeTableRequest.JSON_PROPERTY_VEND_CREDENTIALS
 })
 @javax.annotation.Generated(
@@ -57,6 +58,9 @@ public class DescribeTableRequest {
 
   public static final String JSON_PROPERTY_LOAD_DETAILED_METADATA = "load_detailed_metadata";
   @javax.annotation.Nullable private Boolean loadDetailedMetadata;
+
+  public static final String JSON_PROPERTY_CHECK_DECLARED = "check_declared";
+  @javax.annotation.Nullable private Boolean checkDeclared = false;
 
   public static final String JSON_PROPERTY_VEND_CREDENTIALS = "vend_credentials";
   @javax.annotation.Nullable private Boolean vendCredentials;
@@ -226,6 +230,32 @@ public class DescribeTableRequest {
     this.loadDetailedMetadata = loadDetailedMetadata;
   }
 
+  public DescribeTableRequest checkDeclared(@javax.annotation.Nullable Boolean checkDeclared) {
+    this.checkDeclared = checkDeclared;
+    return this;
+  }
+
+  /**
+   * Whether to check if the table exists only as a namespace declaration without storage data.
+   * Default is false. When true, the response should populate &#x60;is_only_declared&#x60;. When
+   * false, the implementation should return null for &#x60;is_only_declared&#x60; unless another
+   * option such as &#x60;load_detailed_metadata&#x60; requires checking declared-only table state.
+   *
+   * @return checkDeclared
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CHECK_DECLARED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Boolean getCheckDeclared() {
+    return checkDeclared;
+  }
+
+  @JsonProperty(JSON_PROPERTY_CHECK_DECLARED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCheckDeclared(@javax.annotation.Nullable Boolean checkDeclared) {
+    this.checkDeclared = checkDeclared;
+  }
+
   public DescribeTableRequest vendCredentials(@javax.annotation.Nullable Boolean vendCredentials) {
     this.vendCredentials = vendCredentials;
     return this;
@@ -267,13 +297,21 @@ public class DescribeTableRequest {
         && Objects.equals(this.version, describeTableRequest.version)
         && Objects.equals(this.withTableUri, describeTableRequest.withTableUri)
         && Objects.equals(this.loadDetailedMetadata, describeTableRequest.loadDetailedMetadata)
+        && Objects.equals(this.checkDeclared, describeTableRequest.checkDeclared)
         && Objects.equals(this.vendCredentials, describeTableRequest.vendCredentials);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        identity, context, id, version, withTableUri, loadDetailedMetadata, vendCredentials);
+        identity,
+        context,
+        id,
+        version,
+        withTableUri,
+        loadDetailedMetadata,
+        checkDeclared,
+        vendCredentials);
   }
 
   @Override
@@ -288,6 +326,7 @@ public class DescribeTableRequest {
     sb.append("    loadDetailedMetadata: ")
         .append(toIndentedString(loadDetailedMetadata))
         .append("\n");
+    sb.append("    checkDeclared: ").append(toIndentedString(checkDeclared)).append("\n");
     sb.append("    vendCredentials: ").append(toIndentedString(vendCredentials)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -395,6 +434,14 @@ public class DescribeTableRequest {
               prefix,
               suffix,
               ApiClient.urlEncode(ApiClient.valueToString(getLoadDetailedMetadata()))));
+    }
+
+    // add `check_declared` to the URL query string
+    if (getCheckDeclared() != null) {
+      joiner.add(
+          String.format(
+              "%scheck_declared%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCheckDeclared()))));
     }
 
     // add `vend_credentials` to the URL query string
