@@ -523,10 +523,10 @@ Name | Type | Description  | Required | Notes
 
 ## describe_table
 
-> models::DescribeTableResponse describe_table(id, describe_table_request, delimiter, with_table_uri, load_detailed_metadata)
+> models::DescribeTableResponse describe_table(id, describe_table_request, delimiter, with_table_uri, load_detailed_metadata, check_declared)
 Describe information of a table
 
-Describe the detailed information for table `id`.  REST NAMESPACE ONLY REST namespace passes `with_table_uri` and `load_detailed_metadata` as query parameters instead of in the request body. 
+Describe the detailed information for table `id`.  REST NAMESPACE ONLY REST namespace passes `with_table_uri`, `load_detailed_metadata`, and `check_declared` as query parameters instead of in the request body. 
 
 ### Parameters
 
@@ -538,6 +538,7 @@ Name | Type | Description  | Required | Notes
 **delimiter** | Option<**String**> | An optional delimiter of the `string identifier`, following the Lance Namespace spec. When not specified, the `$` delimiter must be used.  |  |
 **with_table_uri** | Option<**bool**> | Whether to include the table URI in the response |  |[default to false]
 **load_detailed_metadata** | Option<**bool**> | Whether to load detailed metadata that requires opening the dataset. When false (default), only `location` is required in the response. When true, the response includes additional metadata such as `version`, `schema`, and `stats`.  |  |[default to false]
+**check_declared** | Option<**bool**> | Whether to check if the table exists only as a namespace declaration without storage data. When false (default), the response should return null for `is_only_declared` unless another option such as `load_detailed_metadata` requires the check.  |  |[default to false]
 
 ### Return type
 

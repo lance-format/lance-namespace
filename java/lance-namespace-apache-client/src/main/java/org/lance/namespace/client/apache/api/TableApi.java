@@ -1894,8 +1894,9 @@ public class TableApi extends BaseApi {
 
   /**
    * Describe information of a table Describe the detailed information for table &#x60;id&#x60;.
-   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60; and
-   * &#x60;load_detailed_metadata&#x60; as query parameters instead of in the request body.
+   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60;,
+   * &#x60;load_detailed_metadata&#x60;, and &#x60;check_declared&#x60; as query parameters instead
+   * of in the request body.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -1911,6 +1912,10 @@ public class TableApi extends BaseApi {
    *     dataset. When false (default), only &#x60;location&#x60; is required in the response. When
    *     true, the response includes additional metadata such as &#x60;version&#x60;,
    *     &#x60;schema&#x60;, and &#x60;stats&#x60;. (optional, default to false)
+   * @param checkDeclared Whether to check if the table exists only as a namespace declaration
+   *     without storage data. When false (default), the response should return null for
+   *     &#x60;is_only_declared&#x60; unless another option such as
+   *     &#x60;load_detailed_metadata&#x60; requires the check. (optional, default to false)
    * @return DescribeTableResponse
    * @throws ApiException if fails to make API call
    */
@@ -1919,7 +1924,8 @@ public class TableApi extends BaseApi {
       DescribeTableRequest describeTableRequest,
       String delimiter,
       Boolean withTableUri,
-      Boolean loadDetailedMetadata)
+      Boolean loadDetailedMetadata,
+      Boolean checkDeclared)
       throws ApiException {
     return this.describeTable(
         id,
@@ -1927,13 +1933,15 @@ public class TableApi extends BaseApi {
         delimiter,
         withTableUri,
         loadDetailedMetadata,
+        checkDeclared,
         Collections.emptyMap());
   }
 
   /**
    * Describe information of a table Describe the detailed information for table &#x60;id&#x60;.
-   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60; and
-   * &#x60;load_detailed_metadata&#x60; as query parameters instead of in the request body.
+   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60;,
+   * &#x60;load_detailed_metadata&#x60;, and &#x60;check_declared&#x60; as query parameters instead
+   * of in the request body.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -1949,6 +1957,10 @@ public class TableApi extends BaseApi {
    *     dataset. When false (default), only &#x60;location&#x60; is required in the response. When
    *     true, the response includes additional metadata such as &#x60;version&#x60;,
    *     &#x60;schema&#x60;, and &#x60;stats&#x60;. (optional, default to false)
+   * @param checkDeclared Whether to check if the table exists only as a namespace declaration
+   *     without storage data. When false (default), the response should return null for
+   *     &#x60;is_only_declared&#x60; unless another option such as
+   *     &#x60;load_detailed_metadata&#x60; requires the check. (optional, default to false)
    * @param additionalHeaders additionalHeaders for this call
    * @return DescribeTableResponse
    * @throws ApiException if fails to make API call
@@ -1959,6 +1971,7 @@ public class TableApi extends BaseApi {
       String delimiter,
       Boolean withTableUri,
       Boolean loadDetailedMetadata,
+      Boolean checkDeclared,
       Map<String, String> additionalHeaders)
       throws ApiException {
     Object localVarPostBody = describeTableRequest;
@@ -1992,6 +2005,7 @@ public class TableApi extends BaseApi {
     localVarQueryParams.addAll(apiClient.parameterToPair("with_table_uri", withTableUri));
     localVarQueryParams.addAll(
         apiClient.parameterToPair("load_detailed_metadata", loadDetailedMetadata));
+    localVarQueryParams.addAll(apiClient.parameterToPair("check_declared", checkDeclared));
 
     localVarHeaderParams.putAll(additionalHeaders);
 

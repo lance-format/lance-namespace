@@ -44,6 +44,8 @@ public class DescribeTableRequest {
 
   private Boolean loadDetailedMetadata;
 
+  private Boolean checkDeclared = false;
+
   private Boolean vendCredentials;
 
   public DescribeTableRequest identity(Identity identity) {
@@ -206,6 +208,33 @@ public class DescribeTableRequest {
     this.loadDetailedMetadata = loadDetailedMetadata;
   }
 
+  public DescribeTableRequest checkDeclared(Boolean checkDeclared) {
+    this.checkDeclared = checkDeclared;
+    return this;
+  }
+
+  /**
+   * Whether to check if the table exists only as a namespace declaration without storage data.
+   * Default is false. When true, the response should populate `is_only_declared`. When false, the
+   * implementation should return null for `is_only_declared` unless another option such as
+   * `load_detailed_metadata` requires checking declared-only table state.
+   *
+   * @return checkDeclared
+   */
+  @Schema(
+      name = "check_declared",
+      description =
+          "Whether to check if the table exists only as a namespace declaration without storage data. Default is false. When true, the response should populate `is_only_declared`. When false, the implementation should return null for `is_only_declared` unless another option such as `load_detailed_metadata` requires checking declared-only table state. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("check_declared")
+  public Boolean getCheckDeclared() {
+    return checkDeclared;
+  }
+
+  public void setCheckDeclared(Boolean checkDeclared) {
+    this.checkDeclared = checkDeclared;
+  }
+
   public DescribeTableRequest vendCredentials(Boolean vendCredentials) {
     this.vendCredentials = vendCredentials;
     return this;
@@ -247,13 +276,21 @@ public class DescribeTableRequest {
         && Objects.equals(this.version, describeTableRequest.version)
         && Objects.equals(this.withTableUri, describeTableRequest.withTableUri)
         && Objects.equals(this.loadDetailedMetadata, describeTableRequest.loadDetailedMetadata)
+        && Objects.equals(this.checkDeclared, describeTableRequest.checkDeclared)
         && Objects.equals(this.vendCredentials, describeTableRequest.vendCredentials);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        identity, context, id, version, withTableUri, loadDetailedMetadata, vendCredentials);
+        identity,
+        context,
+        id,
+        version,
+        withTableUri,
+        loadDetailedMetadata,
+        checkDeclared,
+        vendCredentials);
   }
 
   @Override
@@ -268,6 +305,7 @@ public class DescribeTableRequest {
     sb.append("    loadDetailedMetadata: ")
         .append(toIndentedString(loadDetailedMetadata))
         .append("\n");
+    sb.append("    checkDeclared: ").append(toIndentedString(checkDeclared)).append("\n");
     sb.append("    vendCredentials: ").append(toIndentedString(vendCredentials)).append("\n");
     sb.append("}");
     return sb.toString();

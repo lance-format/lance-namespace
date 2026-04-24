@@ -411,18 +411,20 @@ paths:
     - $ref: '#/components/parameters/delimiter'
     - $ref: '#/components/parameters/with_table_uri'
     - $ref: '#/components/parameters/load_detailed_metadata'
+    - $ref: '#/components/parameters/check_declared'
     post:
       description: |
         Describe the detailed information for table `id`.
 
         REST NAMESPACE ONLY
-        REST namespace passes `with_table_uri` and `load_detailed_metadata` as query parameters instead of in the request body.
+        REST namespace passes `with_table_uri`, `load_detailed_metadata`, and `check_declared` as query parameters instead of in the request body.
       operationId: DescribeTable
       parameters:
       - $ref: '#/components/parameters/id'
       - $ref: '#/components/parameters/delimiter'
       - $ref: '#/components/parameters/with_table_uri'
       - $ref: '#/components/parameters/load_detailed_metadata'
+      - $ref: '#/components/parameters/check_declared'
       requestBody:
         content:
           application/json:
@@ -2472,6 +2474,20 @@ components:
         default: false
         type: boolean
       style: form
+    check_declared:
+      description: |
+        Whether to check if the table exists only as a namespace declaration
+        without storage data. When false (default), the response should return
+        null for `is_only_declared` unless another option such as
+        `load_detailed_metadata` requires the check.
+      explode: true
+      in: query
+      name: check_declared
+      required: false
+      schema:
+        default: false
+        type: boolean
+      style: form
   responses:
     ListNamespacesResponse:
       content:
@@ -3401,6 +3417,7 @@ components:
           auth_token: auth_token
         context:
           key: context
+        check_declared: false
         id:
         - id
         - id
@@ -3446,6 +3463,16 @@ components:
             which require reading the dataset.
             When not set, the implementation can decide whether to return detailed metadata
             and which parts of detailed metadata to return.
+          type: boolean
+        check_declared:
+          default: false
+          description: |
+            Whether to check if the table exists only as a namespace declaration
+            without storage data. Default is false.
+            When true, the response should populate `is_only_declared`.
+            When false, the implementation should return null for `is_only_declared`
+            unless another option such as `load_detailed_metadata` requires
+            checking declared-only table state.
           type: boolean
         vend_credentials:
           description: |
@@ -3572,10 +3599,15 @@ components:
             When true, indicates that the table has been declared in the namespace
             but not yet created on storage. This means the table exists in the
             namespace but has no data files on the underlying storage.
-            Operations like describe_table with load_detailed_metadata=true may fail
-            for such tables. When false or not set, the table has storage components
-            (data and metadata files).
+            When false, the table has storage components (data and metadata files).
+            When null, the implementation did not check whether the table is only
+            declared. Clients should treat an omitted value as null. Implementations
+            should populate this field when `check_declared` is true or another
+            option such as `load_detailed_metadata` requires checking declared-only
+            table state. Operations like describe_table with load_detailed_metadata=true
+            may fail for declared-only tables.
           type: boolean
+          nullable: true
     TableBasicStats:
       example:
         num_deleted_rows: 0

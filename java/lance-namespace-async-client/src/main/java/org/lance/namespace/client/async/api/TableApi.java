@@ -2827,8 +2827,9 @@ public class TableApi {
 
   /**
    * Describe information of a table Describe the detailed information for table &#x60;id&#x60;.
-   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60; and
-   * &#x60;load_detailed_metadata&#x60; as query parameters instead of in the request body.
+   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60;,
+   * &#x60;load_detailed_metadata&#x60;, and &#x60;check_declared&#x60; as query parameters instead
+   * of in the request body.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -2844,6 +2845,10 @@ public class TableApi {
    *     dataset. When false (default), only &#x60;location&#x60; is required in the response. When
    *     true, the response includes additional metadata such as &#x60;version&#x60;,
    *     &#x60;schema&#x60;, and &#x60;stats&#x60;. (optional, default to false)
+   * @param checkDeclared Whether to check if the table exists only as a namespace declaration
+   *     without storage data. When false (default), the response should return null for
+   *     &#x60;is_only_declared&#x60; unless another option such as
+   *     &#x60;load_detailed_metadata&#x60; requires the check. (optional, default to false)
    * @return CompletableFuture&lt;DescribeTableResponse&gt;
    * @throws ApiException if fails to make API call
    */
@@ -2852,12 +2857,18 @@ public class TableApi {
       DescribeTableRequest describeTableRequest,
       String delimiter,
       Boolean withTableUri,
-      Boolean loadDetailedMetadata)
+      Boolean loadDetailedMetadata,
+      Boolean checkDeclared)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
           describeTableRequestBuilder(
-              id, describeTableRequest, delimiter, withTableUri, loadDetailedMetadata);
+              id,
+              describeTableRequest,
+              delimiter,
+              withTableUri,
+              loadDetailedMetadata,
+              checkDeclared);
       return memberVarHttpClient
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
@@ -2884,8 +2895,9 @@ public class TableApi {
 
   /**
    * Describe information of a table Describe the detailed information for table &#x60;id&#x60;.
-   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60; and
-   * &#x60;load_detailed_metadata&#x60; as query parameters instead of in the request body.
+   * REST NAMESPACE ONLY REST namespace passes &#x60;with_table_uri&#x60;,
+   * &#x60;load_detailed_metadata&#x60;, and &#x60;check_declared&#x60; as query parameters instead
+   * of in the request body.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -2901,6 +2913,10 @@ public class TableApi {
    *     dataset. When false (default), only &#x60;location&#x60; is required in the response. When
    *     true, the response includes additional metadata such as &#x60;version&#x60;,
    *     &#x60;schema&#x60;, and &#x60;stats&#x60;. (optional, default to false)
+   * @param checkDeclared Whether to check if the table exists only as a namespace declaration
+   *     without storage data. When false (default), the response should return null for
+   *     &#x60;is_only_declared&#x60; unless another option such as
+   *     &#x60;load_detailed_metadata&#x60; requires the check. (optional, default to false)
    * @return CompletableFuture&lt;ApiResponse&lt;DescribeTableResponse&gt;&gt;
    * @throws ApiException if fails to make API call
    */
@@ -2909,12 +2925,18 @@ public class TableApi {
       DescribeTableRequest describeTableRequest,
       String delimiter,
       Boolean withTableUri,
-      Boolean loadDetailedMetadata)
+      Boolean loadDetailedMetadata,
+      Boolean checkDeclared)
       throws ApiException {
     try {
       HttpRequest.Builder localVarRequestBuilder =
           describeTableRequestBuilder(
-              id, describeTableRequest, delimiter, withTableUri, loadDetailedMetadata);
+              id,
+              describeTableRequest,
+              delimiter,
+              withTableUri,
+              loadDetailedMetadata,
+              checkDeclared);
       return memberVarHttpClient
           .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
           .thenComposeAsync(
@@ -2950,7 +2972,8 @@ public class TableApi {
       DescribeTableRequest describeTableRequest,
       String delimiter,
       Boolean withTableUri,
-      Boolean loadDetailedMetadata)
+      Boolean loadDetailedMetadata,
+      Boolean checkDeclared)
       throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
@@ -2977,6 +3000,8 @@ public class TableApi {
     localVarQueryParameterBaseName = "load_detailed_metadata";
     localVarQueryParams.addAll(
         ApiClient.parameterToPairs("load_detailed_metadata", loadDetailedMetadata));
+    localVarQueryParameterBaseName = "check_declared";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("check_declared", checkDeclared));
 
     if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
       StringJoiner queryJoiner = new StringJoiner("&");

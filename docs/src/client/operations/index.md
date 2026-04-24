@@ -119,10 +119,10 @@ The following restrictions apply to the recommended basic operations to minimize
 This means the namespace must be empty (no tables or child namespaces) before it can be dropped.
 The `Cascade` behavior mode, which recursively drops all contents, is not required for basic implementations.
 
-**DescribeTable:** Only `load_detailed_metadata=false` (the default) is required.
+**DescribeTable:** Only `load_detailed_metadata=false` and `check_declared=false` (the defaults) are required.
 This means the implementation only needs to return the table `location` without opening the dataset.
 Returning detailed metadata such as `version`, `schema`, and `stats` (which require opening the dataset)
-is not required for basic implementations.
+or checking whether the table exists only as a namespace declaration is not required for basic implementations.
 
 ### Why Not `CreateTable` and `DropTable`?
 
