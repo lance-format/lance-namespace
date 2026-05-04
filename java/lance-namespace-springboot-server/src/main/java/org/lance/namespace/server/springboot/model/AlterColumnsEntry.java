@@ -32,11 +32,11 @@ public class AlterColumnsEntry {
 
   private Object dataType;
 
-  private String rename;
+  private String rename = null;
 
-  private Boolean nullable;
+  private Boolean nullable = null;
 
-  private AlterVirtualColumnEntry virtualColumn;
+  private AlterVirtualColumnEntry virtualColumn = null;
 
   public AlterColumnsEntry() {
     super();
@@ -148,15 +148,12 @@ public class AlterColumnsEntry {
   }
 
   /**
-   * Virtual column alterations (optional)
+   * Get virtualColumn
    *
    * @return virtualColumn
    */
   @Valid
-  @Schema(
-      name = "virtual_column",
-      description = "Virtual column alterations (optional)",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "virtual_column", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("virtual_column")
   public AlterVirtualColumnEntry getVirtualColumn() {
     return virtualColumn;

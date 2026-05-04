@@ -13,37 +13,45 @@
  */
 package org.lance.namespace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** NewColumnTransform */
+/** AddColumnsEntry */
 @JsonPropertyOrder({
-  NewColumnTransform.JSON_PROPERTY_NAME,
-  NewColumnTransform.JSON_PROPERTY_EXPRESSION,
-  NewColumnTransform.JSON_PROPERTY_VIRTUAL_COLUMN
+  AddColumnsEntry.JSON_PROPERTY_NAME,
+  AddColumnsEntry.JSON_PROPERTY_EXPRESSION,
+  AddColumnsEntry.JSON_PROPERTY_VIRTUAL_COLUMN
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
-public class NewColumnTransform {
+public class AddColumnsEntry {
   public static final String JSON_PROPERTY_NAME = "name";
   @javax.annotation.Nonnull private String name;
 
   public static final String JSON_PROPERTY_EXPRESSION = "expression";
-  @javax.annotation.Nullable private String expression;
+
+  @javax.annotation.Nullable
+  private JsonNullable<String> expression = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_VIRTUAL_COLUMN = "virtual_column";
-  @javax.annotation.Nullable private AddVirtualColumnEntry virtualColumn;
 
-  public NewColumnTransform() {}
+  @javax.annotation.Nullable
+  private JsonNullable<AddVirtualColumnEntry> virtualColumn =
+      JsonNullable.<AddVirtualColumnEntry>undefined();
 
-  public NewColumnTransform name(@javax.annotation.Nonnull String name) {
+  public AddColumnsEntry() {}
+
+  public AddColumnsEntry name(@javax.annotation.Nonnull String name) {
 
     this.name = name;
     return this;
@@ -67,53 +75,69 @@ public class NewColumnTransform {
     this.name = name;
   }
 
-  public NewColumnTransform expression(@javax.annotation.Nullable String expression) {
+  public AddColumnsEntry expression(@javax.annotation.Nullable String expression) {
+    this.expression = JsonNullable.<String>of(expression);
 
-    this.expression = expression;
     return this;
   }
 
   /**
-   * SQL expression to compute the column value (optional if virtual_column is specified)
+   * SQL expression for the column (optional if virtual_column is specified)
    *
    * @return expression
    */
   @javax.annotation.Nullable
+  @JsonIgnore
+  public String getExpression() {
+    return expression.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_EXPRESSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getExpression() {
+  public JsonNullable<String> getExpression_JsonNullable() {
     return expression;
   }
 
   @JsonProperty(JSON_PROPERTY_EXPRESSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExpression(@javax.annotation.Nullable String expression) {
+  public void setExpression_JsonNullable(JsonNullable<String> expression) {
     this.expression = expression;
   }
 
-  public NewColumnTransform virtualColumn(
-      @javax.annotation.Nullable AddVirtualColumnEntry virtualColumn) {
+  public void setExpression(@javax.annotation.Nullable String expression) {
+    this.expression = JsonNullable.<String>of(expression);
+  }
 
-    this.virtualColumn = virtualColumn;
+  public AddColumnsEntry virtualColumn(
+      @javax.annotation.Nullable AddVirtualColumnEntry virtualColumn) {
+    this.virtualColumn = JsonNullable.<AddVirtualColumnEntry>of(virtualColumn);
+
     return this;
   }
 
   /**
-   * Virtual column definition (optional if expression is specified)
+   * Get virtualColumn
    *
    * @return virtualColumn
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VIRTUAL_COLUMN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
   public AddVirtualColumnEntry getVirtualColumn() {
-    return virtualColumn;
+    return virtualColumn.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_VIRTUAL_COLUMN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVirtualColumn(@javax.annotation.Nullable AddVirtualColumnEntry virtualColumn) {
+  public JsonNullable<AddVirtualColumnEntry> getVirtualColumn_JsonNullable() {
+    return virtualColumn;
+  }
+
+  @JsonProperty(JSON_PROPERTY_VIRTUAL_COLUMN)
+  public void setVirtualColumn_JsonNullable(JsonNullable<AddVirtualColumnEntry> virtualColumn) {
     this.virtualColumn = virtualColumn;
+  }
+
+  public void setVirtualColumn(@javax.annotation.Nullable AddVirtualColumnEntry virtualColumn) {
+    this.virtualColumn = JsonNullable.<AddVirtualColumnEntry>of(virtualColumn);
   }
 
   @Override
@@ -124,21 +148,37 @@ public class NewColumnTransform {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NewColumnTransform newColumnTransform = (NewColumnTransform) o;
-    return Objects.equals(this.name, newColumnTransform.name)
-        && Objects.equals(this.expression, newColumnTransform.expression)
-        && Objects.equals(this.virtualColumn, newColumnTransform.virtualColumn);
+    AddColumnsEntry addColumnsEntry = (AddColumnsEntry) o;
+    return Objects.equals(this.name, addColumnsEntry.name)
+        && equalsNullable(this.expression, addColumnsEntry.expression)
+        && equalsNullable(this.virtualColumn, addColumnsEntry.virtualColumn);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b
+        || (a != null
+            && b != null
+            && a.isPresent()
+            && b.isPresent()
+            && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, expression, virtualColumn);
+    return Objects.hash(name, hashCodeNullable(expression), hashCodeNullable(virtualColumn));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NewColumnTransform {\n");
+    sb.append("class AddColumnsEntry {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    expression: ").append(toIndentedString(expression)).append("\n");
     sb.append("    virtualColumn: ").append(toIndentedString(virtualColumn)).append("\n");

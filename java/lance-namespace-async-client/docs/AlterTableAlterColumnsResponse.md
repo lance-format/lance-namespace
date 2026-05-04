@@ -7,8 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**transactionId** | **String** | Optional transaction identifier |  [optional] |
-|**version** | **Long** | Version of the table after altering columns |  |
+|**version** | **Long** | The commit version associated with the operation |  |
 
 
 

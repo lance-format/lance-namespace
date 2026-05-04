@@ -27,8 +27,6 @@ import java.util.Objects;
     comments = "Generator version: 7.12.0")
 public class AlterTableAddColumnsResponse {
 
-  private String transactionId;
-
   private Long version;
 
   public AlterTableAddColumnsResponse() {
@@ -40,36 +38,13 @@ public class AlterTableAddColumnsResponse {
     this.version = version;
   }
 
-  public AlterTableAddColumnsResponse transactionId(String transactionId) {
-    this.transactionId = transactionId;
-    return this;
-  }
-
-  /**
-   * Optional transaction identifier
-   *
-   * @return transactionId
-   */
-  @Schema(
-      name = "transaction_id",
-      description = "Optional transaction identifier",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("transaction_id")
-  public String getTransactionId() {
-    return transactionId;
-  }
-
-  public void setTransactionId(String transactionId) {
-    this.transactionId = transactionId;
-  }
-
   public AlterTableAddColumnsResponse version(Long version) {
     this.version = version;
     return this;
   }
 
   /**
-   * Version of the table after adding columns minimum: 0
+   * The commit version associated with the operation minimum: 0
    *
    * @return version
    */
@@ -77,7 +52,7 @@ public class AlterTableAddColumnsResponse {
   @Min(0L)
   @Schema(
       name = "version",
-      description = "Version of the table after adding columns",
+      description = "The commit version associated with the operation",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("version")
   public Long getVersion() {
@@ -97,20 +72,18 @@ public class AlterTableAddColumnsResponse {
       return false;
     }
     AlterTableAddColumnsResponse alterTableAddColumnsResponse = (AlterTableAddColumnsResponse) o;
-    return Objects.equals(this.transactionId, alterTableAddColumnsResponse.transactionId)
-        && Objects.equals(this.version, alterTableAddColumnsResponse.version);
+    return Objects.equals(this.version, alterTableAddColumnsResponse.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, version);
+    return Objects.hash(version);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAddColumnsResponse {\n");
-    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();
