@@ -12,16 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AlterTableAddColumnsRequest {
-    /// List of new columns to add to the table
-    #[serde(rename = "new_columns")]
-    pub new_columns: Vec<models::AddColumnsEntry>,
+pub struct RefreshMaterializedViewResponse {
+    /// The job ID for tracking the refresh job
+    #[serde(rename = "job_id")]
+    pub job_id: String,
 }
 
-impl AlterTableAddColumnsRequest {
-    pub fn new(new_columns: Vec<models::AddColumnsEntry>) -> AlterTableAddColumnsRequest {
-        AlterTableAddColumnsRequest {
-            new_columns,
+impl RefreshMaterializedViewResponse {
+    pub fn new(job_id: String) -> RefreshMaterializedViewResponse {
+        RefreshMaterializedViewResponse {
+            job_id,
         }
     }
 }

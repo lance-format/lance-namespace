@@ -36,6 +36,7 @@ All URIs are relative to *http://localhost:2333*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DataApi* | [**alter_table_add_columns**](docs/DataApi.md#alter_table_add_columns) | **POST** /v1/table/{id}/add_columns | Add new columns to table schema
+*DataApi* | [**alter_table_backfill_columns**](docs/DataApi.md#alter_table_backfill_columns) | **POST** /v1/table/{id}/backfill_column | Trigger an async column backfill job
 *DataApi* | [**analyze_table_query_plan**](docs/DataApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
 *DataApi* | [**count_table_rows**](docs/DataApi.md#count_table_rows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 *DataApi* | [**create_table**](docs/DataApi.md#create_table) | **POST** /v1/table/{id}/create | Create a table with the given name
@@ -44,6 +45,7 @@ Class | Method | HTTP request | Description
 *DataApi* | [**insert_into_table**](docs/DataApi.md#insert_into_table) | **POST** /v1/table/{id}/insert | Insert records into a table
 *DataApi* | [**merge_insert_into_table**](docs/DataApi.md#merge_insert_into_table) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *DataApi* | [**query_table**](docs/DataApi.md#query_table) | **POST** /v1/table/{id}/query | Query a table
+*DataApi* | [**refresh_materialized_view**](docs/DataApi.md#refresh_materialized_view) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
 *DataApi* | [**update_table**](docs/DataApi.md#update_table) | **POST** /v1/table/{id}/update | Update rows in a table
 *IndexApi* | [**create_table_index**](docs/IndexApi.md#create_table_index) | **POST** /v1/table/{id}/create_index | Create an index on a table
 *IndexApi* | [**create_table_scalar_index**](docs/IndexApi.md#create_table_scalar_index) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
@@ -94,6 +96,7 @@ Class | Method | HTTP request | Description
 *NamespaceApi* | [**namespace_exists**](docs/NamespaceApi.md#namespace_exists) | **POST** /v1/namespace/{id}/exists | Check if a namespace exists
 *TableApi* | [**alter_table_add_columns**](docs/TableApi.md#alter_table_add_columns) | **POST** /v1/table/{id}/add_columns | Add new columns to table schema
 *TableApi* | [**alter_table_alter_columns**](docs/TableApi.md#alter_table_alter_columns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
+*TableApi* | [**alter_table_backfill_columns**](docs/TableApi.md#alter_table_backfill_columns) | **POST** /v1/table/{id}/backfill_column | Trigger an async column backfill job
 *TableApi* | [**alter_table_drop_columns**](docs/TableApi.md#alter_table_drop_columns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *TableApi* | [**analyze_table_query_plan**](docs/TableApi.md#analyze_table_query_plan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
 *TableApi* | [**batch_commit_tables**](docs/TableApi.md#batch_commit_tables) | **POST** /v1/table/batch-commit | Atomically commit a batch of mixed table operations
@@ -125,6 +128,7 @@ Class | Method | HTTP request | Description
 *TableApi* | [**list_tables**](docs/TableApi.md#list_tables) | **GET** /v1/namespace/{id}/table/list | List tables in a namespace
 *TableApi* | [**merge_insert_into_table**](docs/TableApi.md#merge_insert_into_table) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *TableApi* | [**query_table**](docs/TableApi.md#query_table) | **POST** /v1/table/{id}/query | Query a table
+*TableApi* | [**refresh_materialized_view**](docs/TableApi.md#refresh_materialized_view) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
 *TableApi* | [**register_table**](docs/TableApi.md#register_table) | **POST** /v1/table/{id}/register | Register a table to a namespace
 *TableApi* | [**rename_table**](docs/TableApi.md#rename_table) | **POST** /v1/table/{id}/rename | Rename a table
 *TableApi* | [**restore_table**](docs/TableApi.md#restore_table) | **POST** /v1/table/{id}/restore | Restore table to a specific version
@@ -144,12 +148,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AddColumnsEntry](docs/AddColumnsEntry.md)
  - [AddVirtualColumnEntry](docs/AddVirtualColumnEntry.md)
  - [AlterColumnsEntry](docs/AlterColumnsEntry.md)
  - [AlterTableAddColumnsRequest](docs/AlterTableAddColumnsRequest.md)
  - [AlterTableAddColumnsResponse](docs/AlterTableAddColumnsResponse.md)
  - [AlterTableAlterColumnsRequest](docs/AlterTableAlterColumnsRequest.md)
  - [AlterTableAlterColumnsResponse](docs/AlterTableAlterColumnsResponse.md)
+ - [AlterTableBackfillColumnsRequest](docs/AlterTableBackfillColumnsRequest.md)
+ - [AlterTableBackfillColumnsResponse](docs/AlterTableBackfillColumnsResponse.md)
  - [AlterTableDropColumnsRequest](docs/AlterTableDropColumnsRequest.md)
  - [AlterTableDropColumnsResponse](docs/AlterTableDropColumnsResponse.md)
  - [AlterTransactionAction](docs/AlterTransactionAction.md)
@@ -240,7 +247,6 @@ Class | Method | HTTP request | Description
  - [MergeInsertIntoTableResponse](docs/MergeInsertIntoTableResponse.md)
  - [MultiMatchQuery](docs/MultiMatchQuery.md)
  - [NamespaceExistsRequest](docs/NamespaceExistsRequest.md)
- - [NewColumnTransform](docs/NewColumnTransform.md)
  - [PartitionField](docs/PartitionField.md)
  - [PartitionSpec](docs/PartitionSpec.md)
  - [PartitionTransform](docs/PartitionTransform.md)
@@ -249,6 +255,8 @@ Class | Method | HTTP request | Description
  - [QueryTableRequestColumns](docs/QueryTableRequestColumns.md)
  - [QueryTableRequestFullTextQuery](docs/QueryTableRequestFullTextQuery.md)
  - [QueryTableRequestVector](docs/QueryTableRequestVector.md)
+ - [RefreshMaterializedViewRequest](docs/RefreshMaterializedViewRequest.md)
+ - [RefreshMaterializedViewResponse](docs/RefreshMaterializedViewResponse.md)
  - [RegisterTableRequest](docs/RegisterTableRequest.md)
  - [RegisterTableResponse](docs/RegisterTableResponse.md)
  - [RenameTableRequest](docs/RenameTableRequest.md)

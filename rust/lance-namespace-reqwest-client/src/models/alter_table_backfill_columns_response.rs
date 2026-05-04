@@ -12,24 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct NewColumnTransform {
-    /// Name of the new column
-    #[serde(rename = "name")]
-    pub name: String,
-    /// SQL expression to compute the column value (optional if virtual_column is specified)
-    #[serde(rename = "expression", skip_serializing_if = "Option::is_none")]
-    pub expression: Option<String>,
-    /// Virtual column definition (optional if expression is specified)
-    #[serde(rename = "virtual_column", skip_serializing_if = "Option::is_none")]
-    pub virtual_column: Option<Box<models::AddVirtualColumnEntry>>,
+pub struct AlterTableBackfillColumnsResponse {
+    /// The job ID for tracking the backfill job
+    #[serde(rename = "job_id")]
+    pub job_id: String,
 }
 
-impl NewColumnTransform {
-    pub fn new(name: String) -> NewColumnTransform {
-        NewColumnTransform {
-            name,
-            expression: None,
-            virtual_column: None,
+impl AlterTableBackfillColumnsResponse {
+    pub fn new(job_id: String) -> AlterTableBackfillColumnsResponse {
+        AlterTableBackfillColumnsResponse {
+            job_id,
         }
     }
 }

@@ -12,16 +12,23 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AlterTableAddColumnsRequest {
-    /// List of new columns to add to the table
-    #[serde(rename = "new_columns")]
-    pub new_columns: Vec<models::AddColumnsEntry>,
+pub struct AddColumnsEntry {
+    /// Name of the new column
+    #[serde(rename = "name")]
+    pub name: String,
+    /// SQL expression for the column (optional if virtual_column is specified)
+    #[serde(rename = "expression", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub expression: Option<Option<String>>,
+    #[serde(rename = "virtual_column", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub virtual_column: Option<Option<Box<models::AddVirtualColumnEntry>>>,
 }
 
-impl AlterTableAddColumnsRequest {
-    pub fn new(new_columns: Vec<models::AddColumnsEntry>) -> AlterTableAddColumnsRequest {
-        AlterTableAddColumnsRequest {
-            new_columns,
+impl AddColumnsEntry {
+    pub fn new(name: String) -> AddColumnsEntry {
+        AddColumnsEntry {
+            name,
+            expression: None,
+            virtual_column: None,
         }
     }
 }
