@@ -14,10 +14,10 @@
 
 import unittest
 
-from lance_namespace_urllib3_client.models.alter_table_alter_columns_response import AlterTableAlterColumnsResponse
+from lance_namespace_urllib3_client.models.refresh_materialized_view_response import RefreshMaterializedViewResponse
 
-class TestAlterTableAlterColumnsResponse(unittest.TestCase):
-    """AlterTableAlterColumnsResponse unit test stubs"""
+class TestRefreshMaterializedViewResponse(unittest.TestCase):
+    """RefreshMaterializedViewResponse unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,26 +25,26 @@ class TestAlterTableAlterColumnsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AlterTableAlterColumnsResponse:
-        """Test AlterTableAlterColumnsResponse
+    def make_instance(self, include_optional) -> RefreshMaterializedViewResponse:
+        """Test RefreshMaterializedViewResponse
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AlterTableAlterColumnsResponse`
+        # uncomment below to create an instance of `RefreshMaterializedViewResponse`
         """
-        model = AlterTableAlterColumnsResponse()
+        model = RefreshMaterializedViewResponse()
         if include_optional:
-            return AlterTableAlterColumnsResponse(
-                version = 0
+            return RefreshMaterializedViewResponse(
+                job_id = ''
             )
         else:
-            return AlterTableAlterColumnsResponse(
-                version = 0,
+            return RefreshMaterializedViewResponse(
+                job_id = '',
         )
         """
 
-    def testAlterTableAlterColumnsResponse(self):
-        """Test AlterTableAlterColumnsResponse"""
+    def testRefreshMaterializedViewResponse(self):
+        """Test RefreshMaterializedViewResponse"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

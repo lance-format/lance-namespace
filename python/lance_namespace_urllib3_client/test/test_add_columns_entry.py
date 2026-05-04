@@ -14,10 +14,10 @@
 
 import unittest
 
-from lance_namespace_urllib3_client.models.alter_table_alter_columns_response import AlterTableAlterColumnsResponse
+from lance_namespace_urllib3_client.models.add_columns_entry import AddColumnsEntry
 
-class TestAlterTableAlterColumnsResponse(unittest.TestCase):
-    """AlterTableAlterColumnsResponse unit test stubs"""
+class TestAddColumnsEntry(unittest.TestCase):
+    """AddColumnsEntry unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,26 +25,36 @@ class TestAlterTableAlterColumnsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AlterTableAlterColumnsResponse:
-        """Test AlterTableAlterColumnsResponse
+    def make_instance(self, include_optional) -> AddColumnsEntry:
+        """Test AddColumnsEntry
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AlterTableAlterColumnsResponse`
+        # uncomment below to create an instance of `AddColumnsEntry`
         """
-        model = AlterTableAlterColumnsResponse()
+        model = AddColumnsEntry()
         if include_optional:
-            return AlterTableAlterColumnsResponse(
-                version = 0
+            return AddColumnsEntry(
+                name = '',
+                expression = '',
+                virtual_column = lance_namespace_urllib3_client.models.add_virtual_column_entry.AddVirtualColumnEntry(
+                    input_columns = [
+                        ''
+                        ], 
+                    data_type = lance_namespace_urllib3_client.models.data_type.data_type(), 
+                    image = '', 
+                    udf = '', 
+                    udf_name = '', 
+                    udf_version = '', )
             )
         else:
-            return AlterTableAlterColumnsResponse(
-                version = 0,
+            return AddColumnsEntry(
+                name = '',
         )
         """
 
-    def testAlterTableAlterColumnsResponse(self):
-        """Test AlterTableAlterColumnsResponse"""
+    def testAddColumnsEntry(self):
+        """Test AddColumnsEntry"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

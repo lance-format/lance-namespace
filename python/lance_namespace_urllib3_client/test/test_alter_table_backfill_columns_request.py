@@ -14,10 +14,10 @@
 
 import unittest
 
-from lance_namespace_urllib3_client.models.alter_table_alter_columns_response import AlterTableAlterColumnsResponse
+from lance_namespace_urllib3_client.models.alter_table_backfill_columns_request import AlterTableBackfillColumnsRequest
 
-class TestAlterTableAlterColumnsResponse(unittest.TestCase):
-    """AlterTableAlterColumnsResponse unit test stubs"""
+class TestAlterTableBackfillColumnsRequest(unittest.TestCase):
+    """AlterTableBackfillColumnsRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,26 +25,39 @@ class TestAlterTableAlterColumnsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AlterTableAlterColumnsResponse:
-        """Test AlterTableAlterColumnsResponse
+    def make_instance(self, include_optional) -> AlterTableBackfillColumnsRequest:
+        """Test AlterTableBackfillColumnsRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AlterTableAlterColumnsResponse`
+        # uncomment below to create an instance of `AlterTableBackfillColumnsRequest`
         """
-        model = AlterTableAlterColumnsResponse()
+        model = AlterTableBackfillColumnsRequest()
         if include_optional:
-            return AlterTableAlterColumnsResponse(
-                version = 0
+            return AlterTableBackfillColumnsRequest(
+                column = '',
+                where = '',
+                concurrency = 56,
+                intra_applier_concurrency = 56,
+                min_checkpoint_size = 56,
+                max_checkpoint_size = 56,
+                batch_checkpoint_flush_interval_seconds = 1.337,
+                read_version = 56,
+                task_size = 56,
+                num_frags = 56,
+                checkpoint_size = 56,
+                commit_granularity = 56,
+                cluster = '',
+                manifest = ''
             )
         else:
-            return AlterTableAlterColumnsResponse(
-                version = 0,
+            return AlterTableBackfillColumnsRequest(
+                column = '',
         )
         """
 
-    def testAlterTableAlterColumnsResponse(self):
-        """Test AlterTableAlterColumnsResponse"""
+    def testAlterTableBackfillColumnsRequest(self):
+        """Test AlterTableBackfillColumnsRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

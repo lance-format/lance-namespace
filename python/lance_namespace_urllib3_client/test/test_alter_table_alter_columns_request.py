@@ -35,15 +35,6 @@ class TestAlterTableAlterColumnsRequest(unittest.TestCase):
         model = AlterTableAlterColumnsRequest()
         if include_optional:
             return AlterTableAlterColumnsRequest(
-                identity = lance_namespace_urllib3_client.models.identity.Identity(
-                    api_key = '', 
-                    auth_token = '', ),
-                context = {
-                    'key' : ''
-                    },
-                id = [
-                    ''
-                    ],
                 alterations = [
                     lance_namespace_urllib3_client.models.alter_columns_entry.AlterColumnsEntry(
                         path = '', 

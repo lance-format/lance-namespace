@@ -18,19 +18,16 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from lance_namespace_urllib3_client.models.add_virtual_column_entry import AddVirtualColumnEntry
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class NewColumnTransform(BaseModel):
+class AlterTableBackfillColumnsResponse(BaseModel):
     """
-    NewColumnTransform
+    AlterTableBackfillColumnsResponse
     """ # noqa: E501
-    name: StrictStr = Field(description="Name of the new column")
-    expression: Optional[StrictStr] = Field(default=None, description="SQL expression to compute the column value (optional if virtual_column is specified)")
-    virtual_column: Optional[AddVirtualColumnEntry] = Field(default=None, description="Virtual column definition (optional if expression is specified)")
-    __properties: ClassVar[List[str]] = ["name", "expression", "virtual_column"]
+    job_id: StrictStr = Field(description="The job ID for tracking the backfill job")
+    __properties: ClassVar[List[str]] = ["job_id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +47,7 @@ class NewColumnTransform(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of NewColumnTransform from a JSON string"""
+        """Create an instance of AlterTableBackfillColumnsResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,14 +68,11 @@ class NewColumnTransform(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of virtual_column
-        if self.virtual_column:
-            _dict['virtual_column'] = self.virtual_column.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of NewColumnTransform from a dict"""
+        """Create an instance of AlterTableBackfillColumnsResponse from a dict"""
         if obj is None:
             return None
 
@@ -86,9 +80,7 @@ class NewColumnTransform(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "expression": obj.get("expression"),
-            "virtual_column": AddVirtualColumnEntry.from_dict(obj["virtual_column"]) if obj.get("virtual_column") is not None else None
+            "job_id": obj.get("job_id")
         })
         return _obj
 

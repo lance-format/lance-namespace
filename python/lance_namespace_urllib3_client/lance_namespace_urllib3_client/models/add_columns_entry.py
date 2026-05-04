@@ -17,22 +17,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from lance_namespace_urllib3_client.models.alter_virtual_column_entry import AlterVirtualColumnEntry
+from lance_namespace_urllib3_client.models.add_virtual_column_entry import AddVirtualColumnEntry
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AlterColumnsEntry(BaseModel):
+class AddColumnsEntry(BaseModel):
     """
-    AlterColumnsEntry
+    AddColumnsEntry
     """ # noqa: E501
-    path: StrictStr = Field(description="Column path to alter")
-    data_type: Dict[str, Any] = Field(description="New data type for the column using JSON representation (optional)")
-    rename: Optional[StrictStr] = Field(default=None, description="New name for the column (optional)")
-    nullable: Optional[StrictBool] = Field(default=None, description="Whether the column should be nullable (optional)")
-    virtual_column: Optional[AlterVirtualColumnEntry] = None
-    __properties: ClassVar[List[str]] = ["path", "data_type", "rename", "nullable", "virtual_column"]
+    name: StrictStr = Field(description="Name of the new column")
+    expression: Optional[StrictStr] = Field(default=None, description="SQL expression for the column (optional if virtual_column is specified)")
+    virtual_column: Optional[AddVirtualColumnEntry] = None
+    __properties: ClassVar[List[str]] = ["name", "expression", "virtual_column"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +50,7 @@ class AlterColumnsEntry(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AlterColumnsEntry from a JSON string"""
+        """Create an instance of AddColumnsEntry from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -76,15 +74,10 @@ class AlterColumnsEntry(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of virtual_column
         if self.virtual_column:
             _dict['virtual_column'] = self.virtual_column.to_dict()
-        # set to None if rename (nullable) is None
+        # set to None if expression (nullable) is None
         # and model_fields_set contains the field
-        if self.rename is None and "rename" in self.model_fields_set:
-            _dict['rename'] = None
-
-        # set to None if nullable (nullable) is None
-        # and model_fields_set contains the field
-        if self.nullable is None and "nullable" in self.model_fields_set:
-            _dict['nullable'] = None
+        if self.expression is None and "expression" in self.model_fields_set:
+            _dict['expression'] = None
 
         # set to None if virtual_column (nullable) is None
         # and model_fields_set contains the field
@@ -95,7 +88,7 @@ class AlterColumnsEntry(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AlterColumnsEntry from a dict"""
+        """Create an instance of AddColumnsEntry from a dict"""
         if obj is None:
             return None
 
@@ -103,11 +96,9 @@ class AlterColumnsEntry(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "path": obj.get("path"),
-            "data_type": obj.get("data_type"),
-            "rename": obj.get("rename"),
-            "nullable": obj.get("nullable"),
-            "virtual_column": AlterVirtualColumnEntry.from_dict(obj["virtual_column"]) if obj.get("virtual_column") is not None else None
+            "name": obj.get("name"),
+            "expression": obj.get("expression"),
+            "virtual_column": AddVirtualColumnEntry.from_dict(obj["virtual_column"]) if obj.get("virtual_column") is not None else None
         })
         return _obj
 

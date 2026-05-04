@@ -17,22 +17,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from lance_namespace_urllib3_client.models.alter_virtual_column_entry import AlterVirtualColumnEntry
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AlterColumnsEntry(BaseModel):
+class RefreshMaterializedViewRequest(BaseModel):
     """
-    AlterColumnsEntry
+    RefreshMaterializedViewRequest
     """ # noqa: E501
-    path: StrictStr = Field(description="Column path to alter")
-    data_type: Dict[str, Any] = Field(description="New data type for the column using JSON representation (optional)")
-    rename: Optional[StrictStr] = Field(default=None, description="New name for the column (optional)")
-    nullable: Optional[StrictBool] = Field(default=None, description="Whether the column should be nullable (optional)")
-    virtual_column: Optional[AlterVirtualColumnEntry] = None
-    __properties: ClassVar[List[str]] = ["path", "data_type", "rename", "nullable", "virtual_column"]
+    src_version: Optional[StrictInt] = Field(default=None, description="Optional source version to refresh from")
+    max_rows_per_fragment: Optional[StrictInt] = Field(default=None, description="Optional maximum rows per fragment")
+    concurrency: Optional[StrictInt] = Field(default=None, description="Optional concurrency override")
+    intra_applier_concurrency: Optional[StrictInt] = Field(default=None, description="Optional intra-applier concurrency override")
+    cluster: Optional[StrictStr] = Field(default=None, description="Optional cluster name")
+    manifest: Optional[StrictStr] = Field(default=None, description="Optional manifest name")
+    __properties: ClassVar[List[str]] = ["src_version", "max_rows_per_fragment", "concurrency", "intra_applier_concurrency", "cluster", "manifest"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,7 +52,7 @@ class AlterColumnsEntry(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AlterColumnsEntry from a JSON string"""
+        """Create an instance of RefreshMaterializedViewRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,29 +73,41 @@ class AlterColumnsEntry(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of virtual_column
-        if self.virtual_column:
-            _dict['virtual_column'] = self.virtual_column.to_dict()
-        # set to None if rename (nullable) is None
+        # set to None if src_version (nullable) is None
         # and model_fields_set contains the field
-        if self.rename is None and "rename" in self.model_fields_set:
-            _dict['rename'] = None
+        if self.src_version is None and "src_version" in self.model_fields_set:
+            _dict['src_version'] = None
 
-        # set to None if nullable (nullable) is None
+        # set to None if max_rows_per_fragment (nullable) is None
         # and model_fields_set contains the field
-        if self.nullable is None and "nullable" in self.model_fields_set:
-            _dict['nullable'] = None
+        if self.max_rows_per_fragment is None and "max_rows_per_fragment" in self.model_fields_set:
+            _dict['max_rows_per_fragment'] = None
 
-        # set to None if virtual_column (nullable) is None
+        # set to None if concurrency (nullable) is None
         # and model_fields_set contains the field
-        if self.virtual_column is None and "virtual_column" in self.model_fields_set:
-            _dict['virtual_column'] = None
+        if self.concurrency is None and "concurrency" in self.model_fields_set:
+            _dict['concurrency'] = None
+
+        # set to None if intra_applier_concurrency (nullable) is None
+        # and model_fields_set contains the field
+        if self.intra_applier_concurrency is None and "intra_applier_concurrency" in self.model_fields_set:
+            _dict['intra_applier_concurrency'] = None
+
+        # set to None if cluster (nullable) is None
+        # and model_fields_set contains the field
+        if self.cluster is None and "cluster" in self.model_fields_set:
+            _dict['cluster'] = None
+
+        # set to None if manifest (nullable) is None
+        # and model_fields_set contains the field
+        if self.manifest is None and "manifest" in self.model_fields_set:
+            _dict['manifest'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AlterColumnsEntry from a dict"""
+        """Create an instance of RefreshMaterializedViewRequest from a dict"""
         if obj is None:
             return None
 
@@ -103,11 +115,12 @@ class AlterColumnsEntry(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "path": obj.get("path"),
-            "data_type": obj.get("data_type"),
-            "rename": obj.get("rename"),
-            "nullable": obj.get("nullable"),
-            "virtual_column": AlterVirtualColumnEntry.from_dict(obj["virtual_column"]) if obj.get("virtual_column") is not None else None
+            "src_version": obj.get("src_version"),
+            "max_rows_per_fragment": obj.get("max_rows_per_fragment"),
+            "concurrency": obj.get("concurrency"),
+            "intra_applier_concurrency": obj.get("intra_applier_concurrency"),
+            "cluster": obj.get("cluster"),
+            "manifest": obj.get("manifest")
         })
         return _obj
 

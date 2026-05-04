@@ -33,6 +33,13 @@ class TestDataApi(unittest.TestCase):
         """
         pass
 
+    def test_alter_table_backfill_columns(self) -> None:
+        """Test case for alter_table_backfill_columns
+
+        Trigger an async column backfill job
+        """
+        pass
+
     def test_analyze_table_query_plan(self) -> None:
         """Test case for analyze_table_query_plan
 
@@ -86,6 +93,13 @@ class TestDataApi(unittest.TestCase):
         """Test case for query_table
 
         Query a table
+        """
+        pass
+
+    def test_refresh_materialized_view(self) -> None:
+        """Test case for refresh_materialized_view
+
+        Trigger an async materialized view refresh
         """
         pass
 

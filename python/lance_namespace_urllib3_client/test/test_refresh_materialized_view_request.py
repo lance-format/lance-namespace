@@ -14,10 +14,10 @@
 
 import unittest
 
-from lance_namespace_urllib3_client.models.alter_table_alter_columns_response import AlterTableAlterColumnsResponse
+from lance_namespace_urllib3_client.models.refresh_materialized_view_request import RefreshMaterializedViewRequest
 
-class TestAlterTableAlterColumnsResponse(unittest.TestCase):
-    """AlterTableAlterColumnsResponse unit test stubs"""
+class TestRefreshMaterializedViewRequest(unittest.TestCase):
+    """RefreshMaterializedViewRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,26 +25,30 @@ class TestAlterTableAlterColumnsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AlterTableAlterColumnsResponse:
-        """Test AlterTableAlterColumnsResponse
+    def make_instance(self, include_optional) -> RefreshMaterializedViewRequest:
+        """Test RefreshMaterializedViewRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AlterTableAlterColumnsResponse`
+        # uncomment below to create an instance of `RefreshMaterializedViewRequest`
         """
-        model = AlterTableAlterColumnsResponse()
+        model = RefreshMaterializedViewRequest()
         if include_optional:
-            return AlterTableAlterColumnsResponse(
-                version = 0
+            return RefreshMaterializedViewRequest(
+                src_version = 56,
+                max_rows_per_fragment = 56,
+                concurrency = 56,
+                intra_applier_concurrency = 56,
+                cluster = '',
+                manifest = ''
             )
         else:
-            return AlterTableAlterColumnsResponse(
-                version = 0,
+            return RefreshMaterializedViewRequest(
         )
         """
 
-    def testAlterTableAlterColumnsResponse(self):
-        """Test AlterTableAlterColumnsResponse"""
+    def testRefreshMaterializedViewRequest(self):
+        """Test RefreshMaterializedViewRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

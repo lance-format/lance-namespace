@@ -72,6 +72,31 @@ class AlterVirtualColumnEntry(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if input_columns (nullable) is None
+        # and model_fields_set contains the field
+        if self.input_columns is None and "input_columns" in self.model_fields_set:
+            _dict['input_columns'] = None
+
+        # set to None if image (nullable) is None
+        # and model_fields_set contains the field
+        if self.image is None and "image" in self.model_fields_set:
+            _dict['image'] = None
+
+        # set to None if udf (nullable) is None
+        # and model_fields_set contains the field
+        if self.udf is None and "udf" in self.model_fields_set:
+            _dict['udf'] = None
+
+        # set to None if udf_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.udf_name is None and "udf_name" in self.model_fields_set:
+            _dict['udf_name'] = None
+
+        # set to None if udf_version (nullable) is None
+        # and model_fields_set contains the field
+        if self.udf_version is None and "udf_version" in self.model_fields_set:
+            _dict['udf_version'] = None
+
         return _dict
 
     @classmethod
