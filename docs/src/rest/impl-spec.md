@@ -715,7 +715,7 @@ Adds new columns to a table.
 **HTTP Request:**
 
 ```
-POST /v1/table/{id}/alter/add-columns
+POST /v1/table/{id}/add_columns
 Content-Type: application/json
 ```
 
@@ -726,7 +726,18 @@ Modifies existing columns in a table.
 **HTTP Request:**
 
 ```
-POST /v1/table/{id}/alter/alter-columns
+POST /v1/table/{id}/alter_columns
+Content-Type: application/json
+```
+
+### AlterTableBackfillColumns
+
+Triggers an async backfill job for a computed column.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/backfill_column
 Content-Type: application/json
 ```
 
@@ -737,7 +748,18 @@ Removes columns from a table.
 **HTTP Request:**
 
 ```
-POST /v1/table/{id}/alter/drop-columns
+POST /v1/table/{id}/drop_columns
+Content-Type: application/json
+```
+
+### RefreshMaterializedView
+
+Triggers an async materialized view refresh.
+
+**HTTP Request:**
+
+```
+POST /v1/table/{id}/refresh
 Content-Type: application/json
 ```
 
