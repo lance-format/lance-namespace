@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.7.2"
+__version__ = "0.7.3"
 
 # import apis into sdk package
 from lance_namespace_urllib3_client.api.data_api import DataApi
