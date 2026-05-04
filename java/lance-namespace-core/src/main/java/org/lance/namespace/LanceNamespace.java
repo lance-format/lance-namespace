@@ -647,6 +647,28 @@ public interface LanceNamespace {
   }
 
   /**
+   * Trigger an async backfill job for a computed column.
+   *
+   * @param request The backfill columns request
+   * @return The backfill columns response containing a job ID
+   */
+  default AlterTableBackfillColumnsResponse alterTableBackfillColumns(
+      AlterTableBackfillColumnsRequest request) {
+    throw new UnsupportedOperationException("Not supported: alterTableBackfillColumns");
+  }
+
+  /**
+   * Trigger an async materialized view refresh.
+   *
+   * @param request The refresh materialized view request
+   * @return The refresh response containing a job ID
+   */
+  default RefreshMaterializedViewResponse refreshMaterializedView(
+      RefreshMaterializedViewRequest request) {
+    throw new UnsupportedOperationException("Not supported: refreshMaterializedView");
+  }
+
+  /**
    * Drop columns from a table.
    *
    * @param request The alter table drop columns request

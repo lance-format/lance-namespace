@@ -61,6 +61,8 @@ from lance_namespace_urllib3_client.models import (
     AlterTableAddColumnsResponse,
     AlterTableAlterColumnsRequest,
     AlterTableAlterColumnsResponse,
+    AlterTableBackfillColumnsRequest,
+    AlterTableBackfillColumnsResponse,
     AlterTableDropColumnsRequest,
     AlterTableDropColumnsResponse,
     AlterTransactionRequest,
@@ -132,6 +134,8 @@ from lance_namespace_urllib3_client.models import (
     MergeInsertIntoTableResponse,
     NamespaceExistsRequest,
     QueryTableRequest,
+    RefreshMaterializedViewRequest,
+    RefreshMaterializedViewResponse,
     RegisterTableRequest,
     RegisterTableResponse,
     RenameTableRequest,
@@ -186,6 +190,8 @@ __all__ = [
     "AlterTableAddColumnsResponse",
     "AlterTableAlterColumnsRequest",
     "AlterTableAlterColumnsResponse",
+    "AlterTableBackfillColumnsRequest",
+    "AlterTableBackfillColumnsResponse",
     "AlterTableDropColumnsRequest",
     "AlterTableDropColumnsResponse",
     "AlterTransactionRequest",
@@ -257,6 +263,8 @@ __all__ = [
     "MergeInsertIntoTableResponse",
     "NamespaceExistsRequest",
     "QueryTableRequest",
+    "RefreshMaterializedViewRequest",
+    "RefreshMaterializedViewResponse",
     "RegisterTableRequest",
     "RegisterTableResponse",
     "RenameTableRequest",
@@ -917,6 +925,34 @@ class LanceNamespace(ABC):
             If the schema validation fails.
         """
         raise UnsupportedOperationError("Not supported: alter_table_alter_columns")
+
+    def alter_table_backfill_columns(
+        self, request: AlterTableBackfillColumnsRequest
+    ) -> AlterTableBackfillColumnsResponse:
+        """Trigger an async backfill job for a computed column.
+
+        Raises
+        ------
+        TableNotFoundError
+            If the table does not exist.
+        """
+        raise UnsupportedOperationError(
+            "Not supported: alter_table_backfill_columns"
+        )
+
+    def refresh_materialized_view(
+        self, request: RefreshMaterializedViewRequest
+    ) -> RefreshMaterializedViewResponse:
+        """Trigger an async materialized view refresh.
+
+        Raises
+        ------
+        TableNotFoundError
+            If the table does not exist.
+        """
+        raise UnsupportedOperationError(
+            "Not supported: refresh_materialized_view"
+        )
 
     def alter_table_drop_columns(
         self, request: AlterTableDropColumnsRequest

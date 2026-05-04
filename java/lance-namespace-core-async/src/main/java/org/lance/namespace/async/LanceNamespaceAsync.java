@@ -672,6 +672,30 @@ public interface LanceNamespaceAsync {
   }
 
   /**
+   * Trigger an async backfill job for a computed column.
+   *
+   * @param request The backfill columns request
+   * @return A CompletableFuture containing the backfill columns response with a job ID
+   */
+  default CompletableFuture<AlterTableBackfillColumnsResponse> alterTableBackfillColumns(
+      AlterTableBackfillColumnsRequest request) {
+    return CompletableFuture.failedFuture(
+        new UnsupportedOperationException("Not supported: alterTableBackfillColumns"));
+  }
+
+  /**
+   * Trigger an async materialized view refresh.
+   *
+   * @param request The refresh materialized view request
+   * @return A CompletableFuture containing the refresh response with a job ID
+   */
+  default CompletableFuture<RefreshMaterializedViewResponse> refreshMaterializedView(
+      RefreshMaterializedViewRequest request) {
+    return CompletableFuture.failedFuture(
+        new UnsupportedOperationException("Not supported: refreshMaterializedView"));
+  }
+
+  /**
    * Drop columns from a table.
    *
    * @param request The alter table drop columns request
