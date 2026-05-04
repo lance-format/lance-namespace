@@ -4713,7 +4713,7 @@ components:
         column:
           type: string
           description: Column name to backfill
-        where_clause:
+        where:
           type:
             - string
             - "null"
@@ -4723,6 +4723,51 @@ components:
             - integer
             - "null"
           description: Optional concurrency override
+        intra_applier_concurrency:
+          type:
+            - integer
+            - "null"
+          description: Optional intra-applier concurrency override
+        min_checkpoint_size:
+          type:
+            - integer
+            - "null"
+          description: Optional minimum checkpoint size
+        max_checkpoint_size:
+          type:
+            - integer
+            - "null"
+          description: Optional maximum checkpoint size
+        batch_checkpoint_flush_interval_seconds:
+          type:
+            - number
+            - "null"
+          description: Optional batch checkpoint flush interval in seconds
+        read_version:
+          type:
+            - integer
+            - "null"
+          description: Optional table version to read from
+        task_size:
+          type:
+            - integer
+            - "null"
+          description: Optional task size
+        num_frags:
+          type:
+            - integer
+            - "null"
+          description: Optional number of fragments
+        checkpoint_size:
+          type:
+            - integer
+            - "null"
+          description: Optional checkpoint size
+        commit_granularity:
+          type:
+            - integer
+            - "null"
+          description: Optional commit granularity
         cluster:
           type:
             - string
