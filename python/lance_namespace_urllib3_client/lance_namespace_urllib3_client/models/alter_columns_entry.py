@@ -31,7 +31,7 @@ class AlterColumnsEntry(BaseModel):
     data_type: Dict[str, Any] = Field(description="New data type for the column using JSON representation (optional)")
     rename: Optional[StrictStr] = Field(default=None, description="New name for the column (optional)")
     nullable: Optional[StrictBool] = Field(default=None, description="Whether the column should be nullable (optional)")
-    virtual_column: Optional[AlterVirtualColumnEntry] = Field(default=None, description="Virtual column alterations (optional)")
+    virtual_column: Optional[AlterVirtualColumnEntry] = None
     __properties: ClassVar[List[str]] = ["path", "data_type", "rename", "nullable", "virtual_column"]
 
     model_config = ConfigDict(
@@ -76,6 +76,21 @@ class AlterColumnsEntry(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of virtual_column
         if self.virtual_column:
             _dict['virtual_column'] = self.virtual_column.to_dict()
+        # set to None if rename (nullable) is None
+        # and model_fields_set contains the field
+        if self.rename is None and "rename" in self.model_fields_set:
+            _dict['rename'] = None
+
+        # set to None if nullable (nullable) is None
+        # and model_fields_set contains the field
+        if self.nullable is None and "nullable" in self.model_fields_set:
+            _dict['nullable'] = None
+
+        # set to None if virtual_column (nullable) is None
+        # and model_fields_set contains the field
+        if self.virtual_column is None and "virtual_column" in self.model_fields_set:
+            _dict['virtual_column'] = None
+
         return _dict
 
     @classmethod

@@ -23,45 +23,15 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** AlterTableAddColumnsResponse */
-@JsonPropertyOrder({
-  AlterTableAddColumnsResponse.JSON_PROPERTY_TRANSACTION_ID,
-  AlterTableAddColumnsResponse.JSON_PROPERTY_VERSION
-})
+@JsonPropertyOrder({AlterTableAddColumnsResponse.JSON_PROPERTY_VERSION})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class AlterTableAddColumnsResponse {
-  public static final String JSON_PROPERTY_TRANSACTION_ID = "transaction_id";
-  @javax.annotation.Nullable private String transactionId;
-
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nonnull private Long version;
 
   public AlterTableAddColumnsResponse() {}
-
-  public AlterTableAddColumnsResponse transactionId(
-      @javax.annotation.Nullable String transactionId) {
-    this.transactionId = transactionId;
-    return this;
-  }
-
-  /**
-   * Optional transaction identifier
-   *
-   * @return transactionId
-   */
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getTransactionId() {
-    return transactionId;
-  }
-
-  @JsonProperty(JSON_PROPERTY_TRANSACTION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTransactionId(@javax.annotation.Nullable String transactionId) {
-    this.transactionId = transactionId;
-  }
 
   public AlterTableAddColumnsResponse version(@javax.annotation.Nonnull Long version) {
     this.version = version;
@@ -69,7 +39,7 @@ public class AlterTableAddColumnsResponse {
   }
 
   /**
-   * Version of the table after adding columns minimum: 0
+   * The commit version associated with the operation minimum: 0
    *
    * @return version
    */
@@ -96,20 +66,18 @@ public class AlterTableAddColumnsResponse {
       return false;
     }
     AlterTableAddColumnsResponse alterTableAddColumnsResponse = (AlterTableAddColumnsResponse) o;
-    return Objects.equals(this.transactionId, alterTableAddColumnsResponse.transactionId)
-        && Objects.equals(this.version, alterTableAddColumnsResponse.version);
+    return Objects.equals(this.version, alterTableAddColumnsResponse.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, version);
+    return Objects.hash(version);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAddColumnsResponse {\n");
-    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -156,14 +124,6 @@ public class AlterTableAddColumnsResponse {
     }
 
     StringJoiner joiner = new StringJoiner("&");
-
-    // add `transaction_id` to the URL query string
-    if (getTransactionId() != null) {
-      joiner.add(
-          String.format(
-              "%stransaction_id%s=%s",
-              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTransactionId()))));
-    }
 
     // add `version` to the URL query string
     if (getVersion() != null) {

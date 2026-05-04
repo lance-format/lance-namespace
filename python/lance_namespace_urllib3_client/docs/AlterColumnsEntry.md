@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **data_type** | **object** | New data type for the column using JSON representation (optional) | 
 **rename** | **str** | New name for the column (optional) | [optional] 
 **nullable** | **bool** | Whether the column should be nullable (optional) | [optional] 
-**virtual_column** | [**AlterVirtualColumnEntry**](AlterVirtualColumnEntry.md) | Virtual column alterations (optional) | [optional] 
+**virtual_column** | [**AlterVirtualColumnEntry**](AlterVirtualColumnEntry.md) |  | [optional] 
 
 ## Example
 

@@ -15,11 +15,14 @@ package org.lance.namespace.model;
 
 import org.lance.namespace.client.async.ApiClient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -37,33 +40,37 @@ import java.util.StringJoiner;
     comments = "Generator version: 7.12.0")
 public class AlterVirtualColumnEntry {
   public static final String JSON_PROPERTY_INPUT_COLUMNS = "input_columns";
-  @javax.annotation.Nullable private List<String> inputColumns = new ArrayList<>();
+  private JsonNullable<List<String>> inputColumns = JsonNullable.<List<String>>undefined();
 
   public static final String JSON_PROPERTY_IMAGE = "image";
-  @javax.annotation.Nullable private String image;
+  private JsonNullable<String> image = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_UDF = "udf";
-  @javax.annotation.Nullable private String udf;
+  private JsonNullable<String> udf = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_UDF_NAME = "udf_name";
-  @javax.annotation.Nullable private String udfName;
+  private JsonNullable<String> udfName = JsonNullable.<String>undefined();
 
   public static final String JSON_PROPERTY_UDF_VERSION = "udf_version";
-  @javax.annotation.Nullable private String udfVersion;
+  private JsonNullable<String> udfVersion = JsonNullable.<String>undefined();
 
   public AlterVirtualColumnEntry() {}
 
   public AlterVirtualColumnEntry inputColumns(
       @javax.annotation.Nullable List<String> inputColumns) {
-    this.inputColumns = inputColumns;
+    this.inputColumns = JsonNullable.<List<String>>of(inputColumns);
     return this;
   }
 
   public AlterVirtualColumnEntry addInputColumnsItem(String inputColumnsItem) {
-    if (this.inputColumns == null) {
-      this.inputColumns = new ArrayList<>();
+    if (this.inputColumns == null || !this.inputColumns.isPresent()) {
+      this.inputColumns = JsonNullable.<List<String>>of(new ArrayList<>());
     }
-    this.inputColumns.add(inputColumnsItem);
+    try {
+      this.inputColumns.get().add(inputColumnsItem);
+    } catch (java.util.NoSuchElementException e) {
+      // this can never happen, as we make sure above that the value is present
+    }
     return this;
   }
 
@@ -73,20 +80,28 @@ public class AlterVirtualColumnEntry {
    * @return inputColumns
    */
   @javax.annotation.Nullable
+  @JsonIgnore
+  public List<String> getInputColumns() {
+    return inputColumns.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_INPUT_COLUMNS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public List<String> getInputColumns() {
+  public JsonNullable<List<String>> getInputColumns_JsonNullable() {
     return inputColumns;
   }
 
   @JsonProperty(JSON_PROPERTY_INPUT_COLUMNS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInputColumns(@javax.annotation.Nullable List<String> inputColumns) {
+  public void setInputColumns_JsonNullable(JsonNullable<List<String>> inputColumns) {
     this.inputColumns = inputColumns;
   }
 
+  public void setInputColumns(@javax.annotation.Nullable List<String> inputColumns) {
+    this.inputColumns = JsonNullable.<List<String>>of(inputColumns);
+  }
+
   public AlterVirtualColumnEntry image(@javax.annotation.Nullable String image) {
-    this.image = image;
+    this.image = JsonNullable.<String>of(image);
     return this;
   }
 
@@ -96,20 +111,28 @@ public class AlterVirtualColumnEntry {
    * @return image
    */
   @javax.annotation.Nullable
+  @JsonIgnore
+  public String getImage() {
+    return image.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_IMAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getImage() {
+  public JsonNullable<String> getImage_JsonNullable() {
     return image;
   }
 
   @JsonProperty(JSON_PROPERTY_IMAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setImage(@javax.annotation.Nullable String image) {
+  public void setImage_JsonNullable(JsonNullable<String> image) {
     this.image = image;
   }
 
+  public void setImage(@javax.annotation.Nullable String image) {
+    this.image = JsonNullable.<String>of(image);
+  }
+
   public AlterVirtualColumnEntry udf(@javax.annotation.Nullable String udf) {
-    this.udf = udf;
+    this.udf = JsonNullable.<String>of(udf);
     return this;
   }
 
@@ -119,20 +142,28 @@ public class AlterVirtualColumnEntry {
    * @return udf
    */
   @javax.annotation.Nullable
+  @JsonIgnore
+  public String getUdf() {
+    return udf.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_UDF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getUdf() {
+  public JsonNullable<String> getUdf_JsonNullable() {
     return udf;
   }
 
   @JsonProperty(JSON_PROPERTY_UDF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUdf(@javax.annotation.Nullable String udf) {
+  public void setUdf_JsonNullable(JsonNullable<String> udf) {
     this.udf = udf;
   }
 
+  public void setUdf(@javax.annotation.Nullable String udf) {
+    this.udf = JsonNullable.<String>of(udf);
+  }
+
   public AlterVirtualColumnEntry udfName(@javax.annotation.Nullable String udfName) {
-    this.udfName = udfName;
+    this.udfName = JsonNullable.<String>of(udfName);
     return this;
   }
 
@@ -142,20 +173,28 @@ public class AlterVirtualColumnEntry {
    * @return udfName
    */
   @javax.annotation.Nullable
+  @JsonIgnore
+  public String getUdfName() {
+    return udfName.orElse(null);
+  }
+
   @JsonProperty(JSON_PROPERTY_UDF_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public String getUdfName() {
+  public JsonNullable<String> getUdfName_JsonNullable() {
     return udfName;
   }
 
   @JsonProperty(JSON_PROPERTY_UDF_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUdfName(@javax.annotation.Nullable String udfName) {
+  public void setUdfName_JsonNullable(JsonNullable<String> udfName) {
     this.udfName = udfName;
   }
 
+  public void setUdfName(@javax.annotation.Nullable String udfName) {
+    this.udfName = JsonNullable.<String>of(udfName);
+  }
+
   public AlterVirtualColumnEntry udfVersion(@javax.annotation.Nullable String udfVersion) {
-    this.udfVersion = udfVersion;
+    this.udfVersion = JsonNullable.<String>of(udfVersion);
     return this;
   }
 
@@ -165,16 +204,24 @@ public class AlterVirtualColumnEntry {
    * @return udfVersion
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UDF_VERSION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonIgnore
   public String getUdfVersion() {
-    return udfVersion;
+    return udfVersion.orElse(null);
   }
 
   @JsonProperty(JSON_PROPERTY_UDF_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUdfVersion(@javax.annotation.Nullable String udfVersion) {
+  public JsonNullable<String> getUdfVersion_JsonNullable() {
+    return udfVersion;
+  }
+
+  @JsonProperty(JSON_PROPERTY_UDF_VERSION)
+  public void setUdfVersion_JsonNullable(JsonNullable<String> udfVersion) {
     this.udfVersion = udfVersion;
+  }
+
+  public void setUdfVersion(@javax.annotation.Nullable String udfVersion) {
+    this.udfVersion = JsonNullable.<String>of(udfVersion);
   }
 
   /** Return true if this AlterVirtualColumnEntry object is equal to o. */
@@ -187,16 +234,37 @@ public class AlterVirtualColumnEntry {
       return false;
     }
     AlterVirtualColumnEntry alterVirtualColumnEntry = (AlterVirtualColumnEntry) o;
-    return Objects.equals(this.inputColumns, alterVirtualColumnEntry.inputColumns)
-        && Objects.equals(this.image, alterVirtualColumnEntry.image)
-        && Objects.equals(this.udf, alterVirtualColumnEntry.udf)
-        && Objects.equals(this.udfName, alterVirtualColumnEntry.udfName)
-        && Objects.equals(this.udfVersion, alterVirtualColumnEntry.udfVersion);
+    return equalsNullable(this.inputColumns, alterVirtualColumnEntry.inputColumns)
+        && equalsNullable(this.image, alterVirtualColumnEntry.image)
+        && equalsNullable(this.udf, alterVirtualColumnEntry.udf)
+        && equalsNullable(this.udfName, alterVirtualColumnEntry.udfName)
+        && equalsNullable(this.udfVersion, alterVirtualColumnEntry.udfVersion);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b
+        || (a != null
+            && b != null
+            && a.isPresent()
+            && b.isPresent()
+            && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inputColumns, image, udf, udfName, udfVersion);
+    return Objects.hash(
+        hashCodeNullable(inputColumns),
+        hashCodeNullable(image),
+        hashCodeNullable(udf),
+        hashCodeNullable(udfName),
+        hashCodeNullable(udfVersion));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
   }
 
   @Override

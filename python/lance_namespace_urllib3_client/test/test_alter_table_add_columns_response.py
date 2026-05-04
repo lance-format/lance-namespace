@@ -35,7 +35,6 @@ class TestAlterTableAddColumnsResponse(unittest.TestCase):
         model = AlterTableAddColumnsResponse()
         if include_optional:
             return AlterTableAddColumnsResponse(
-                transaction_id = '',
                 version = 0
             )
         else:

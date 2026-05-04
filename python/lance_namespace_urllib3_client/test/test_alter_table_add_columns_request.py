@@ -35,17 +35,8 @@ class TestAlterTableAddColumnsRequest(unittest.TestCase):
         model = AlterTableAddColumnsRequest()
         if include_optional:
             return AlterTableAddColumnsRequest(
-                identity = lance_namespace_urllib3_client.models.identity.Identity(
-                    api_key = '', 
-                    auth_token = '', ),
-                context = {
-                    'key' : ''
-                    },
-                id = [
-                    ''
-                    ],
                 new_columns = [
-                    lance_namespace_urllib3_client.models.new_column_transform.NewColumnTransform(
+                    lance_namespace_urllib3_client.models.add_columns_entry.AddColumnsEntry(
                         name = '', 
                         expression = '', 
                         virtual_column = lance_namespace_urllib3_client.models.add_virtual_column_entry.AddVirtualColumnEntry(
@@ -62,7 +53,7 @@ class TestAlterTableAddColumnsRequest(unittest.TestCase):
         else:
             return AlterTableAddColumnsRequest(
                 new_columns = [
-                    lance_namespace_urllib3_client.models.new_column_transform.NewColumnTransform(
+                    lance_namespace_urllib3_client.models.add_columns_entry.AddColumnsEntry(
                         name = '', 
                         expression = '', 
                         virtual_column = lance_namespace_urllib3_client.models.add_virtual_column_entry.AddVirtualColumnEntry(

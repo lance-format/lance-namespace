@@ -5,8 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**transaction_id** | **str** | Optional transaction identifier | [optional] 
-**version** | **int** | Version of the table after adding columns | 
+**version** | **int** | The commit version associated with the operation | 
 
 ## Example
 

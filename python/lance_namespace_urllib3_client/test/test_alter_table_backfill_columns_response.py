@@ -14,10 +14,10 @@
 
 import unittest
 
-from lance_namespace_urllib3_client.models.new_column_transform import NewColumnTransform
+from lance_namespace_urllib3_client.models.alter_table_backfill_columns_response import AlterTableBackfillColumnsResponse
 
-class TestNewColumnTransform(unittest.TestCase):
-    """NewColumnTransform unit test stubs"""
+class TestAlterTableBackfillColumnsResponse(unittest.TestCase):
+    """AlterTableBackfillColumnsResponse unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,36 +25,26 @@ class TestNewColumnTransform(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> NewColumnTransform:
-        """Test NewColumnTransform
+    def make_instance(self, include_optional) -> AlterTableBackfillColumnsResponse:
+        """Test AlterTableBackfillColumnsResponse
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `NewColumnTransform`
+        # uncomment below to create an instance of `AlterTableBackfillColumnsResponse`
         """
-        model = NewColumnTransform()
+        model = AlterTableBackfillColumnsResponse()
         if include_optional:
-            return NewColumnTransform(
-                name = '',
-                expression = '',
-                virtual_column = lance_namespace_urllib3_client.models.add_virtual_column_entry.AddVirtualColumnEntry(
-                    input_columns = [
-                        ''
-                        ], 
-                    data_type = lance_namespace_urllib3_client.models.data_type.data_type(), 
-                    image = '', 
-                    udf = '', 
-                    udf_name = '', 
-                    udf_version = '', )
+            return AlterTableBackfillColumnsResponse(
+                job_id = ''
             )
         else:
-            return NewColumnTransform(
-                name = '',
+            return AlterTableBackfillColumnsResponse(
+                job_id = '',
         )
         """
 
-    def testNewColumnTransform(self):
-        """Test NewColumnTransform"""
+    def testAlterTableBackfillColumnsResponse(self):
+        """Test AlterTableBackfillColumnsResponse"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

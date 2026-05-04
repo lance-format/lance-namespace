@@ -21,9 +21,7 @@ import jakarta.validation.constraints.*;
 
 import java.util.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /** AlterTableAddColumnsRequest */
@@ -32,113 +30,23 @@ import java.util.Objects;
     comments = "Generator version: 7.12.0")
 public class AlterTableAddColumnsRequest {
 
-  private Identity identity;
-
-  @Valid private Map<String, String> context = new HashMap<>();
-
-  @Valid private List<String> id = new ArrayList<>();
-
-  @Valid private List<@Valid NewColumnTransform> newColumns = new ArrayList<>();
+  @Valid private List<@Valid AddColumnsEntry> newColumns = new ArrayList<>();
 
   public AlterTableAddColumnsRequest() {
     super();
   }
 
   /** Constructor with only required parameters */
-  public AlterTableAddColumnsRequest(List<@Valid NewColumnTransform> newColumns) {
+  public AlterTableAddColumnsRequest(List<@Valid AddColumnsEntry> newColumns) {
     this.newColumns = newColumns;
   }
 
-  public AlterTableAddColumnsRequest identity(Identity identity) {
-    this.identity = identity;
-    return this;
-  }
-
-  /**
-   * Get identity
-   *
-   * @return identity
-   */
-  @Valid
-  @Schema(name = "identity", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("identity")
-  public Identity getIdentity() {
-    return identity;
-  }
-
-  public void setIdentity(Identity identity) {
-    this.identity = identity;
-  }
-
-  public AlterTableAddColumnsRequest context(Map<String, String> context) {
-    this.context = context;
-    return this;
-  }
-
-  public AlterTableAddColumnsRequest putContextItem(String key, String contextItem) {
-    if (this.context == null) {
-      this.context = new HashMap<>();
-    }
-    this.context.put(key, contextItem);
-    return this;
-  }
-
-  /**
-   * Arbitrary context for a request as key-value pairs. How to use the context is custom to the
-   * specific implementation. REST NAMESPACE ONLY Context entries are passed via HTTP headers using
-   * the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry
-   * `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
-   *
-   * @return context
-   */
-  @Schema(
-      name = "context",
-      description =
-          "Arbitrary context for a request as key-value pairs. How to use the context is custom to the specific implementation.  REST NAMESPACE ONLY Context entries are passed via HTTP headers using the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`. ",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("context")
-  public Map<String, String> getContext() {
-    return context;
-  }
-
-  public void setContext(Map<String, String> context) {
-    this.context = context;
-  }
-
-  public AlterTableAddColumnsRequest id(List<String> id) {
-    this.id = id;
-    return this;
-  }
-
-  public AlterTableAddColumnsRequest addIdItem(String idItem) {
-    if (this.id == null) {
-      this.id = new ArrayList<>();
-    }
-    this.id.add(idItem);
-    return this;
-  }
-
-  /**
-   * Get id
-   *
-   * @return id
-   */
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
-  public List<String> getId() {
-    return id;
-  }
-
-  public void setId(List<String> id) {
-    this.id = id;
-  }
-
-  public AlterTableAddColumnsRequest newColumns(List<@Valid NewColumnTransform> newColumns) {
+  public AlterTableAddColumnsRequest newColumns(List<@Valid AddColumnsEntry> newColumns) {
     this.newColumns = newColumns;
     return this;
   }
 
-  public AlterTableAddColumnsRequest addNewColumnsItem(NewColumnTransform newColumnsItem) {
+  public AlterTableAddColumnsRequest addNewColumnsItem(AddColumnsEntry newColumnsItem) {
     if (this.newColumns == null) {
       this.newColumns = new ArrayList<>();
     }
@@ -147,7 +55,7 @@ public class AlterTableAddColumnsRequest {
   }
 
   /**
-   * List of new columns to add
+   * List of new columns to add to the table
    *
    * @return newColumns
    */
@@ -155,14 +63,14 @@ public class AlterTableAddColumnsRequest {
   @Valid
   @Schema(
       name = "new_columns",
-      description = "List of new columns to add",
+      description = "List of new columns to add to the table",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("new_columns")
-  public List<@Valid NewColumnTransform> getNewColumns() {
+  public List<@Valid AddColumnsEntry> getNewColumns() {
     return newColumns;
   }
 
-  public void setNewColumns(List<@Valid NewColumnTransform> newColumns) {
+  public void setNewColumns(List<@Valid AddColumnsEntry> newColumns) {
     this.newColumns = newColumns;
   }
 
@@ -175,24 +83,18 @@ public class AlterTableAddColumnsRequest {
       return false;
     }
     AlterTableAddColumnsRequest alterTableAddColumnsRequest = (AlterTableAddColumnsRequest) o;
-    return Objects.equals(this.identity, alterTableAddColumnsRequest.identity)
-        && Objects.equals(this.context, alterTableAddColumnsRequest.context)
-        && Objects.equals(this.id, alterTableAddColumnsRequest.id)
-        && Objects.equals(this.newColumns, alterTableAddColumnsRequest.newColumns);
+    return Objects.equals(this.newColumns, alterTableAddColumnsRequest.newColumns);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, newColumns);
+    return Objects.hash(newColumns);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAddColumnsRequest {\n");
-    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
-    sb.append("    context: ").append(toIndentedString(context)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    newColumns: ").append(toIndentedString(newColumns)).append("\n");
     sb.append("}");
     return sb.toString();

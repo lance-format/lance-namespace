@@ -30,15 +30,15 @@ import java.util.Objects;
     comments = "Generator version: 7.12.0")
 public class AlterVirtualColumnEntry {
 
-  @Valid private List<String> inputColumns = new ArrayList<>();
+  @Valid private List<String> inputColumns;
 
-  private String image;
+  private String image = null;
 
-  private String udf;
+  private String udf = null;
 
-  private String udfName;
+  private String udfName = null;
 
-  private String udfVersion;
+  private String udfVersion = null;
 
   public AlterVirtualColumnEntry inputColumns(List<String> inputColumns) {
     this.inputColumns = inputColumns;

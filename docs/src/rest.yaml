@@ -1506,6 +1506,76 @@ paths:
         5XX:
           $ref: "#/components/responses/ServerErrorResponse"
 
+  /v1/table/{id}/backfill_column:
+    parameters:
+      - $ref: "#/components/parameters/id"
+      - $ref: "#/components/parameters/delimiter"
+    post:
+      tags:
+        - Table
+        - Data
+      summary: Trigger an async column backfill job
+      operationId: AlterTableBackfillColumns
+      description: |
+        Trigger an asynchronous backfill job for a computed column on table `id`.
+        The column must be a virtual (UDF-backed) column. Returns a job ID for tracking.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlterTableBackfillColumnsRequest"
+      responses:
+        202:
+          $ref: "#/components/responses/AlterTableBackfillColumnsResponse"
+        400:
+          $ref: "#/components/responses/BadRequestErrorResponse"
+        401:
+          $ref: "#/components/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "#/components/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "#/components/responses/NotFoundErrorResponse"
+        503:
+          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+        5XX:
+          $ref: "#/components/responses/ServerErrorResponse"
+
+  /v1/table/{id}/refresh:
+    parameters:
+      - $ref: "#/components/parameters/id"
+      - $ref: "#/components/parameters/delimiter"
+    post:
+      tags:
+        - Table
+        - Data
+      summary: Trigger an async materialized view refresh
+      operationId: RefreshMaterializedView
+      description: |
+        Trigger an asynchronous refresh job for a materialized view backed by table `id`.
+        Returns a job ID for tracking.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshMaterializedViewRequest"
+      responses:
+        202:
+          $ref: "#/components/responses/RefreshMaterializedViewResponse"
+        400:
+          $ref: "#/components/responses/BadRequestErrorResponse"
+        401:
+          $ref: "#/components/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "#/components/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "#/components/responses/NotFoundErrorResponse"
+        503:
+          $ref: "#/components/responses/ServiceUnavailableErrorResponse"
+        5XX:
+          $ref: "#/components/responses/ServerErrorResponse"
+
   # Table Index APIs
 
   /v1/table/{id}/create_index:
@@ -4487,21 +4557,13 @@ components:
       required:
         - new_columns
       properties:
-        identity:
-          $ref: "#/components/schemas/Identity"
-        context:
-          $ref: "#/components/schemas/Context"
-        id:
-          type: array
-          items:
-            type: string
         new_columns:
           type: array
           items:
-            $ref: "#/components/schemas/NewColumnTransform"
-          description: List of new columns to add
+            $ref: "#/components/schemas/AddColumnsEntry"
+          description: List of new columns to add to the table
 
-    NewColumnTransform:
+    AddColumnsEntry:
       type: object
       required:
         - name
@@ -4510,12 +4572,14 @@ components:
           type: string
           description: Name of the new column
         expression:
-          type: string
-          nullable: true
-          description: SQL expression to compute the column value (optional if virtual_column is specified)
+          type:
+            - string
+            - "null"
+          description: SQL expression for the column (optional if virtual_column is specified)
         virtual_column:
-          $ref: "#/components/schemas/AddVirtualColumnEntry"
-          nullable: true
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/AddVirtualColumnEntry"
           description: Virtual column definition (optional if expression is specified)
 
     AddVirtualColumnEntry:
@@ -4554,33 +4618,22 @@ components:
       required:
         - version
       properties:
-        transaction_id:
-          type: string
-          description: Optional transaction identifier
         version:
           type: integer
           format: int64
+          description: The commit version associated with the operation
           minimum: 0
-          description: Version of the table after adding columns
 
     AlterTableAlterColumnsRequest:
       type: object
       required:
         - alterations
       properties:
-        identity:
-          $ref: "#/components/schemas/Identity"
-        context:
-          $ref: "#/components/schemas/Context"
-        id:
-          type: array
-          items:
-            type: string
         alterations:
           type: array
           items:
             $ref: "#/components/schemas/AlterColumnsEntry"
-          description: List of column alterations to perform
+          description: List of column alterations to apply to the table
 
     AlterColumnsEntry:
       type: object
@@ -4595,42 +4648,50 @@ components:
           type: object
           description: New data type for the column using JSON representation (optional)
         rename:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           description: New name for the column (optional)
         nullable:
-          type: boolean
-          nullable: true
+          type:
+            - boolean
+            - "null"
           description: Whether the column should be nullable (optional)
         virtual_column:
-          $ref: "#/components/schemas/AlterVirtualColumnEntry"
-          nullable: true
+          oneOf:
+            - type: "null"
+            - $ref: "#/components/schemas/AlterVirtualColumnEntry"
           description: Virtual column alterations (optional)
 
     AlterVirtualColumnEntry:
       type: object
       properties:
         input_columns:
-          type: array
+          type:
+            - array
+            - "null"
           items:
             type: string
-          nullable: true
           description: List of input column names for the virtual column (optional)
         image:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           description: Docker image to use for the UDF (optional)
         udf:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           description: Base64 encoded pickled UDF (optional)
         udf_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           description: Name of the UDF (optional)
         udf_version:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           description: Version of the UDF (optional)
 
     AlterTableAlterColumnsResponse:
@@ -4638,14 +4699,137 @@ components:
       required:
         - version
       properties:
-        transaction_id:
-          type: string
-          description: Optional transaction identifier
         version:
           type: integer
           format: int64
+          description: The commit version associated with the operation
           minimum: 0
-          description: Version of the table after altering columns
+
+    AlterTableBackfillColumnsRequest:
+      type: object
+      required:
+        - column
+      properties:
+        column:
+          type: string
+          description: Column name to backfill
+        where:
+          type:
+            - string
+            - "null"
+          description: Optional WHERE clause filter
+        concurrency:
+          type:
+            - integer
+            - "null"
+          description: Optional concurrency override
+        intra_applier_concurrency:
+          type:
+            - integer
+            - "null"
+          description: Optional intra-applier concurrency override
+        min_checkpoint_size:
+          type:
+            - integer
+            - "null"
+          description: Optional minimum checkpoint size
+        max_checkpoint_size:
+          type:
+            - integer
+            - "null"
+          description: Optional maximum checkpoint size
+        batch_checkpoint_flush_interval_seconds:
+          type:
+            - number
+            - "null"
+          description: Optional batch checkpoint flush interval in seconds
+        read_version:
+          type:
+            - integer
+            - "null"
+          description: Optional table version to read from
+        task_size:
+          type:
+            - integer
+            - "null"
+          description: Optional task size
+        num_frags:
+          type:
+            - integer
+            - "null"
+          description: Optional number of fragments
+        checkpoint_size:
+          type:
+            - integer
+            - "null"
+          description: Optional checkpoint size
+        commit_granularity:
+          type:
+            - integer
+            - "null"
+          description: Optional commit granularity
+        cluster:
+          type:
+            - string
+            - "null"
+          description: Optional cluster name
+        manifest:
+          type:
+            - string
+            - "null"
+          description: Optional manifest name
+
+    AlterTableBackfillColumnsResponse:
+      type: object
+      required:
+        - job_id
+      properties:
+        job_id:
+          type: string
+          description: The job ID for tracking the backfill job
+
+    RefreshMaterializedViewRequest:
+      type: object
+      properties:
+        src_version:
+          type:
+            - integer
+            - "null"
+          description: Optional source version to refresh from
+        max_rows_per_fragment:
+          type:
+            - integer
+            - "null"
+          description: Optional maximum rows per fragment
+        concurrency:
+          type:
+            - integer
+            - "null"
+          description: Optional concurrency override
+        intra_applier_concurrency:
+          type:
+            - integer
+            - "null"
+          description: Optional intra-applier concurrency override
+        cluster:
+          type:
+            - string
+            - "null"
+          description: Optional cluster name
+        manifest:
+          type:
+            - string
+            - "null"
+          description: Optional manifest name
+
+    RefreshMaterializedViewResponse:
+      type: object
+      required:
+        - job_id
+      properties:
+        job_id:
+          type: string
+          description: The job ID for tracking the refresh job
 
     AlterTableDropColumnsRequest:
       type: object
@@ -5139,6 +5323,20 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/AlterTableAlterColumnsResponse"
+
+    AlterTableBackfillColumnsResponse:
+      description: Backfill job accepted
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AlterTableBackfillColumnsResponse"
+
+    RefreshMaterializedViewResponse:
+      description: Refresh job accepted
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/RefreshMaterializedViewResponse"
 
     AlterTableDropColumnsResponse:
       description: Drop columns operation result

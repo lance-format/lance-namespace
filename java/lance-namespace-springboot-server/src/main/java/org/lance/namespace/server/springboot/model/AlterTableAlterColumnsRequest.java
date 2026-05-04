@@ -21,9 +21,7 @@ import jakarta.validation.constraints.*;
 
 import java.util.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /** AlterTableAlterColumnsRequest */
@@ -31,12 +29,6 @@ import java.util.Objects;
     value = "org.openapitools.codegen.languages.SpringCodegen",
     comments = "Generator version: 7.12.0")
 public class AlterTableAlterColumnsRequest {
-
-  private Identity identity;
-
-  @Valid private Map<String, String> context = new HashMap<>();
-
-  @Valid private List<String> id = new ArrayList<>();
 
   @Valid private List<@Valid AlterColumnsEntry> alterations = new ArrayList<>();
 
@@ -47,90 +39,6 @@ public class AlterTableAlterColumnsRequest {
   /** Constructor with only required parameters */
   public AlterTableAlterColumnsRequest(List<@Valid AlterColumnsEntry> alterations) {
     this.alterations = alterations;
-  }
-
-  public AlterTableAlterColumnsRequest identity(Identity identity) {
-    this.identity = identity;
-    return this;
-  }
-
-  /**
-   * Get identity
-   *
-   * @return identity
-   */
-  @Valid
-  @Schema(name = "identity", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("identity")
-  public Identity getIdentity() {
-    return identity;
-  }
-
-  public void setIdentity(Identity identity) {
-    this.identity = identity;
-  }
-
-  public AlterTableAlterColumnsRequest context(Map<String, String> context) {
-    this.context = context;
-    return this;
-  }
-
-  public AlterTableAlterColumnsRequest putContextItem(String key, String contextItem) {
-    if (this.context == null) {
-      this.context = new HashMap<>();
-    }
-    this.context.put(key, contextItem);
-    return this;
-  }
-
-  /**
-   * Arbitrary context for a request as key-value pairs. How to use the context is custom to the
-   * specific implementation. REST NAMESPACE ONLY Context entries are passed via HTTP headers using
-   * the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry
-   * `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`.
-   *
-   * @return context
-   */
-  @Schema(
-      name = "context",
-      description =
-          "Arbitrary context for a request as key-value pairs. How to use the context is custom to the specific implementation.  REST NAMESPACE ONLY Context entries are passed via HTTP headers using the naming convention `x-lance-ctx-<key>: <value>`. For example, a context entry `{\"trace_id\": \"abc123\"}` would be sent as the header `x-lance-ctx-trace_id: abc123`. ",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("context")
-  public Map<String, String> getContext() {
-    return context;
-  }
-
-  public void setContext(Map<String, String> context) {
-    this.context = context;
-  }
-
-  public AlterTableAlterColumnsRequest id(List<String> id) {
-    this.id = id;
-    return this;
-  }
-
-  public AlterTableAlterColumnsRequest addIdItem(String idItem) {
-    if (this.id == null) {
-      this.id = new ArrayList<>();
-    }
-    this.id.add(idItem);
-    return this;
-  }
-
-  /**
-   * Get id
-   *
-   * @return id
-   */
-  @Schema(name = "id", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("id")
-  public List<String> getId() {
-    return id;
-  }
-
-  public void setId(List<String> id) {
-    this.id = id;
   }
 
   public AlterTableAlterColumnsRequest alterations(List<@Valid AlterColumnsEntry> alterations) {
@@ -147,7 +55,7 @@ public class AlterTableAlterColumnsRequest {
   }
 
   /**
-   * List of column alterations to perform
+   * List of column alterations to apply to the table
    *
    * @return alterations
    */
@@ -155,7 +63,7 @@ public class AlterTableAlterColumnsRequest {
   @Valid
   @Schema(
       name = "alterations",
-      description = "List of column alterations to perform",
+      description = "List of column alterations to apply to the table",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("alterations")
   public List<@Valid AlterColumnsEntry> getAlterations() {
@@ -175,24 +83,18 @@ public class AlterTableAlterColumnsRequest {
       return false;
     }
     AlterTableAlterColumnsRequest alterTableAlterColumnsRequest = (AlterTableAlterColumnsRequest) o;
-    return Objects.equals(this.identity, alterTableAlterColumnsRequest.identity)
-        && Objects.equals(this.context, alterTableAlterColumnsRequest.context)
-        && Objects.equals(this.id, alterTableAlterColumnsRequest.id)
-        && Objects.equals(this.alterations, alterTableAlterColumnsRequest.alterations);
+    return Objects.equals(this.alterations, alterTableAlterColumnsRequest.alterations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, alterations);
+    return Objects.hash(alterations);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAlterColumnsRequest {\n");
-    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
-    sb.append("    context: ").append(toIndentedString(context)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    alterations: ").append(toIndentedString(alterations)).append("\n");
     sb.append("}");
     return sb.toString();

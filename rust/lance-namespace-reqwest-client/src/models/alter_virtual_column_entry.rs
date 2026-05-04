@@ -14,20 +14,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AlterVirtualColumnEntry {
     /// List of input column names for the virtual column (optional)
-    #[serde(rename = "input_columns", skip_serializing_if = "Option::is_none")]
-    pub input_columns: Option<Vec<String>>,
+    #[serde(rename = "input_columns", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub input_columns: Option<Option<Vec<String>>>,
     /// Docker image to use for the UDF (optional)
-    #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
-    pub image: Option<String>,
+    #[serde(rename = "image", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub image: Option<Option<String>>,
     /// Base64 encoded pickled UDF (optional)
-    #[serde(rename = "udf", skip_serializing_if = "Option::is_none")]
-    pub udf: Option<String>,
+    #[serde(rename = "udf", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub udf: Option<Option<String>>,
     /// Name of the UDF (optional)
-    #[serde(rename = "udf_name", skip_serializing_if = "Option::is_none")]
-    pub udf_name: Option<String>,
+    #[serde(rename = "udf_name", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub udf_name: Option<Option<String>>,
     /// Version of the UDF (optional)
-    #[serde(rename = "udf_version", skip_serializing_if = "Option::is_none")]
-    pub udf_version: Option<String>,
+    #[serde(rename = "udf_version", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub udf_version: Option<Option<String>>,
 }
 
 impl AlterVirtualColumnEntry {

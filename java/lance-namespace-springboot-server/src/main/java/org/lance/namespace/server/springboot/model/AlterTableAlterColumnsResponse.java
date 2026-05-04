@@ -27,8 +27,6 @@ import java.util.Objects;
     comments = "Generator version: 7.12.0")
 public class AlterTableAlterColumnsResponse {
 
-  private String transactionId;
-
   private Long version;
 
   public AlterTableAlterColumnsResponse() {
@@ -40,36 +38,13 @@ public class AlterTableAlterColumnsResponse {
     this.version = version;
   }
 
-  public AlterTableAlterColumnsResponse transactionId(String transactionId) {
-    this.transactionId = transactionId;
-    return this;
-  }
-
-  /**
-   * Optional transaction identifier
-   *
-   * @return transactionId
-   */
-  @Schema(
-      name = "transaction_id",
-      description = "Optional transaction identifier",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("transaction_id")
-  public String getTransactionId() {
-    return transactionId;
-  }
-
-  public void setTransactionId(String transactionId) {
-    this.transactionId = transactionId;
-  }
-
   public AlterTableAlterColumnsResponse version(Long version) {
     this.version = version;
     return this;
   }
 
   /**
-   * Version of the table after altering columns minimum: 0
+   * The commit version associated with the operation minimum: 0
    *
    * @return version
    */
@@ -77,7 +52,7 @@ public class AlterTableAlterColumnsResponse {
   @Min(0L)
   @Schema(
       name = "version",
-      description = "Version of the table after altering columns",
+      description = "The commit version associated with the operation",
       requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("version")
   public Long getVersion() {
@@ -98,20 +73,18 @@ public class AlterTableAlterColumnsResponse {
     }
     AlterTableAlterColumnsResponse alterTableAlterColumnsResponse =
         (AlterTableAlterColumnsResponse) o;
-    return Objects.equals(this.transactionId, alterTableAlterColumnsResponse.transactionId)
-        && Objects.equals(this.version, alterTableAlterColumnsResponse.version);
+    return Objects.equals(this.version, alterTableAlterColumnsResponse.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(transactionId, version);
+    return Objects.hash(version);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAlterColumnsResponse {\n");
-    sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();

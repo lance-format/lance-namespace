@@ -121,6 +121,8 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DataApi* | [**alterTableAddColumns**](docs/DataApi.md#alterTableAddColumns) | **POST** /v1/table/{id}/add_columns | Add new columns to table schema
 *DataApi* | [**alterTableAddColumnsWithHttpInfo**](docs/DataApi.md#alterTableAddColumnsWithHttpInfo) | **POST** /v1/table/{id}/add_columns | Add new columns to table schema
+*DataApi* | [**alterTableBackfillColumns**](docs/DataApi.md#alterTableBackfillColumns) | **POST** /v1/table/{id}/backfill_column | Trigger an async column backfill job
+*DataApi* | [**alterTableBackfillColumnsWithHttpInfo**](docs/DataApi.md#alterTableBackfillColumnsWithHttpInfo) | **POST** /v1/table/{id}/backfill_column | Trigger an async column backfill job
 *DataApi* | [**analyzeTableQueryPlan**](docs/DataApi.md#analyzeTableQueryPlan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
 *DataApi* | [**analyzeTableQueryPlanWithHttpInfo**](docs/DataApi.md#analyzeTableQueryPlanWithHttpInfo) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
 *DataApi* | [**countTableRows**](docs/DataApi.md#countTableRows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
@@ -137,6 +139,8 @@ Class | Method | HTTP request | Description
 *DataApi* | [**mergeInsertIntoTableWithHttpInfo**](docs/DataApi.md#mergeInsertIntoTableWithHttpInfo) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *DataApi* | [**queryTable**](docs/DataApi.md#queryTable) | **POST** /v1/table/{id}/query | Query a table
 *DataApi* | [**queryTableWithHttpInfo**](docs/DataApi.md#queryTableWithHttpInfo) | **POST** /v1/table/{id}/query | Query a table
+*DataApi* | [**refreshMaterializedView**](docs/DataApi.md#refreshMaterializedView) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
+*DataApi* | [**refreshMaterializedViewWithHttpInfo**](docs/DataApi.md#refreshMaterializedViewWithHttpInfo) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
 *DataApi* | [**updateTable**](docs/DataApi.md#updateTable) | **POST** /v1/table/{id}/update | Update rows in a table
 *DataApi* | [**updateTableWithHttpInfo**](docs/DataApi.md#updateTableWithHttpInfo) | **POST** /v1/table/{id}/update | Update rows in a table
 *IndexApi* | [**createTableIndex**](docs/IndexApi.md#createTableIndex) | **POST** /v1/table/{id}/create_index | Create an index on a table
@@ -237,6 +241,8 @@ Class | Method | HTTP request | Description
 *TableApi* | [**alterTableAddColumnsWithHttpInfo**](docs/TableApi.md#alterTableAddColumnsWithHttpInfo) | **POST** /v1/table/{id}/add_columns | Add new columns to table schema
 *TableApi* | [**alterTableAlterColumns**](docs/TableApi.md#alterTableAlterColumns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *TableApi* | [**alterTableAlterColumnsWithHttpInfo**](docs/TableApi.md#alterTableAlterColumnsWithHttpInfo) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
+*TableApi* | [**alterTableBackfillColumns**](docs/TableApi.md#alterTableBackfillColumns) | **POST** /v1/table/{id}/backfill_column | Trigger an async column backfill job
+*TableApi* | [**alterTableBackfillColumnsWithHttpInfo**](docs/TableApi.md#alterTableBackfillColumnsWithHttpInfo) | **POST** /v1/table/{id}/backfill_column | Trigger an async column backfill job
 *TableApi* | [**alterTableDropColumns**](docs/TableApi.md#alterTableDropColumns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *TableApi* | [**alterTableDropColumnsWithHttpInfo**](docs/TableApi.md#alterTableDropColumnsWithHttpInfo) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *TableApi* | [**analyzeTableQueryPlan**](docs/TableApi.md#analyzeTableQueryPlan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
@@ -299,6 +305,8 @@ Class | Method | HTTP request | Description
 *TableApi* | [**mergeInsertIntoTableWithHttpInfo**](docs/TableApi.md#mergeInsertIntoTableWithHttpInfo) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *TableApi* | [**queryTable**](docs/TableApi.md#queryTable) | **POST** /v1/table/{id}/query | Query a table
 *TableApi* | [**queryTableWithHttpInfo**](docs/TableApi.md#queryTableWithHttpInfo) | **POST** /v1/table/{id}/query | Query a table
+*TableApi* | [**refreshMaterializedView**](docs/TableApi.md#refreshMaterializedView) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
+*TableApi* | [**refreshMaterializedViewWithHttpInfo**](docs/TableApi.md#refreshMaterializedViewWithHttpInfo) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
 *TableApi* | [**registerTable**](docs/TableApi.md#registerTable) | **POST** /v1/table/{id}/register | Register a table to a namespace
 *TableApi* | [**registerTableWithHttpInfo**](docs/TableApi.md#registerTableWithHttpInfo) | **POST** /v1/table/{id}/register | Register a table to a namespace
 *TableApi* | [**renameTable**](docs/TableApi.md#renameTable) | **POST** /v1/table/{id}/rename | Rename a table
@@ -333,12 +341,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [AddColumnsEntry](docs/AddColumnsEntry.md)
  - [AddVirtualColumnEntry](docs/AddVirtualColumnEntry.md)
  - [AlterColumnsEntry](docs/AlterColumnsEntry.md)
  - [AlterTableAddColumnsRequest](docs/AlterTableAddColumnsRequest.md)
  - [AlterTableAddColumnsResponse](docs/AlterTableAddColumnsResponse.md)
  - [AlterTableAlterColumnsRequest](docs/AlterTableAlterColumnsRequest.md)
  - [AlterTableAlterColumnsResponse](docs/AlterTableAlterColumnsResponse.md)
+ - [AlterTableBackfillColumnsRequest](docs/AlterTableBackfillColumnsRequest.md)
+ - [AlterTableBackfillColumnsResponse](docs/AlterTableBackfillColumnsResponse.md)
  - [AlterTableDropColumnsRequest](docs/AlterTableDropColumnsRequest.md)
  - [AlterTableDropColumnsResponse](docs/AlterTableDropColumnsResponse.md)
  - [AlterTransactionAction](docs/AlterTransactionAction.md)
@@ -429,7 +440,6 @@ Class | Method | HTTP request | Description
  - [MergeInsertIntoTableResponse](docs/MergeInsertIntoTableResponse.md)
  - [MultiMatchQuery](docs/MultiMatchQuery.md)
  - [NamespaceExistsRequest](docs/NamespaceExistsRequest.md)
- - [NewColumnTransform](docs/NewColumnTransform.md)
  - [PartitionField](docs/PartitionField.md)
  - [PartitionSpec](docs/PartitionSpec.md)
  - [PartitionTransform](docs/PartitionTransform.md)
@@ -438,6 +448,8 @@ Class | Method | HTTP request | Description
  - [QueryTableRequestColumns](docs/QueryTableRequestColumns.md)
  - [QueryTableRequestFullTextQuery](docs/QueryTableRequestFullTextQuery.md)
  - [QueryTableRequestVector](docs/QueryTableRequestVector.md)
+ - [RefreshMaterializedViewRequest](docs/RefreshMaterializedViewRequest.md)
+ - [RefreshMaterializedViewResponse](docs/RefreshMaterializedViewResponse.md)
  - [RegisterTableRequest](docs/RegisterTableRequest.md)
  - [RegisterTableResponse](docs/RegisterTableResponse.md)
  - [RenameTableRequest](docs/RenameTableRequest.md)

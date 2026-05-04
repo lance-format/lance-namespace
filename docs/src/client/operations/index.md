@@ -76,7 +76,9 @@ See [REST Routes](../../rest/catalog-spec.md#rest-routes) for more details.
 | AnalyzeTableQueryPlan     | 1               |           | ✓     |       |          | ✓    |             |
 | AlterTableAddColumns      | 1               |           | ✓     |       |          | ✓    |             |
 | AlterTableAlterColumns    | 1               |           | ✓     |       | ✓        |      |             |
+| AlterTableBackfillColumns | 1               |           | ✓     |       |          | ✓    |             |
 | AlterTableDropColumns     | 1               |           | ✓     |       | ✓        |      |             |
+| RefreshMaterializedView   | 1               |           | ✓     |       |          | ✓    |             |
 | UpdateTableSchemaMetadata | 1               |           | ✓     |       | ✓        |      |             |
 | GetTableStats             | 1               |           | ✓     |       | ✓        |      |             |
 | ListTableTags             | 1               |           | ✓     |       | ✓        |      |             |

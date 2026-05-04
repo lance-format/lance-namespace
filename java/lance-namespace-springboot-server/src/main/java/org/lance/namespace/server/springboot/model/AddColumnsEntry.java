@@ -22,28 +22,28 @@ import jakarta.validation.constraints.*;
 import java.util.*;
 import java.util.Objects;
 
-/** NewColumnTransform */
+/** AddColumnsEntry */
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
     comments = "Generator version: 7.12.0")
-public class NewColumnTransform {
+public class AddColumnsEntry {
 
   private String name;
 
-  private String expression;
+  private String expression = null;
 
-  private AddVirtualColumnEntry virtualColumn;
+  private AddVirtualColumnEntry virtualColumn = null;
 
-  public NewColumnTransform() {
+  public AddColumnsEntry() {
     super();
   }
 
   /** Constructor with only required parameters */
-  public NewColumnTransform(String name) {
+  public AddColumnsEntry(String name) {
     this.name = name;
   }
 
-  public NewColumnTransform name(String name) {
+  public AddColumnsEntry name(String name) {
     this.name = name;
     return this;
   }
@@ -67,20 +67,19 @@ public class NewColumnTransform {
     this.name = name;
   }
 
-  public NewColumnTransform expression(String expression) {
+  public AddColumnsEntry expression(String expression) {
     this.expression = expression;
     return this;
   }
 
   /**
-   * SQL expression to compute the column value (optional if virtual_column is specified)
+   * SQL expression for the column (optional if virtual_column is specified)
    *
    * @return expression
    */
   @Schema(
       name = "expression",
-      description =
-          "SQL expression to compute the column value (optional if virtual_column is specified)",
+      description = "SQL expression for the column (optional if virtual_column is specified)",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("expression")
   public String getExpression() {
@@ -91,21 +90,18 @@ public class NewColumnTransform {
     this.expression = expression;
   }
 
-  public NewColumnTransform virtualColumn(AddVirtualColumnEntry virtualColumn) {
+  public AddColumnsEntry virtualColumn(AddVirtualColumnEntry virtualColumn) {
     this.virtualColumn = virtualColumn;
     return this;
   }
 
   /**
-   * Virtual column definition (optional if expression is specified)
+   * Get virtualColumn
    *
    * @return virtualColumn
    */
   @Valid
-  @Schema(
-      name = "virtual_column",
-      description = "Virtual column definition (optional if expression is specified)",
-      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "virtual_column", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("virtual_column")
   public AddVirtualColumnEntry getVirtualColumn() {
     return virtualColumn;
@@ -123,10 +119,10 @@ public class NewColumnTransform {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    NewColumnTransform newColumnTransform = (NewColumnTransform) o;
-    return Objects.equals(this.name, newColumnTransform.name)
-        && Objects.equals(this.expression, newColumnTransform.expression)
-        && Objects.equals(this.virtualColumn, newColumnTransform.virtualColumn);
+    AddColumnsEntry addColumnsEntry = (AddColumnsEntry) o;
+    return Objects.equals(this.name, addColumnsEntry.name)
+        && Objects.equals(this.expression, addColumnsEntry.expression)
+        && Objects.equals(this.virtualColumn, addColumnsEntry.virtualColumn);
   }
 
   @Override
@@ -137,7 +133,7 @@ public class NewColumnTransform {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class NewColumnTransform {\n");
+    sb.append("class AddColumnsEntry {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    expression: ").append(toIndentedString(expression)).append("\n");
     sb.append("    virtualColumn: ").append(toIndentedString(virtualColumn)).append("\n");
