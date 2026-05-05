@@ -22,12 +22,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** AlterTableBackfillColumnsRequest */
 @JsonPropertyOrder({
+  AlterTableBackfillColumnsRequest.JSON_PROPERTY_ID,
   AlterTableBackfillColumnsRequest.JSON_PROPERTY_COLUMN,
   AlterTableBackfillColumnsRequest.JSON_PROPERTY_WHERE,
   AlterTableBackfillColumnsRequest.JSON_PROPERTY_CONCURRENCY,
@@ -47,6 +50,9 @@ import java.util.StringJoiner;
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class AlterTableBackfillColumnsRequest {
+  public static final String JSON_PROPERTY_ID = "id";
+  @javax.annotation.Nullable private List<String> id = new ArrayList<>();
+
   public static final String JSON_PROPERTY_COLUMN = "column";
   @javax.annotation.Nonnull private String column;
 
@@ -92,6 +98,37 @@ public class AlterTableBackfillColumnsRequest {
   private JsonNullable<String> manifest = JsonNullable.<String>undefined();
 
   public AlterTableBackfillColumnsRequest() {}
+
+  public AlterTableBackfillColumnsRequest id(@javax.annotation.Nullable List<String> id) {
+    this.id = id;
+    return this;
+  }
+
+  public AlterTableBackfillColumnsRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Table identifier path (namespace + table name)
+   *
+   * @return id
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getId() {
+    return id;
+  }
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable List<String> id) {
+    this.id = id;
+  }
 
   public AlterTableBackfillColumnsRequest column(@javax.annotation.Nonnull String column) {
     this.column = column;
@@ -544,7 +581,8 @@ public class AlterTableBackfillColumnsRequest {
     }
     AlterTableBackfillColumnsRequest alterTableBackfillColumnsRequest =
         (AlterTableBackfillColumnsRequest) o;
-    return Objects.equals(this.column, alterTableBackfillColumnsRequest.column)
+    return Objects.equals(this.id, alterTableBackfillColumnsRequest.id)
+        && Objects.equals(this.column, alterTableBackfillColumnsRequest.column)
         && equalsNullable(this.where, alterTableBackfillColumnsRequest.where)
         && equalsNullable(this.concurrency, alterTableBackfillColumnsRequest.concurrency)
         && equalsNullable(
@@ -578,6 +616,7 @@ public class AlterTableBackfillColumnsRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        id,
         column,
         hashCodeNullable(where),
         hashCodeNullable(concurrency),
@@ -605,6 +644,7 @@ public class AlterTableBackfillColumnsRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableBackfillColumnsRequest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    column: ").append(toIndentedString(column)).append("\n");
     sb.append("    where: ").append(toIndentedString(where)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
@@ -668,6 +708,21 @@ public class AlterTableBackfillColumnsRequest {
     }
 
     StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      for (int i = 0; i < getId().size(); i++) {
+        joiner.add(
+            String.format(
+                "%sid%s%s=%s",
+                prefix,
+                suffix,
+                "".equals(suffix)
+                    ? ""
+                    : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                ApiClient.urlEncode(ApiClient.valueToString(getId().get(i)))));
+      }
+    }
 
     // add `column` to the URL query string
     if (getColumn() != null) {

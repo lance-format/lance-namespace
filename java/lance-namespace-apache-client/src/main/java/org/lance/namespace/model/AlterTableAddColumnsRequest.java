@@ -17,21 +17,61 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** AlterTableAddColumnsRequest */
-@JsonPropertyOrder({AlterTableAddColumnsRequest.JSON_PROPERTY_NEW_COLUMNS})
+@JsonPropertyOrder({
+  AlterTableAddColumnsRequest.JSON_PROPERTY_ID,
+  AlterTableAddColumnsRequest.JSON_PROPERTY_NEW_COLUMNS
+})
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class AlterTableAddColumnsRequest {
+  public static final String JSON_PROPERTY_ID = "id";
+  @javax.annotation.Nullable private List<String> id = new ArrayList<>();
+
   public static final String JSON_PROPERTY_NEW_COLUMNS = "new_columns";
   @javax.annotation.Nonnull private List<AddColumnsEntry> newColumns = new ArrayList<>();
 
   public AlterTableAddColumnsRequest() {}
+
+  public AlterTableAddColumnsRequest id(@javax.annotation.Nullable List<String> id) {
+
+    this.id = id;
+    return this;
+  }
+
+  public AlterTableAddColumnsRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Table identifier path (namespace + table name)
+   *
+   * @return id
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getId() {
+    return id;
+  }
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable List<String> id) {
+    this.id = id;
+  }
 
   public AlterTableAddColumnsRequest newColumns(
       @javax.annotation.Nonnull List<AddColumnsEntry> newColumns) {
@@ -75,18 +115,20 @@ public class AlterTableAddColumnsRequest {
       return false;
     }
     AlterTableAddColumnsRequest alterTableAddColumnsRequest = (AlterTableAddColumnsRequest) o;
-    return Objects.equals(this.newColumns, alterTableAddColumnsRequest.newColumns);
+    return Objects.equals(this.id, alterTableAddColumnsRequest.id)
+        && Objects.equals(this.newColumns, alterTableAddColumnsRequest.newColumns);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(newColumns);
+    return Objects.hash(id, newColumns);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAddColumnsRequest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    newColumns: ").append(toIndentedString(newColumns)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -133,6 +175,27 @@ public class AlterTableAddColumnsRequest {
     }
 
     StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      for (int i = 0; i < getId().size(); i++) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sid%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                  URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
+      }
+    }
 
     // add `new_columns` to the URL query string
     if (getNewColumns() != null) {

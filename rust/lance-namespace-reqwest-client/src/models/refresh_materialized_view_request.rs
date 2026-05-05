@@ -13,6 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RefreshMaterializedViewRequest {
+    /// Table identifier path (namespace + table name)
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<Vec<String>>,
     /// Optional source version to refresh from
     #[serde(rename = "src_version", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub src_version: Option<Option<i32>>,
@@ -36,6 +39,7 @@ pub struct RefreshMaterializedViewRequest {
 impl RefreshMaterializedViewRequest {
     pub fn new() -> RefreshMaterializedViewRequest {
         RefreshMaterializedViewRequest {
+            id: None,
             src_version: None,
             max_rows_per_fragment: None,
             concurrency: None,

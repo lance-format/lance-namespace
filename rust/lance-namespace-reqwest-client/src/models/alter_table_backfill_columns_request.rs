@@ -13,6 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AlterTableBackfillColumnsRequest {
+    /// Table identifier path (namespace + table name)
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<Vec<String>>,
     /// Column name to backfill
     #[serde(rename = "column")]
     pub column: String,
@@ -60,6 +63,7 @@ pub struct AlterTableBackfillColumnsRequest {
 impl AlterTableBackfillColumnsRequest {
     pub fn new(column: String) -> AlterTableBackfillColumnsRequest {
         AlterTableBackfillColumnsRequest {
+            id: None,
             column,
             r#where: None,
             concurrency: None,

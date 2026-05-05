@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from lance_namespace_urllib3_client.models.alter_columns_entry import AlterColumnsEntry
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,8 +27,9 @@ class AlterTableAlterColumnsRequest(BaseModel):
     """
     AlterTableAlterColumnsRequest
     """ # noqa: E501
+    id: Optional[List[StrictStr]] = Field(default=None, description="Table identifier path (namespace + table name)")
     alterations: List[AlterColumnsEntry] = Field(description="List of column alterations to apply to the table")
-    __properties: ClassVar[List[str]] = ["alterations"]
+    __properties: ClassVar[List[str]] = ["id", "alterations"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +89,7 @@ class AlterTableAlterColumnsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "alterations": [AlterColumnsEntry.from_dict(_item) for _item in obj["alterations"]] if obj.get("alterations") is not None else None
         })
         return _obj

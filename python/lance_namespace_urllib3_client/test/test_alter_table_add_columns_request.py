@@ -35,6 +35,9 @@ class TestAlterTableAddColumnsRequest(unittest.TestCase):
         model = AlterTableAddColumnsRequest()
         if include_optional:
             return AlterTableAddColumnsRequest(
+                id = [
+                    ''
+                    ],
                 new_columns = [
                     lance_namespace_urllib3_client.models.add_columns_entry.AddColumnsEntry(
                         name = '', 

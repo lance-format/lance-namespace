@@ -21,12 +21,15 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** RefreshMaterializedViewRequest */
 @JsonPropertyOrder({
+  RefreshMaterializedViewRequest.JSON_PROPERTY_ID,
   RefreshMaterializedViewRequest.JSON_PROPERTY_SRC_VERSION,
   RefreshMaterializedViewRequest.JSON_PROPERTY_MAX_ROWS_PER_FRAGMENT,
   RefreshMaterializedViewRequest.JSON_PROPERTY_CONCURRENCY,
@@ -38,6 +41,9 @@ import java.util.StringJoiner;
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class RefreshMaterializedViewRequest {
+  public static final String JSON_PROPERTY_ID = "id";
+  @javax.annotation.Nullable private List<String> id = new ArrayList<>();
+
   public static final String JSON_PROPERTY_SRC_VERSION = "src_version";
 
   @javax.annotation.Nullable
@@ -69,6 +75,38 @@ public class RefreshMaterializedViewRequest {
   private JsonNullable<String> manifest = JsonNullable.<String>undefined();
 
   public RefreshMaterializedViewRequest() {}
+
+  public RefreshMaterializedViewRequest id(@javax.annotation.Nullable List<String> id) {
+
+    this.id = id;
+    return this;
+  }
+
+  public RefreshMaterializedViewRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Table identifier path (namespace + table name)
+   *
+   * @return id
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<String> getId() {
+    return id;
+  }
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(@javax.annotation.Nullable List<String> id) {
+    this.id = id;
+  }
 
   public RefreshMaterializedViewRequest srcVersion(@javax.annotation.Nullable Integer srcVersion) {
     this.srcVersion = JsonNullable.<Integer>of(srcVersion);
@@ -277,7 +315,8 @@ public class RefreshMaterializedViewRequest {
     }
     RefreshMaterializedViewRequest refreshMaterializedViewRequest =
         (RefreshMaterializedViewRequest) o;
-    return equalsNullable(this.srcVersion, refreshMaterializedViewRequest.srcVersion)
+    return Objects.equals(this.id, refreshMaterializedViewRequest.id)
+        && equalsNullable(this.srcVersion, refreshMaterializedViewRequest.srcVersion)
         && equalsNullable(
             this.maxRowsPerFragment, refreshMaterializedViewRequest.maxRowsPerFragment)
         && equalsNullable(this.concurrency, refreshMaterializedViewRequest.concurrency)
@@ -299,6 +338,7 @@ public class RefreshMaterializedViewRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        id,
         hashCodeNullable(srcVersion),
         hashCodeNullable(maxRowsPerFragment),
         hashCodeNullable(concurrency),
@@ -318,6 +358,7 @@ public class RefreshMaterializedViewRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RefreshMaterializedViewRequest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    srcVersion: ").append(toIndentedString(srcVersion)).append("\n");
     sb.append("    maxRowsPerFragment: ").append(toIndentedString(maxRowsPerFragment)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");
@@ -371,6 +412,27 @@ public class RefreshMaterializedViewRequest {
     }
 
     StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      for (int i = 0; i < getId().size(); i++) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sid%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+                  URLEncoder.encode(String.valueOf(getId().get(i)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
+      }
+    }
 
     // add `src_version` to the URL query string
     if (getSrcVersion() != null) {
