@@ -4557,6 +4557,8 @@ components:
       required:
         - new_columns
       properties:
+        identity:
+          $ref: "#/components/schemas/Identity"
         id:
           type: array
           items:
@@ -4617,6 +4619,33 @@ components:
         udf_version:
           type: string
           description: Version of the UDF
+        udf_backend:
+          type:
+            - string
+            - "null"
+          description: UDF backend type (e.g. DockerUDFSpecV1)
+        auto_backfill:
+          type:
+            - boolean
+            - "null"
+          description: Whether to automatically backfill the column after creation
+        manifest:
+          type:
+            - string
+            - "null"
+          description: JSON-serialized manifest for the UDF environment
+        manifest_checksum:
+          type:
+            - string
+            - "null"
+          description: SHA-256 checksum of the manifest content
+        field_metadata:
+          type:
+            - object
+            - "null"
+          additionalProperties:
+            type: string
+          description: User-supplied field metadata (string key-value pairs)
 
     AlterTableAddColumnsResponse:
       type: object
@@ -4634,6 +4663,8 @@ components:
       required:
         - alterations
       properties:
+        identity:
+          $ref: "#/components/schemas/Identity"
         id:
           type: array
           items:
@@ -4703,6 +4734,33 @@ components:
             - string
             - "null"
           description: Version of the UDF (optional)
+        udf_backend:
+          type:
+            - string
+            - "null"
+          description: UDF backend type (e.g. DockerUDFSpecV1) (optional)
+        auto_backfill:
+          type:
+            - boolean
+            - "null"
+          description: Whether to automatically backfill the column (optional)
+        manifest:
+          type:
+            - string
+            - "null"
+          description: JSON-serialized manifest for the UDF environment (optional)
+        manifest_checksum:
+          type:
+            - string
+            - "null"
+          description: SHA-256 checksum of the manifest content (optional)
+        field_metadata:
+          type:
+            - object
+            - "null"
+          additionalProperties:
+            type: string
+          description: User-supplied field metadata (optional)
 
     AlterTableAlterColumnsResponse:
       type: object
@@ -4720,6 +4778,8 @@ components:
       required:
         - column
       properties:
+        identity:
+          $ref: "#/components/schemas/Identity"
         id:
           type: array
           items:
@@ -4806,6 +4866,8 @@ components:
     RefreshMaterializedViewRequest:
       type: object
       properties:
+        identity:
+          $ref: "#/components/schemas/Identity"
         id:
           type: array
           items:

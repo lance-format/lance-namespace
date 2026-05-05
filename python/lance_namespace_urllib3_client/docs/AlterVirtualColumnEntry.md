@@ -10,6 +10,11 @@ Name | Type | Description | Notes
 **udf** | **str** | Base64 encoded pickled UDF (optional) | [optional] 
 **udf_name** | **str** | Name of the UDF (optional) | [optional] 
 **udf_version** | **str** | Version of the UDF (optional) | [optional] 
+**udf_backend** | **str** | UDF backend type (e.g. DockerUDFSpecV1) (optional) | [optional] 
+**auto_backfill** | **bool** | Whether to automatically backfill the column (optional) | [optional] 
+**manifest** | **str** | JSON-serialized manifest for the UDF environment (optional) | [optional] 
+**manifest_checksum** | **str** | SHA-256 checksum of the manifest content (optional) | [optional] 
+**field_metadata** | **Dict[str, str]** | User-supplied field metadata (optional) | [optional] 
 
 ## Example
 

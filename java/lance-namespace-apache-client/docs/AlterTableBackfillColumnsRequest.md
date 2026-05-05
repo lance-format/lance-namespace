@@ -7,6 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**identity** | [**Identity**](Identity.md) |  |  [optional] |
 |**id** | **List&lt;String&gt;** | Table identifier path (namespace + table name) |  [optional] |
 |**column** | **String** | Column name to backfill |  |
 |**where** | **String** | Optional WHERE clause filter |  [optional] |

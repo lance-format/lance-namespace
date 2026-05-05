@@ -42,7 +42,14 @@ class TestAddVirtualColumnEntry(unittest.TestCase):
                 image = '',
                 udf = '',
                 udf_name = '',
-                udf_version = ''
+                udf_version = '',
+                udf_backend = '',
+                auto_backfill = True,
+                manifest = '',
+                manifest_checksum = '',
+                field_metadata = {
+                    'key' : ''
+                    }
             )
         else:
             return AddVirtualColumnEntry(

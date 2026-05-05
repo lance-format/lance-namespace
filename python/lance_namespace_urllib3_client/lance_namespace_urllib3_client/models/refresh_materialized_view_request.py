@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from lance_namespace_urllib3_client.models.identity import Identity
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,6 +27,7 @@ class RefreshMaterializedViewRequest(BaseModel):
     """
     RefreshMaterializedViewRequest
     """ # noqa: E501
+    identity: Optional[Identity] = None
     id: Optional[List[StrictStr]] = Field(default=None, description="Table identifier path (namespace + table name)")
     src_version: Optional[StrictInt] = Field(default=None, description="Optional source version to refresh from")
     max_rows_per_fragment: Optional[StrictInt] = Field(default=None, description="Optional maximum rows per fragment")
@@ -33,7 +35,7 @@ class RefreshMaterializedViewRequest(BaseModel):
     intra_applier_concurrency: Optional[StrictInt] = Field(default=None, description="Optional intra-applier concurrency override")
     cluster: Optional[StrictStr] = Field(default=None, description="Optional cluster name")
     manifest: Optional[StrictStr] = Field(default=None, description="Optional manifest name")
-    __properties: ClassVar[List[str]] = ["id", "src_version", "max_rows_per_fragment", "concurrency", "intra_applier_concurrency", "cluster", "manifest"]
+    __properties: ClassVar[List[str]] = ["identity", "id", "src_version", "max_rows_per_fragment", "concurrency", "intra_applier_concurrency", "cluster", "manifest"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -74,6 +76,9 @@ class RefreshMaterializedViewRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of identity
+        if self.identity:
+            _dict['identity'] = self.identity.to_dict()
         # set to None if src_version (nullable) is None
         # and model_fields_set contains the field
         if self.src_version is None and "src_version" in self.model_fields_set:
@@ -116,6 +121,7 @@ class RefreshMaterializedViewRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "identity": Identity.from_dict(obj["identity"]) if obj.get("identity") is not None else None,
             "id": obj.get("id"),
             "src_version": obj.get("src_version"),
             "max_rows_per_fragment": obj.get("max_rows_per_fragment"),

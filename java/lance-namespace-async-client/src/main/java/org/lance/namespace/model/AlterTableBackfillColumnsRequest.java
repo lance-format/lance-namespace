@@ -30,6 +30,7 @@ import java.util.StringJoiner;
 
 /** AlterTableBackfillColumnsRequest */
 @JsonPropertyOrder({
+  AlterTableBackfillColumnsRequest.JSON_PROPERTY_IDENTITY,
   AlterTableBackfillColumnsRequest.JSON_PROPERTY_ID,
   AlterTableBackfillColumnsRequest.JSON_PROPERTY_COLUMN,
   AlterTableBackfillColumnsRequest.JSON_PROPERTY_WHERE,
@@ -50,6 +51,9 @@ import java.util.StringJoiner;
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class AlterTableBackfillColumnsRequest {
+  public static final String JSON_PROPERTY_IDENTITY = "identity";
+  @javax.annotation.Nullable private Identity identity;
+
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable private List<String> id = new ArrayList<>();
 
@@ -98,6 +102,29 @@ public class AlterTableBackfillColumnsRequest {
   private JsonNullable<String> manifest = JsonNullable.<String>undefined();
 
   public AlterTableBackfillColumnsRequest() {}
+
+  public AlterTableBackfillColumnsRequest identity(@javax.annotation.Nullable Identity identity) {
+    this.identity = identity;
+    return this;
+  }
+
+  /**
+   * Get identity
+   *
+   * @return identity
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Identity getIdentity() {
+    return identity;
+  }
+
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIdentity(@javax.annotation.Nullable Identity identity) {
+    this.identity = identity;
+  }
 
   public AlterTableBackfillColumnsRequest id(@javax.annotation.Nullable List<String> id) {
     this.id = id;
@@ -581,7 +608,8 @@ public class AlterTableBackfillColumnsRequest {
     }
     AlterTableBackfillColumnsRequest alterTableBackfillColumnsRequest =
         (AlterTableBackfillColumnsRequest) o;
-    return Objects.equals(this.id, alterTableBackfillColumnsRequest.id)
+    return Objects.equals(this.identity, alterTableBackfillColumnsRequest.identity)
+        && Objects.equals(this.id, alterTableBackfillColumnsRequest.id)
         && Objects.equals(this.column, alterTableBackfillColumnsRequest.column)
         && equalsNullable(this.where, alterTableBackfillColumnsRequest.where)
         && equalsNullable(this.concurrency, alterTableBackfillColumnsRequest.concurrency)
@@ -616,6 +644,7 @@ public class AlterTableBackfillColumnsRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        identity,
         id,
         column,
         hashCodeNullable(where),
@@ -644,6 +673,7 @@ public class AlterTableBackfillColumnsRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableBackfillColumnsRequest {\n");
+    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    column: ").append(toIndentedString(column)).append("\n");
     sb.append("    where: ").append(toIndentedString(where)).append("\n");
@@ -708,6 +738,11 @@ public class AlterTableBackfillColumnsRequest {
     }
 
     StringJoiner joiner = new StringJoiner("&");
+
+    // add `identity` to the URL query string
+    if (getIdentity() != null) {
+      joiner.add(getIdentity().toUrlQueryString(prefix + "identity" + suffix));
+    }
 
     // add `id` to the URL query string
     if (getId() != null) {

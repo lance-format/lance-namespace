@@ -13,14 +13,19 @@
  */
 package org.lance.namespace.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,7 +36,12 @@ import java.util.StringJoiner;
   AddVirtualColumnEntry.JSON_PROPERTY_IMAGE,
   AddVirtualColumnEntry.JSON_PROPERTY_UDF,
   AddVirtualColumnEntry.JSON_PROPERTY_UDF_NAME,
-  AddVirtualColumnEntry.JSON_PROPERTY_UDF_VERSION
+  AddVirtualColumnEntry.JSON_PROPERTY_UDF_VERSION,
+  AddVirtualColumnEntry.JSON_PROPERTY_UDF_BACKEND,
+  AddVirtualColumnEntry.JSON_PROPERTY_AUTO_BACKFILL,
+  AddVirtualColumnEntry.JSON_PROPERTY_MANIFEST,
+  AddVirtualColumnEntry.JSON_PROPERTY_MANIFEST_CHECKSUM,
+  AddVirtualColumnEntry.JSON_PROPERTY_FIELD_METADATA
 })
 @javax.annotation.Generated(
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -54,6 +64,29 @@ public class AddVirtualColumnEntry {
 
   public static final String JSON_PROPERTY_UDF_VERSION = "udf_version";
   @javax.annotation.Nonnull private String udfVersion;
+
+  public static final String JSON_PROPERTY_UDF_BACKEND = "udf_backend";
+
+  @javax.annotation.Nullable
+  private JsonNullable<String> udfBackend = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_AUTO_BACKFILL = "auto_backfill";
+
+  @javax.annotation.Nullable
+  private JsonNullable<Boolean> autoBackfill = JsonNullable.<Boolean>undefined();
+
+  public static final String JSON_PROPERTY_MANIFEST = "manifest";
+
+  @javax.annotation.Nullable
+  private JsonNullable<String> manifest = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_MANIFEST_CHECKSUM = "manifest_checksum";
+
+  @javax.annotation.Nullable
+  private JsonNullable<String> manifestChecksum = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_FIELD_METADATA = "field_metadata";
+  @javax.annotation.Nullable private Map<String, String> fieldMetadata = new HashMap<>();
 
   public AddVirtualColumnEntry() {}
 
@@ -209,6 +242,168 @@ public class AddVirtualColumnEntry {
     this.udfVersion = udfVersion;
   }
 
+  public AddVirtualColumnEntry udfBackend(@javax.annotation.Nullable String udfBackend) {
+    this.udfBackend = JsonNullable.<String>of(udfBackend);
+
+    return this;
+  }
+
+  /**
+   * UDF backend type (e.g. DockerUDFSpecV1)
+   *
+   * @return udfBackend
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+  public String getUdfBackend() {
+    return udfBackend.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_UDF_BACKEND)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getUdfBackend_JsonNullable() {
+    return udfBackend;
+  }
+
+  @JsonProperty(JSON_PROPERTY_UDF_BACKEND)
+  public void setUdfBackend_JsonNullable(JsonNullable<String> udfBackend) {
+    this.udfBackend = udfBackend;
+  }
+
+  public void setUdfBackend(@javax.annotation.Nullable String udfBackend) {
+    this.udfBackend = JsonNullable.<String>of(udfBackend);
+  }
+
+  public AddVirtualColumnEntry autoBackfill(@javax.annotation.Nullable Boolean autoBackfill) {
+    this.autoBackfill = JsonNullable.<Boolean>of(autoBackfill);
+
+    return this;
+  }
+
+  /**
+   * Whether to automatically backfill the column after creation
+   *
+   * @return autoBackfill
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+  public Boolean getAutoBackfill() {
+    return autoBackfill.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_AUTO_BACKFILL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<Boolean> getAutoBackfill_JsonNullable() {
+    return autoBackfill;
+  }
+
+  @JsonProperty(JSON_PROPERTY_AUTO_BACKFILL)
+  public void setAutoBackfill_JsonNullable(JsonNullable<Boolean> autoBackfill) {
+    this.autoBackfill = autoBackfill;
+  }
+
+  public void setAutoBackfill(@javax.annotation.Nullable Boolean autoBackfill) {
+    this.autoBackfill = JsonNullable.<Boolean>of(autoBackfill);
+  }
+
+  public AddVirtualColumnEntry manifest(@javax.annotation.Nullable String manifest) {
+    this.manifest = JsonNullable.<String>of(manifest);
+
+    return this;
+  }
+
+  /**
+   * JSON-serialized manifest for the UDF environment
+   *
+   * @return manifest
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+  public String getManifest() {
+    return manifest.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getManifest_JsonNullable() {
+    return manifest;
+  }
+
+  @JsonProperty(JSON_PROPERTY_MANIFEST)
+  public void setManifest_JsonNullable(JsonNullable<String> manifest) {
+    this.manifest = manifest;
+  }
+
+  public void setManifest(@javax.annotation.Nullable String manifest) {
+    this.manifest = JsonNullable.<String>of(manifest);
+  }
+
+  public AddVirtualColumnEntry manifestChecksum(
+      @javax.annotation.Nullable String manifestChecksum) {
+    this.manifestChecksum = JsonNullable.<String>of(manifestChecksum);
+
+    return this;
+  }
+
+  /**
+   * SHA-256 checksum of the manifest content
+   *
+   * @return manifestChecksum
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+  public String getManifestChecksum() {
+    return manifestChecksum.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_MANIFEST_CHECKSUM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<String> getManifestChecksum_JsonNullable() {
+    return manifestChecksum;
+  }
+
+  @JsonProperty(JSON_PROPERTY_MANIFEST_CHECKSUM)
+  public void setManifestChecksum_JsonNullable(JsonNullable<String> manifestChecksum) {
+    this.manifestChecksum = manifestChecksum;
+  }
+
+  public void setManifestChecksum(@javax.annotation.Nullable String manifestChecksum) {
+    this.manifestChecksum = JsonNullable.<String>of(manifestChecksum);
+  }
+
+  public AddVirtualColumnEntry fieldMetadata(
+      @javax.annotation.Nullable Map<String, String> fieldMetadata) {
+
+    this.fieldMetadata = fieldMetadata;
+    return this;
+  }
+
+  public AddVirtualColumnEntry putFieldMetadataItem(String key, String fieldMetadataItem) {
+    if (this.fieldMetadata == null) {
+      this.fieldMetadata = new HashMap<>();
+    }
+    this.fieldMetadata.put(key, fieldMetadataItem);
+    return this;
+  }
+
+  /**
+   * User-supplied field metadata (string key-value pairs)
+   *
+   * @return fieldMetadata
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_FIELD_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Map<String, String> getFieldMetadata() {
+    return fieldMetadata;
+  }
+
+  @JsonProperty(JSON_PROPERTY_FIELD_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFieldMetadata(@javax.annotation.Nullable Map<String, String> fieldMetadata) {
+    this.fieldMetadata = fieldMetadata;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -223,12 +418,44 @@ public class AddVirtualColumnEntry {
         && Objects.equals(this.image, addVirtualColumnEntry.image)
         && Objects.equals(this.udf, addVirtualColumnEntry.udf)
         && Objects.equals(this.udfName, addVirtualColumnEntry.udfName)
-        && Objects.equals(this.udfVersion, addVirtualColumnEntry.udfVersion);
+        && Objects.equals(this.udfVersion, addVirtualColumnEntry.udfVersion)
+        && equalsNullable(this.udfBackend, addVirtualColumnEntry.udfBackend)
+        && equalsNullable(this.autoBackfill, addVirtualColumnEntry.autoBackfill)
+        && equalsNullable(this.manifest, addVirtualColumnEntry.manifest)
+        && equalsNullable(this.manifestChecksum, addVirtualColumnEntry.manifestChecksum)
+        && Objects.equals(this.fieldMetadata, addVirtualColumnEntry.fieldMetadata);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b
+        || (a != null
+            && b != null
+            && a.isPresent()
+            && b.isPresent()
+            && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inputColumns, dataType, image, udf, udfName, udfVersion);
+    return Objects.hash(
+        inputColumns,
+        dataType,
+        image,
+        udf,
+        udfName,
+        udfVersion,
+        hashCodeNullable(udfBackend),
+        hashCodeNullable(autoBackfill),
+        hashCodeNullable(manifest),
+        hashCodeNullable(manifestChecksum),
+        fieldMetadata);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
   }
 
   @Override
@@ -241,6 +468,11 @@ public class AddVirtualColumnEntry {
     sb.append("    udf: ").append(toIndentedString(udf)).append("\n");
     sb.append("    udfName: ").append(toIndentedString(udfName)).append("\n");
     sb.append("    udfVersion: ").append(toIndentedString(udfVersion)).append("\n");
+    sb.append("    udfBackend: ").append(toIndentedString(udfBackend)).append("\n");
+    sb.append("    autoBackfill: ").append(toIndentedString(autoBackfill)).append("\n");
+    sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
+    sb.append("    manifestChecksum: ").append(toIndentedString(manifestChecksum)).append("\n");
+    sb.append("    fieldMetadata: ").append(toIndentedString(fieldMetadata)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -382,6 +614,92 @@ public class AddVirtualColumnEntry {
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
+      }
+    }
+
+    // add `udf_backend` to the URL query string
+    if (getUdfBackend() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%sudf_backend%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getUdfBackend()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `auto_backfill` to the URL query string
+    if (getAutoBackfill() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%sauto_backfill%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getAutoBackfill()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `manifest` to the URL query string
+    if (getManifest() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%smanifest%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getManifest()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `manifest_checksum` to the URL query string
+    if (getManifestChecksum() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%smanifest_checksum%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getManifestChecksum()), "UTF-8")
+                    .replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `field_metadata` to the URL query string
+    if (getFieldMetadata() != null) {
+      for (String _key : getFieldMetadata().keySet()) {
+        try {
+          joiner.add(
+              String.format(
+                  "%sfield_metadata%s%s=%s",
+                  prefix,
+                  suffix,
+                  "".equals(suffix)
+                      ? ""
+                      : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
+                  getFieldMetadata().get(_key),
+                  URLEncoder.encode(String.valueOf(getFieldMetadata().get(_key)), "UTF-8")
+                      .replaceAll("\\+", "%20")));
+        } catch (UnsupportedEncodingException e) {
+          // Should never happen, UTF-8 is always supported
+          throw new RuntimeException(e);
+        }
       }
     }
 

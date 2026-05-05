@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RefreshMaterializedViewRequest {
+    #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
+    pub identity: Option<Box<models::Identity>>,
     /// Table identifier path (namespace + table name)
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<Vec<String>>,
@@ -39,6 +41,7 @@ pub struct RefreshMaterializedViewRequest {
 impl RefreshMaterializedViewRequest {
     pub fn new() -> RefreshMaterializedViewRequest {
         RefreshMaterializedViewRequest {
+            identity: None,
             id: None,
             src_version: None,
             max_rows_per_fragment: None,

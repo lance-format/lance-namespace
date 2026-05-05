@@ -29,6 +29,7 @@ import java.util.StringJoiner;
 
 /** RefreshMaterializedViewRequest */
 @JsonPropertyOrder({
+  RefreshMaterializedViewRequest.JSON_PROPERTY_IDENTITY,
   RefreshMaterializedViewRequest.JSON_PROPERTY_ID,
   RefreshMaterializedViewRequest.JSON_PROPERTY_SRC_VERSION,
   RefreshMaterializedViewRequest.JSON_PROPERTY_MAX_ROWS_PER_FRAGMENT,
@@ -41,6 +42,9 @@ import java.util.StringJoiner;
     value = "org.openapitools.codegen.languages.JavaClientCodegen",
     comments = "Generator version: 7.12.0")
 public class RefreshMaterializedViewRequest {
+  public static final String JSON_PROPERTY_IDENTITY = "identity";
+  @javax.annotation.Nullable private Identity identity;
+
   public static final String JSON_PROPERTY_ID = "id";
   @javax.annotation.Nullable private List<String> id = new ArrayList<>();
 
@@ -75,6 +79,30 @@ public class RefreshMaterializedViewRequest {
   private JsonNullable<String> manifest = JsonNullable.<String>undefined();
 
   public RefreshMaterializedViewRequest() {}
+
+  public RefreshMaterializedViewRequest identity(@javax.annotation.Nullable Identity identity) {
+
+    this.identity = identity;
+    return this;
+  }
+
+  /**
+   * Get identity
+   *
+   * @return identity
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public Identity getIdentity() {
+    return identity;
+  }
+
+  @JsonProperty(JSON_PROPERTY_IDENTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIdentity(@javax.annotation.Nullable Identity identity) {
+    this.identity = identity;
+  }
 
   public RefreshMaterializedViewRequest id(@javax.annotation.Nullable List<String> id) {
 
@@ -315,7 +343,8 @@ public class RefreshMaterializedViewRequest {
     }
     RefreshMaterializedViewRequest refreshMaterializedViewRequest =
         (RefreshMaterializedViewRequest) o;
-    return Objects.equals(this.id, refreshMaterializedViewRequest.id)
+    return Objects.equals(this.identity, refreshMaterializedViewRequest.identity)
+        && Objects.equals(this.id, refreshMaterializedViewRequest.id)
         && equalsNullable(this.srcVersion, refreshMaterializedViewRequest.srcVersion)
         && equalsNullable(
             this.maxRowsPerFragment, refreshMaterializedViewRequest.maxRowsPerFragment)
@@ -338,6 +367,7 @@ public class RefreshMaterializedViewRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        identity,
         id,
         hashCodeNullable(srcVersion),
         hashCodeNullable(maxRowsPerFragment),
@@ -358,6 +388,7 @@ public class RefreshMaterializedViewRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RefreshMaterializedViewRequest {\n");
+    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    srcVersion: ").append(toIndentedString(srcVersion)).append("\n");
     sb.append("    maxRowsPerFragment: ").append(toIndentedString(maxRowsPerFragment)).append("\n");
@@ -412,6 +443,11 @@ public class RefreshMaterializedViewRequest {
     }
 
     StringJoiner joiner = new StringJoiner("&");
+
+    // add `identity` to the URL query string
+    if (getIdentity() != null) {
+      joiner.add(getIdentity().toUrlQueryString(prefix + "identity" + suffix));
+    }
 
     // add `id` to the URL query string
     if (getId() != null) {

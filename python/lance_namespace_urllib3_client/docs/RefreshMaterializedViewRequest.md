@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**identity** | [**Identity**](Identity.md) |  | [optional] 
 **id** | **List[str]** | Table identifier path (namespace + table name) | [optional] 
 **src_version** | **int** | Optional source version to refresh from | [optional] 
 **max_rows_per_fragment** | **int** | Optional maximum rows per fragment | [optional] 

@@ -31,6 +31,21 @@ pub struct AddVirtualColumnEntry {
     /// Version of the UDF
     #[serde(rename = "udf_version")]
     pub udf_version: String,
+    /// UDF backend type (e.g. DockerUDFSpecV1)
+    #[serde(rename = "udf_backend", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub udf_backend: Option<Option<String>>,
+    /// Whether to automatically backfill the column after creation
+    #[serde(rename = "auto_backfill", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub auto_backfill: Option<Option<bool>>,
+    /// JSON-serialized manifest for the UDF environment
+    #[serde(rename = "manifest", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub manifest: Option<Option<String>>,
+    /// SHA-256 checksum of the manifest content
+    #[serde(rename = "manifest_checksum", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub manifest_checksum: Option<Option<String>>,
+    /// User-supplied field metadata (string key-value pairs)
+    #[serde(rename = "field_metadata", skip_serializing_if = "Option::is_none")]
+    pub field_metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl AddVirtualColumnEntry {
@@ -42,6 +57,11 @@ impl AddVirtualColumnEntry {
             udf,
             udf_name,
             udf_version,
+            udf_backend: None,
+            auto_backfill: None,
+            manifest: None,
+            manifest_checksum: None,
+            field_metadata: None,
         }
     }
 }

@@ -30,6 +30,8 @@ import java.util.Objects;
     comments = "Generator version: 7.12.0")
 public class RefreshMaterializedViewRequest {
 
+  private Identity identity;
+
   @Valid private List<String> id = new ArrayList<>();
 
   private Integer srcVersion = null;
@@ -43,6 +45,27 @@ public class RefreshMaterializedViewRequest {
   private String cluster = null;
 
   private String manifest = null;
+
+  public RefreshMaterializedViewRequest identity(Identity identity) {
+    this.identity = identity;
+    return this;
+  }
+
+  /**
+   * Get identity
+   *
+   * @return identity
+   */
+  @Valid
+  @Schema(name = "identity", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("identity")
+  public Identity getIdentity() {
+    return identity;
+  }
+
+  public void setIdentity(Identity identity) {
+    this.identity = identity;
+  }
 
   public RefreshMaterializedViewRequest id(List<String> id) {
     this.id = id;
@@ -223,7 +246,8 @@ public class RefreshMaterializedViewRequest {
     }
     RefreshMaterializedViewRequest refreshMaterializedViewRequest =
         (RefreshMaterializedViewRequest) o;
-    return Objects.equals(this.id, refreshMaterializedViewRequest.id)
+    return Objects.equals(this.identity, refreshMaterializedViewRequest.identity)
+        && Objects.equals(this.id, refreshMaterializedViewRequest.id)
         && Objects.equals(this.srcVersion, refreshMaterializedViewRequest.srcVersion)
         && Objects.equals(
             this.maxRowsPerFragment, refreshMaterializedViewRequest.maxRowsPerFragment)
@@ -237,6 +261,7 @@ public class RefreshMaterializedViewRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        identity,
         id,
         srcVersion,
         maxRowsPerFragment,
@@ -250,6 +275,7 @@ public class RefreshMaterializedViewRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RefreshMaterializedViewRequest {\n");
+    sb.append("    identity: ").append(toIndentedString(identity)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    srcVersion: ").append(toIndentedString(srcVersion)).append("\n");
     sb.append("    maxRowsPerFragment: ").append(toIndentedString(maxRowsPerFragment)).append("\n");
