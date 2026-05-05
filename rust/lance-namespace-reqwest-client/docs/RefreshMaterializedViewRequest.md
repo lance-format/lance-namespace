@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**identity** | Option<[**models::Identity**](Identity.md)> |  | [optional]
 **id** | Option<**Vec<String>**> | Table identifier path (namespace + table name) | [optional]
 **src_version** | Option<**i32**> | Optional source version to refresh from | [optional]
 **max_rows_per_fragment** | Option<**i32**> | Optional maximum rows per fragment | [optional]

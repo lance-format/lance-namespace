@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AlterTableAlterColumnsRequest {
+    #[serde(rename = "identity", skip_serializing_if = "Option::is_none")]
+    pub identity: Option<Box<models::Identity>>,
     /// Table identifier path (namespace + table name)
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<Vec<String>>,
@@ -24,6 +26,7 @@ pub struct AlterTableAlterColumnsRequest {
 impl AlterTableAlterColumnsRequest {
     pub fn new(alterations: Vec<models::AlterColumnsEntry>) -> AlterTableAlterColumnsRequest {
         AlterTableAlterColumnsRequest {
+            identity: None,
             id: None,
             alterations,
         }

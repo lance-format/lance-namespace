@@ -7004,33 +7004,50 @@ components:
       - analysis
     AlterTableAddColumnsRequest:
       example:
+        identity:
+          api_key: api_key
+          auth_token: auth_token
         new_columns:
         - expression: expression
           name: name
           virtual_column:
             image: image
+            field_metadata:
+              key: field_metadata
+            manifest_checksum: manifest_checksum
             udf: udf
             udf_name: udf_name
+            manifest: manifest
             input_columns:
             - input_columns
             - input_columns
             data_type: "{}"
+            udf_backend: udf_backend
+            auto_backfill: true
             udf_version: udf_version
         - expression: expression
           name: name
           virtual_column:
             image: image
+            field_metadata:
+              key: field_metadata
+            manifest_checksum: manifest_checksum
             udf: udf
             udf_name: udf_name
+            manifest: manifest
             input_columns:
             - input_columns
             - input_columns
             data_type: "{}"
+            udf_backend: udf_backend
+            auto_backfill: true
             udf_version: udf_version
         id:
         - id
         - id
       properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
         id:
           description: Table identifier path (namespace + table name)
           items:
@@ -7049,12 +7066,18 @@ components:
         name: name
         virtual_column:
           image: image
+          field_metadata:
+            key: field_metadata
+          manifest_checksum: manifest_checksum
           udf: udf
           udf_name: udf_name
+          manifest: manifest
           input_columns:
           - input_columns
           - input_columns
           data_type: "{}"
+          udf_backend: udf_backend
+          auto_backfill: true
           udf_version: udf_version
       properties:
         name:
@@ -7072,12 +7095,18 @@ components:
     AddVirtualColumnEntry:
       example:
         image: image
+        field_metadata:
+          key: field_metadata
+        manifest_checksum: manifest_checksum
         udf: udf
         udf_name: udf_name
+        manifest: manifest
         input_columns:
         - input_columns
         - input_columns
         data_type: "{}"
+        udf_backend: udf_backend
+        auto_backfill: true
         udf_version: udf_version
       properties:
         input_columns:
@@ -7100,6 +7129,26 @@ components:
         udf_version:
           description: Version of the UDF
           type: string
+        udf_backend:
+          description: UDF backend type (e.g. DockerUDFSpecV1)
+          nullable: true
+          type: string
+        auto_backfill:
+          description: Whether to automatically backfill the column after creation
+          nullable: true
+          type: boolean
+        manifest:
+          description: JSON-serialized manifest for the UDF environment
+          nullable: true
+          type: string
+        manifest_checksum:
+          description: SHA-256 checksum of the manifest content
+          nullable: true
+          type: string
+        field_metadata:
+          additionalProperties:
+            type: string
+          description: User-supplied field metadata (string key-value pairs)
       required:
       - data_type
       - image
@@ -7120,6 +7169,9 @@ components:
       - version
     AlterTableAlterColumnsRequest:
       example:
+        identity:
+          api_key: api_key
+          auth_token: auth_token
         alterations:
         - path: path
           nullable: true
@@ -7127,11 +7179,17 @@ components:
           data_type: "{}"
           virtual_column:
             image: image
+            field_metadata:
+              key: field_metadata
+            manifest_checksum: manifest_checksum
             udf: udf
             udf_name: udf_name
+            manifest: manifest
             input_columns:
             - input_columns
             - input_columns
+            udf_backend: udf_backend
+            auto_backfill: true
             udf_version: udf_version
         - path: path
           nullable: true
@@ -7139,16 +7197,24 @@ components:
           data_type: "{}"
           virtual_column:
             image: image
+            field_metadata:
+              key: field_metadata
+            manifest_checksum: manifest_checksum
             udf: udf
             udf_name: udf_name
+            manifest: manifest
             input_columns:
             - input_columns
             - input_columns
+            udf_backend: udf_backend
+            auto_backfill: true
             udf_version: udf_version
         id:
         - id
         - id
       properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
         id:
           description: Table identifier path (namespace + table name)
           items:
@@ -7169,11 +7235,17 @@ components:
         data_type: "{}"
         virtual_column:
           image: image
+          field_metadata:
+            key: field_metadata
+          manifest_checksum: manifest_checksum
           udf: udf
           udf_name: udf_name
+          manifest: manifest
           input_columns:
           - input_columns
           - input_columns
+          udf_backend: udf_backend
+          auto_backfill: true
           udf_version: udf_version
       properties:
         path:
@@ -7198,11 +7270,17 @@ components:
     AlterVirtualColumnEntry:
       example:
         image: image
+        field_metadata:
+          key: field_metadata
+        manifest_checksum: manifest_checksum
         udf: udf
         udf_name: udf_name
+        manifest: manifest
         input_columns:
         - input_columns
         - input_columns
+        udf_backend: udf_backend
+        auto_backfill: true
         udf_version: udf_version
       properties:
         input_columns:
@@ -7227,6 +7305,26 @@ components:
           description: Version of the UDF (optional)
           nullable: true
           type: string
+        udf_backend:
+          description: UDF backend type (e.g. DockerUDFSpecV1) (optional)
+          nullable: true
+          type: string
+        auto_backfill:
+          description: Whether to automatically backfill the column (optional)
+          nullable: true
+          type: boolean
+        manifest:
+          description: JSON-serialized manifest for the UDF environment (optional)
+          nullable: true
+          type: string
+        manifest_checksum:
+          description: SHA-256 checksum of the manifest content (optional)
+          nullable: true
+          type: string
+        field_metadata:
+          additionalProperties:
+            type: string
+          description: User-supplied field metadata (optional)
     AlterTableAlterColumnsResponse:
       example:
         version: 0
@@ -7252,12 +7350,17 @@ components:
         commit_granularity: 2
         task_size: 7
         batch_checkpoint_flush_interval_seconds: 5.637376656633329
+        identity:
+          api_key: api_key
+          auth_token: auth_token
         where: where
         id:
         - id
         - id
         intra_applier_concurrency: 6
       properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
         id:
           description: Table identifier path (namespace + table name)
           items:
@@ -7333,6 +7436,9 @@ components:
       example:
         src_version: 0
         cluster: cluster
+        identity:
+          api_key: api_key
+          auth_token: auth_token
         manifest: manifest
         id:
         - id
@@ -7341,6 +7447,8 @@ components:
         intra_applier_concurrency: 5
         concurrency: 1
       properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
         id:
           description: Table identifier path (namespace + table name)
           items:

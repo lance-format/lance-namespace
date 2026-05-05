@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**identity** | [**Identity**](Identity.md) |  | [optional] 
 **id** | **List[str]** | Table identifier path (namespace + table name) | [optional] 
 **alterations** | [**List[AlterColumnsEntry]**](AlterColumnsEntry.md) | List of column alterations to apply to the table | 
 

@@ -21,7 +21,9 @@ import jakarta.validation.constraints.*;
 
 import java.util.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /** AlterVirtualColumnEntry */
@@ -39,6 +41,16 @@ public class AlterVirtualColumnEntry {
   private String udfName = null;
 
   private String udfVersion = null;
+
+  private String udfBackend = null;
+
+  private Boolean autoBackfill = null;
+
+  private String manifest = null;
+
+  private String manifestChecksum = null;
+
+  @Valid private Map<String, String> fieldMetadata = new HashMap<>();
 
   public AlterVirtualColumnEntry inputColumns(List<String> inputColumns) {
     this.inputColumns = inputColumns;
@@ -163,6 +175,129 @@ public class AlterVirtualColumnEntry {
     this.udfVersion = udfVersion;
   }
 
+  public AlterVirtualColumnEntry udfBackend(String udfBackend) {
+    this.udfBackend = udfBackend;
+    return this;
+  }
+
+  /**
+   * UDF backend type (e.g. DockerUDFSpecV1) (optional)
+   *
+   * @return udfBackend
+   */
+  @Schema(
+      name = "udf_backend",
+      description = "UDF backend type (e.g. DockerUDFSpecV1) (optional)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("udf_backend")
+  public String getUdfBackend() {
+    return udfBackend;
+  }
+
+  public void setUdfBackend(String udfBackend) {
+    this.udfBackend = udfBackend;
+  }
+
+  public AlterVirtualColumnEntry autoBackfill(Boolean autoBackfill) {
+    this.autoBackfill = autoBackfill;
+    return this;
+  }
+
+  /**
+   * Whether to automatically backfill the column (optional)
+   *
+   * @return autoBackfill
+   */
+  @Schema(
+      name = "auto_backfill",
+      description = "Whether to automatically backfill the column (optional)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("auto_backfill")
+  public Boolean getAutoBackfill() {
+    return autoBackfill;
+  }
+
+  public void setAutoBackfill(Boolean autoBackfill) {
+    this.autoBackfill = autoBackfill;
+  }
+
+  public AlterVirtualColumnEntry manifest(String manifest) {
+    this.manifest = manifest;
+    return this;
+  }
+
+  /**
+   * JSON-serialized manifest for the UDF environment (optional)
+   *
+   * @return manifest
+   */
+  @Schema(
+      name = "manifest",
+      description = "JSON-serialized manifest for the UDF environment (optional)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("manifest")
+  public String getManifest() {
+    return manifest;
+  }
+
+  public void setManifest(String manifest) {
+    this.manifest = manifest;
+  }
+
+  public AlterVirtualColumnEntry manifestChecksum(String manifestChecksum) {
+    this.manifestChecksum = manifestChecksum;
+    return this;
+  }
+
+  /**
+   * SHA-256 checksum of the manifest content (optional)
+   *
+   * @return manifestChecksum
+   */
+  @Schema(
+      name = "manifest_checksum",
+      description = "SHA-256 checksum of the manifest content (optional)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("manifest_checksum")
+  public String getManifestChecksum() {
+    return manifestChecksum;
+  }
+
+  public void setManifestChecksum(String manifestChecksum) {
+    this.manifestChecksum = manifestChecksum;
+  }
+
+  public AlterVirtualColumnEntry fieldMetadata(Map<String, String> fieldMetadata) {
+    this.fieldMetadata = fieldMetadata;
+    return this;
+  }
+
+  public AlterVirtualColumnEntry putFieldMetadataItem(String key, String fieldMetadataItem) {
+    if (this.fieldMetadata == null) {
+      this.fieldMetadata = new HashMap<>();
+    }
+    this.fieldMetadata.put(key, fieldMetadataItem);
+    return this;
+  }
+
+  /**
+   * User-supplied field metadata (optional)
+   *
+   * @return fieldMetadata
+   */
+  @Schema(
+      name = "field_metadata",
+      description = "User-supplied field metadata (optional)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("field_metadata")
+  public Map<String, String> getFieldMetadata() {
+    return fieldMetadata;
+  }
+
+  public void setFieldMetadata(Map<String, String> fieldMetadata) {
+    this.fieldMetadata = fieldMetadata;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -176,12 +311,27 @@ public class AlterVirtualColumnEntry {
         && Objects.equals(this.image, alterVirtualColumnEntry.image)
         && Objects.equals(this.udf, alterVirtualColumnEntry.udf)
         && Objects.equals(this.udfName, alterVirtualColumnEntry.udfName)
-        && Objects.equals(this.udfVersion, alterVirtualColumnEntry.udfVersion);
+        && Objects.equals(this.udfVersion, alterVirtualColumnEntry.udfVersion)
+        && Objects.equals(this.udfBackend, alterVirtualColumnEntry.udfBackend)
+        && Objects.equals(this.autoBackfill, alterVirtualColumnEntry.autoBackfill)
+        && Objects.equals(this.manifest, alterVirtualColumnEntry.manifest)
+        && Objects.equals(this.manifestChecksum, alterVirtualColumnEntry.manifestChecksum)
+        && Objects.equals(this.fieldMetadata, alterVirtualColumnEntry.fieldMetadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inputColumns, image, udf, udfName, udfVersion);
+    return Objects.hash(
+        inputColumns,
+        image,
+        udf,
+        udfName,
+        udfVersion,
+        udfBackend,
+        autoBackfill,
+        manifest,
+        manifestChecksum,
+        fieldMetadata);
   }
 
   @Override
@@ -193,6 +343,11 @@ public class AlterVirtualColumnEntry {
     sb.append("    udf: ").append(toIndentedString(udf)).append("\n");
     sb.append("    udfName: ").append(toIndentedString(udfName)).append("\n");
     sb.append("    udfVersion: ").append(toIndentedString(udfVersion)).append("\n");
+    sb.append("    udfBackend: ").append(toIndentedString(udfBackend)).append("\n");
+    sb.append("    autoBackfill: ").append(toIndentedString(autoBackfill)).append("\n");
+    sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
+    sb.append("    manifestChecksum: ").append(toIndentedString(manifestChecksum)).append("\n");
+    sb.append("    fieldMetadata: ").append(toIndentedString(fieldMetadata)).append("\n");
     sb.append("}");
     return sb.toString();
   }

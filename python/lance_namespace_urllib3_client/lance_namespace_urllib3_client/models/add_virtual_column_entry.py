@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -32,7 +32,12 @@ class AddVirtualColumnEntry(BaseModel):
     udf: StrictStr = Field(description="Base64 encoded pickled UDF")
     udf_name: StrictStr = Field(description="Name of the UDF")
     udf_version: StrictStr = Field(description="Version of the UDF")
-    __properties: ClassVar[List[str]] = ["input_columns", "data_type", "image", "udf", "udf_name", "udf_version"]
+    udf_backend: Optional[StrictStr] = Field(default=None, description="UDF backend type (e.g. DockerUDFSpecV1)")
+    auto_backfill: Optional[StrictBool] = Field(default=None, description="Whether to automatically backfill the column after creation")
+    manifest: Optional[StrictStr] = Field(default=None, description="JSON-serialized manifest for the UDF environment")
+    manifest_checksum: Optional[StrictStr] = Field(default=None, description="SHA-256 checksum of the manifest content")
+    field_metadata: Optional[Dict[str, StrictStr]] = Field(default=None, description="User-supplied field metadata (string key-value pairs)")
+    __properties: ClassVar[List[str]] = ["input_columns", "data_type", "image", "udf", "udf_name", "udf_version", "udf_backend", "auto_backfill", "manifest", "manifest_checksum", "field_metadata"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +78,26 @@ class AddVirtualColumnEntry(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if udf_backend (nullable) is None
+        # and model_fields_set contains the field
+        if self.udf_backend is None and "udf_backend" in self.model_fields_set:
+            _dict['udf_backend'] = None
+
+        # set to None if auto_backfill (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_backfill is None and "auto_backfill" in self.model_fields_set:
+            _dict['auto_backfill'] = None
+
+        # set to None if manifest (nullable) is None
+        # and model_fields_set contains the field
+        if self.manifest is None and "manifest" in self.model_fields_set:
+            _dict['manifest'] = None
+
+        # set to None if manifest_checksum (nullable) is None
+        # and model_fields_set contains the field
+        if self.manifest_checksum is None and "manifest_checksum" in self.model_fields_set:
+            _dict['manifest_checksum'] = None
+
         return _dict
 
     @classmethod
@@ -90,7 +115,12 @@ class AddVirtualColumnEntry(BaseModel):
             "image": obj.get("image"),
             "udf": obj.get("udf"),
             "udf_name": obj.get("udf_name"),
-            "udf_version": obj.get("udf_version")
+            "udf_version": obj.get("udf_version"),
+            "udf_backend": obj.get("udf_backend"),
+            "auto_backfill": obj.get("auto_backfill"),
+            "manifest": obj.get("manifest"),
+            "manifest_checksum": obj.get("manifest_checksum"),
+            "field_metadata": obj.get("field_metadata")
         })
         return _obj
 
