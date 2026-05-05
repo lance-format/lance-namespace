@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-VERSION = 0.7.3
+VERSION = 0.7.4
 
 .PHONY: clean-urllib3-client
 clean-urllib3-client:
