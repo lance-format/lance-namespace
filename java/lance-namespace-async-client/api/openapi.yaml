@@ -7265,7 +7265,6 @@ components:
         virtual_column:
           $ref: '#/components/schemas/AlterVirtualColumnEntry'
       required:
-      - data_type
       - path
     AlterVirtualColumnEntry:
       example:

@@ -28,7 +28,7 @@ class AlterColumnsEntry(BaseModel):
     AlterColumnsEntry
     """ # noqa: E501
     path: StrictStr = Field(description="Column path to alter")
-    data_type: Dict[str, Any] = Field(description="New data type for the column using JSON representation (optional)")
+    data_type: Optional[Dict[str, Any]] = Field(default=None, description="New data type for the column using JSON representation (optional)")
     rename: Optional[StrictStr] = Field(default=None, description="New name for the column (optional)")
     nullable: Optional[StrictBool] = Field(default=None, description="Whether the column should be nullable (optional)")
     virtual_column: Optional[AlterVirtualColumnEntry] = None

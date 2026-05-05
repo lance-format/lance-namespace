@@ -4680,7 +4680,6 @@ components:
       type: object
       required:
         - path
-        - data_type
       properties:
         path:
           type: string

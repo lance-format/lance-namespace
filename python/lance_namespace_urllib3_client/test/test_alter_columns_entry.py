@@ -58,7 +58,6 @@ class TestAlterColumnsEntry(unittest.TestCase):
         else:
             return AlterColumnsEntry(
                 path = '',
-                data_type = lance_namespace_urllib3_client.models.data_type.data_type(),
         )
         """
 
