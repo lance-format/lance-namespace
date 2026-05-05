@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **List[str]** | Table identifier path (namespace + table name) | [optional] 
 **column** | **str** | Column name to backfill | 
 **where** | **str** | Optional WHERE clause filter | [optional] 
 **concurrency** | **int** | Optional concurrency override | [optional] 

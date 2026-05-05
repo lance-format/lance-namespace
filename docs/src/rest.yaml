@@ -4557,6 +4557,11 @@ components:
       required:
         - new_columns
       properties:
+        id:
+          type: array
+          items:
+            type: string
+          description: Table identifier path (namespace + table name)
         new_columns:
           type: array
           items:
@@ -4629,6 +4634,11 @@ components:
       required:
         - alterations
       properties:
+        id:
+          type: array
+          items:
+            type: string
+          description: Table identifier path (namespace + table name)
         alterations:
           type: array
           items:
@@ -4710,6 +4720,11 @@ components:
       required:
         - column
       properties:
+        id:
+          type: array
+          items:
+            type: string
+          description: Table identifier path (namespace + table name)
         column:
           type: string
           description: Column name to backfill
@@ -4791,6 +4806,11 @@ components:
     RefreshMaterializedViewRequest:
       type: object
       properties:
+        id:
+          type: array
+          items:
+            type: string
+          description: Table identifier path (namespace + table name)
         src_version:
           type:
             - integer

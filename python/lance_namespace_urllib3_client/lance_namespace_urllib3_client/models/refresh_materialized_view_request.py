@@ -26,13 +26,14 @@ class RefreshMaterializedViewRequest(BaseModel):
     """
     RefreshMaterializedViewRequest
     """ # noqa: E501
+    id: Optional[List[StrictStr]] = Field(default=None, description="Table identifier path (namespace + table name)")
     src_version: Optional[StrictInt] = Field(default=None, description="Optional source version to refresh from")
     max_rows_per_fragment: Optional[StrictInt] = Field(default=None, description="Optional maximum rows per fragment")
     concurrency: Optional[StrictInt] = Field(default=None, description="Optional concurrency override")
     intra_applier_concurrency: Optional[StrictInt] = Field(default=None, description="Optional intra-applier concurrency override")
     cluster: Optional[StrictStr] = Field(default=None, description="Optional cluster name")
     manifest: Optional[StrictStr] = Field(default=None, description="Optional manifest name")
-    __properties: ClassVar[List[str]] = ["src_version", "max_rows_per_fragment", "concurrency", "intra_applier_concurrency", "cluster", "manifest"]
+    __properties: ClassVar[List[str]] = ["id", "src_version", "max_rows_per_fragment", "concurrency", "intra_applier_concurrency", "cluster", "manifest"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -115,6 +116,7 @@ class RefreshMaterializedViewRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "src_version": obj.get("src_version"),
             "max_rows_per_fragment": obj.get("max_rows_per_fragment"),
             "concurrency": obj.get("concurrency"),

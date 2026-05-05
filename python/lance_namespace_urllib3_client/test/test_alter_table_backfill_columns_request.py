@@ -35,6 +35,9 @@ class TestAlterTableBackfillColumnsRequest(unittest.TestCase):
         model = AlterTableBackfillColumnsRequest()
         if include_optional:
             return AlterTableBackfillColumnsRequest(
+                id = [
+                    ''
+                    ],
                 column = '',
                 where = '',
                 concurrency = 56,

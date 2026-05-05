@@ -21,6 +21,8 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /** AlterTableBackfillColumnsRequest */
@@ -28,6 +30,8 @@ import java.util.Objects;
     value = "org.openapitools.codegen.languages.SpringCodegen",
     comments = "Generator version: 7.12.0")
 public class AlterTableBackfillColumnsRequest {
+
+  @Valid private List<String> id = new ArrayList<>();
 
   private String column;
 
@@ -64,6 +68,37 @@ public class AlterTableBackfillColumnsRequest {
   /** Constructor with only required parameters */
   public AlterTableBackfillColumnsRequest(String column) {
     this.column = column;
+  }
+
+  public AlterTableBackfillColumnsRequest id(List<String> id) {
+    this.id = id;
+    return this;
+  }
+
+  public AlterTableBackfillColumnsRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Table identifier path (namespace + table name)
+   *
+   * @return id
+   */
+  @Schema(
+      name = "id",
+      description = "Table identifier path (namespace + table name)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public List<String> getId() {
+    return id;
+  }
+
+  public void setId(List<String> id) {
+    this.id = id;
   }
 
   public AlterTableBackfillColumnsRequest column(String column) {
@@ -402,7 +437,8 @@ public class AlterTableBackfillColumnsRequest {
     }
     AlterTableBackfillColumnsRequest alterTableBackfillColumnsRequest =
         (AlterTableBackfillColumnsRequest) o;
-    return Objects.equals(this.column, alterTableBackfillColumnsRequest.column)
+    return Objects.equals(this.id, alterTableBackfillColumnsRequest.id)
+        && Objects.equals(this.column, alterTableBackfillColumnsRequest.column)
         && Objects.equals(this.where, alterTableBackfillColumnsRequest.where)
         && Objects.equals(this.concurrency, alterTableBackfillColumnsRequest.concurrency)
         && Objects.equals(
@@ -427,6 +463,7 @@ public class AlterTableBackfillColumnsRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        id,
         column,
         where,
         concurrency,
@@ -447,6 +484,7 @@ public class AlterTableBackfillColumnsRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableBackfillColumnsRequest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    column: ").append(toIndentedString(column)).append("\n");
     sb.append("    where: ").append(toIndentedString(where)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");

@@ -30,6 +30,8 @@ import java.util.Objects;
     comments = "Generator version: 7.12.0")
 public class AlterTableAddColumnsRequest {
 
+  @Valid private List<String> id = new ArrayList<>();
+
   @Valid private List<@Valid AddColumnsEntry> newColumns = new ArrayList<>();
 
   public AlterTableAddColumnsRequest() {
@@ -39,6 +41,37 @@ public class AlterTableAddColumnsRequest {
   /** Constructor with only required parameters */
   public AlterTableAddColumnsRequest(List<@Valid AddColumnsEntry> newColumns) {
     this.newColumns = newColumns;
+  }
+
+  public AlterTableAddColumnsRequest id(List<String> id) {
+    this.id = id;
+    return this;
+  }
+
+  public AlterTableAddColumnsRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Table identifier path (namespace + table name)
+   *
+   * @return id
+   */
+  @Schema(
+      name = "id",
+      description = "Table identifier path (namespace + table name)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public List<String> getId() {
+    return id;
+  }
+
+  public void setId(List<String> id) {
+    this.id = id;
   }
 
   public AlterTableAddColumnsRequest newColumns(List<@Valid AddColumnsEntry> newColumns) {
@@ -83,18 +116,20 @@ public class AlterTableAddColumnsRequest {
       return false;
     }
     AlterTableAddColumnsRequest alterTableAddColumnsRequest = (AlterTableAddColumnsRequest) o;
-    return Objects.equals(this.newColumns, alterTableAddColumnsRequest.newColumns);
+    return Objects.equals(this.id, alterTableAddColumnsRequest.id)
+        && Objects.equals(this.newColumns, alterTableAddColumnsRequest.newColumns);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(newColumns);
+    return Objects.hash(id, newColumns);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAddColumnsRequest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    newColumns: ").append(toIndentedString(newColumns)).append("\n");
     sb.append("}");
     return sb.toString();

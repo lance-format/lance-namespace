@@ -30,6 +30,8 @@ import java.util.Objects;
     comments = "Generator version: 7.12.0")
 public class AlterTableAlterColumnsRequest {
 
+  @Valid private List<String> id = new ArrayList<>();
+
   @Valid private List<@Valid AlterColumnsEntry> alterations = new ArrayList<>();
 
   public AlterTableAlterColumnsRequest() {
@@ -39,6 +41,37 @@ public class AlterTableAlterColumnsRequest {
   /** Constructor with only required parameters */
   public AlterTableAlterColumnsRequest(List<@Valid AlterColumnsEntry> alterations) {
     this.alterations = alterations;
+  }
+
+  public AlterTableAlterColumnsRequest id(List<String> id) {
+    this.id = id;
+    return this;
+  }
+
+  public AlterTableAlterColumnsRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Table identifier path (namespace + table name)
+   *
+   * @return id
+   */
+  @Schema(
+      name = "id",
+      description = "Table identifier path (namespace + table name)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public List<String> getId() {
+    return id;
+  }
+
+  public void setId(List<String> id) {
+    this.id = id;
   }
 
   public AlterTableAlterColumnsRequest alterations(List<@Valid AlterColumnsEntry> alterations) {
@@ -83,18 +116,20 @@ public class AlterTableAlterColumnsRequest {
       return false;
     }
     AlterTableAlterColumnsRequest alterTableAlterColumnsRequest = (AlterTableAlterColumnsRequest) o;
-    return Objects.equals(this.alterations, alterTableAlterColumnsRequest.alterations);
+    return Objects.equals(this.id, alterTableAlterColumnsRequest.id)
+        && Objects.equals(this.alterations, alterTableAlterColumnsRequest.alterations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(alterations);
+    return Objects.hash(id, alterations);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlterTableAlterColumnsRequest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    alterations: ").append(toIndentedString(alterations)).append("\n");
     sb.append("}");
     return sb.toString();

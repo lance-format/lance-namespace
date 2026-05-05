@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | Option<**Vec<String>**> | Table identifier path (namespace + table name) | [optional]
 **column** | **String** | Column name to backfill | 
 **r#where** | Option<**String**> | Optional WHERE clause filter | [optional]
 **concurrency** | Option<**i32**> | Optional concurrency override | [optional]

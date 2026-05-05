@@ -16,9 +16,12 @@ package org.lance.namespace.server.springboot.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /** RefreshMaterializedViewRequest */
@@ -26,6 +29,8 @@ import java.util.Objects;
     value = "org.openapitools.codegen.languages.SpringCodegen",
     comments = "Generator version: 7.12.0")
 public class RefreshMaterializedViewRequest {
+
+  @Valid private List<String> id = new ArrayList<>();
 
   private Integer srcVersion = null;
 
@@ -38,6 +43,37 @@ public class RefreshMaterializedViewRequest {
   private String cluster = null;
 
   private String manifest = null;
+
+  public RefreshMaterializedViewRequest id(List<String> id) {
+    this.id = id;
+    return this;
+  }
+
+  public RefreshMaterializedViewRequest addIdItem(String idItem) {
+    if (this.id == null) {
+      this.id = new ArrayList<>();
+    }
+    this.id.add(idItem);
+    return this;
+  }
+
+  /**
+   * Table identifier path (namespace + table name)
+   *
+   * @return id
+   */
+  @Schema(
+      name = "id",
+      description = "Table identifier path (namespace + table name)",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("id")
+  public List<String> getId() {
+    return id;
+  }
+
+  public void setId(List<String> id) {
+    this.id = id;
+  }
 
   public RefreshMaterializedViewRequest srcVersion(Integer srcVersion) {
     this.srcVersion = srcVersion;
@@ -187,7 +223,8 @@ public class RefreshMaterializedViewRequest {
     }
     RefreshMaterializedViewRequest refreshMaterializedViewRequest =
         (RefreshMaterializedViewRequest) o;
-    return Objects.equals(this.srcVersion, refreshMaterializedViewRequest.srcVersion)
+    return Objects.equals(this.id, refreshMaterializedViewRequest.id)
+        && Objects.equals(this.srcVersion, refreshMaterializedViewRequest.srcVersion)
         && Objects.equals(
             this.maxRowsPerFragment, refreshMaterializedViewRequest.maxRowsPerFragment)
         && Objects.equals(this.concurrency, refreshMaterializedViewRequest.concurrency)
@@ -200,13 +237,20 @@ public class RefreshMaterializedViewRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
-        srcVersion, maxRowsPerFragment, concurrency, intraApplierConcurrency, cluster, manifest);
+        id,
+        srcVersion,
+        maxRowsPerFragment,
+        concurrency,
+        intraApplierConcurrency,
+        cluster,
+        manifest);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RefreshMaterializedViewRequest {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    srcVersion: ").append(toIndentedString(srcVersion)).append("\n");
     sb.append("    maxRowsPerFragment: ").append(toIndentedString(maxRowsPerFragment)).append("\n");
     sb.append("    concurrency: ").append(toIndentedString(concurrency)).append("\n");

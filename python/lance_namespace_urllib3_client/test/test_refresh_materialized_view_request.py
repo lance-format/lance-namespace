@@ -35,6 +35,9 @@ class TestRefreshMaterializedViewRequest(unittest.TestCase):
         model = RefreshMaterializedViewRequest()
         if include_optional:
             return RefreshMaterializedViewRequest(
+                id = [
+                    ''
+                    ],
                 src_version = 56,
                 max_rows_per_fragment = 56,
                 concurrency = 56,

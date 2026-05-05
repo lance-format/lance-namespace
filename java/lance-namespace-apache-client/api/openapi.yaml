@@ -7027,7 +7027,15 @@ components:
             - input_columns
             data_type: "{}"
             udf_version: udf_version
+        id:
+        - id
+        - id
       properties:
+        id:
+          description: Table identifier path (namespace + table name)
+          items:
+            type: string
+          type: array
         new_columns:
           description: List of new columns to add to the table
           items:
@@ -7137,7 +7145,15 @@ components:
             - input_columns
             - input_columns
             udf_version: udf_version
+        id:
+        - id
+        - id
       properties:
+        id:
+          description: Table identifier path (namespace + table name)
+          items:
+            type: string
+          type: array
         alterations:
           description: List of column alterations to apply to the table
           items:
@@ -7237,8 +7253,16 @@ components:
         task_size: 7
         batch_checkpoint_flush_interval_seconds: 5.637376656633329
         where: where
+        id:
+        - id
+        - id
         intra_applier_concurrency: 6
       properties:
+        id:
+          description: Table identifier path (namespace + table name)
+          items:
+            type: string
+          type: array
         column:
           description: Column name to backfill
           type: string
@@ -7310,10 +7334,18 @@ components:
         src_version: 0
         cluster: cluster
         manifest: manifest
+        id:
+        - id
+        - id
         max_rows_per_fragment: 6
         intra_applier_concurrency: 5
         concurrency: 1
       properties:
+        id:
+          description: Table identifier path (namespace + table name)
+          items:
+            type: string
+          type: array
         src_version:
           description: Optional source version to refresh from
           nullable: true
