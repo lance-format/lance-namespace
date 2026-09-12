@@ -127,6 +127,12 @@ class TestExplainTableQueryPlanRequest(unittest.TestCase):
                     lower_bound = 1.337, 
                     nprobes = 0, 
                     offset = 0, 
+                    order_by = [
+                        lance_namespace_urllib3_client.models.query_table_order_by.QueryTableOrderBy(
+                            column_name = '0', 
+                            ascending = True, 
+                            nulls_first = True, )
+                        ], 
                     prefilter = True, 
                     refine_factor = 0, 
                     upper_bound = 1.337, 
@@ -228,6 +234,12 @@ class TestExplainTableQueryPlanRequest(unittest.TestCase):
                     lower_bound = 1.337, 
                     nprobes = 0, 
                     offset = 0, 
+                    order_by = [
+                        lance_namespace_urllib3_client.models.query_table_order_by.QueryTableOrderBy(
+                            column_name = '0', 
+                            ascending = True, 
+                            nulls_first = True, )
+                        ], 
                     prefilter = True, 
                     refine_factor = 0, 
                     upper_bound = 1.337, 

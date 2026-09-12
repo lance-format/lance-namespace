@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// QueryTableRequestVector : Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+/// QueryTableRequestVector : Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct QueryTableRequestVector {
     /// Single query vector
@@ -23,7 +23,7 @@ pub struct QueryTableRequestVector {
 }
 
 impl QueryTableRequestVector {
-    /// Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+    /// Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
     pub fn new() -> QueryTableRequestVector {
         QueryTableRequestVector {
             single_vector: None,

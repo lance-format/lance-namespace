@@ -33,6 +33,8 @@ gen-urllib3-client: clean-urllib3-client
 	# string and is therefore never executed) with an executable version that
 	# actually exercises the new num_inserted_rows / version fields.
 	cp test_insert_into_table_response.py.tpl lance_namespace_urllib3_client/test/test_insert_into_table_response.py
+	cp test_query_table_request.py.tpl lance_namespace_urllib3_client/test/test_query_table_request.py
+	cp test_query_schema.py.tpl lance_namespace_urllib3_client/test/test_query_schema.py
 
 .PHONY: build-urllib3-client
 build-urllib3-client: gen-urllib3-client

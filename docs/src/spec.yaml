@@ -1314,8 +1314,8 @@ paths:
         - Data
       summary: Query a table
       operationId: QueryTable
-      description: |
-        Query table `id` with vector search, full text search and optional SQL filtering.
+      description: |-
+        Query table `id` with a scalar scan, vector search, full text search, optional SQL filtering and result ordering.
         Returns results in Arrow IPC file or stream format.
 
         REST NAMESPACE ONLY
@@ -3234,7 +3234,6 @@ components:
     QueryTableRequest:
       type: object
       required:
-        - vector
         - k
       properties:
         identity:
@@ -3310,6 +3309,25 @@ components:
           type: integer
           minimum: 0
           description: Number of results to skip
+        order_by:
+          type: array
+          description: |-
+            Optional scan result ordering, matching Lance Scanner order_by.
+            Entries are applied in list order, with later entries breaking ties.
+            Omission or an empty list preserves the query mode's default ordering;
+            null is not allowed. Sort fields need not appear in the output projection.
+            Sorting precedes the final offset and result limit. Scalar queries sort
+            all matching rows before pagination. Vector and full-text queries retain
+            their search, filtering, and internal candidate limits; ordering does not
+            expand those candidates or guarantee a global field-based top-k.
+            This parameter does not add support for otherwise unsupported query
+            combinations, including hybrid search. Implementations must reject
+            unsupported combinations rather than silently ignore ordering.
+            Missing fields return TableColumnNotFound; invalid parameters or
+            unsortable types return InvalidInput. Equal sort keys do not guarantee
+            a stable relative order or stable pagination.
+          items:
+            $ref: "#/components/schemas/QueryTableOrderBy"
         prefilter:
           type: boolean
           description: Whether to apply filtering before vector search
@@ -3325,7 +3343,7 @@ components:
         vector:
           type: object
           nullable: true
-          description: Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+          description: Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
           properties:
             single_vector:
               type: array
@@ -3353,6 +3371,31 @@ components:
         with_row_id:
           type: boolean
           description: If true, return the row id as a column called `_rowid`
+
+    QueryTableOrderBy:
+      type: object
+      description: |-
+        Ordering of a source field, matching Lance Scanner ColumnOrdering.
+        Multiple entries are evaluated in list order. Strings use UTF-8 binary
+        lexicographic order and floating-point values use IEEE 754 total order.
+      required:
+        - column_name
+      properties:
+        column_name:
+          type: string
+          minLength: 1
+          description: |-
+            Source Lance field path to sort by, independent of output aliases.
+            Nested fields use dot-separated segments; use backtick-quoted segments
+            for literal dots and double backticks inside quoted segments.
+        ascending:
+          type: boolean
+          default: true
+          description: Whether to sort in ascending order.
+        nulls_first:
+          type: boolean
+          default: false
+          description: Whether null values precede non-null values, independent of direction.
 
     QueryTableResponse:
       type: object
@@ -5145,7 +5188,6 @@ components:
     AnalyzeTableQueryPlanRequest:
       type: object
       required:
-        - vector
         - k
       properties:
         identity:
@@ -5221,6 +5263,25 @@ components:
           type: integer
           minimum: 0
           description: Number of results to skip
+        order_by:
+          type: array
+          description: |-
+            Optional scan result ordering, matching Lance Scanner order_by.
+            Entries are applied in list order, with later entries breaking ties.
+            Omission or an empty list preserves the query mode's default ordering;
+            null is not allowed. Sort fields need not appear in the output projection.
+            Sorting precedes the final offset and result limit. Scalar queries sort
+            all matching rows before pagination. Vector and full-text queries retain
+            their search, filtering, and internal candidate limits; ordering does not
+            expand those candidates or guarantee a global field-based top-k.
+            This parameter does not add support for otherwise unsupported query
+            combinations, including hybrid search. Implementations must reject
+            unsupported combinations rather than silently ignore ordering.
+            Missing fields return TableColumnNotFound; invalid parameters or
+            unsortable types return InvalidInput. Equal sort keys do not guarantee
+            a stable relative order or stable pagination.
+          items:
+            $ref: "#/components/schemas/QueryTableOrderBy"
         prefilter:
           type: boolean
           description: Whether to apply filtering before vector search
@@ -5236,7 +5297,7 @@ components:
         vector:
           type: object
           nullable: true
-          description: Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+          description: Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
           properties:
             single_vector:
               type: array

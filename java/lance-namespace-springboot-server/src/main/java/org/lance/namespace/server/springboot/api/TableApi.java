@@ -6659,13 +6659,13 @@ public interface TableApi {
   }
 
   /**
-   * POST /v1/table/{id}/query : Query a table Query table &#x60;id&#x60; with vector search, full
-   * text search and optional SQL filtering. Returns results in Arrow IPC file or stream format.
-   * REST NAMESPACE ONLY REST namespace returns the response as Arrow IPC file binary data instead
-   * of the &#x60;QueryTableResponse&#x60; JSON object. The REST response maps to the
-   * &#x60;QueryTableResponse&#x60; model as follows: - the Arrow IPC file binary body maps to
-   * &#x60;data&#x60; - response headers map to &#x60;context&#x60; via the &#x60;header.&#x60;
-   * prefix (see the &#x60;Context&#x60; schema)
+   * POST /v1/table/{id}/query : Query a table Query table &#x60;id&#x60; with a scalar scan, vector
+   * search, full text search, optional SQL filtering and result ordering. Returns results in Arrow
+   * IPC file or stream format. REST NAMESPACE ONLY REST namespace returns the response as Arrow IPC
+   * file binary data instead of the &#x60;QueryTableResponse&#x60; JSON object. The REST response
+   * maps to the &#x60;QueryTableResponse&#x60; model as follows: - the Arrow IPC file binary body
+   * maps to &#x60;data&#x60; - response headers map to &#x60;context&#x60; via the
+   * &#x60;header.&#x60; prefix (see the &#x60;Context&#x60; schema)
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -6692,7 +6692,7 @@ public interface TableApi {
       operationId = "queryTable",
       summary = "Query a table",
       description =
-          "Query table `id` with vector search, full text search and optional SQL filtering. Returns results in Arrow IPC file or stream format.  REST NAMESPACE ONLY REST namespace returns the response as Arrow IPC file binary data instead of the `QueryTableResponse` JSON object. The REST response maps to the `QueryTableResponse` model as follows: - the Arrow IPC file binary body maps to `data` - response headers map to `context` via the `header.` prefix (see the `Context` schema) ",
+          "Query table `id` with a scalar scan, vector search, full text search, optional SQL filtering and result ordering. Returns results in Arrow IPC file or stream format.  REST NAMESPACE ONLY REST namespace returns the response as Arrow IPC file binary data instead of the `QueryTableResponse` JSON object. The REST response maps to the `QueryTableResponse` model as follows: - the Arrow IPC file binary body maps to `data` - response headers map to `context` via the `header.` prefix (see the `Context` schema)",
       tags = {"Table", "Data"},
       responses = {
         @ApiResponse(

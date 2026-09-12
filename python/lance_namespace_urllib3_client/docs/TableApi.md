@@ -3859,7 +3859,7 @@ Name | Type | Description  | Notes
 
 Query a table
 
-Query table `id` with vector search, full text search and optional SQL filtering.
+Query table `id` with a scalar scan, vector search, full text search, optional SQL filtering and result ordering.
 Returns results in Arrow IPC file or stream format.
 
 REST NAMESPACE ONLY
@@ -3868,7 +3868,6 @@ instead of the `QueryTableResponse` JSON object.
 The REST response maps to the `QueryTableResponse` model as follows:
 - the Arrow IPC file binary body maps to `data`
 - response headers map to `context` via the `header.` prefix (see the `Context` schema)
-
 
 ### Example
 

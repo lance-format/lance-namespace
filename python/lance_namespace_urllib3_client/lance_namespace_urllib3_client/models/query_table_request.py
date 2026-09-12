@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from lance_namespace_urllib3_client.models.identity import Identity
+from lance_namespace_urllib3_client.models.query_table_order_by import QueryTableOrderBy
 from lance_namespace_urllib3_client.models.query_table_request_columns import QueryTableRequestColumns
 from lance_namespace_urllib3_client.models.query_table_request_full_text_query import QueryTableRequestFullTextQuery
 from lance_namespace_urllib3_client.models.query_table_request_vector import QueryTableRequestVector
@@ -46,14 +47,15 @@ class QueryTableRequest(BaseModel):
     lower_bound: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Lower bound for search")
     nprobes: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Number of probes for IVF index")
     offset: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Number of results to skip")
+    order_by: Optional[List[QueryTableOrderBy]] = Field(default=None, description="Optional scan result ordering, matching Lance Scanner order_by. Entries are applied in list order, with later entries breaking ties. Omission or an empty list preserves the query mode's default ordering; null is not allowed. Sort fields need not appear in the output projection. Sorting precedes the final offset and result limit. Scalar queries sort all matching rows before pagination. Vector and full-text queries retain their search, filtering, and internal candidate limits; ordering does not expand those candidates or guarantee a global field-based top-k. This parameter does not add support for otherwise unsupported query combinations, including hybrid search. Implementations must reject unsupported combinations rather than silently ignore ordering. Missing fields return TableColumnNotFound; invalid parameters or unsortable types return InvalidInput. Equal sort keys do not guarantee a stable relative order or stable pagination.")
     prefilter: Optional[StrictBool] = Field(default=None, description="Whether to apply filtering before vector search")
     refine_factor: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Refine factor for search")
     upper_bound: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Upper bound for search")
-    vector: QueryTableRequestVector
+    vector: Optional[QueryTableRequestVector] = None
     vector_column: Optional[Annotated[str, Field(min_length=1, strict=True)]] = Field(default=None, description="Lance field path of the vector field to search. Nested fields use dot-separated segments; use backtick-quoted segments for literal dots and double backticks inside quoted segments. Use canonical full paths for display and errors; leaf names alone only identify top-level fields; invalid or unresolved paths should return InvalidInput or TableColumnNotFound.")
     version: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Table version to query")
     with_row_id: Optional[StrictBool] = Field(default=None, description="If true, return the row id as a column called `_rowid`")
-    __properties: ClassVar[List[str]] = ["identity", "context", "id", "branch", "bypass_vector_index", "columns", "distance_type", "ef", "fast_search", "filter", "full_text_query", "k", "lower_bound", "nprobes", "offset", "prefilter", "refine_factor", "upper_bound", "vector", "vector_column", "version", "with_row_id"]
+    __properties: ClassVar[List[str]] = ["identity", "context", "id", "branch", "bypass_vector_index", "columns", "distance_type", "ef", "fast_search", "filter", "full_text_query", "k", "lower_bound", "nprobes", "offset", "order_by", "prefilter", "refine_factor", "upper_bound", "vector", "vector_column", "version", "with_row_id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,6 +105,13 @@ class QueryTableRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of full_text_query
         if self.full_text_query:
             _dict['full_text_query'] = self.full_text_query.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in order_by (list)
+        _items = []
+        if self.order_by:
+            for _item_order_by in self.order_by:
+                if _item_order_by:
+                    _items.append(_item_order_by.to_dict())
+            _dict['order_by'] = _items
         # override the default output from pydantic by calling `to_dict()` of vector
         if self.vector:
             _dict['vector'] = self.vector.to_dict()
@@ -133,6 +142,7 @@ class QueryTableRequest(BaseModel):
             "lower_bound": obj.get("lower_bound"),
             "nprobes": obj.get("nprobes"),
             "offset": obj.get("offset"),
+            "order_by": [QueryTableOrderBy.from_dict(_item) for _item in obj["order_by"]] if obj.get("order_by") is not None else None,
             "prefilter": obj.get("prefilter"),
             "refine_factor": obj.get("refine_factor"),
             "upper_bound": obj.get("upper_bound"),

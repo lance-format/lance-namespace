@@ -22,10 +22,11 @@
 |**lowerBound** | **Float** | Lower bound for search |  [optional] |
 |**nprobes** | **Integer** | Number of probes for IVF index |  [optional] |
 |**offset** | **Integer** | Number of results to skip |  [optional] |
+|**orderBy** | [**List&lt;QueryTableOrderBy&gt;**](QueryTableOrderBy.md) | Optional scan result ordering, matching Lance Scanner order_by. Entries are applied in list order, with later entries breaking ties. Omission or an empty list preserves the query mode&#39;s default ordering; null is not allowed. Sort fields need not appear in the output projection. Sorting precedes the final offset and result limit. Scalar queries sort all matching rows before pagination. Vector and full-text queries retain their search, filtering, and internal candidate limits; ordering does not expand those candidates or guarantee a global field-based top-k. This parameter does not add support for otherwise unsupported query combinations, including hybrid search. Implementations must reject unsupported combinations rather than silently ignore ordering. Missing fields return TableColumnNotFound; invalid parameters or unsortable types return InvalidInput. Equal sort keys do not guarantee a stable relative order or stable pagination. |  [optional] |
 |**prefilter** | **Boolean** | Whether to apply filtering before vector search |  [optional] |
 |**refineFactor** | **Integer** | Refine factor for search |  [optional] |
 |**upperBound** | **Float** | Upper bound for search |  [optional] |
-|**vector** | [**QueryTableRequestVector**](QueryTableRequestVector.md) |  |  |
+|**vector** | [**QueryTableRequestVector**](QueryTableRequestVector.md) |  |  [optional] |
 |**vectorColumn** | **String** | Lance field path of the vector field to search. Nested fields use dot-separated segments; use backtick-quoted segments for literal dots and double backticks inside quoted segments. Use canonical full paths for display and errors; leaf names alone only identify top-level fields; invalid or unresolved paths should return InvalidInput or TableColumnNotFound. |  [optional] |
 |**version** | **Long** | Table version to query |  [optional] |
 |**withRowId** | **Boolean** | If true, return the row id as a column called &#x60;_rowid&#x60; |  [optional] |

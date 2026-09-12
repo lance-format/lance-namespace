@@ -230,6 +230,8 @@ pub mod partition_transform;
 pub use self::partition_transform::PartitionTransform;
 pub mod phrase_query;
 pub use self::phrase_query::PhraseQuery;
+pub mod query_table_order_by;
+pub use self::query_table_order_by::QueryTableOrderBy;
 pub mod query_table_request;
 pub use self::query_table_request::QueryTableRequest;
 pub mod query_table_request_columns;

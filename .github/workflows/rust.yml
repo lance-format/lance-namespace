@@ -23,7 +23,7 @@ on:
       - ready_for_review
       - reopened
     paths:
-      - docs/src/spec/**
+      - docs/src/spec.yaml
       - rust/**
       - .github/workflows/rust.yml
 

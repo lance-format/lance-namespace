@@ -355,6 +355,7 @@ Class | Method | HTTP request | Description
  - [PartitionSpec](docs/PartitionSpec.md)
  - [PartitionTransform](docs/PartitionTransform.md)
  - [PhraseQuery](docs/PhraseQuery.md)
+ - [QueryTableOrderBy](docs/QueryTableOrderBy.md)
  - [QueryTableRequest](docs/QueryTableRequest.md)
  - [QueryTableRequestColumns](docs/QueryTableRequestColumns.md)
  - [QueryTableRequestFullTextQuery](docs/QueryTableRequestFullTextQuery.md)

@@ -26,12 +26,13 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+ * Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not
+ * both.
  */
 @Schema(
     name = "QueryTableRequest_vector",
     description =
-        "Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.")
+        "Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.")
 @JsonTypeName("QueryTableRequest_vector")
 @Generated(
     value = "org.openapitools.codegen.languages.SpringCodegen",
