@@ -24,7 +24,7 @@ from typing_extensions import Self
 
 class QueryTableRequestVector(BaseModel):
     """
-    Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+    Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
     """ # noqa: E501
     single_vector: Optional[List[Union[StrictFloat, StrictInt]]] = Field(default=None, description="Single query vector")
     multi_vector: Optional[List[List[Union[StrictFloat, StrictInt]]]] = Field(default=None, description="Multiple query vectors for batch search")

@@ -62,6 +62,8 @@ public class QueryTableRequest {
 
   private Integer offset;
 
+  @Valid private List<@Valid QueryTableOrderBy> orderBy = new ArrayList<>();
+
   private Boolean prefilter;
 
   private Integer refineFactor;
@@ -81,9 +83,8 @@ public class QueryTableRequest {
   }
 
   /** Constructor with only required parameters */
-  public QueryTableRequest(Integer k, QueryTableRequestVector vector) {
+  public QueryTableRequest(Integer k) {
     this.k = k;
-    this.vector = vector;
   }
 
   public QueryTableRequest identity(Identity identity) {
@@ -456,6 +457,49 @@ public class QueryTableRequest {
     this.offset = offset;
   }
 
+  public QueryTableRequest orderBy(List<@Valid QueryTableOrderBy> orderBy) {
+    this.orderBy = orderBy;
+    return this;
+  }
+
+  public QueryTableRequest addOrderByItem(QueryTableOrderBy orderByItem) {
+    if (this.orderBy == null) {
+      this.orderBy = new ArrayList<>();
+    }
+    this.orderBy.add(orderByItem);
+    return this;
+  }
+
+  /**
+   * Optional scan result ordering, matching Lance Scanner order_by. Entries are applied in list
+   * order, with later entries breaking ties. Omission or an empty list preserves the query mode's
+   * default ordering; null is not allowed. Sort fields need not appear in the output projection.
+   * Sorting precedes the final offset and result limit. Scalar queries sort all matching rows
+   * before pagination. Vector and full-text queries retain their search, filtering, and internal
+   * candidate limits; ordering does not expand those candidates or guarantee a global field-based
+   * top-k. This parameter does not add support for otherwise unsupported query combinations,
+   * including hybrid search. Implementations must reject unsupported combinations rather than
+   * silently ignore ordering. Missing fields return TableColumnNotFound; invalid parameters or
+   * unsortable types return InvalidInput. Equal sort keys do not guarantee a stable relative order
+   * or stable pagination.
+   *
+   * @return orderBy
+   */
+  @Valid
+  @Schema(
+      name = "order_by",
+      description =
+          "Optional scan result ordering, matching Lance Scanner order_by. Entries are applied in list order, with later entries breaking ties. Omission or an empty list preserves the query mode's default ordering; null is not allowed. Sort fields need not appear in the output projection. Sorting precedes the final offset and result limit. Scalar queries sort all matching rows before pagination. Vector and full-text queries retain their search, filtering, and internal candidate limits; ordering does not expand those candidates or guarantee a global field-based top-k. This parameter does not add support for otherwise unsupported query combinations, including hybrid search. Implementations must reject unsupported combinations rather than silently ignore ordering. Missing fields return TableColumnNotFound; invalid parameters or unsortable types return InvalidInput. Equal sort keys do not guarantee a stable relative order or stable pagination.",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("order_by")
+  public List<@Valid QueryTableOrderBy> getOrderBy() {
+    return orderBy;
+  }
+
+  public void setOrderBy(List<@Valid QueryTableOrderBy> orderBy) {
+    this.orderBy = orderBy;
+  }
+
   public QueryTableRequest prefilter(Boolean prefilter) {
     this.prefilter = prefilter;
     return this;
@@ -536,9 +580,8 @@ public class QueryTableRequest {
    *
    * @return vector
    */
-  @NotNull
   @Valid
-  @Schema(name = "vector", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "vector", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("vector")
   public QueryTableRequestVector getVector() {
     return vector;
@@ -647,6 +690,7 @@ public class QueryTableRequest {
         && Objects.equals(this.lowerBound, queryTableRequest.lowerBound)
         && Objects.equals(this.nprobes, queryTableRequest.nprobes)
         && Objects.equals(this.offset, queryTableRequest.offset)
+        && Objects.equals(this.orderBy, queryTableRequest.orderBy)
         && Objects.equals(this.prefilter, queryTableRequest.prefilter)
         && Objects.equals(this.refineFactor, queryTableRequest.refineFactor)
         && Objects.equals(this.upperBound, queryTableRequest.upperBound)
@@ -674,6 +718,7 @@ public class QueryTableRequest {
         lowerBound,
         nprobes,
         offset,
+        orderBy,
         prefilter,
         refineFactor,
         upperBound,
@@ -702,6 +747,7 @@ public class QueryTableRequest {
     sb.append("    lowerBound: ").append(toIndentedString(lowerBound)).append("\n");
     sb.append("    nprobes: ").append(toIndentedString(nprobes)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
+    sb.append("    orderBy: ").append(toIndentedString(orderBy)).append("\n");
     sb.append("    prefilter: ").append(toIndentedString(prefilter)).append("\n");
     sb.append("    refineFactor: ").append(toIndentedString(refineFactor)).append("\n");
     sb.append("    upperBound: ").append(toIndentedString(upperBound)).append("\n");

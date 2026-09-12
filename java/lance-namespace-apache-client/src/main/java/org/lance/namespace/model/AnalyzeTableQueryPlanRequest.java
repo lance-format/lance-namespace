@@ -43,6 +43,7 @@ import java.util.StringJoiner;
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_LOWER_BOUND,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_NPROBES,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_OFFSET,
+  AnalyzeTableQueryPlanRequest.JSON_PROPERTY_ORDER_BY,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_PREFILTER,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_REFINE_FACTOR,
   AnalyzeTableQueryPlanRequest.JSON_PROPERTY_UPPER_BOUND,
@@ -100,6 +101,9 @@ public class AnalyzeTableQueryPlanRequest {
   public static final String JSON_PROPERTY_OFFSET = "offset";
   @javax.annotation.Nullable private Integer offset;
 
+  public static final String JSON_PROPERTY_ORDER_BY = "order_by";
+  @javax.annotation.Nullable private List<QueryTableOrderBy> orderBy = new ArrayList<>();
+
   public static final String JSON_PROPERTY_PREFILTER = "prefilter";
   @javax.annotation.Nullable private Boolean prefilter;
 
@@ -110,7 +114,7 @@ public class AnalyzeTableQueryPlanRequest {
   @javax.annotation.Nullable private Float upperBound;
 
   public static final String JSON_PROPERTY_VECTOR = "vector";
-  @javax.annotation.Nonnull private QueryTableRequestVector vector;
+  @javax.annotation.Nullable private QueryTableRequestVector vector;
 
   public static final String JSON_PROPERTY_VECTOR_COLUMN = "vector_column";
   @javax.annotation.Nullable private String vectorColumn;
@@ -516,6 +520,49 @@ public class AnalyzeTableQueryPlanRequest {
     this.offset = offset;
   }
 
+  public AnalyzeTableQueryPlanRequest orderBy(
+      @javax.annotation.Nullable List<QueryTableOrderBy> orderBy) {
+
+    this.orderBy = orderBy;
+    return this;
+  }
+
+  public AnalyzeTableQueryPlanRequest addOrderByItem(QueryTableOrderBy orderByItem) {
+    if (this.orderBy == null) {
+      this.orderBy = new ArrayList<>();
+    }
+    this.orderBy.add(orderByItem);
+    return this;
+  }
+
+  /**
+   * Optional scan result ordering, matching Lance Scanner order_by. Entries are applied in list
+   * order, with later entries breaking ties. Omission or an empty list preserves the query
+   * mode&#39;s default ordering; null is not allowed. Sort fields need not appear in the output
+   * projection. Sorting precedes the final offset and result limit. Scalar queries sort all
+   * matching rows before pagination. Vector and full-text queries retain their search, filtering,
+   * and internal candidate limits; ordering does not expand those candidates or guarantee a global
+   * field-based top-k. This parameter does not add support for otherwise unsupported query
+   * combinations, including hybrid search. Implementations must reject unsupported combinations
+   * rather than silently ignore ordering. Missing fields return TableColumnNotFound; invalid
+   * parameters or unsortable types return InvalidInput. Equal sort keys do not guarantee a stable
+   * relative order or stable pagination.
+   *
+   * @return orderBy
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ORDER_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<QueryTableOrderBy> getOrderBy() {
+    return orderBy;
+  }
+
+  @JsonProperty(JSON_PROPERTY_ORDER_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOrderBy(@javax.annotation.Nullable List<QueryTableOrderBy> orderBy) {
+    this.orderBy = orderBy;
+  }
+
   public AnalyzeTableQueryPlanRequest prefilter(@javax.annotation.Nullable Boolean prefilter) {
 
     this.prefilter = prefilter;
@@ -590,7 +637,7 @@ public class AnalyzeTableQueryPlanRequest {
   }
 
   public AnalyzeTableQueryPlanRequest vector(
-      @javax.annotation.Nonnull QueryTableRequestVector vector) {
+      @javax.annotation.Nullable QueryTableRequestVector vector) {
 
     this.vector = vector;
     return this;
@@ -601,16 +648,16 @@ public class AnalyzeTableQueryPlanRequest {
    *
    * @return vector
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_VECTOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public QueryTableRequestVector getVector() {
     return vector;
   }
 
   @JsonProperty(JSON_PROPERTY_VECTOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVector(@javax.annotation.Nonnull QueryTableRequestVector vector) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVector(@javax.annotation.Nullable QueryTableRequestVector vector) {
     this.vector = vector;
   }
 
@@ -713,6 +760,7 @@ public class AnalyzeTableQueryPlanRequest {
         && Objects.equals(this.lowerBound, analyzeTableQueryPlanRequest.lowerBound)
         && Objects.equals(this.nprobes, analyzeTableQueryPlanRequest.nprobes)
         && Objects.equals(this.offset, analyzeTableQueryPlanRequest.offset)
+        && Objects.equals(this.orderBy, analyzeTableQueryPlanRequest.orderBy)
         && Objects.equals(this.prefilter, analyzeTableQueryPlanRequest.prefilter)
         && Objects.equals(this.refineFactor, analyzeTableQueryPlanRequest.refineFactor)
         && Objects.equals(this.upperBound, analyzeTableQueryPlanRequest.upperBound)
@@ -740,6 +788,7 @@ public class AnalyzeTableQueryPlanRequest {
         lowerBound,
         nprobes,
         offset,
+        orderBy,
         prefilter,
         refineFactor,
         upperBound,
@@ -768,6 +817,7 @@ public class AnalyzeTableQueryPlanRequest {
     sb.append("    lowerBound: ").append(toIndentedString(lowerBound)).append("\n");
     sb.append("    nprobes: ").append(toIndentedString(nprobes)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
+    sb.append("    orderBy: ").append(toIndentedString(orderBy)).append("\n");
     sb.append("    prefilter: ").append(toIndentedString(prefilter)).append("\n");
     sb.append("    refineFactor: ").append(toIndentedString(refineFactor)).append("\n");
     sb.append("    upperBound: ").append(toIndentedString(upperBound)).append("\n");
@@ -1030,6 +1080,25 @@ public class AnalyzeTableQueryPlanRequest {
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
+      }
+    }
+
+    // add `order_by` to the URL query string
+    if (getOrderBy() != null) {
+      for (int i = 0; i < getOrderBy().size(); i++) {
+        if (getOrderBy().get(i) != null) {
+          joiner.add(
+              getOrderBy()
+                  .get(i)
+                  .toUrlQueryString(
+                      String.format(
+                          "%sorder_by%s%s",
+                          prefix,
+                          suffix,
+                          "".equals(suffix)
+                              ? ""
+                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 

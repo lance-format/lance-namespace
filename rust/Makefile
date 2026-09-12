@@ -14,7 +14,12 @@ VERSION = 0.12.0
 
 .PHONY: clean-reqwest-client
 clean-reqwest-client:
-	rm -rf lance-namespace-reqwest-client/**
+	# Preserve hand-written integration tests when cleaning generated sources.
+	for generated_path in lance-namespace-reqwest-client/*; do \
+		if [ "$$generated_path" != "lance-namespace-reqwest-client/tests" ]; then \
+			rm -rf "$$generated_path"; \
+		fi; \
+	done
 
 .PHONY: gen-reqwest-client
 gen-reqwest-client: clean-reqwest-client

@@ -1,6 +1,6 @@
 # QueryTableRequestVector
 
-Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
 
 ## Properties
 

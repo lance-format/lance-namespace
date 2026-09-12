@@ -71,7 +71,13 @@ build-apache-client: gen-apache-client lint-apache-client
 
 .PHONY: clean-springboot-server
 clean-springboot-server:
-	rm -rf lance-namespace-springboot-server
+	# Preserve hand-written JUnit tests when cleaning generated sources.
+	for generated_path in lance-namespace-springboot-server/* lance-namespace-springboot-server/src/*; do \
+		case "$$generated_path" in \
+			lance-namespace-springboot-server/src|lance-namespace-springboot-server/src/test) ;; \
+			*) rm -rf "$$generated_path" ;; \
+		esac; \
+	done
 
 .PHONY: gen-springboot-server
 gen-springboot-server: clean-springboot-server

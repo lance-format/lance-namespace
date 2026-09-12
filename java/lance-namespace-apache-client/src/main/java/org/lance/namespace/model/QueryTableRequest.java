@@ -43,6 +43,7 @@ import java.util.StringJoiner;
   QueryTableRequest.JSON_PROPERTY_LOWER_BOUND,
   QueryTableRequest.JSON_PROPERTY_NPROBES,
   QueryTableRequest.JSON_PROPERTY_OFFSET,
+  QueryTableRequest.JSON_PROPERTY_ORDER_BY,
   QueryTableRequest.JSON_PROPERTY_PREFILTER,
   QueryTableRequest.JSON_PROPERTY_REFINE_FACTOR,
   QueryTableRequest.JSON_PROPERTY_UPPER_BOUND,
@@ -100,6 +101,9 @@ public class QueryTableRequest {
   public static final String JSON_PROPERTY_OFFSET = "offset";
   @javax.annotation.Nullable private Integer offset;
 
+  public static final String JSON_PROPERTY_ORDER_BY = "order_by";
+  @javax.annotation.Nullable private List<QueryTableOrderBy> orderBy = new ArrayList<>();
+
   public static final String JSON_PROPERTY_PREFILTER = "prefilter";
   @javax.annotation.Nullable private Boolean prefilter;
 
@@ -110,7 +114,7 @@ public class QueryTableRequest {
   @javax.annotation.Nullable private Float upperBound;
 
   public static final String JSON_PROPERTY_VECTOR = "vector";
-  @javax.annotation.Nonnull private QueryTableRequestVector vector;
+  @javax.annotation.Nullable private QueryTableRequestVector vector;
 
   public static final String JSON_PROPERTY_VECTOR_COLUMN = "vector_column";
   @javax.annotation.Nullable private String vectorColumn;
@@ -513,6 +517,48 @@ public class QueryTableRequest {
     this.offset = offset;
   }
 
+  public QueryTableRequest orderBy(@javax.annotation.Nullable List<QueryTableOrderBy> orderBy) {
+
+    this.orderBy = orderBy;
+    return this;
+  }
+
+  public QueryTableRequest addOrderByItem(QueryTableOrderBy orderByItem) {
+    if (this.orderBy == null) {
+      this.orderBy = new ArrayList<>();
+    }
+    this.orderBy.add(orderByItem);
+    return this;
+  }
+
+  /**
+   * Optional scan result ordering, matching Lance Scanner order_by. Entries are applied in list
+   * order, with later entries breaking ties. Omission or an empty list preserves the query
+   * mode&#39;s default ordering; null is not allowed. Sort fields need not appear in the output
+   * projection. Sorting precedes the final offset and result limit. Scalar queries sort all
+   * matching rows before pagination. Vector and full-text queries retain their search, filtering,
+   * and internal candidate limits; ordering does not expand those candidates or guarantee a global
+   * field-based top-k. This parameter does not add support for otherwise unsupported query
+   * combinations, including hybrid search. Implementations must reject unsupported combinations
+   * rather than silently ignore ordering. Missing fields return TableColumnNotFound; invalid
+   * parameters or unsortable types return InvalidInput. Equal sort keys do not guarantee a stable
+   * relative order or stable pagination.
+   *
+   * @return orderBy
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ORDER_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public List<QueryTableOrderBy> getOrderBy() {
+    return orderBy;
+  }
+
+  @JsonProperty(JSON_PROPERTY_ORDER_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOrderBy(@javax.annotation.Nullable List<QueryTableOrderBy> orderBy) {
+    this.orderBy = orderBy;
+  }
+
   public QueryTableRequest prefilter(@javax.annotation.Nullable Boolean prefilter) {
 
     this.prefilter = prefilter;
@@ -585,7 +631,7 @@ public class QueryTableRequest {
     this.upperBound = upperBound;
   }
 
-  public QueryTableRequest vector(@javax.annotation.Nonnull QueryTableRequestVector vector) {
+  public QueryTableRequest vector(@javax.annotation.Nullable QueryTableRequestVector vector) {
 
     this.vector = vector;
     return this;
@@ -596,16 +642,16 @@ public class QueryTableRequest {
    *
    * @return vector
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_VECTOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public QueryTableRequestVector getVector() {
     return vector;
   }
 
   @JsonProperty(JSON_PROPERTY_VECTOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVector(@javax.annotation.Nonnull QueryTableRequestVector vector) {
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVector(@javax.annotation.Nullable QueryTableRequestVector vector) {
     this.vector = vector;
   }
 
@@ -708,6 +754,7 @@ public class QueryTableRequest {
         && Objects.equals(this.lowerBound, queryTableRequest.lowerBound)
         && Objects.equals(this.nprobes, queryTableRequest.nprobes)
         && Objects.equals(this.offset, queryTableRequest.offset)
+        && Objects.equals(this.orderBy, queryTableRequest.orderBy)
         && Objects.equals(this.prefilter, queryTableRequest.prefilter)
         && Objects.equals(this.refineFactor, queryTableRequest.refineFactor)
         && Objects.equals(this.upperBound, queryTableRequest.upperBound)
@@ -735,6 +782,7 @@ public class QueryTableRequest {
         lowerBound,
         nprobes,
         offset,
+        orderBy,
         prefilter,
         refineFactor,
         upperBound,
@@ -763,6 +811,7 @@ public class QueryTableRequest {
     sb.append("    lowerBound: ").append(toIndentedString(lowerBound)).append("\n");
     sb.append("    nprobes: ").append(toIndentedString(nprobes)).append("\n");
     sb.append("    offset: ").append(toIndentedString(offset)).append("\n");
+    sb.append("    orderBy: ").append(toIndentedString(orderBy)).append("\n");
     sb.append("    prefilter: ").append(toIndentedString(prefilter)).append("\n");
     sb.append("    refineFactor: ").append(toIndentedString(refineFactor)).append("\n");
     sb.append("    upperBound: ").append(toIndentedString(upperBound)).append("\n");
@@ -1025,6 +1074,25 @@ public class QueryTableRequest {
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);
+      }
+    }
+
+    // add `order_by` to the URL query string
+    if (getOrderBy() != null) {
+      for (int i = 0; i < getOrderBy().size(); i++) {
+        if (getOrderBy().get(i) != null) {
+          joiner.add(
+              getOrderBy()
+                  .get(i)
+                  .toUrlQueryString(
+                      String.format(
+                          "%sorder_by%s%s",
+                          prefix,
+                          suffix,
+                          "".equals(suffix)
+                              ? ""
+                              : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
       }
     }
 

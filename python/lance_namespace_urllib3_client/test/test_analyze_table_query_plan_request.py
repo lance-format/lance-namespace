@@ -119,6 +119,12 @@ class TestAnalyzeTableQueryPlanRequest(unittest.TestCase):
                 lower_bound = 1.337,
                 nprobes = 0,
                 offset = 0,
+                order_by = [
+                    lance_namespace_urllib3_client.models.query_table_order_by.QueryTableOrderBy(
+                        column_name = '0', 
+                        ascending = True, 
+                        nulls_first = True, )
+                    ],
                 prefilter = True,
                 refine_factor = 0,
                 upper_bound = 1.337,
@@ -138,15 +144,6 @@ class TestAnalyzeTableQueryPlanRequest(unittest.TestCase):
         else:
             return AnalyzeTableQueryPlanRequest(
                 k = 0,
-                vector = lance_namespace_urllib3_client.models.query_table_request_vector.QueryTableRequest_vector(
-                    single_vector = [
-                        1.337
-                        ], 
-                    multi_vector = [
-                        [
-                            1.337
-                            ]
-                        ], ),
         )
         """
 

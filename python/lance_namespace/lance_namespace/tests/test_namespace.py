@@ -143,6 +143,17 @@ class TestConnect:
 class TestModelReexports:
     """Tests for model re-exports from lance_namespace_urllib3_client."""
 
+    def test_query_ordering_model_reexport(self):
+        from lance_namespace import QueryTableOrderBy
+        from lance_namespace_urllib3_client.models import (
+            QueryTableOrderBy as ClientQueryTableOrderBy,
+        )
+
+        assert QueryTableOrderBy is ClientQueryTableOrderBy
+        ordering = QueryTableOrderBy(column_name="price")
+        assert ordering.ascending is True
+        assert ordering.nulls_first is False
+
     def test_request_types_exported(self):
         """Test that request types are re-exported."""
         from lance_namespace import (

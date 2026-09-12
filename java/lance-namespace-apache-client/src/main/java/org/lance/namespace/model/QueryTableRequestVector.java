@@ -26,7 +26,8 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * Query vector(s) for similarity search. Provide either single_vector or multi_vector, not both.
+ * Optional query vector(s) for similarity search. Provide either single_vector or multi_vector, not
+ * both.
  */
 @JsonPropertyOrder({
   QueryTableRequestVector.JSON_PROPERTY_SINGLE_VECTOR,

@@ -1571,8 +1571,8 @@ paths:
     - $ref: '#/components/parameters/id'
     - $ref: '#/components/parameters/delimiter'
     post:
-      description: |
-        Query table `id` with vector search, full text search and optional SQL filtering.
+      description: |-
+        Query table `id` with a scalar scan, vector search, full text search, optional SQL filtering and result ordering.
         Returns results in Arrow IPC file or stream format.
 
         REST NAMESPACE ONLY
@@ -4917,6 +4917,13 @@ components:
         nprobes: 0
         context:
           key: context
+        order_by:
+        - nulls_first: false
+          column_name: column_name
+          ascending: true
+        - nulls_first: false
+          column_name: column_name
+          ascending: true
         vector:
           single_vector:
           - 1.0246457
@@ -4996,6 +5003,25 @@ components:
           description: Number of results to skip
           minimum: 0
           type: integer
+        order_by:
+          description: |-
+            Optional scan result ordering, matching Lance Scanner order_by.
+            Entries are applied in list order, with later entries breaking ties.
+            Omission or an empty list preserves the query mode's default ordering;
+            null is not allowed. Sort fields need not appear in the output projection.
+            Sorting precedes the final offset and result limit. Scalar queries sort
+            all matching rows before pagination. Vector and full-text queries retain
+            their search, filtering, and internal candidate limits; ordering does not
+            expand those candidates or guarantee a global field-based top-k.
+            This parameter does not add support for otherwise unsupported query
+            combinations, including hybrid search. Implementations must reject
+            unsupported combinations rather than silently ignore ordering.
+            Missing fields return TableColumnNotFound; invalid parameters or
+            unsortable types return InvalidInput. Equal sort keys do not guarantee
+            a stable relative order or stable pagination.
+          items:
+            $ref: '#/components/schemas/QueryTableOrderBy'
+          type: array
         prefilter:
           description: Whether to apply filtering before vector search
           type: boolean
@@ -5028,7 +5054,34 @@ components:
           type: boolean
       required:
       - k
-      - vector
+    QueryTableOrderBy:
+      description: |-
+        Ordering of a source field, matching Lance Scanner ColumnOrdering.
+        Multiple entries are evaluated in list order. Strings use UTF-8 binary
+        lexicographic order and floating-point values use IEEE 754 total order.
+      example:
+        nulls_first: false
+        column_name: column_name
+        ascending: true
+      properties:
+        column_name:
+          description: |-
+            Source Lance field path to sort by, independent of output aliases.
+            Nested fields use dot-separated segments; use backtick-quoted segments
+            for literal dots and double backticks inside quoted segments.
+          minLength: 1
+          type: string
+        ascending:
+          default: true
+          description: Whether to sort in ascending order.
+          type: boolean
+        nulls_first:
+          default: false
+          description: "Whether null values precede non-null values, independent of\
+            \ direction."
+          type: boolean
+      required:
+      - column_name
     QueryTableResponse:
       description: |
         Query results.
@@ -8909,6 +8962,13 @@ components:
           nprobes: 0
           context:
             key: context
+          order_by:
+          - nulls_first: false
+            column_name: column_name
+            ascending: true
+          - nulls_first: false
+            column_name: column_name
+            ascending: true
           vector:
             single_vector:
             - 1.0246457
@@ -9071,6 +9131,13 @@ components:
         nprobes: 0
         context:
           key: context
+        order_by:
+        - nulls_first: false
+          column_name: column_name
+          ascending: true
+        - nulls_first: false
+          column_name: column_name
+          ascending: true
         vector:
           single_vector:
           - 1.0246457
@@ -9150,6 +9217,25 @@ components:
           description: Number of results to skip
           minimum: 0
           type: integer
+        order_by:
+          description: |-
+            Optional scan result ordering, matching Lance Scanner order_by.
+            Entries are applied in list order, with later entries breaking ties.
+            Omission or an empty list preserves the query mode's default ordering;
+            null is not allowed. Sort fields need not appear in the output projection.
+            Sorting precedes the final offset and result limit. Scalar queries sort
+            all matching rows before pagination. Vector and full-text queries retain
+            their search, filtering, and internal candidate limits; ordering does not
+            expand those candidates or guarantee a global field-based top-k.
+            This parameter does not add support for otherwise unsupported query
+            combinations, including hybrid search. Implementations must reject
+            unsupported combinations rather than silently ignore ordering.
+            Missing fields return TableColumnNotFound; invalid parameters or
+            unsortable types return InvalidInput. Equal sort keys do not guarantee
+            a stable relative order or stable pagination.
+          items:
+            $ref: '#/components/schemas/QueryTableOrderBy'
+          type: array
         prefilter:
           description: Whether to apply filtering before vector search
           type: boolean
@@ -9182,7 +9268,6 @@ components:
           type: boolean
       required:
       - k
-      - vector
     AnalyzeTableQueryPlanResponse:
       properties:
         context:
@@ -10844,8 +10929,8 @@ components:
           $ref: '#/components/schemas/StructuredFtsQuery'
       nullable: true
     QueryTableRequest_vector:
-      description: "Query vector(s) for similarity search. Provide either single_vector\
-        \ or multi_vector, not both."
+      description: "Optional query vector(s) for similarity search. Provide either\
+        \ single_vector or multi_vector, not both."
       example:
         single_vector:
         - 1.0246457

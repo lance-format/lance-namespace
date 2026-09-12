@@ -4127,10 +4127,10 @@ public class TableApi extends BaseApi {
   }
 
   /**
-   * Query a table Query table &#x60;id&#x60; with vector search, full text search and optional SQL
-   * filtering. Returns results in Arrow IPC file or stream format. REST NAMESPACE ONLY REST
-   * namespace returns the response as Arrow IPC file binary data instead of the
-   * &#x60;QueryTableResponse&#x60; JSON object. The REST response maps to the
+   * Query a table Query table &#x60;id&#x60; with a scalar scan, vector search, full text search,
+   * optional SQL filtering and result ordering. Returns results in Arrow IPC file or stream format.
+   * REST NAMESPACE ONLY REST namespace returns the response as Arrow IPC file binary data instead
+   * of the &#x60;QueryTableResponse&#x60; JSON object. The REST response maps to the
    * &#x60;QueryTableResponse&#x60; model as follows: - the Arrow IPC file binary body maps to
    * &#x60;data&#x60; - response headers map to &#x60;context&#x60; via the &#x60;header.&#x60;
    * prefix (see the &#x60;Context&#x60; schema)
@@ -4152,10 +4152,10 @@ public class TableApi extends BaseApi {
   }
 
   /**
-   * Query a table Query table &#x60;id&#x60; with vector search, full text search and optional SQL
-   * filtering. Returns results in Arrow IPC file or stream format. REST NAMESPACE ONLY REST
-   * namespace returns the response as Arrow IPC file binary data instead of the
-   * &#x60;QueryTableResponse&#x60; JSON object. The REST response maps to the
+   * Query a table Query table &#x60;id&#x60; with a scalar scan, vector search, full text search,
+   * optional SQL filtering and result ordering. Returns results in Arrow IPC file or stream format.
+   * REST NAMESPACE ONLY REST namespace returns the response as Arrow IPC file binary data instead
+   * of the &#x60;QueryTableResponse&#x60; JSON object. The REST response maps to the
    * &#x60;QueryTableResponse&#x60; model as follows: - the Arrow IPC file binary body maps to
    * &#x60;data&#x60; - response headers map to &#x60;context&#x60; via the &#x60;header.&#x60;
    * prefix (see the &#x60;Context&#x60; schema)

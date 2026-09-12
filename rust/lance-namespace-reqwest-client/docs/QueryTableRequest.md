@@ -19,10 +19,11 @@ Name | Type | Description | Notes
 **lower_bound** | Option<**f32**> | Lower bound for search | [optional]
 **nprobes** | Option<**i32**> | Number of probes for IVF index | [optional]
 **offset** | Option<**i32**> | Number of results to skip | [optional]
+**order_by** | Option<[**Vec<models::QueryTableOrderBy>**](QueryTableOrderBy.md)> | Optional scan result ordering, matching Lance Scanner order_by. Entries are applied in list order, with later entries breaking ties. Omission or an empty list preserves the query mode's default ordering; null is not allowed. Sort fields need not appear in the output projection. Sorting precedes the final offset and result limit. Scalar queries sort all matching rows before pagination. Vector and full-text queries retain their search, filtering, and internal candidate limits; ordering does not expand those candidates or guarantee a global field-based top-k. This parameter does not add support for otherwise unsupported query combinations, including hybrid search. Implementations must reject unsupported combinations rather than silently ignore ordering. Missing fields return TableColumnNotFound; invalid parameters or unsortable types return InvalidInput. Equal sort keys do not guarantee a stable relative order or stable pagination. | [optional]
 **prefilter** | Option<**bool**> | Whether to apply filtering before vector search | [optional]
 **refine_factor** | Option<**i32**> | Refine factor for search | [optional]
 **upper_bound** | Option<**f32**> | Upper bound for search | [optional]
-**vector** | [**models::QueryTableRequestVector**](QueryTableRequest_vector.md) |  | 
+**vector** | Option<[**models::QueryTableRequestVector**](QueryTableRequest_vector.md)> |  | [optional]
 **vector_column** | Option<**String**> | Lance field path of the vector field to search. Nested fields use dot-separated segments; use backtick-quoted segments for literal dots and double backticks inside quoted segments. Use canonical full paths for display and errors; leaf names alone only identify top-level fields; invalid or unresolved paths should return InvalidInput or TableColumnNotFound. | [optional]
 **version** | Option<**i64**> | Table version to query | [optional]
 **with_row_id** | Option<**bool**> | If true, return the row id as a column called `_rowid` | [optional]

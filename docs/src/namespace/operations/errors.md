@@ -89,8 +89,8 @@ All operations may return the following errors:
 | QueryTable            | 1 (NamespaceNotFound), 4 (TableNotFound), 11 (TableVersionNotFound), 12 (TableColumnNotFound)                                  |
 | CountTableRows        | 1 (NamespaceNotFound), 4 (TableNotFound), 11 (TableVersionNotFound)                                                            |
 | CreateTable           | 1 (NamespaceNotFound), 5 (TableAlreadyExists), 14 (ConcurrentModification), 20 (TableSchemaValidationError)                    |
-| ExplainTableQueryPlan | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                       |
-| AnalyzeTableQueryPlan | 1 (NamespaceNotFound), 4 (TableNotFound)                                                                                       |
+| ExplainTableQueryPlan | 1 (NamespaceNotFound), 4 (TableNotFound), 12 (TableColumnNotFound)                                                               |
+| AnalyzeTableQueryPlan | 1 (NamespaceNotFound), 4 (TableNotFound), 12 (TableColumnNotFound)                                                               |
 | AlterTableAddColumns  | 1 (NamespaceNotFound), 4 (TableNotFound), 14 (ConcurrentModification), 20 (TableSchemaValidationError)                         |
 
 ### Index Metadata Operations
