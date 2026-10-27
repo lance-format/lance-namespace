@@ -24,6 +24,9 @@ pub struct ListTableIndicesRequest {
     /// Optional table version to list indexes from
     #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
     pub version: Option<i64>,
+    /// Tag name to list indexes at. If specified, the server should resolve the tag to a version number and list indexes at that version. Cannot be used together with `version` or `branch`. 
+    #[serde(rename = "tag", skip_serializing_if = "Option::is_none")]
+    pub tag: Option<String>,
     /// Branch to target. When not specified, the main branch is used. 
     #[serde(rename = "branch", skip_serializing_if = "Option::is_none")]
     pub branch: Option<String>,
@@ -42,6 +45,7 @@ impl ListTableIndicesRequest {
             context: None,
             id: None,
             version: None,
+            tag: None,
             branch: None,
             page_token: None,
             limit: None,

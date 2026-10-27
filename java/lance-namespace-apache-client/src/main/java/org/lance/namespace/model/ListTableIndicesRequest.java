@@ -32,6 +32,7 @@ import java.util.StringJoiner;
   ListTableIndicesRequest.JSON_PROPERTY_CONTEXT,
   ListTableIndicesRequest.JSON_PROPERTY_ID,
   ListTableIndicesRequest.JSON_PROPERTY_VERSION,
+  ListTableIndicesRequest.JSON_PROPERTY_TAG,
   ListTableIndicesRequest.JSON_PROPERTY_BRANCH,
   ListTableIndicesRequest.JSON_PROPERTY_PAGE_TOKEN,
   ListTableIndicesRequest.JSON_PROPERTY_LIMIT
@@ -51,6 +52,9 @@ public class ListTableIndicesRequest {
 
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nullable private Long version;
+
+  public static final String JSON_PROPERTY_TAG = "tag";
+  @javax.annotation.Nullable private String tag;
 
   public static final String JSON_PROPERTY_BRANCH = "branch";
   @javax.annotation.Nullable private String branch;
@@ -185,6 +189,32 @@ public class ListTableIndicesRequest {
     this.version = version;
   }
 
+  public ListTableIndicesRequest tag(@javax.annotation.Nullable String tag) {
+
+    this.tag = tag;
+    return this;
+  }
+
+  /**
+   * Tag name to list indexes at. If specified, the server should resolve the tag to a version
+   * number and list indexes at that version. Cannot be used together with &#x60;version&#x60; or
+   * &#x60;branch&#x60;.
+   *
+   * @return tag
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getTag() {
+    return tag;
+  }
+
+  @JsonProperty(JSON_PROPERTY_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTag(@javax.annotation.Nullable String tag) {
+    this.tag = tag;
+  }
+
   public ListTableIndicesRequest branch(@javax.annotation.Nullable String branch) {
 
     this.branch = branch;
@@ -277,6 +307,7 @@ public class ListTableIndicesRequest {
         && Objects.equals(this.context, listTableIndicesRequest.context)
         && Objects.equals(this.id, listTableIndicesRequest.id)
         && Objects.equals(this.version, listTableIndicesRequest.version)
+        && Objects.equals(this.tag, listTableIndicesRequest.tag)
         && Objects.equals(this.branch, listTableIndicesRequest.branch)
         && Objects.equals(this.pageToken, listTableIndicesRequest.pageToken)
         && Objects.equals(this.limit, listTableIndicesRequest.limit);
@@ -284,7 +315,7 @@ public class ListTableIndicesRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, version, branch, pageToken, limit);
+    return Objects.hash(identity, context, id, version, tag, branch, pageToken, limit);
   }
 
   @Override
@@ -295,6 +326,7 @@ public class ListTableIndicesRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    branch: ").append(toIndentedString(branch)).append("\n");
     sb.append("    pageToken: ").append(toIndentedString(pageToken)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
@@ -401,6 +433,21 @@ public class ListTableIndicesRequest {
                 prefix,
                 suffix,
                 URLEncoder.encode(String.valueOf(getVersion()), "UTF-8").replaceAll("\\+", "%20")));
+      } catch (UnsupportedEncodingException e) {
+        // Should never happen, UTF-8 is always supported
+        throw new RuntimeException(e);
+      }
+    }
+
+    // add `tag` to the URL query string
+    if (getTag() != null) {
+      try {
+        joiner.add(
+            String.format(
+                "%stag%s=%s",
+                prefix,
+                suffix,
+                URLEncoder.encode(String.valueOf(getTag()), "UTF-8").replaceAll("\\+", "%20")));
       } catch (UnsupportedEncodingException e) {
         // Should never happen, UTF-8 is always supported
         throw new RuntimeException(e);

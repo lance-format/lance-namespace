@@ -67,6 +67,15 @@ export interface DescribeTableIndexStatsRequest {
      */
     version?: number;
     /**
+     * Tag name to get index stats at.
+     * If specified, the server should resolve the tag to a version number and get index stats at that version.
+     * Cannot be used together with `version` or `branch`.
+     * 
+     * @type {string}
+     * @memberof DescribeTableIndexStatsRequest
+     */
+    tag?: string;
+    /**
      * Branch to target. When not specified, the main branch is used.
      * 
      * @type {string}
@@ -102,6 +111,7 @@ export function DescribeTableIndexStatsRequestFromJSONTyped(json: any, ignoreDis
         'context': json['context'] == null ? undefined : json['context'],
         'id': json['id'] == null ? undefined : json['id'],
         'version': json['version'] == null ? undefined : json['version'],
+        'tag': json['tag'] == null ? undefined : json['tag'],
         'branch': json['branch'] == null ? undefined : json['branch'],
         'index_name': json['index_name'] == null ? undefined : json['index_name'],
     };
@@ -122,6 +132,7 @@ export function DescribeTableIndexStatsRequestToJSONTyped(value?: DescribeTableI
         'context': value['context'],
         'id': value['id'],
         'version': value['version'],
+        'tag': value['tag'],
         'branch': value['branch'],
         'index_name': value['index_name'],
     };

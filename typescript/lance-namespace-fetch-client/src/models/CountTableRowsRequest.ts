@@ -61,13 +61,22 @@ export interface CountTableRowsRequest {
      */
     id?: Array<string>;
     /**
-     * Version of the table to describe.
+     * Version of the table to count rows from.
      * If not specified, server should resolve it to the latest version.
      * 
      * @type {number}
      * @memberof CountTableRowsRequest
      */
     version?: number;
+    /**
+     * Tag name to count rows at.
+     * If specified, the server should resolve the tag to a version number and count rows at that version.
+     * Cannot be used together with `version` or `branch`.
+     * 
+     * @type {string}
+     * @memberof CountTableRowsRequest
+     */
+    tag?: string;
     /**
      * Branch to target. When not specified, the main branch is used.
      * 
@@ -106,6 +115,7 @@ export function CountTableRowsRequestFromJSONTyped(json: any, ignoreDiscriminato
         'context': json['context'] == null ? undefined : json['context'],
         'id': json['id'] == null ? undefined : json['id'],
         'version': json['version'] == null ? undefined : json['version'],
+        'tag': json['tag'] == null ? undefined : json['tag'],
         'branch': json['branch'] == null ? undefined : json['branch'],
         'predicate': json['predicate'] == null ? undefined : json['predicate'],
     };
@@ -126,6 +136,7 @@ export function CountTableRowsRequestToJSONTyped(value?: CountTableRowsRequest |
         'context': value['context'],
         'id': value['id'],
         'version': value['version'],
+        'tag': value['tag'],
         'branch': value['branch'],
         'predicate': value['predicate'],
     };

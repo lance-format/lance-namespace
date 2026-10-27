@@ -32,6 +32,7 @@ import java.util.StringJoiner;
   CountTableRowsRequest.JSON_PROPERTY_CONTEXT,
   CountTableRowsRequest.JSON_PROPERTY_ID,
   CountTableRowsRequest.JSON_PROPERTY_VERSION,
+  CountTableRowsRequest.JSON_PROPERTY_TAG,
   CountTableRowsRequest.JSON_PROPERTY_BRANCH,
   CountTableRowsRequest.JSON_PROPERTY_PREDICATE
 })
@@ -50,6 +51,9 @@ public class CountTableRowsRequest {
 
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nullable private Long version;
+
+  public static final String JSON_PROPERTY_TAG = "tag";
+  @javax.annotation.Nullable private String tag;
 
   public static final String JSON_PROPERTY_BRANCH = "branch";
   @javax.annotation.Nullable private String branch;
@@ -160,8 +164,8 @@ public class CountTableRowsRequest {
   }
 
   /**
-   * Version of the table to describe. If not specified, server should resolve it to the latest
-   * version. minimum: 0
+   * Version of the table to count rows from. If not specified, server should resolve it to the
+   * latest version. minimum: 0
    *
    * @return version
    */
@@ -176,6 +180,31 @@ public class CountTableRowsRequest {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVersion(@javax.annotation.Nullable Long version) {
     this.version = version;
+  }
+
+  public CountTableRowsRequest tag(@javax.annotation.Nullable String tag) {
+    this.tag = tag;
+    return this;
+  }
+
+  /**
+   * Tag name to count rows at. If specified, the server should resolve the tag to a version number
+   * and count rows at that version. Cannot be used together with &#x60;version&#x60; or
+   * &#x60;branch&#x60;.
+   *
+   * @return tag
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getTag() {
+    return tag;
+  }
+
+  @JsonProperty(JSON_PROPERTY_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTag(@javax.annotation.Nullable String tag) {
+    this.tag = tag;
   }
 
   public CountTableRowsRequest branch(@javax.annotation.Nullable String branch) {
@@ -240,13 +269,14 @@ public class CountTableRowsRequest {
         && Objects.equals(this.context, countTableRowsRequest.context)
         && Objects.equals(this.id, countTableRowsRequest.id)
         && Objects.equals(this.version, countTableRowsRequest.version)
+        && Objects.equals(this.tag, countTableRowsRequest.tag)
         && Objects.equals(this.branch, countTableRowsRequest.branch)
         && Objects.equals(this.predicate, countTableRowsRequest.predicate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, version, branch, predicate);
+    return Objects.hash(identity, context, id, version, tag, branch, predicate);
   }
 
   @Override
@@ -257,6 +287,7 @@ public class CountTableRowsRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    branch: ").append(toIndentedString(branch)).append("\n");
     sb.append("    predicate: ").append(toIndentedString(predicate)).append("\n");
     sb.append("}");
@@ -347,6 +378,14 @@ public class CountTableRowsRequest {
           String.format(
               "%sversion%s=%s",
               prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+    }
+
+    // add `tag` to the URL query string
+    if (getTag() != null) {
+      joiner.add(
+          String.format(
+              "%stag%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
     }
 
     // add `branch` to the URL query string

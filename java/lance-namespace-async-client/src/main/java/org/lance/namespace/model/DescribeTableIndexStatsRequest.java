@@ -32,6 +32,7 @@ import java.util.StringJoiner;
   DescribeTableIndexStatsRequest.JSON_PROPERTY_CONTEXT,
   DescribeTableIndexStatsRequest.JSON_PROPERTY_ID,
   DescribeTableIndexStatsRequest.JSON_PROPERTY_VERSION,
+  DescribeTableIndexStatsRequest.JSON_PROPERTY_TAG,
   DescribeTableIndexStatsRequest.JSON_PROPERTY_BRANCH,
   DescribeTableIndexStatsRequest.JSON_PROPERTY_INDEX_NAME
 })
@@ -50,6 +51,9 @@ public class DescribeTableIndexStatsRequest {
 
   public static final String JSON_PROPERTY_VERSION = "version";
   @javax.annotation.Nullable private Long version;
+
+  public static final String JSON_PROPERTY_TAG = "tag";
+  @javax.annotation.Nullable private String tag;
 
   public static final String JSON_PROPERTY_BRANCH = "branch";
   @javax.annotation.Nullable private String branch;
@@ -178,6 +182,31 @@ public class DescribeTableIndexStatsRequest {
     this.version = version;
   }
 
+  public DescribeTableIndexStatsRequest tag(@javax.annotation.Nullable String tag) {
+    this.tag = tag;
+    return this;
+  }
+
+  /**
+   * Tag name to get index stats at. If specified, the server should resolve the tag to a version
+   * number and get index stats at that version. Cannot be used together with &#x60;version&#x60; or
+   * &#x60;branch&#x60;.
+   *
+   * @return tag
+   */
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public String getTag() {
+    return tag;
+  }
+
+  @JsonProperty(JSON_PROPERTY_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTag(@javax.annotation.Nullable String tag) {
+    this.tag = tag;
+  }
+
   public DescribeTableIndexStatsRequest branch(@javax.annotation.Nullable String branch) {
     this.branch = branch;
     return this;
@@ -239,13 +268,14 @@ public class DescribeTableIndexStatsRequest {
         && Objects.equals(this.context, describeTableIndexStatsRequest.context)
         && Objects.equals(this.id, describeTableIndexStatsRequest.id)
         && Objects.equals(this.version, describeTableIndexStatsRequest.version)
+        && Objects.equals(this.tag, describeTableIndexStatsRequest.tag)
         && Objects.equals(this.branch, describeTableIndexStatsRequest.branch)
         && Objects.equals(this.indexName, describeTableIndexStatsRequest.indexName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, version, branch, indexName);
+    return Objects.hash(identity, context, id, version, tag, branch, indexName);
   }
 
   @Override
@@ -256,6 +286,7 @@ public class DescribeTableIndexStatsRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    branch: ").append(toIndentedString(branch)).append("\n");
     sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");
@@ -346,6 +377,14 @@ public class DescribeTableIndexStatsRequest {
           String.format(
               "%sversion%s=%s",
               prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
+    }
+
+    // add `tag` to the URL query string
+    if (getTag() != null) {
+      joiner.add(
+          String.format(
+              "%stag%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
     }
 
     // add `branch` to the URL query string

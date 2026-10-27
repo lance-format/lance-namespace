@@ -45,6 +45,7 @@ class TestCountTableRowsRequest(unittest.TestCase):
                     ''
                     ],
                 version = 0,
+                tag = '',
                 branch = '',
                 predicate = ''
             )

@@ -32,9 +32,10 @@ class DescribeTableIndexStatsRequest(BaseModel):
     context: Optional[Dict[str, StrictStr]] = Field(default=None, description="Arbitrary context as key-value pairs. How to use the context is custom to the specific implementation.  On a request, it carries caller-provided context to the implementation. On a response, it carries implementation-provided context back to the caller.  REST NAMESPACE ONLY Context entries are mapped to and from HTTP headers using the `header.` prefix: - On a request, any entry whose key starts with `header.` is sent as an HTTP   request header with the prefix stripped. For example, the entry   `{\"header.Authorization\": \"Bearer abc\"}` is sent as the request header   `Authorization: Bearer abc`. - On a response, every HTTP response header is returned as an entry whose key is the   header name prefixed with `header.`. For example, the response header   `x-request-id: abc123` is returned as the entry `{\"header.x-request-id\": \"abc123\"}`. ")
     id: Optional[List[StrictStr]] = None
     version: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Optional table version to get stats for")
+    tag: Optional[StrictStr] = Field(default=None, description="Tag name to get index stats at. If specified, the server should resolve the tag to a version number and get index stats at that version. Cannot be used together with `version` or `branch`. ")
     branch: Optional[StrictStr] = Field(default=None, description="Branch to target. When not specified, the main branch is used. ")
     index_name: Optional[StrictStr] = Field(default=None, description="Name of the index")
-    __properties: ClassVar[List[str]] = ["identity", "context", "id", "version", "branch", "index_name"]
+    __properties: ClassVar[List[str]] = ["identity", "context", "id", "version", "tag", "branch", "index_name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +95,7 @@ class DescribeTableIndexStatsRequest(BaseModel):
             "context": obj.get("context"),
             "id": obj.get("id"),
             "version": obj.get("version"),
+            "tag": obj.get("tag"),
             "branch": obj.get("branch"),
             "index_name": obj.get("index_name")
         })

@@ -2966,11 +2966,17 @@ components:
             type: string
         version:
           description: |
-            Version of the table to describe.
+            Version of the table to count rows from.
             If not specified, server should resolve it to the latest version.
           type: integer
           format: int64
           minimum: 0
+        tag:
+          description: |
+            Tag name to count rows at.
+            If specified, the server should resolve the tag to a version number and count rows at that version.
+            Cannot be used together with `version` or `branch`.
+          type: string
         branch:
           type: string
           description: |
@@ -3522,6 +3528,12 @@ components:
           minimum: 0
           nullable: true
           description: Optional table version to list indexes from
+        tag:
+          description: |
+            Tag name to list indexes at.
+            If specified, the server should resolve the tag to a version number and list indexes at that version.
+            Cannot be used together with `version` or `branch`.
+          type: string
         branch:
           type: string
           description: |
@@ -3639,6 +3651,12 @@ components:
           minimum: 0
           nullable: true
           description: Optional table version to get stats for
+        tag:
+          description: |
+            Tag name to get index stats at.
+            If specified, the server should resolve the tag to a version number and get index stats at that version.
+            Cannot be used together with `version` or `branch`.
+          type: string
         branch:
           type: string
           description: |

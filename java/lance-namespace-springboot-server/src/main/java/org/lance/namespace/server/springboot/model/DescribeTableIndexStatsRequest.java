@@ -40,6 +40,8 @@ public class DescribeTableIndexStatsRequest {
 
   private Long version;
 
+  private String tag;
+
   private String branch;
 
   private String indexName;
@@ -158,6 +160,31 @@ public class DescribeTableIndexStatsRequest {
     this.version = version;
   }
 
+  public DescribeTableIndexStatsRequest tag(String tag) {
+    this.tag = tag;
+    return this;
+  }
+
+  /**
+   * Tag name to get index stats at. If specified, the server should resolve the tag to a version
+   * number and get index stats at that version. Cannot be used together with `version` or `branch`.
+   *
+   * @return tag
+   */
+  @Schema(
+      name = "tag",
+      description =
+          "Tag name to get index stats at. If specified, the server should resolve the tag to a version number and get index stats at that version. Cannot be used together with `version` or `branch`. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("tag")
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+
   public DescribeTableIndexStatsRequest branch(String branch) {
     this.branch = branch;
     return this;
@@ -218,13 +245,14 @@ public class DescribeTableIndexStatsRequest {
         && Objects.equals(this.context, describeTableIndexStatsRequest.context)
         && Objects.equals(this.id, describeTableIndexStatsRequest.id)
         && Objects.equals(this.version, describeTableIndexStatsRequest.version)
+        && Objects.equals(this.tag, describeTableIndexStatsRequest.tag)
         && Objects.equals(this.branch, describeTableIndexStatsRequest.branch)
         && Objects.equals(this.indexName, describeTableIndexStatsRequest.indexName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, version, branch, indexName);
+    return Objects.hash(identity, context, id, version, tag, branch, indexName);
   }
 
   @Override
@@ -235,6 +263,7 @@ public class DescribeTableIndexStatsRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    branch: ").append(toIndentedString(branch)).append("\n");
     sb.append("    indexName: ").append(toIndentedString(indexName)).append("\n");
     sb.append("}");

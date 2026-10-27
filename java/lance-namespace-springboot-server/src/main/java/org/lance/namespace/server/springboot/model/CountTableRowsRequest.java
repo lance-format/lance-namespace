@@ -40,6 +40,8 @@ public class CountTableRowsRequest {
 
   private Long version;
 
+  private String tag;
+
   private String branch;
 
   private String predicate;
@@ -140,8 +142,8 @@ public class CountTableRowsRequest {
   }
 
   /**
-   * Version of the table to describe. If not specified, server should resolve it to the latest
-   * version. minimum: 0
+   * Version of the table to count rows from. If not specified, server should resolve it to the
+   * latest version. minimum: 0
    *
    * @return version
    */
@@ -149,7 +151,7 @@ public class CountTableRowsRequest {
   @Schema(
       name = "version",
       description =
-          "Version of the table to describe. If not specified, server should resolve it to the latest version. ",
+          "Version of the table to count rows from. If not specified, server should resolve it to the latest version. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("version")
   public Long getVersion() {
@@ -158,6 +160,31 @@ public class CountTableRowsRequest {
 
   public void setVersion(Long version) {
     this.version = version;
+  }
+
+  public CountTableRowsRequest tag(String tag) {
+    this.tag = tag;
+    return this;
+  }
+
+  /**
+   * Tag name to count rows at. If specified, the server should resolve the tag to a version number
+   * and count rows at that version. Cannot be used together with `version` or `branch`.
+   *
+   * @return tag
+   */
+  @Schema(
+      name = "tag",
+      description =
+          "Tag name to count rows at. If specified, the server should resolve the tag to a version number and count rows at that version. Cannot be used together with `version` or `branch`. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("tag")
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
   }
 
   public CountTableRowsRequest branch(String branch) {
@@ -222,13 +249,14 @@ public class CountTableRowsRequest {
         && Objects.equals(this.context, countTableRowsRequest.context)
         && Objects.equals(this.id, countTableRowsRequest.id)
         && Objects.equals(this.version, countTableRowsRequest.version)
+        && Objects.equals(this.tag, countTableRowsRequest.tag)
         && Objects.equals(this.branch, countTableRowsRequest.branch)
         && Objects.equals(this.predicate, countTableRowsRequest.predicate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(identity, context, id, version, branch, predicate);
+    return Objects.hash(identity, context, id, version, tag, branch, predicate);
   }
 
   @Override
@@ -239,6 +267,7 @@ public class CountTableRowsRequest {
     sb.append("    context: ").append(toIndentedString(context)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    branch: ").append(toIndentedString(branch)).append("\n");
     sb.append("    predicate: ").append(toIndentedString(predicate)).append("\n");
     sb.append("}");

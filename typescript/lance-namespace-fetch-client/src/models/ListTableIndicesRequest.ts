@@ -67,6 +67,15 @@ export interface ListTableIndicesRequest {
      */
     version?: number;
     /**
+     * Tag name to list indexes at.
+     * If specified, the server should resolve the tag to a version number and list indexes at that version.
+     * Cannot be used together with `version` or `branch`.
+     * 
+     * @type {string}
+     * @memberof ListTableIndicesRequest
+     */
+    tag?: string;
+    /**
      * Branch to target. When not specified, the main branch is used.
      * 
      * @type {string}
@@ -125,6 +134,7 @@ export function ListTableIndicesRequestFromJSONTyped(json: any, ignoreDiscrimina
         'context': json['context'] == null ? undefined : json['context'],
         'id': json['id'] == null ? undefined : json['id'],
         'version': json['version'] == null ? undefined : json['version'],
+        'tag': json['tag'] == null ? undefined : json['tag'],
         'branch': json['branch'] == null ? undefined : json['branch'],
         'page_token': json['page_token'] == null ? undefined : json['page_token'],
         'limit': json['limit'] == null ? undefined : json['limit'],
@@ -146,6 +156,7 @@ export function ListTableIndicesRequestToJSONTyped(value?: ListTableIndicesReque
         'context': value['context'],
         'id': value['id'],
         'version': value['version'],
+        'tag': value['tag'],
         'branch': value['branch'],
         'page_token': value['page_token'],
         'limit': value['limit'],
